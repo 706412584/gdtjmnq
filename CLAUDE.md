@@ -84,6 +84,97 @@ UI.Image { source = "image/icon_coin.png", width = 24, height = 24 }
 - 安全区域：顶部和底部各留 `5%` 高度作为安全边距
 - UI 组件库：`urhox-libs/UI`（Yoga Flexbox 布局）
 
+### 1.6 UI 更新策略（强制）
+
+**优先增量更新，禁止无理由重建整页。**
+
+#### 原则
+
+| 优先级 | 策略 | 适用场景 |
+|--------|------|---------|
+| 首选 | **增量更新** | 数据变化只改受影响的元素（text/样式/增删子元素） |
+| 例外 | **整页重建** | 页面切换、结构性大变（如订单列表全量刷新）、初始化 |
+
+#### 增量更新要求
+
+数据变化时，只修改受影响的 UI 属性，不销毁重建整棵 UI 树：
+
+```lua
+-- 正确：增量更新
+function updateCoinsDisplay(newCoins)
+    coinsLabel.text = "铜钱: " .. newCoins
+end
+
+function updateQualityBar(progress)
+    qualityBar.width = math.floor(progress * 200) .. "px"
+end
+
+-- 错误：数据变了就重建整页
+function updateCoinsDisplay(newCoins)
+    rebuildHomeScreen()  -- 禁止！只是铜钱变了，不需要重建
+end
+```
+
+#### 高频更新必须增量
+
+以下场景绝对禁止重建，必须用增量方式更新：
+
+- 倒计时 / 计时器显示（每秒更新）
+- 血条 / 进度条（每帧更新）
+- 分数 / 连击数（事件触发更新）
+- 战斗日志 / 聊天消息（追加子元素，不重建列表）
+- 小游戏内实时反馈（评分飘字、命中提示）
+
+```lua
+-- 正确：倒计时增量更新
+function onTimerTick(remaining)
+    timerLabel.text = string.format("%d", remaining)
+end
+
+-- 正确：战斗日志追加
+function addLogEntry(msg)
+    local entry = UI.Label { text = msg, fontSize = 14 }
+    logContainer:addChild(entry)
+end
+
+-- 错误：每秒重建整个 HUD
+function onTimerTick(remaining)
+    buildHUD()  -- 禁止！
+end
+```
+
+#### 重建的合法理由
+
+仅以下情况允许整页重建：
+
+1. **页面切换**：从主界面切到订单板、从锻造切到结算
+2. **结构性变化**：订单列表数据源完全替换、章节切换导致 UI 结构不同
+3. **初始化**：首次进入页面
+
+#### 重建时必须处理副作用
+
+如果确实需要重建，必须保存并恢复以下状态：
+
+```lua
+-- 重建前保存状态
+local scrollY = listContainer.scrollY
+local selectedIdx = currentSelectedIndex
+
+-- 执行重建
+rebuildOrderList(newOrders)
+
+-- 重建后恢复状态
+listContainer.scrollY = scrollY
+selectOrder(selectedIdx)
+```
+
+需要保存/恢复的状态清单：
+- 滚动位置（scrollX / scrollY）
+- 选中项索引
+- 输入框内容
+- 展开/折叠状态
+- 动画进度（如有）
+
 ---
 
 ## 2. 美术资源生成规范
