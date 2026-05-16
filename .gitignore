@@ -1,0 +1,24 @@
+# Build & Runtime
+dist/
+.build/
+.tmp/
+logs/
+
+# Engine (read-only reference)
+engine-docs/
+examples/
+templates/
+urhox-libs/
+schemas/
+.emmylua/
+lua-tools/
+prompts/
+
+# IDE & Tools
+.claude/
+.project/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
