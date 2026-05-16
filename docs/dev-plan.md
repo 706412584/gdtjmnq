@@ -25,7 +25,8 @@
 | 自定义图形 | NanoVG | 小游戏内温度条/路径/火花等 |
 | 分辨率 | 模式 B（系统逻辑分辨率） | 响应式布局，自动适配 |
 | 数据格式 | JSON (cjson) | 配置 + 存档 |
-| 存档 | File API + JSON | 本地 save.json |
+| 存档 | clientCloud 云变量 | 自动存档（5s 间隔），key: `smith_save` |
+| 内存保护 | SecureStore (XOR+key轮换) | 防 GG 搜值，敏感数值混淆存储 |
 | 脚手架 | scaffold-2d.lua | 竖屏 2D UI 游戏 |
 | 美术生成 | generate_image (model: gpt) | 立绘/背景/图标 |
 | 音效生成 | text_to_sound_effect | 锤打/火焰/淬火等 |
@@ -54,8 +55,8 @@ scripts/
 │       └── chapter_config.json
 │
 ├── Core/                       # 核心系统
-│   ├── GameState.lua           # 全局状态管理（货币/材料/设施/进度）
-│   ├── SaveManager.lua         # 本地存档读写
+│   ├── SecureStore.lua         # 内存混淆（XOR+key轮换，防GG）
+│   ├── GameState.lua           # 统一数据中枢（混淆存储+云存档+Load-Gate）
 │   ├── QualityCalc.lua         # 品质评分公式引擎
 │   ├── OrderManager.lua        # 订单生成/完成逻辑
 │   └── EventBus.lua            # 发布-订阅事件总线
@@ -157,8 +158,8 @@ scripts/
 | P1-A1 | 项目入口 + 场景路由 | `main.lua`, `Utils/ScreenRouter.lua` | - |
 | P1-A2 | 事件总线 | `Core/EventBus.lua` | - |
 | P1-A3 | JSON 配置加载器 | `Config/DataLoader.lua` | - |
-| P1-A4 | 全局状态管理 | `Core/GameState.lua` | P1-A2 |
-| P1-A5 | 本地存档 | `Core/SaveManager.lua` | P1-A4 |
+| P1-A4 | 内存混淆模块 | `Core/SecureStore.lua` | - |
+| P1-A5 | 统一数据中枢（混淆+云存档+Load-Gate） | `Core/GameState.lua` | P1-A2, P1-A4 |
 | P1-A6 | 补间动画 + 定时器 | `Utils/Tween.lua`, `Utils/Timer.lua` | - |
 
 #### P1-B：配置数据
@@ -207,7 +208,8 @@ scripts/
 - [ ] 品质评分计算并展示结果
 - [ ] 奖励写入 GameState，铜钱/声望数值正确更新
 - [ ] 可以升级熔炉（消耗铜钱），升级后影响品质系数
-- [ ] 本地存档正常读写
+- [ ] 云存档自动读写（clientCloud，5 秒间隔）
+- [ ] 敏感数值内存混淆（SecureStore），GG 搜不到明文
 - [ ] 全程无 Emoji，图标使用图片资源
 
 ---
@@ -289,8 +291,10 @@ scripts/
 | 编号 | 任务 |
 |------|------|
 | P3-C1 | 广告接入（激励视频 + 插屏） |
-| P3-C2 | 云存档/排行榜（clientCloud） |
+| P3-C2 | 排行榜（clientCloud iscores） |
 | P3-C3 | 设置界面（音量/广告去除/关于） |
+
+> 注：云存档已在 P1 实现（GameState + clientCloud 自动存档）。P3 只需补排行榜。
 
 #### P3-D：美术完善
 
@@ -494,7 +498,7 @@ function MiniGameBase:cleanup() end
 
 ```
 第 1 步: P1-A1 + P1-A2 + P1-A3 + P1-A6  (基础框架，并行)
-第 2 步: P1-A4 + P1-A5                    (状态 + 存档)
+第 2 步: P1-A4 + P1-A5                    (SecureStore + GameState)
 第 3 步: P1-B1~B5                         (配置数据 + 接口)
 第 4 步: P1-C1                            (小游戏基类 + 调度器)
 第 5 步: P1-C2                            (选矿小游戏)
@@ -531,5 +535,7 @@ function MiniGameBase:cleanup() end
 - [ ] NanoVG 在 NanoVGRender 事件中渲染
 - [ ] 资源路径无 assets/ scripts/ 前缀
 - [ ] 调用 build 工具验证编译通过
-- [ ] 存档读写正常
+- [ ] 云存档读写正常（clientCloud）
+- [ ] 敏感数值走 SecureStore，无明文驻留内存
+- [ ] 数据读写统一通过 GameState 接口
 - [ ] 竖屏布局在不同分辨率下无溢出

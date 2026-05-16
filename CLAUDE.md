@@ -282,6 +282,8 @@ function MiniGameBase:cleanup()       end  -- 清理资源
 
 ## 4. 数据规范
 
+> **详细架构设计**：`docs/storage-architecture.md`
+
 ### 4.1 配置数据格式
 
 所有游戏配置使用 JSON 格式，存放在 `scripts/Config/data/` 目录：
@@ -295,9 +297,44 @@ scripts/Config/data/
 └── chapter_config.json       # 章节配置
 ```
 
-### 4.2 存档格式
+### 4.2 存储架构（强制）
 
-本地存档使用 JSON，文件名 `save.json`：
+**单机 + clientCloud 云存档 + 内存混淆**，不做多人游戏。
+
+| 层面 | 方案 |
+|------|------|
+| 数据中枢 | `GameState.lua` — 唯一读写入口 |
+| 内存保护 | `SecureStore.lua` — XOR + key 轮换，防 GG 搜值 |
+| 云存档 | `clientCloud:Set/Get` — 自动存档（5 秒间隔） |
+| 存档格式 | 云端明文 JSON，key = `"smith_save"` |
+
+### 4.3 内存混淆规则（强制）
+
+**所有 number 类型的游戏经济/进度数值必须走 SecureStore 混淆存储。**
+
+混淆字段：`coins`, `fame`, `jade`, `materials.*`, `facilities.*`, `relationships.*`, `factions.*`, `stats.*`
+
+非混淆字段：`version`, `name`, `completedOrders`, `codex`, `storyProgress`, `timestamp`
+
+```lua
+-- ✅ 正确：通过 GameState 统一接口
+GameState.AddCoins(50)
+local coins = GameState.GetCoins()  -- 栈上临时值，用完即弃
+coinsLabel.text = "铜钱: " .. coins
+
+-- ❌ 错误：缓存明文到模块级变量
+local cachedCoins = GameState.GetCoins()  -- 长期驻留，GG 可搜！
+
+-- ❌ 错误：绕过 GameState 直接操作
+playerData.coins = playerData.coins + 100  -- 绕过混淆！
+
+-- ❌ 错误：在全局 table 中存明文副本
+G_DATA = { coins = GameState.GetCoins() }  -- 副本可被 GG 搜到！
+```
+
+**黄金法则**：明文不驻留内存。读 = 解码到栈上临时使用；写 = 计算后立即编码回去。
+
+### 4.4 存档数据结构（云端明文 JSON）
 
 ```json
 {
@@ -305,13 +342,14 @@ scripts/Config/data/
   "coins": 500,
   "fame": 120,
   "jade": 0,
-  "materials": { "iron": 10, "copper": 5 },
+  "materials": { "ore": 10, "charcoal": 5 },
   "facilities": { "furnace": 2, "anvil": 1 },
-  "completedOrders": ["ORD-001", "ORD-002"],
+  "completedOrders": ["ORD_T1_001", "ORD_T1_002"],
+  "codex": ["WEAPON_001"],
   "storyProgress": { "chapter": 1, "nodeId": "CH1-010" },
   "relationships": { "keeper": 15, "shen": -5 },
-  "factions": { "court": 20, "rivers": 10 },
-  "codex": ["weapon_001"],
+  "factions": { "court": 20, "guild": 10 },
+  "stats": { "totalForged": 12, "perfectCount": 3, "bestQualityTier": 3 },
   "timestamp": 1700000000
 }
 ```
@@ -359,3 +397,6 @@ docs: 文档更新
 - [ ] 资源路径无 `assets/` `scripts/` 前缀
 - [ ] NanoVG 在 NanoVGRender 事件中渲染
 - [ ] 分辨率使用 GetWidth/GetHeight/GetDPR
+- [ ] 敏感数值（货币/材料/等级/声望等）走 SecureStore 混淆，不存明文
+- [ ] 所有数据读写通过 GameState 接口，无模块自建数据副本
+- [ ] 无模块级/全局变量缓存明文数值（UI 显示用栈上临时值）
