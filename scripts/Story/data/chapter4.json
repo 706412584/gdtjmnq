@@ -1,0 +1,203 @@
+[
+  {
+    "id": "CH4-001",
+    "title": "旧匠之名",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "你早就知道照霜。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "我不只是知道。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "当年锻它的人里，有我。" },
+      { "speaker": "player", "name": "主角", "text": "......" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "你现在明白，我为什么不让你碰后院了。" },
+      { "speaker": "player", "name": "主角", "text": "你为什么不早说？" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "因为我想让这间铺子只是铺子，不想让你继承那堆死人名字。" }
+    ],
+    "next": "CH4-002"
+  },
+  {
+    "id": "CH4-002",
+    "title": "是否公开老掌柜身份",
+    "type": "choice",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "luchen", "name": "陆沉", "text": "若他真参与过照霜之铸，这件事迟早瞒不住。" },
+      { "speaker": "shen", "name": "沈绫", "text": "公开，是把刀递给别人。" },
+      { "speaker": "player", "name": "主角", "text": "不公开，就是把火留在自己屋里。" }
+    ],
+    "choices": [
+      {
+        "text": "公开老掌柜身份",
+        "effects": { "relationships": { "truth": 1, "keeper": -4 }, "factions": { "craftsman": 10, "court": -6 } },
+        "next": "CH4-002A"
+      },
+      {
+        "text": "替他隐瞒",
+        "effects": { "relationships": { "keeper": 12, "truth": -1 }, "factions": { "court": 4 } },
+        "next": "CH4-002B"
+      },
+      {
+        "text": "只告诉少数人",
+        "effects": { "relationships": { "keeper": 6, "pragmatic": 1 } },
+        "next": "CH4-002C"
+      }
+    ]
+  },
+  {
+    "id": "CH4-002A",
+    "title": "真相公开",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "keeper", "name": "老掌柜", "text": "你知道你在做什么。" },
+      { "speaker": "player", "name": "主角", "text": "让所有人知道真相，总比被人揭穿强。" },
+      { "speaker": "narrator", "name": "", "text": "消息传开后，街坊议论纷纷，官府的人也开始频繁出没。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "这一步迈出去，就收不回了。" }
+    ],
+    "next": "CH4-003"
+  },
+  {
+    "id": "CH4-002B",
+    "title": "替他隐瞒",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "你的过去是你的事。我只管把铺子撑下去。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "......谢了。虽然这声谢，你以后未必还认。" },
+      { "speaker": "narrator", "name": "", "text": "秘密暂时被压住了，但你知道它迟早会浮出水面。" }
+    ],
+    "next": "CH4-003"
+  },
+  {
+    "id": "CH4-002C",
+    "title": "告诉少数人",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "陆沉和沈绫应该知道。其他人，暂时瞒着。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "你选了一条最窄的路。走好了是平衡，走偏了是两边不讨好。" },
+      { "speaker": "player", "name": "主角", "text": "那就走好它。" }
+    ],
+    "next": "CH4-003"
+  },
+  {
+    "id": "CH4-003",
+    "title": "失踪弟子现身",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "废弃铸坊的残墙后，一个熟悉又陌生的声音响起。" },
+      { "speaker": "disciple", "name": "阿晦", "text": "师兄，许多年不见，你还是这副样子。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "......阿晦。" },
+      { "speaker": "player", "name": "主角", "text": "他就是你说的失踪弟子？" },
+      { "speaker": "disciple", "name": "阿晦", "text": "失踪？不。我只是活着逃开了。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "你知道照霜最后断在哪里？" },
+      { "speaker": "disciple", "name": "阿晦", "text": "我不止知道。我还知道，当年是谁逼着我们把它打完。" }
+    ],
+    "next": "CH4-004"
+  },
+  {
+    "id": "CH4-004",
+    "title": "放走还是交出失踪弟子",
+    "type": "choice",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "disciple", "name": "阿晦", "text": "我可以带你们去找最后一片残片。前提是，别把我交出去。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "他可能在说谎。" },
+      { "speaker": "shen", "name": "沈绫", "text": "可他也可能是唯一活着的证人。" },
+      { "speaker": "player", "name": "主角", "text": "若放你走，你会回来？" },
+      { "speaker": "disciple", "name": "阿晦", "text": "若交给官府，我现在就没命。" }
+    ],
+    "choices": [
+      {
+        "text": "放走失踪弟子",
+        "effects": { "relationships": { "disciple": 15 }, "factions": { "craftsman": 6, "court": -10 } },
+        "next": "CH4-004A"
+      },
+      {
+        "text": "交给官府",
+        "effects": { "factions": { "court": 12 }, "relationships": { "magistrate": 10, "disciple": -20 } },
+        "next": "CH4-004B"
+      },
+      {
+        "text": "暗中利用他查真相",
+        "effects": { "relationships": { "disciple": 4, "truth": 2, "pragmatic": 1 } },
+        "next": "CH4-004C"
+      }
+    ]
+  },
+  {
+    "id": "CH4-004A",
+    "title": "放走阿晦",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "disciple", "name": "阿晦", "text": "......我欠你一条路。" },
+      { "speaker": "player", "name": "主角", "text": "不欠。把最后那片残片的下落告诉我就行。" },
+      { "speaker": "disciple", "name": "阿晦", "text": "三日后，西城旧窑。我把东西留在那。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "阿晦......活着就好。" }
+    ],
+    "next": "CH4-005"
+  },
+  {
+    "id": "CH4-004B",
+    "title": "交出阿晦",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "我没有能力保你。官府要人，我不能挡。" },
+      { "speaker": "disciple", "name": "阿晦", "text": "我以为你跟师兄不一样。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "......别说了，阿晦。" },
+      { "speaker": "narrator", "name": "", "text": "官差把阿晦带走了。老掌柜整夜没有说话。" }
+    ],
+    "next": "CH4-005"
+  },
+  {
+    "id": "CH4-004C",
+    "title": "暗中利用",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "你先留下，帮我们查清当年的事。查完了，我送你走。" },
+      { "speaker": "disciple", "name": "阿晦", "text": "你比师兄更像做大事的人。不知道是好事还是坏事。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "利用人的路，一脚深一脚浅，别摔进去。" }
+    ],
+    "next": "CH4-005"
+  },
+  {
+    "id": "CH4-005",
+    "title": "韩铸联手王都",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "han", "name": "韩铸", "text": "你们还真以为，靠一间旧铺子，就能把这事藏住？" },
+      { "speaker": "player", "name": "主角", "text": "你投了王都？" },
+      { "speaker": "han", "name": "韩铸", "text": "投？" },
+      { "speaker": "han", "name": "韩铸", "text": "我只是比你们早明白，铁终究要进兵架，匠人终究要站队。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "你站的是命，还是利？" },
+      { "speaker": "han", "name": "韩铸", "text": "活着的人，先谈利，才有资格谈命。" }
+    ],
+    "next": "CH4-006"
+  },
+  {
+    "id": "CH4-006",
+    "title": "血覆长街真义",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "condition": { "type": "fameMin", "value": 80 },
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "残卷最后一角被补齐，缺失的半句终于完整。" },
+      { "speaker": "player", "name": "主角", "text": "'器成之日，血覆长街，非天灾，乃人意。'" },
+      { "speaker": "luchen", "name": "陆沉", "text": "原来如此。" },
+      { "speaker": "shen", "name": "沈绫", "text": "剑从来没错。错的是拿剑的人。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "不。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "若明知它会被那样用，还去把它打成，那匠人也不干净。" },
+      { "speaker": "player", "name": "主角", "text": "所以下一步，不只是决定剑给谁。" },
+      { "speaker": "player", "name": "主角", "text": "还是决定，我们到底要不要重走那条路。" },
+      { "speaker": "narrator", "name": "", "text": "--- 第四章 完 ---" }
+    ],
+    "next": null,
+    "chapterEnd": true,
+    "effects": { "relationships": { "truth": 2 } }
+  }
+]

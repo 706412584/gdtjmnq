@@ -1,0 +1,263 @@
+[
+  {
+    "id": "CH5-001",
+    "title": "皇家器试帖",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "envoy", "name": "王都使者", "text": "奉命传帖。" },
+      { "speaker": "envoy", "name": "王都使者", "text": "三日后，皇家器试，于王城外苑开场。" },
+      { "speaker": "player", "name": "主角", "text": "我们若不去呢？" },
+      { "speaker": "envoy", "name": "王都使者", "text": "不去，是你的事。名单上有你，是朝廷的事。" },
+      { "speaker": "han", "name": "韩铸", "text": "看见没有？这才叫门。你站在门外太久了。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "门开得越大，进去后越难出来。" }
+    ],
+    "next": "CH5-002"
+  },
+  {
+    "id": "CH5-002",
+    "title": "是否赴试",
+    "type": "choice",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "luchen", "name": "陆沉", "text": "去，就是把照霜放到所有人眼前。" },
+      { "speaker": "shen", "name": "沈绫", "text": "不去，也等于把主动权让出去。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "去或不去，选的不是场子，是命。" }
+    ],
+    "choices": [
+      {
+        "text": "赴皇家器试",
+        "effects": { "factions": { "court": 8 }, "flags": { "trial_join": true } },
+        "next": "CH5-002A"
+      },
+      {
+        "text": "拒绝赴试",
+        "effects": { "factions": { "craftsman": 8, "rivers": 4 }, "flags": { "trial_reject": true } },
+        "next": "CH5-002B"
+      },
+      {
+        "text": "借赴试布局",
+        "effects": { "relationships": { "pragmatic": 1, "truth": 1 }, "flags": { "trial_scheme": true } },
+        "next": "CH5-002C"
+      }
+    ]
+  },
+  {
+    "id": "CH5-002A",
+    "title": "决定赴试",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "去。既然名单上有我，那就让他们看看，这间铺子的火够不够格。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "那你从今晚开始，就不能再只打街坊的刀了。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "我会帮你盯着场外的人。" }
+    ],
+    "next": "CH5-003"
+  },
+  {
+    "id": "CH5-002B",
+    "title": "拒绝赴试",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "不去。我的火不是给他们点的。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "拒绝朝廷的帖子，后果你想清楚了？" },
+      { "speaker": "player", "name": "主角", "text": "想清楚了。我宁可做无名的匠人，也不做有名的工具。" }
+    ],
+    "next": "CH5-003"
+  },
+  {
+    "id": "CH5-002C",
+    "title": "借试布局",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "去。但不是为了他们。" },
+      { "speaker": "shen", "name": "沈绫", "text": "你想利用器试做什么？" },
+      { "speaker": "player", "name": "主角", "text": "让所有人都在场的时候，把该说的说清楚。" }
+    ],
+    "next": "CH5-003"
+  },
+  {
+    "id": "CH5-003",
+    "title": "终锻之夜",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "最后一夜，炉火映红每个人的脸。" },
+      { "speaker": "player", "name": "主角", "text": "照霜若成，便不会再只是旧剑。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "记住，最后这一锤，不是打给别人看的。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "是打给你自己的。" },
+      { "speaker": "shen", "name": "沈绫", "text": "也是打给所有等着出价的人看的。" },
+      { "speaker": "player", "name": "主角", "text": "那就让他们都看清。" }
+    ],
+    "next": "CH5-004",
+    "triggerOrder": true
+  },
+  {
+    "id": "CH5-004",
+    "title": "名器献给谁",
+    "type": "choice",
+    "background": "image/bg_story_workshop.png",
+    "condition": { "type": "ordersCompleted", "min": 8 },
+    "lines": [
+      { "speaker": "envoy", "name": "王都使者", "text": "剑成之后，当献于国。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "剑不该再落到他们手里。" },
+      { "speaker": "shen", "name": "沈绫", "text": "剑若不进权力中心，就会在暗地里被人抢烂。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "这一次，谁都别替你选。" }
+    ],
+    "choices": [
+      {
+        "text": "将名器献给朝廷",
+        "effects": { "factions": { "court": 20 }, "flags": { "offer_court": true } },
+        "next": "CH5-004A"
+      },
+      {
+        "text": "将名器交给江湖",
+        "effects": { "factions": { "rivers": 20 }, "relationships": { "luchen": 8 }, "flags": { "offer_rivers": true } },
+        "next": "CH5-004B"
+      },
+      {
+        "text": "将名器交给商会",
+        "effects": { "factions": { "guild": 20 }, "relationships": { "shen": 8 }, "flags": { "offer_guild": true } },
+        "next": "CH5-004C"
+      },
+      {
+        "text": "自行封存，不为任何人用",
+        "effects": { "factions": { "craftsman": 20 }, "relationships": { "keeper": 8 }, "flags": { "offer_seal": true } },
+        "next": "CH5-004D"
+      }
+    ]
+  },
+  {
+    "id": "CH5-004A",
+    "title": "献于朝廷",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "envoy", "name": "王都使者", "text": "匠人知大义，朝廷不会忘。" },
+      { "speaker": "player", "name": "主角", "text": "不需要记。只需要让它不再害人。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "交出去容易，拿回来就难了。" }
+    ],
+    "next": "CH5-005"
+  },
+  {
+    "id": "CH5-004B",
+    "title": "交给江湖",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "luchen", "name": "陆沉", "text": "我替宗门接下它。" },
+      { "speaker": "player", "name": "主角", "text": "接下它，不是藏起来，是让它被正确的人看管。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "你的意思，我明白。" }
+    ],
+    "next": "CH5-005"
+  },
+  {
+    "id": "CH5-004C",
+    "title": "交给商会",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "shen", "name": "沈绫", "text": "放到流通里，才是让它最安全的方法。" },
+      { "speaker": "player", "name": "主角", "text": "安全，还是昂贵？" },
+      { "speaker": "shen", "name": "沈绫", "text": "很多时候，这两个词是一回事。" }
+    ],
+    "next": "CH5-005"
+  },
+  {
+    "id": "CH5-004D",
+    "title": "封存名器",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "这把剑不给任何人。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "这回，你没替谁打。" },
+      { "speaker": "player", "name": "主角", "text": "我只是终于替自己选了一次。" }
+    ],
+    "next": "CH5-005"
+  },
+  {
+    "id": "CH5-005",
+    "title": "是否公开旧案真相",
+    "type": "choice",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "若我现在把旧案说出来，这把剑的意义就全变了。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "说出来，很多人会死得很难看。" },
+      { "speaker": "shen", "name": "沈绫", "text": "不说，也会有人永远踩着假话活。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "真相不是总能救人，但埋着它，谁都不会干净。" }
+    ],
+    "choices": [
+      {
+        "text": "公开旧案真相",
+        "effects": { "relationships": { "truth": 2 }, "factions": { "craftsman": 10 }, "flags": { "truth_public": true } },
+        "next": "CH5-005A"
+      },
+      {
+        "text": "埋葬真相，换取安稳",
+        "effects": { "factions": { "court": 6, "guild": 4 }, "relationships": { "truth": -2 }, "flags": { "truth_buried": true } },
+        "next": "CH5-005B"
+      },
+      {
+        "text": "只告诉少数可信之人",
+        "effects": { "relationships": { "keeper": 4, "luchen": 4, "shen": 2 }, "flags": { "truth_partial": true } },
+        "next": "CH5-005C"
+      }
+    ]
+  },
+  {
+    "id": "CH5-005A",
+    "title": "真相大白",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你站在人群中间，把当年照霜之铸的来龙去脉，一字一句说了出来。" },
+      { "speaker": "narrator", "name": "", "text": "人群先是沉默，然后是窃窃私语，最后是经久不散的嘈杂。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "你做了我二十年没敢做的事。" },
+      { "speaker": "player", "name": "主角", "text": "因为有些事，不能再等二十年。" }
+    ],
+    "next": "CH5-006"
+  },
+  {
+    "id": "CH5-005B",
+    "title": "埋葬真相",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "有些事，知道的人越少越好。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "你选了安稳。" },
+      { "speaker": "player", "name": "主角", "text": "我选了让活着的人继续活着。" },
+      { "speaker": "narrator", "name": "", "text": "真相被重新埋进了旧铁和灰烬之下。" }
+    ],
+    "next": "CH5-006"
+  },
+  {
+    "id": "CH5-005C",
+    "title": "只告诉少数人",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "陆沉，沈绫，老掌柜......你们三个，是我唯一信得过的人。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "信得过，不代表扛得住。" },
+      { "speaker": "player", "name": "主角", "text": "扛不住也得扛。总比让所有人都被蒙在鼓里强。" }
+    ],
+    "next": "CH5-006"
+  },
+  {
+    "id": "CH5-006",
+    "title": "终章",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "炉火渐暗，长街渐静。" },
+      { "speaker": "narrator", "name": "", "text": "照霜的故事，从这间旧铺子开始，也将在这里找到它的归宿。" },
+      { "speaker": "narrator", "name": "", "text": "而你，终于知道了一件事——" },
+      { "speaker": "narrator", "name": "", "text": "铁匠的手，不只是用来打铁的。" },
+      { "speaker": "narrator", "name": "", "text": "它也用来选择。" },
+      { "speaker": "narrator", "name": "", "text": "--- 全剧终 ---" }
+    ],
+    "next": null,
+    "chapterEnd": true
+  }
+]

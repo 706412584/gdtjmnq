@@ -1,24 +1,26 @@
-# Build & Runtime
-dist/
+# Build & Distribution
 .build/
-.tmp/
-logs/
+dist/
 
-# Engine (read-only reference)
+# Engine internal resources (read-only, do NOT push)
 engine-docs/
 examples/
 templates/
 urhox-libs/
 schemas/
-.emmylua/
-lua-tools/
 prompts/
-
-# IDE & Tools
+lua-tools/
+.emmylua/
 .claude/
+.cli/
+.tmp/
 .project/
-*.swp
-*.swo
-*~
-.DS_Store
-Thumbs.db
+
+# SSH keys
+.ssh/
+
+# Logs
+logs/
+
+# Tools
+tools/

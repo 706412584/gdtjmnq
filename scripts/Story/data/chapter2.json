@@ -1,0 +1,269 @@
+[
+  {
+    "id": "CH2-001",
+    "title": "新客与旧货",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "午后，街上最热的时候，一个穿暗红衣裙的女人推门而入。" },
+      { "speaker": "shen", "name": "沈绫", "text": "听说这条巷子里，有个年轻人，能把废铁打出活气。" },
+      { "speaker": "player", "name": "主角", "text": "做活可以，夸人要加钱。" },
+      { "speaker": "shen", "name": "沈绫", "text": "嘴倒利。那我先看看手。" },
+      { "speaker": "narrator", "name": "", "text": "她把一包旧器摊开，里面有残刀、断簪，还有一块带古纹的旧剑格。" },
+      { "speaker": "player", "name": "主角", "text": "这些不像普通旧货。" },
+      { "speaker": "shen", "name": "沈绫", "text": "普通旧货，可卖不出普通价。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "你来卖，还是来试探？" },
+      { "speaker": "shen", "name": "沈绫", "text": "都算。" },
+      { "speaker": "shen", "name": "沈绫", "text": "我姓沈，做些旧器流转的小生意。以后有好东西，先想到我。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "我们铺子只认做活，不认闲话。" },
+      { "speaker": "shen", "name": "沈绫", "text": "可惜啊，这世上最值钱的，偏偏常常就是闲话。" }
+    ],
+    "next": "CH2-002"
+  },
+  {
+    "id": "CH2-002",
+    "title": "穷单与富单",
+    "type": "choice",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "今日工坊排单，板上钉着两张急单。" },
+      { "speaker": "player", "name": "主角", "text": "一张是街坊的镰刀，一张是富户少爷的礼剑。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "一张给口碑，一张给铜钱。" },
+      { "speaker": "player", "name": "主角", "text": "你以前怎么选？" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "以前是以前。现在铺子要靠你选。" }
+    ],
+    "choices": [
+      {
+        "text": "先做穷苦急单",
+        "effects": { "factions": { "craftsman": 6 }, "relationships": { "folk": 2 }, "coins": -10 },
+        "next": "CH2-002A"
+      },
+      {
+        "text": "先做富户高价单",
+        "effects": { "factions": { "guild": 8 }, "coins": 40, "relationships": { "folk": -1 } },
+        "next": "CH2-002B"
+      },
+      {
+        "text": "各接一单，平衡着来",
+        "effects": { "relationships": { "pragmatic": 1, "folk": 1 }, "coins": 15 },
+        "next": "CH2-002C"
+      }
+    ]
+  },
+  {
+    "id": "CH2-002A",
+    "title": "选了名声",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "keeper", "name": "老掌柜", "text": "你这是选名声。" },
+      { "speaker": "player", "name": "主角", "text": "先让这条街记住我们。" }
+    ],
+    "next": "CH2-003",
+    "triggerOrder": true
+  },
+  {
+    "id": "CH2-002B",
+    "title": "选了铜钱",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "keeper", "name": "老掌柜", "text": "你这是选铜钱。" },
+      { "speaker": "player", "name": "主角", "text": "先让炉子烧得久一点。" }
+    ],
+    "next": "CH2-003",
+    "triggerOrder": true
+  },
+  {
+    "id": "CH2-002C",
+    "title": "两边都要",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "keeper", "name": "老掌柜", "text": "都想要，最考手段。" },
+      { "speaker": "player", "name": "主角", "text": "总不能每次都只押一边。" }
+    ],
+    "next": "CH2-003",
+    "triggerOrder": true
+  },
+  {
+    "id": "CH2-003",
+    "title": "韩铸砸场",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "condition": { "type": "ordersCompleted", "min": 3 },
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "外面一阵哄笑，一个高大男人掀帘进来，身后跟着两名学徒。" },
+      { "speaker": "han", "name": "韩铸", "text": "我还当是谁把这条破巷子弄热闹了，原来是老周家的旧炉子。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "韩铸。" },
+      { "speaker": "han", "name": "韩铸", "text": "掌柜的还认得我，说明眼还没花。" },
+      { "speaker": "player", "name": "主角", "text": "你来买东西？" },
+      { "speaker": "han", "name": "韩铸", "text": "我来看看，什么样的铺子，也敢跟我抢单。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "单是客人给的，不是你家地里长的。" },
+      { "speaker": "han", "name": "韩铸", "text": "客人认的是价、是快、是后台。不是你们这点穷讲究。" },
+      { "speaker": "player", "name": "主角", "text": "做刀只看快，迟早把命也省掉。" },
+      { "speaker": "han", "name": "韩铸", "text": "年轻气盛。" },
+      { "speaker": "han", "name": "韩铸", "text": "记着，活在这城里，铁要硬，人也得会弯。" },
+      { "speaker": "narrator", "name": "", "text": "韩铸冷笑一声，带着学徒扬长而去。空气中多了一股铁锈味。" }
+    ],
+    "next": "CH2-004"
+  },
+  {
+    "id": "CH2-004",
+    "title": "是否卖出古纹旧刀",
+    "type": "choice",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "shen", "name": "沈绫", "text": "这把旧刀上的纹，我很喜欢。" },
+      { "speaker": "player", "name": "主角", "text": "喜欢它的人很多，你出多少？" },
+      { "speaker": "shen", "name": "沈绫", "text": "一百二十铜钱。现结。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "不卖。" },
+      { "speaker": "shen", "name": "沈绫", "text": "我问的是你，还是你身后那位老先生？" },
+      { "speaker": "player", "name": "主角", "text": "你买它做什么？" },
+      { "speaker": "shen", "name": "沈绫", "text": "收、藏、卖、送人。理由多得很。" }
+    ],
+    "choices": [
+      {
+        "text": "卖给沈绫",
+        "effects": { "relationships": { "shen": 10, "truth": -1 }, "factions": { "guild": 8 }, "coins": 120 },
+        "next": "CH2-004A"
+      },
+      {
+        "text": "不卖，先留着",
+        "effects": { "factions": { "craftsman": 8 }, "relationships": { "shen": -6, "truth": 1 } },
+        "next": "CH2-004B"
+      },
+      {
+        "text": "假卖，暗中留样",
+        "effects": { "relationships": { "shen": 3, "truth": 1, "pragmatic": 1 }, "flags": { "fake_sell": true } },
+        "next": "CH2-004C"
+      }
+    ]
+  },
+  {
+    "id": "CH2-004A",
+    "title": "成交",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "shen", "name": "沈绫", "text": "痛快。以后这种好东西，优先给我留着。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "你知道你卖掉的是什么吗？" },
+      { "speaker": "player", "name": "主角", "text": "一把旧刀。一百二十铜钱。现在铺子需要钱。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "铺子需要钱，不代表什么都能卖。" }
+    ],
+    "next": "CH2-005"
+  },
+  {
+    "id": "CH2-004B",
+    "title": "拒绝",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "shen", "name": "沈绫", "text": "你会后悔的。这种纹样，市面上越来越少了。" },
+      { "speaker": "player", "name": "主角", "text": "少了才更不该随便出手。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "这回你选对了。" }
+    ],
+    "next": "CH2-005"
+  },
+  {
+    "id": "CH2-004C",
+    "title": "暗中留样",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你当着沈绫的面把旧刀包好递过去，但事先已偷偷拓下了纹样。" },
+      { "speaker": "shen", "name": "沈绫", "text": "爽快人。" },
+      { "speaker": "narrator", "name": "", "text": "她没注意到，你留下了最重要的东西——纹样本身。" }
+    ],
+    "next": "CH2-005"
+  },
+  {
+    "id": "CH2-005",
+    "title": "学徒去留",
+    "type": "choice",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "傍晚，一个在韩铸铺里干活的小学徒偷偷找上门。" },
+      { "speaker": "apprentice", "name": "学徒", "text": "你们铺子......还缺人吗？" },
+      { "speaker": "player", "name": "主角", "text": "你不是韩铸的人？" },
+      { "speaker": "apprentice", "name": "学徒", "text": "他那边快是快，可谁慢一步就挨骂。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "我们这儿穷，未必养得起你。" },
+      { "speaker": "apprentice", "name": "学徒", "text": "我想学真本事。" }
+    ],
+    "choices": [
+      {
+        "text": "留下他",
+        "effects": { "factions": { "craftsman": 4 }, "relationships": { "hanzhu": -8 }, "flags": { "apprentice_joined": true } },
+        "next": "CH2-005A"
+      },
+      {
+        "text": "让他回去",
+        "effects": { "factions": { "craftsman": 2 } },
+        "next": "CH2-005B"
+      },
+      {
+        "text": "先试三天",
+        "effects": { "relationships": { "pragmatic": 1 }, "flags": { "apprentice_trial": true } },
+        "next": "CH2-005C"
+      }
+    ]
+  },
+  {
+    "id": "CH2-005A",
+    "title": "留下学徒",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "apprentice", "name": "学徒", "text": "我一定好好干！" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "好好干不是嘴上说的。明天天不亮，先把炉灰铲干净。" },
+      { "speaker": "narrator", "name": "", "text": "你知道韩铸不会善罢甘休，但铺子确实需要多一双手。" }
+    ],
+    "next": "CH2-006"
+  },
+  {
+    "id": "CH2-005B",
+    "title": "让学徒回去",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "你还是回去吧。现在不是树敌的时候。" },
+      { "speaker": "apprentice", "name": "学徒", "text": "......好吧。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "少树一个敌，有时候比多一双手更值。" }
+    ],
+    "next": "CH2-006"
+  },
+  {
+    "id": "CH2-005C",
+    "title": "试用三天",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "先试三天。干得好留，干不好走，谁也不怨。" },
+      { "speaker": "apprentice", "name": "学徒", "text": "三天够了！" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "三天看手，也看心。" }
+    ],
+    "next": "CH2-006"
+  },
+  {
+    "id": "CH2-006",
+    "title": "古纹拓片",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "condition": { "type": "fameMin", "value": 40 },
+    "lines": [
+      { "speaker": "shen", "name": "沈绫", "text": "我本来不想这么早拿给你看。" },
+      { "speaker": "narrator", "name": "", "text": "她展开一张旧拓片，纹样与后院断剑上的古纹几乎一模一样。" },
+      { "speaker": "player", "name": "主角", "text": "这东西，你从哪弄来的？" },
+      { "speaker": "shen", "name": "沈绫", "text": "从一个死人手里。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "收起来。" },
+      { "speaker": "shen", "name": "沈绫", "text": "你怕什么？怕他知道，当年那把剑不是偶然断的？" },
+      { "speaker": "player", "name": "主角", "text": "你们到底都瞒着我什么？" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "从现在开始，少跟这女人来往。" },
+      { "speaker": "shen", "name": "沈绫", "text": "那可难。因为从现在开始，他不找我，我也会找他。" },
+      { "speaker": "narrator", "name": "", "text": "--- 第二章 完 ---" }
+    ],
+    "next": null,
+    "chapterEnd": true,
+    "effects": { "relationships": { "truth": 1 } }
+  }
+]

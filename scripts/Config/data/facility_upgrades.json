@@ -1,0 +1,49 @@
+{
+  "facilities": {
+    "furnace": {
+      "name": "熔炉",
+      "description": "提升锻造温度控制精度",
+      "levels": [
+        { "level": 1, "toolCoeff": 1.0,  "upgradeCost": 0,    "upgradeFameCost": 0,   "unlockChapter": 1, "desc": "破旧土炉" },
+        { "level": 2, "toolCoeff": 1.1,  "upgradeCost": 200,  "upgradeFameCost": 30,  "unlockChapter": 1, "desc": "改良石炉" },
+        { "level": 3, "toolCoeff": 1.2,  "upgradeCost": 600,  "upgradeFameCost": 80,  "unlockChapter": 1, "desc": "精铁熔炉" }
+      ]
+    },
+    "anvil": {
+      "name": "锻台",
+      "description": "提升锻打塑形精度",
+      "levels": [
+        { "level": 1, "toolCoeff": 1.0,  "upgradeCost": 0,    "upgradeFameCost": 0,   "unlockChapter": 1, "desc": "老旧铁砧" },
+        { "level": 2, "toolCoeff": 1.1,  "upgradeCost": 250,  "upgradeFameCost": 40,  "unlockChapter": 1, "desc": "加固铁砧" },
+        { "level": 3, "toolCoeff": 1.2,  "upgradeCost": 750,  "upgradeFameCost": 100, "unlockChapter": 1, "desc": "精钢锻台" }
+      ]
+    },
+    "grinder": {
+      "name": "磨石",
+      "description": "提升研磨开刃精度",
+      "levels": [
+        { "level": 1, "toolCoeff": 1.0,  "upgradeCost": 0,    "upgradeFameCost": 0,   "unlockChapter": 1, "desc": "粗砂磨石" },
+        { "level": 2, "toolCoeff": 1.1,  "upgradeCost": 180,  "upgradeFameCost": 25,  "unlockChapter": 1, "desc": "细砂磨石" },
+        { "level": 3, "toolCoeff": 1.2,  "upgradeCost": 500,  "upgradeFameCost": 70,  "unlockChapter": 1, "desc": "水磨精石" }
+      ]
+    },
+    "quench_pool": {
+      "name": "淬火池",
+      "description": "提升淬火时机窗口",
+      "levels": [
+        { "level": 1, "toolCoeff": 1.0, "upgradeCost": 0,   "upgradeFameCost": 0,  "unlockChapter": 1, "desc": "木桶水池" },
+        { "level": 2, "toolCoeff": 1.1, "upgradeCost": 220, "upgradeFameCost": 35, "unlockChapter": 1, "desc": "石砌水池" },
+        { "level": 3, "toolCoeff": 1.2, "upgradeCost": 650, "upgradeFameCost": 90, "unlockChapter": 1, "desc": "油水双池" }
+      ]
+    },
+    "display": {
+      "name": "展柜",
+      "description": "提升订单奖励金额",
+      "levels": [
+        { "level": 1, "toolCoeff": 1.0, "upgradeCost": 0,   "upgradeFameCost": 0,  "unlockChapter": 1, "desc": "简陋木架" },
+        { "level": 2, "toolCoeff": 1.05, "upgradeCost": 300, "upgradeFameCost": 50, "unlockChapter": 1, "desc": "雕花木柜" },
+        { "level": 3, "toolCoeff": 1.15, "upgradeCost": 800, "upgradeFameCost": 120, "unlockChapter": 1, "desc": "紫檀展阁" }
+      ]
+    }
+  }
+}

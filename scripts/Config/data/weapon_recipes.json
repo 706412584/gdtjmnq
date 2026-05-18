@@ -1,0 +1,122 @@
+[
+  {
+    "id": "WEAPON_001",
+    "name": "猎户小刀",
+    "line": "short_blade",
+    "baseScore": 100,
+    "steps": ["ore_select", "forging", "polishing"],
+    "requiredMaterials": { "ore": 2, "charcoal": 1 },
+    "unlockChapter": 1,
+    "description": "山间猎户常用的短刃，实用为主"
+  },
+  {
+    "id": "WEAPON_002",
+    "name": "护卫直刀",
+    "line": "short_blade",
+    "baseScore": 140,
+    "steps": ["ore_select", "forging", "polishing"],
+    "requiredMaterials": { "ore": 3, "charcoal": 2 },
+    "unlockChapter": 1,
+    "description": "城门护卫的标配兵刃，注重耐用"
+  },
+  {
+    "id": "WEAPON_003",
+    "name": "劈山刀",
+    "line": "short_blade",
+    "baseScore": 180,
+    "steps": ["ore_select", "smelting", "forging", "polishing"],
+    "requiredMaterials": { "ore": 4, "charcoal": 2, "grinding_agent": 1 },
+    "unlockChapter": 1,
+    "description": "樵夫开山劈柴的重型短刃，刃口宽厚"
+  },
+  {
+    "id": "WEAPON_004",
+    "name": "游侠佩剑",
+    "line": "long_sword",
+    "baseScore": 160,
+    "steps": ["ore_select", "smelting", "forging", "quenching", "polishing"],
+    "requiredMaterials": { "ore": 4, "charcoal": 3 },
+    "unlockChapter": 1,
+    "description": "江湖游侠随身佩戴的长剑，轻便灵活"
+  },
+  {
+    "id": "WEAPON_005",
+    "name": "千军破阵剑",
+    "line": "long_sword",
+    "baseScore": 200,
+    "steps": ["ore_select", "smelting", "forging", "quenching", "polishing", "assembly"],
+    "requiredMaterials": { "ore": 5, "charcoal": 3, "grinding_agent": 2 },
+    "unlockChapter": 2,
+    "description": "军中将领的仪仗宝剑，威严而锋利"
+  },
+  {
+    "id": "WEAPON_006",
+    "name": "青虹剑",
+    "line": "long_sword",
+    "baseScore": 230,
+    "steps": ["ore_select", "smelting", "forging", "quenching", "polishing", "assembly"],
+    "requiredMaterials": { "ore": 6, "charcoal": 4, "grinding_agent": 2, "meteorite": 1 },
+    "unlockChapter": 2,
+    "description": "传说中百年不朽的名剑，剑身泛青光"
+  },
+  {
+    "id": "WEAPON_007",
+    "name": "镇关重剑",
+    "line": "heavy_sword",
+    "baseScore": 180,
+    "steps": ["ore_select", "smelting", "forging", "polishing"],
+    "requiredMaterials": { "ore": 5, "charcoal": 3, "grinding_agent": 1 },
+    "unlockChapter": 2,
+    "description": "守关将领佩带的阔背重剑，以力破巧"
+  },
+  {
+    "id": "WEAPON_008",
+    "name": "断岳",
+    "line": "heavy_sword",
+    "baseScore": 220,
+    "steps": ["ore_select", "smelting", "forging", "quenching", "polishing"],
+    "requiredMaterials": { "ore": 7, "charcoal": 4, "grinding_agent": 2 },
+    "unlockChapter": 3,
+    "description": "劈山裂石的武人至宝，整刃浑厚如一块铸铁"
+  },
+  {
+    "id": "WEAPON_009",
+    "name": "玄铁斩马刀",
+    "line": "heavy_sword",
+    "baseScore": 270,
+    "steps": ["ore_select", "smelting", "forging", "quenching", "polishing", "assembly"],
+    "requiredMaterials": { "ore": 9, "charcoal": 5, "grinding_agent": 3, "meteorite": 1 },
+    "unlockChapter": 4,
+    "description": "传世名器级重剑，一刀下去地裂三尺"
+  },
+  {
+    "id": "WEAPON_010",
+    "name": "王都令剑",
+    "line": "ceremony_blade",
+    "baseScore": 230,
+    "steps": ["ore_select", "smelting", "forging", "quenching", "polishing"],
+    "requiredMaterials": { "ore": 5, "charcoal": 3, "pattern_gold": 1 },
+    "unlockChapter": 3,
+    "description": "朝廷颁赐的礼仪佩剑，剑格嵌金丝"
+  },
+  {
+    "id": "WEAPON_011",
+    "name": "器坊制式礼剑",
+    "line": "ceremony_blade",
+    "baseScore": 280,
+    "steps": ["ore_select", "smelting", "forging", "quenching", "polishing", "assembly"],
+    "requiredMaterials": { "ore": 7, "charcoal": 4, "pattern_gold": 2, "leather": 1 },
+    "unlockChapter": 4,
+    "description": "商会督造的标准礼器，剑鞘刻有商会徽记"
+  },
+  {
+    "id": "WEAPON_012",
+    "name": "照霜 (复铸)",
+    "line": "ceremony_blade",
+    "baseScore": 350,
+    "steps": ["ore_select", "smelting", "forging", "quenching", "polishing", "assembly"],
+    "requiredMaterials": { "ore": 10, "charcoal": 6, "pattern_gold": 3, "meteorite": 2 },
+    "unlockChapter": 5,
+    "description": "旧名重铸，传说中照霜剑的最终形态"
+  }
+]

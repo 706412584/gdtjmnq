@@ -1,0 +1,134 @@
+[
+  {
+    "id": "WEEK_CRAFT_5",
+    "category": "craft",
+    "title": "勤炉匠人",
+    "description": "完成 5 单任意订单",
+    "condition": { "type": "orders_completed", "count": 5 },
+    "rewardCoins": 300,
+    "rewardFame": 30,
+    "rewardMaterials": {},
+    "weight": 10
+  },
+  {
+    "id": "WEEK_CRAFT_10",
+    "category": "craft",
+    "title": "百炼成钢",
+    "description": "完成 10 单任意订单",
+    "condition": { "type": "orders_completed", "count": 10 },
+    "rewardCoins": 800,
+    "rewardFame": 80,
+    "rewardMaterials": { "ore": 5 },
+    "weight": 6
+  },
+  {
+    "id": "WEEK_PERFECT_3",
+    "category": "quality",
+    "title": "精益求精",
+    "description": "获得 3 次全步骤 Perfect",
+    "condition": { "type": "perfect_count", "count": 3 },
+    "rewardCoins": 500,
+    "rewardFame": 50,
+    "rewardMaterials": { "grinding_agent": 3 },
+    "weight": 8
+  },
+  {
+    "id": "WEEK_QUALITY_RARE",
+    "category": "quality",
+    "title": "珍品之路",
+    "description": "锻造出 2 件珍品及以上品质的武器",
+    "condition": { "type": "quality_tier_min", "tier": 4, "count": 2 },
+    "rewardCoins": 600,
+    "rewardFame": 60,
+    "rewardMaterials": { "pattern_gold": 1 },
+    "weight": 7
+  },
+  {
+    "id": "WEEK_QUALITY_LEGEND",
+    "category": "quality",
+    "title": "名器初成",
+    "description": "锻造出 1 件名器品质的武器",
+    "condition": { "type": "quality_tier_min", "tier": 5, "count": 1 },
+    "rewardCoins": 1000,
+    "rewardFame": 100,
+    "rewardMaterials": { "meteorite": 1 },
+    "weight": 4
+  },
+  {
+    "id": "WEEK_LINE_SHORT",
+    "category": "variety",
+    "title": "短刃专精",
+    "description": "完成 3 单短刃订单",
+    "condition": { "type": "weapon_line", "line": "short_blade", "count": 3 },
+    "rewardCoins": 400,
+    "rewardFame": 40,
+    "rewardMaterials": {},
+    "weight": 8
+  },
+  {
+    "id": "WEEK_LINE_LONG",
+    "category": "variety",
+    "title": "长剑精进",
+    "description": "完成 3 单长剑订单",
+    "condition": { "type": "weapon_line", "line": "long_sword", "count": 3 },
+    "rewardCoins": 400,
+    "rewardFame": 40,
+    "rewardMaterials": {},
+    "weight": 8
+  },
+  {
+    "id": "WEEK_LINE_HEAVY",
+    "category": "variety",
+    "title": "重剑无锋",
+    "description": "完成 2 单重剑订单",
+    "condition": { "type": "weapon_line", "line": "heavy_sword", "count": 2 },
+    "rewardCoins": 500,
+    "rewardFame": 50,
+    "rewardMaterials": { "ore": 3 },
+    "weight": 6
+  },
+  {
+    "id": "WEEK_LINE_CEREMONY",
+    "category": "variety",
+    "title": "仪礼之器",
+    "description": "完成 2 单礼器订单",
+    "condition": { "type": "weapon_line", "line": "ceremony_blade", "count": 2 },
+    "rewardCoins": 500,
+    "rewardFame": 50,
+    "rewardMaterials": { "pattern_gold": 1 },
+    "weight": 5
+  },
+  {
+    "id": "WEEK_EARN_COINS",
+    "category": "economy",
+    "title": "铜钱满仓",
+    "description": "本周累计获得 2000 铜钱",
+    "condition": { "type": "coins_earned", "count": 2000 },
+    "rewardCoins": 500,
+    "rewardFame": 30,
+    "rewardMaterials": { "charcoal": 5 },
+    "weight": 8
+  },
+  {
+    "id": "WEEK_EARN_FAME",
+    "category": "economy",
+    "title": "声名远播",
+    "description": "本周累计获得 500 声望",
+    "condition": { "type": "fame_earned", "count": 500 },
+    "rewardCoins": 400,
+    "rewardFame": 50,
+    "rewardMaterials": {},
+    "weight": 7
+  },
+  {
+    "id": "WEEK_MODIFIER",
+    "category": "challenge",
+    "title": "百折不挠",
+    "description": "完成 3 单带挑战修饰符的订单",
+    "condition": { "type": "modifier_completed", "count": 3 },
+    "rewardCoins": 700,
+    "rewardFame": 70,
+    "rewardMaterials": { "meteorite": 1 },
+    "weight": 5
+  }
+]

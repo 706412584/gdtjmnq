@@ -1,0 +1,259 @@
+[
+  {
+    "id": "CH3-001",
+    "title": "断剑来客",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "傍晚，一名披雨而来的剑客站在门口，袖口还滴着水。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "这里，能修古器？" },
+      { "speaker": "player", "name": "主角", "text": "看东西。" },
+      { "speaker": "narrator", "name": "", "text": "陆沉摊开掌心，一截残片露出熟悉的古纹。" },
+      { "speaker": "player", "name": "主角", "text": "这是......" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "把门关上。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "看来我没找错地方。" },
+      { "speaker": "player", "name": "主角", "text": "你从哪得到它的？" },
+      { "speaker": "luchen", "name": "陆沉", "text": "从一具尸体旁。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "谁让你来找我们的？" },
+      { "speaker": "luchen", "name": "陆沉", "text": "一个临死前还记得你名字的人。" }
+    ],
+    "next": "CH3-002"
+  },
+  {
+    "id": "CH3-002",
+    "title": "是否替陆沉隐瞒",
+    "type": "choice",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "luchen", "name": "陆沉", "text": "追我的人很快会到。你若不想惹事，现在把我赶出去还来得及。" },
+      { "speaker": "player", "name": "主角", "text": "你带着这块残片来，就已经把事带进门了。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "留与不留，先想清楚。" }
+    ],
+    "choices": [
+      {
+        "text": "答应替陆沉隐瞒",
+        "effects": { "relationships": { "luchen": 12 }, "factions": { "rivers": 10, "court": -6 } },
+        "next": "CH3-002A"
+      },
+      {
+        "text": "向官府报备",
+        "effects": { "factions": { "court": 12 }, "relationships": { "magistrate": 8, "luchen": -12 } },
+        "next": "CH3-002B"
+      },
+      {
+        "text": "拖延，两边都不表态",
+        "effects": { "relationships": { "pragmatic": 1, "luchen": 2 }, "factions": { "court": 2 } },
+        "next": "CH3-002C"
+      }
+    ]
+  },
+  {
+    "id": "CH3-002A",
+    "title": "留下陆沉",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "luchen", "name": "陆沉", "text": "你不怕惹上麻烦？" },
+      { "speaker": "player", "name": "主角", "text": "麻烦从我打第一把刀开始就没断过。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "把他安排在后院，灯不要点。" }
+    ],
+    "next": "CH3-003"
+  },
+  {
+    "id": "CH3-002B",
+    "title": "选择报官",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "luchen", "name": "陆沉", "text": "你会后悔的。" },
+      { "speaker": "player", "name": "主角", "text": "不报备，后悔的会是整条街。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "希望你没选错边。" }
+    ],
+    "next": "CH3-003"
+  },
+  {
+    "id": "CH3-002C",
+    "title": "两头观望",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "你先住下，别出门。其他的，过两天再说。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "两天够用了。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "不表态也是态。只是别以为谁都看不出来。" }
+    ],
+    "next": "CH3-003"
+  },
+  {
+    "id": "CH3-003",
+    "title": "门派密信",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "夜里，屋顶落下一封短箭带来的密信。" },
+      { "speaker": "player", "name": "主角", "text": "'残剑不可入官手。'" },
+      { "speaker": "luchen", "name": "陆沉", "text": "宗门动作比我想得还快。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "说明这东西，已经不是你一个人能背的。" },
+      { "speaker": "player", "name": "主角", "text": "宗门、官府、沈绫......怎么都盯着它？" },
+      { "speaker": "luchen", "name": "陆沉", "text": "因为有人信它能护国，也有人信它能灭城。" }
+    ],
+    "next": "CH3-004"
+  },
+  {
+    "id": "CH3-004",
+    "title": "残片先给谁看",
+    "type": "choice",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "这块残片，先交给谁看，决定后面走哪条路。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "给我，我能查到宗门旧档。" },
+      { "speaker": "shen", "name": "沈绫", "text": "给我，我能查到谁在市面上收同样的东西。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "给我。我至少知道它为什么会变成这样。" }
+    ],
+    "choices": [
+      {
+        "text": "残片先给陆沉看",
+        "effects": { "relationships": { "luchen": 8, "truth": 1 }, "factions": { "rivers": 6 } },
+        "next": "CH3-004A"
+      },
+      {
+        "text": "残片先给沈绫看",
+        "effects": { "relationships": { "shen": 8, "truth": -1 }, "factions": { "guild": 8 } },
+        "next": "CH3-004B"
+      },
+      {
+        "text": "残片先给老掌柜看",
+        "effects": { "relationships": { "keeper": 10, "truth": 1 }, "factions": { "craftsman": 8 } },
+        "next": "CH3-004C"
+      }
+    ]
+  },
+  {
+    "id": "CH3-004A",
+    "title": "陆沉鉴片",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "luchen", "name": "陆沉", "text": "这是宗门铸法，绝对没错。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "而且......铸这一段的人，手法和铸剑格的人不同。" },
+      { "speaker": "player", "name": "主角", "text": "你是说，照霜不是一个人铸的？" },
+      { "speaker": "luchen", "name": "陆沉", "text": "至少两人。甚至更多。" }
+    ],
+    "next": "CH3-005"
+  },
+  {
+    "id": "CH3-004B",
+    "title": "沈绫鉴片",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "shen", "name": "沈绫", "text": "有趣。最近三个月，至少两家暗铺在收类似纹样的旧器。" },
+      { "speaker": "player", "name": "主角", "text": "谁在收？" },
+      { "speaker": "shen", "name": "沈绫", "text": "出钱的人不露面。但价码高得反常。" },
+      { "speaker": "player", "name": "主角", "text": "看来照霜的残片，不止我们手上这两块。" }
+    ],
+    "next": "CH3-005"
+  },
+  {
+    "id": "CH3-004C",
+    "title": "老掌柜鉴片",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "keeper", "name": "老掌柜", "text": "这块......是我当年亲手锻的那段。" },
+      { "speaker": "player", "name": "主角", "text": "你终于承认了。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "承认不难。难的是承认之后，你还愿不愿意留在这间铺子。" },
+      { "speaker": "player", "name": "主角", "text": "你教我打铁，不是为了让我跑。" }
+    ],
+    "next": "CH3-005"
+  },
+  {
+    "id": "CH3-005",
+    "title": "官差搜铺",
+    "type": "choice",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "深夜，门外火把成排，官差砸门。" },
+      { "speaker": "guard", "name": "官差", "text": "奉县尉命，搜铺。" },
+      { "speaker": "player", "name": "主角", "text": "大半夜搜什么？" },
+      { "speaker": "guard", "name": "官差", "text": "搜逆器，搜逃犯，搜不该在民间的东西。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "我从后门走。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "现在动，反而显眼。" },
+      { "speaker": "player", "name": "主角", "text": "都别吵。" }
+    ],
+    "choices": [
+      {
+        "text": "保护陆沉",
+        "effects": { "relationships": { "luchen": 10, "magistrate": -6 }, "factions": { "rivers": 8, "court": -8 } },
+        "next": "CH3-005A"
+      },
+      {
+        "text": "保护残片",
+        "effects": { "relationships": { "truth": 1 }, "factions": { "craftsman": 6 } },
+        "next": "CH3-005B"
+      },
+      {
+        "text": "配合搜查，保住工坊",
+        "effects": { "factions": { "court": 10 }, "relationships": { "magistrate": 8, "luchen": -6 } },
+        "next": "CH3-005C"
+      }
+    ]
+  },
+  {
+    "id": "CH3-005A",
+    "title": "掩护陆沉",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你把陆沉藏进后院暗格，用旧铁压住入口。" },
+      { "speaker": "guard", "name": "官差", "text": "后院什么情况？" },
+      { "speaker": "player", "name": "主角", "text": "废铁堆。要翻你自己翻。" },
+      { "speaker": "narrator", "name": "", "text": "官差扫了一眼，没细查，转身走了。" }
+    ],
+    "next": "CH3-006"
+  },
+  {
+    "id": "CH3-005B",
+    "title": "藏好残片",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你把残片塞进炉灰下面的暗槽，搜铺的人什么也没找到。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "藏东西的手倒是越来越老道了。" },
+      { "speaker": "player", "name": "主角", "text": "是你教得好。" }
+    ],
+    "next": "CH3-006"
+  },
+  {
+    "id": "CH3-005C",
+    "title": "配合搜查",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "player", "name": "主角", "text": "搜吧。我们铺子清白。" },
+      { "speaker": "narrator", "name": "", "text": "官差搜了一遍没找到违禁品，但陆沉的处境更加危险了。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "你知道你刚才放弃了什么吗？" },
+      { "speaker": "player", "name": "主角", "text": "我知道我保住了什么。" }
+    ],
+    "next": "CH3-006"
+  },
+  {
+    "id": "CH3-006",
+    "title": "古剑旧名",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "condition": { "type": "fameMin", "value": 60 },
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "残卷与残片拼合后，露出两个旧字。" },
+      { "speaker": "player", "name": "主角", "text": "'照霜'......" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "那把剑当年的名字。" },
+      { "speaker": "luchen", "name": "陆沉", "text": "宗门档案里记过，它曾在一夜之间换了三位主人。" },
+      { "speaker": "shen", "name": "沈绫", "text": "而最后一位主人，带着整条街的血死在城门下。" },
+      { "speaker": "player", "name": "主角", "text": "所以这不是一把名剑。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "它曾是。后来成了凶器。" },
+      { "speaker": "narrator", "name": "", "text": "--- 第三章 完 ---" }
+    ],
+    "next": null,
+    "chapterEnd": true,
+    "effects": { "relationships": { "truth": 1 } }
+  }
+]

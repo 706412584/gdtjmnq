@@ -1,0 +1,265 @@
+[
+  {
+    "id": "CH1-001",
+    "title": "破铺清晨",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "清晨的阳光透过破旧的窗棂，照在落满灰尘的铁砧上。这间铺子已经许久没有开过火了。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "别站着发愣了。炉都冷了，债还热着。" },
+      { "speaker": "narrator", "name": "", "text": "老掌柜拄着拐杖从后院走出，浑浊的目光扫过冷清的铺面。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "今天要是还没活计，这铺子就该关门了。我养不起吃白饭的。" },
+      { "speaker": "narrator", "name": "", "text": "你看了看墙上挂着的几把生了锈的旧刀具，心里明白——要么今天证明自己，要么就此收场。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "炉子先点上。就算没客人，也不能让这铺子看着像间死铺。" }
+    ],
+    "next": "CH1-002"
+  },
+  {
+    "id": "CH1-002",
+    "title": "第一笔活计",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "午后，铺门被推开，一个皮肤黝黑的猎户走了进来。" },
+      { "speaker": "hunter", "name": "猎户", "text": "掌柜的在吗？我这把刀钝得切不动兔皮了，能磨磨不？" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "磨刀的活也接？...算了，有活计总比没有强。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "小子，过来。这是你头一单，别给我砸了招牌。" },
+      { "speaker": "narrator", "name": "", "text": "猎户将一把缺了口的短刀放在台面上。虽然破旧，但刀身上依稀能看出当年的锋利。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "先选料，再起火，然后锻打塑形。顺序不能乱，每一步都马虎不得。" }
+    ],
+    "next": "CH1-003"
+  },
+  {
+    "id": "CH1-003",
+    "title": "修炉还是还债",
+    "type": "choice",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "keeper", "name": "老掌柜", "text": "等等...开工之前，有件事得先说。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "这炉子裂了条缝，再不修迟早出事。可钱庄那边的债也催了两回了..." },
+      { "speaker": "narrator", "name": "", "text": "你看着手中仅剩的铜钱，必须做出选择。" }
+    ],
+    "choices": [
+      {
+        "text": "先修炉子，工欲善其事",
+        "effects": { "relationships": { "keeper": 6 }, "factions": { "craftsman": 4 } },
+        "next": "CH1-004"
+      },
+      {
+        "text": "先还债，免得债主找上门",
+        "effects": { "relationships": { "keeper": -2 }, "factions": { "court": 2 } },
+        "next": "CH1-004"
+      },
+      {
+        "text": "两边都先拖着，走一步看一步",
+        "effects": {},
+        "next": "CH1-004"
+      }
+    ]
+  },
+  {
+    "id": "CH1-004",
+    "title": "猎户短刀",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "keeper", "name": "老掌柜", "text": "行了，别想那些了。先把手头的活干好。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "记住：选料看成色，锻打听声音，研磨凭手感。三样都做到，才算一把过得去的刀。" },
+      { "speaker": "narrator", "name": "", "text": "你卷起袖子，走到炉前。猎户的短刀修复——这将是你在这间铁铺的第一次锻造。" }
+    ],
+    "next": "CH1-005",
+    "triggerOrder": true
+  },
+  {
+    "id": "CH1-005",
+    "title": "完工之后",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "condition": { "type": "ordersCompleted", "min": 1 },
+    "lines": [
+      { "speaker": "hunter", "name": "猎户", "text": "嚯！这手艺不错啊，比我当年买来的时候还顺手。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "...还行。勉强没丢人。" },
+      { "speaker": "narrator", "name": "", "text": "猎户满意地付了铜钱离开。老掌柜虽然嘴上不说，但眼神里多了几分认可。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "别高兴太早。一把猎刀而已，离真正的铁匠还差得远。" },
+      { "speaker": "narrator", "name": "", "text": "夜幕降临，你帮着老掌柜收拾铺面。无意间，你注意到后院的门虚掩着，门缝里透出一丝奇异的光芒..." }
+    ],
+    "next": "CH1-006"
+  },
+  {
+    "id": "CH1-006",
+    "title": "夜探后院",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你推开后院的门，月光下，一柄断裂的古剑安静地躺在石台上。剑身上隐约可见古朴的纹路，即使断成两截，依然散发着不同寻常的气息。" },
+      { "speaker": "narrator", "name": "", "text": "古剑旁边放着一卷烧焦了大半的残卷，只剩下几行模糊的字迹。" },
+      { "speaker": "narrator", "name": "", "text": "残卷上写着：\"器成之日......血覆长街。\"" },
+      { "speaker": "narrator", "name": "", "text": "你伸手想去翻看残卷的内容，但犹豫了——老掌柜从未提过后院有这些东西。" }
+    ],
+    "next": "CH1-007"
+  },
+  {
+    "id": "CH1-007",
+    "title": "是否偷看残卷",
+    "type": "choice",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "残卷就在手边。偷看？还是装作没看见？" }
+    ],
+    "choices": [
+      {
+        "text": "仔细阅读残卷内容",
+        "effects": { "relationships": { "keeper": -8 }, "flags": { "scroll_seen": true, "truth_revealed": 1 } },
+        "next": "CH1-008A"
+      },
+      {
+        "text": "忍住好奇，不去碰",
+        "effects": { "relationships": { "keeper": 6 }, "factions": { "craftsman": 3 } },
+        "next": "CH1-008B"
+      },
+      {
+        "text": "只记下古剑上的纹路，不碰残卷",
+        "effects": { "relationships": { "keeper": -3 }, "flags": { "pattern_memorized": true, "truth_revealed": 1 } },
+        "next": "CH1-008C"
+      }
+    ]
+  },
+  {
+    "id": "CH1-008A",
+    "title": "残卷的秘密",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你小心翼翼地翻开残卷。上面记载着一种失传的铸剑秘法，用料和工序都极为罕见。" },
+      { "speaker": "narrator", "name": "", "text": "正读到关键处，身后传来拐杖的声音。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "......你在干什么？" },
+      { "speaker": "narrator", "name": "", "text": "老掌柜的脸色阴沉得可怕。他一把夺过残卷，锁进了柜子里。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "一个已经死了很多年，却还不肯放过活人的人...留下的东西。你不该看的。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "从今天起，后院不准再进。听到没有？" }
+    ],
+    "next": "CH1-009"
+  },
+  {
+    "id": "CH1-008B",
+    "title": "忍住好奇",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你收回手，退出了后院。有些事情，或许等到该知道的时候自然会知道。" },
+      { "speaker": "narrator", "name": "", "text": "第二天早上，老掌柜似乎察觉到了什么，打量了你一会儿。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "忍得住。好。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "等你有本事了......有些事，我再慢慢告诉你。" },
+      { "speaker": "narrator", "name": "", "text": "老掌柜的语气少见地温和了几分。你隐约感觉到，他在考验你。" }
+    ],
+    "next": "CH1-009"
+  },
+  {
+    "id": "CH1-008C",
+    "title": "记下纹路",
+    "type": "dialogue",
+    "background": "image/bg_story_backyard.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你没有碰残卷，但仔细端详了古剑上的纹路，将那些图案刻进了记忆里。" },
+      { "speaker": "narrator", "name": "", "text": "回到铺面时，老掌柜正站在门口，若有所思地看着你。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "你若真忍得住，将来还有得学。" },
+      { "speaker": "narrator", "name": "", "text": "他似乎想说什么，但最终只是转身走回了后院，顺手把门关严了。" }
+    ],
+    "next": "CH1-009"
+  },
+  {
+    "id": "CH1-009",
+    "title": "官府压价单",
+    "type": "dialogue",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "几天后，一个穿着官服的差役走进了铺子，态度倨傲。" },
+      { "speaker": "magistrate", "name": "县衙差役", "text": "县尉大人有令，要你铺里赶制一批刀具，价钱嘛...按市价七成算。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "七成？那连材料钱都不够。" },
+      { "speaker": "magistrate", "name": "县衙差役", "text": "嫌少？这年头能接到官府的活，是你们的福气。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "官家的单，接不接都得伤筋骨。" },
+      { "speaker": "narrator", "name": "", "text": "老掌柜把目光投向你，等着你拿主意。" }
+    ],
+    "next": "CH1-010"
+  },
+  {
+    "id": "CH1-010",
+    "title": "接还是不接",
+    "type": "choice",
+    "background": "image/bg_story_street.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "县衙的压价订单摆在面前。你怎么选？" }
+    ],
+    "choices": [
+      {
+        "text": "接下来，先活下去再说",
+        "effects": { "factions": { "court": 8 }, "relationships": { "keeper": -3 }, "factions_2": { "craftsman": -2 } },
+        "next": "CH1-011A"
+      },
+      {
+        "text": "不接，铁匠的手艺不能贱卖",
+        "effects": { "factions": { "craftsman": 6, "court": -5 }, "relationships": { "keeper": 4 } },
+        "next": "CH1-011B"
+      },
+      {
+        "text": "讨价还价，争取八成价",
+        "effects": { "factions": { "court": 3 }, "relationships": { "keeper": 1 } },
+        "next": "CH1-011C"
+      }
+    ]
+  },
+  {
+    "id": "CH1-011A",
+    "title": "妥协的代价",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "magistrate", "name": "县衙差役", "text": "识时务。三日内交货，误了期限...你们自己掂量。" },
+      { "speaker": "narrator", "name": "", "text": "差役留下订单走了。老掌柜沉默了很久。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "接了就得做好。哪怕价钱亏，东西不能差。这是铁匠的底线。" }
+    ],
+    "next": "CH1-012"
+  },
+  {
+    "id": "CH1-011B",
+    "title": "硬骨头",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "magistrate", "name": "县衙差役", "text": "小子，有能耐啊。行，我们等着。" },
+      { "speaker": "narrator", "name": "", "text": "差役冷笑着离开了。你不确定这个决定会带来什么后果。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "有骨气。但骨气不能当饭吃，接下来的日子，得更拼命才行。" }
+    ],
+    "next": "CH1-012"
+  },
+  {
+    "id": "CH1-011C",
+    "title": "折中之道",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "你据理力争，最终差役勉强同意了八成的价格。" },
+      { "speaker": "magistrate", "name": "县衙差役", "text": "就这一次。下回可没这么好说话。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "嗯...算你有点脑子。能争一分是一分。" }
+    ],
+    "next": "CH1-012"
+  },
+  {
+    "id": "CH1-012",
+    "title": "旧剑鸣震",
+    "type": "dialogue",
+    "background": "image/bg_story_workshop.png",
+    "condition": { "type": "fameMin", "value": 20 },
+    "lines": [
+      { "speaker": "narrator", "name": "", "text": "又是一个平静的夜晚。你正准备歇息，突然——" },
+      { "speaker": "narrator", "name": "", "text": "后院传来一阵低沉的嗡鸣声，像是金属在颤抖，又像是远处的钟声。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "......它又响了。" },
+      { "speaker": "narrator", "name": "", "text": "老掌柜站在后院门前，脸色苍白。那柄断裂的古剑，正微微发出幽光。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "那不是铁在响。那是旧账在响。" },
+      { "speaker": "keeper", "name": "老掌柜", "text": "有人...在找它。" },
+      { "speaker": "narrator", "name": "", "text": "老掌柜匆匆用布将古剑裹好，藏进了更深处。你隐约感觉到，这间铁铺的秘密，远比你想象的复杂。" },
+      { "speaker": "narrator", "name": "", "text": "--- 第一章 完 ---" }
+    ],
+    "next": null,
+    "chapterEnd": true
+  }
+]
