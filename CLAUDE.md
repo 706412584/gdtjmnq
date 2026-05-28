@@ -475,6 +475,41 @@ data: 配置数据变更
 docs: 文档更新
 ```
 
+### 5.3 Git 推送方法（强制）
+
+**沙箱环境无原生 SSH 客户端，必须通过 paramiko SSH wrapper 推送代码。**
+
+**远程仓库**：`git@github.com:706412584/gdtjmnq.git`（别名 `origin`）
+
+**原理**：脚本用 paramiko 库，先向 HTTP 代理（`127.0.0.1:1080`）发 CONNECT 请求建立到 `ssh.github.com:443` 的隧道，再在隧道上完成 SSH 认证和 git 数据传输。
+
+| 配置项 | 值 |
+|--------|------|
+| HTTP 代理 | `127.0.0.1:1080` |
+| SSH 目标 | `ssh.github.com:443` |
+| 私钥路径 | `/workspace/.ssh/id_ed25519` |
+| SSH Wrapper | `/home/Maker/ssh_wrapper.py` |
+| 推送快捷脚本 | `/home/Maker/git_push.sh` |
+
+**推送命令**：
+
+```bash
+# 方式 1：快捷脚本（推荐）
+/home/Maker/git_push.sh                    # 推送当前分支
+/home/Maker/git_push.sh master             # 推送指定分支
+/home/Maker/git_push.sh master --force     # 强制推送
+
+# 方式 2：手动指定 GIT_SSH_COMMAND
+cd /workspace
+GIT_SSH_COMMAND="/usr/bin/python3 /home/Maker/ssh_wrapper.py" git push origin master
+```
+
+**注意事项**：
+- 推送前必须先 `git add` + `git commit`
+- `.gitignore` 已配置排除引擎敏感目录（engine-docs/、examples/、urhox-libs/ 等）和 `.ssh/` 密钥
+- 只有 `scripts/`、`assets/`、`docs/` 等用户代码会被推送
+- 如果推送认证失败，检查 `/workspace/.ssh/id_ed25519` 私钥是否存在且对应公钥已添加到 GitHub
+
 ---
 
 ## 6. 关键约束清单

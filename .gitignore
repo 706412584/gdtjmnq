@@ -1,26 +1,2 @@
-# Build & Distribution
 .build/
 dist/
-
-# Engine internal resources (read-only, do NOT push)
-engine-docs/
-examples/
-templates/
-urhox-libs/
-schemas/
-prompts/
-lua-tools/
-.emmylua/
-.claude/
-.cli/
-.tmp/
-.project/
-
-# SSH keys
-.ssh/
-
-# Logs
-logs/
-
-# Tools
-tools/
