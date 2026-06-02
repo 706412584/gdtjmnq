@@ -156,22 +156,25 @@ function M.Build(scene_)
     -- ═══ 独立容器 Props（树木、木桶、建筑等）— textureRect 从 512x512 纹理裁切 ═══
     -- 关键：customMaterial 与 textureRect 互斥，props 用 textureRect（非 pow2 子图 WebGL 兼容）
     do
+        -- 坐标转换：CSS像素 × 0.01 = 世界米（布局编辑器视口 640×416 = 6.4×4.16m）
+        -- worldX = (left + w/2) * 0.01, worldY = 4.16 - (top + h/2) * 0.01
+        -- drawW = w * 0.01, drawH = h * 0.01
         local propsData = {
             -- { x, y, dw, dh, tex, u0, v0, u1, v1 }
-            { 0.4214, 3.6608, 0.4461, 0.5547, "image/topdown-basic/TX_Plant.png", 0.0461, 0.0271, 0.2709, 0.3046 },
-            { 3.0513, 3.6663, 0.3745, 0.5436, "image/topdown-basic/TX_Plant.png", 0.3144, 0.0325, 0.5031, 0.3045 },
-            { 0.4131, 2.4015, 0.3415, 0.5215, "image/topdown-basic/TX_Plant.png", 0.5764, 0.0602, 0.7356, 0.3014 },
-            { 3.0430, 2.4293, 0.4461, 0.5547, "image/topdown-basic/TX_Plant.png", 0.0461, 0.0271, 0.2709, 0.3046 },
-            { 0.9556, 3.7107, 0.2589, 0.2330, "image/topdown-basic/TX_Plant.png", 0.4219, 0.3613, 0.5159, 0.4453 },
-            { 2.6988, 3.7523, 0.2203, 0.1941, "image/topdown-basic/TX_Plant.png", 0.6758, 0.3711, 0.7558, 0.4411 },
-            { 0.6334, 2.1408, 0.2093, 0.1775, "image/topdown-basic/TX_Plant.png", 0.3047, 0.3711, 0.3807, 0.4351 },
-            { 2.9714, 2.1713, 0.2148, 0.2496, "image/topdown-basic/TX_Plant.png", 0.5508, 0.3633, 0.6288, 0.4533 },
-            { 0.9143, 3.3002, 0.1762, 0.2552, "image/topdown-basic/TX_Props.png", 0.3125, 0.0352, 0.3765, 0.1272 },
-            { 0.6086, 2.7788, 0.1157, 0.1886, "image/topdown-basic/TX_Props.png", 0.3223, 0.4238, 0.3643, 0.4918 },
-            { 2.7236, 3.2947, 0.2038, 0.3994, "image/topdown-basic/TX_Props.png", 0.8691, 0.0410, 0.9431, 0.1850 },
-            { 2.6878, 2.3378, 0.1762, 0.3162, "image/topdown-basic/TX_Props.png", 0.5625, 0.3086, 0.6265, 0.4226 },
-            { 0.6031, 2.4071, 0.1487, 0.1775, "image/topdown-basic/TX_Props.png", 0.1934, 0.3125, 0.2474, 0.3765 },
-            { 1.7625, 3.8494, 0.4406, 0.3550, "image/topdown-basic/TX_Struct.png", 0.7969, 0.0527, 0.9569, 0.1807 },
+            { 0.7835, 3.2384, 0.8295, 1.0241, "image/topdown-basic/TX_Plant.png", 0.0461, 0.0271, 0.2709, 0.3046 },
+            { 5.6735, 3.2486, 0.6964, 1.0036, "image/topdown-basic/TX_Plant.png", 0.3144, 0.0325, 0.5031, 0.3045 },
+            { 0.7681, 0.9136, 0.6349, 0.9627, "image/topdown-basic/TX_Plant.png", 0.5764, 0.0602, 0.7356, 0.3014 },
+            { 5.6582, 0.9649, 0.8295, 1.0241, "image/topdown-basic/TX_Plant.png", 0.0461, 0.0271, 0.2709, 0.3046 },
+            { 1.7768, 3.3305, 0.4813, 0.4301, "image/topdown-basic/TX_Plant.png", 0.4219, 0.3613, 0.5159, 0.4453 },
+            { 5.0181, 3.4073, 0.4096, 0.3584, "image/topdown-basic/TX_Plant.png", 0.6758, 0.3711, 0.7558, 0.4411 },
+            { 1.1777, 0.4323, 0.3892, 0.3277, "image/topdown-basic/TX_Plant.png", 0.3047, 0.3711, 0.3807, 0.4351 },
+            { 5.5250, 0.4886, 0.3994, 0.4608, "image/topdown-basic/TX_Plant.png", 0.5508, 0.3633, 0.6288, 0.4533 },
+            { 1.7000, 2.5727, 0.3277, 0.4711, "image/topdown-basic/TX_Props.png", 0.3125, 0.0352, 0.3765, 0.1272 },
+            { 1.1317, 1.6100, 0.2151, 0.3482, "image/topdown-basic/TX_Props.png", 0.3223, 0.4238, 0.3643, 0.4918 },
+            { 5.0642, 2.5625, 0.3789, 0.7373, "image/topdown-basic/TX_Props.png", 0.8691, 0.0410, 0.9431, 0.1850 },
+            { 4.9976, 0.7959, 0.3277, 0.5837, "image/topdown-basic/TX_Props.png", 0.5625, 0.3086, 0.6265, 0.4226 },
+            { 1.1214, 0.9239, 0.2765, 0.3277, "image/topdown-basic/TX_Props.png", 0.1934, 0.3125, 0.2474, 0.3765 },
+            { 3.2772, 3.5865, 0.8193, 0.6554, "image/topdown-basic/TX_Struct.png", 0.7969, 0.0527, 0.9569, 0.1807 },
         }
 
         for i, p in ipairs(propsData) do
