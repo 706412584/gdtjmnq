@@ -185,17 +185,44 @@ function M.Build(scene_)
                 spr.layer = 5  -- 介于瓦片(0)和角色(10)之间
                 spr:SetSprite(sprite2d)
                 spr:SetUseTextureRect(true)
-                spr.textureRect = Rect(u0, v0, u1, v1)
+                -- Rect(uLeft, vBottom, uRight, vTop): V=0=图顶, V=1=图底
+                -- v0=srcY/512(图上方,小值)=quad顶部, v1=(srcY+srcH)/512(图下方,大值)=quad底部
+                spr.textureRect = Rect(u0, v1, u1, v0)
                 spr.useDrawRect = true
                 spr.drawRect = Rect(-dw / 2, -dh / 2, dw / 2, dh / 2)
             end
         end
     end
 
-    -- ═══ 碰撞体（边界墙替代内部小碰撞体）═══
-    -- 地图范围: x=[0, 6.4], y=[0, 4.16]
-    -- 使用4面边界墙
+    -- ═══ 碰撞体（8个精确碰撞体 + 4面边界墙）═══
+    -- 来自布局编辑器导出的原始碰撞数据
     do
+        -- 8 个场景内精确碰撞体（树木、建筑等障碍物）
+        local colliders = {
+            { name = "collider_vxld7di3", x = 0.7886, y = 2.8595, w = 0.2253, h = 0.1843 },
+            { name = "collider_qq438qgo", x = 5.6735, y = 2.8799, w = 0.2048, h = 0.1843 },
+            { name = "collider_v9svssv9", x = 0.7681, y = 0.586,  w = 0.1843, h = 0.1843 },
+            { name = "collider_b657cd7y", x = 5.6633, y = 0.586,  w = 0.2253, h = 0.1843 },
+            { name = "collider_rpic8tbr", x = 1.7,    y = 2.5112, w = 0.2867, h = 0.3072 },
+            { name = "collider_wsk57e8c", x = 1.1317, y = 1.5486, w = 0.1741, h = 0.1843 },
+            { name = "collider_wczc26qy", x = 5.0642, y = 2.3269, w = 0.297,  h = 0.2253 },
+            { name = "collider_ybg33qjw", x = 4.9976, y = 0.6269, w = 0.2867, h = 0.2253 },
+        }
+        for _, c in ipairs(colliders) do
+            local n = scene_:CreateChild(c.name)
+            n:SetPosition2D(c.x, c.y)
+            local body = n:CreateComponent("RigidBody2D")
+            body.bodyType = BT_STATIC
+            local shape = n:CreateComponent("CollisionBox2D")
+            shape:SetSize(c.w, c.h)
+            shape.density = 1.0
+            shape.categoryBits = 1
+            shape.maskBits = 65535
+            n:SetVar("tag", Variant("obstacle"))
+            nodes[c.name] = n
+        end
+
+        -- 4 面边界墙（防止角色移出地图）
         local sceneW, sceneH = 6.4, 4.16
         local thickness = 0.4
         local walls = {
@@ -235,7 +262,8 @@ function M.Build(scene_)
         body.fixedRotation = true
         body.gravityScale = 0
         local shape = n:CreateComponent("CollisionBox2D")
-        shape:SetSize(0.5735, 0.6964)
+        shape:SetSize(0.35, 0.35)
+        shape:SetCenter(0, -0.10)  -- 偏移到脚部区域
         shape.categoryBits = 8
         shape.maskBits = 35
         shape.density = 1.0
@@ -259,7 +287,8 @@ function M.Build(scene_)
         body.fixedRotation = true
         body.gravityScale = 0
         local shape = n:CreateComponent("CollisionBox2D")
-        shape:SetSize(0.8193, 0.8193)
+        shape:SetSize(0.40, 0.40)
+        shape:SetCenter(0, -0.12)  -- 偏移到脚部区域
         shape.categoryBits = 2
         shape.maskBits = 89
         shape.density = 1.0
