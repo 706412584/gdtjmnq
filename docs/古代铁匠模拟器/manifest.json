@@ -1,12 +1,12 @@
 {
-  "projectId": "proj_05bd4385",
+  "projectId": "proj_fec783f4",
   "projectName": "古代铁匠模拟器",
-  "exportedAt": "2026-05-28T17:44:27.532Z",
+  "exportedAt": "2026-05-29T07:10:44.417Z",
   "documentCount": 8,
   "resourceCount": 275,
   "resources": [
     {
-      "id": "res_1f3a50cf-0098-4aa8-9292-c674a0870358",
+      "id": "res_1d4a0f3b-9004-4d82-8138-ae643f7771d1",
       "name": "bgm_forging.ogg",
       "folder": "assets/audio/assets/audio",
       "assetPath": "assets/assets/audio/assets/audio/bgm_forging.png",
@@ -14,7 +14,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_bgm_forging.png"
     },
     {
-      "id": "res_0e18447d-301e-4b8a-a0fa-1398f6adc163",
+      "id": "res_7a478b3c-992f-4284-b06e-b74ddadfb909",
       "name": "bgm_workshop.ogg",
       "folder": "assets/audio/assets/audio",
       "assetPath": "assets/assets/audio/assets/audio/bgm_workshop.png",
@@ -22,7 +22,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_bgm_workshop.png"
     },
     {
-      "id": "res_374e7552-14d6-4c68-901d-14378426cf6b",
+      "id": "res_ca5ba8df-7071-405d-b055-7da6ee990216",
       "name": "music_1778997590814.ogg",
       "folder": "assets/audio/assets/audio",
       "assetPath": "assets/assets/audio/assets/audio/music_1778997590814.png",
@@ -30,7 +30,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_music_1778997590814.png"
     },
     {
-      "id": "res_185e4d4b-fd45-4654-9f7b-7979d7ba5b00",
+      "id": "res_5327b6b3-02ae-4e7f-96c9-21d44185f7bb",
       "name": "music_1778997664501.ogg",
       "folder": "assets/audio/assets/audio",
       "assetPath": "assets/assets/audio/assets/audio/music_1778997664501.png",
@@ -38,7 +38,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_music_1778997664501.png"
     },
     {
-      "id": "res_4529b6a9-8322-4000-ad26-2e068d391e64",
+      "id": "res_5fab2d96-1f19-4f7b-9f2d-0b8e67bcdffe",
       "name": "sfx_ambient_night.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ambient_night.png",
@@ -46,7 +46,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ambient_night.png"
     },
     {
-      "id": "res_988345c6-ed02-47a7-b9d6-694a0393ca62",
+      "id": "res_406b7d82-a57b-43ea-9dc2-1cb4d99d39e9",
       "name": "sfx_ambient_rain.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ambient_rain.png",
@@ -54,7 +54,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ambient_rain.png"
     },
     {
-      "id": "res_a9bc6ab7-4969-4f30-bb3d-147b7e19ee6b",
+      "id": "res_3d745ac5-5572-4788-8018-e414f3539eb7",
       "name": "sfx_ambient_workshop.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ambient_workshop.png",
@@ -62,7 +62,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ambient_workshop.png"
     },
     {
-      "id": "res_ee48ef22-6cba-4dbe-9894-8062ee33f808",
+      "id": "res_41c3ede8-ccb3-4daf-ba88-1df01285c645",
       "name": "sfx_anvil_ring.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_anvil_ring.png",
@@ -70,7 +70,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_anvil_ring.png"
     },
     {
-      "id": "res_e047151a-ca1a-4f4a-b4c9-6f2d91e40881",
+      "id": "res_9547aa36-9611-40f6-b95c-b26b1e5e9fae",
       "name": "sfx_bellows_pump.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_bellows_pump.png",
@@ -78,7 +78,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_bellows_pump.png"
     },
     {
-      "id": "res_1a91e2e3-6b83-4290-ac9a-ae14f7ca3b5e",
+      "id": "res_482c06da-f3a1-4455-9415-5312beade9dd",
       "name": "sfx_char_approve.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_char_approve.png",
@@ -86,7 +86,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_char_approve.png"
     },
     {
-      "id": "res_4168ffdb-3a6a-42ca-bc50-8c76a3a3350d",
+      "id": "res_fe66765f-cdfd-4206-844e-94f4ea80947b",
       "name": "sfx_char_disapprove.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_char_disapprove.png",
@@ -94,7 +94,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_char_disapprove.png"
     },
     {
-      "id": "res_6da3c782-f0da-438c-9c5f-f6b02a239846",
+      "id": "res_bbc28727-1262-4a02-b759-fbf5d206be9c",
       "name": "sfx_char_greet.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_char_greet.png",
@@ -102,7 +102,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_char_greet.png"
     },
     {
-      "id": "res_a13f6c1f-1ae9-4815-a215-518e16892de9",
+      "id": "res_ae77957b-f8ca-4289-888f-20df97da6c4e",
       "name": "sfx_char_laugh.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_char_laugh.png",
@@ -110,7 +110,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_char_laugh.png"
     },
     {
-      "id": "res_8409cc85-4520-4be0-b33e-2e455fe423e7",
+      "id": "res_b76af3da-c752-4632-ad7a-5148c588b3cf",
       "name": "sfx_char_surprise.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_char_surprise.png",
@@ -118,7 +118,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_char_surprise.png"
     },
     {
-      "id": "res_b0893ea2-5c5d-41a0-858e-a2680ca28c1f",
+      "id": "res_b84aa564-e618-43c2-b8fe-fb07940d352d",
       "name": "sfx_char_think.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_char_think.png",
@@ -126,7 +126,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_char_think.png"
     },
     {
-      "id": "res_a460fbd6-2346-4a09-9373-cdb35a2b626a",
+      "id": "res_665cd632-a75e-407e-9059-d92d37f4a920",
       "name": "sfx_fire_crackle.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_fire_crackle.png",
@@ -134,7 +134,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_fire_crackle.png"
     },
     {
-      "id": "res_45cdd465-5437-4069-b533-144fd1729a6d",
+      "id": "res_b0207b36-180b-4a4d-a9a2-ae704336ded7",
       "name": "sfx_forge_complete.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_forge_complete.png",
@@ -142,7 +142,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_forge_complete.png"
     },
     {
-      "id": "res_6345ddbb-f471-4548-99b9-a38c41a9d31b",
+      "id": "res_5e9c08e2-27f9-4fbc-a560-4d7d021790f9",
       "name": "sfx_grinding.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_grinding.png",
@@ -150,7 +150,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_grinding.png"
     },
     {
-      "id": "res_2fa2973b-53f3-4487-a3eb-81c5f3f10052",
+      "id": "res_ea0081b4-ed92-4dc7-ad3c-5e2bc385abbf",
       "name": "sfx_hammer_hit.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_hammer_hit.png",
@@ -158,7 +158,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_hammer_hit.png"
     },
     {
-      "id": "res_623700c8-c7dd-4e65-b4da-0500bda83c9d",
+      "id": "res_5ba51d05-0a11-4c4e-8f6e-5196a651541e",
       "name": "sfx_hammer_strike_heavy.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_hammer_strike_heavy.png",
@@ -166,7 +166,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_hammer_strike_heavy.png"
     },
     {
-      "id": "res_ab0cd32c-37c5-4f2c-8087-2d449c525dde",
+      "id": "res_d9543e00-7d32-4e05-8867-e74ca4f92f6d",
       "name": "sfx_hammer_strike_light.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_hammer_strike_light.png",
@@ -174,7 +174,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_hammer_strike_light.png"
     },
     {
-      "id": "res_3874c002-4248-4ff9-a619-57bde934ca12",
+      "id": "res_bee87922-5e55-4d9b-87d2-3ef9359fecea",
       "name": "sfx_hammer_strike_perfect.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_hammer_strike_perfect.png",
@@ -182,7 +182,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_hammer_strike_perfect.png"
     },
     {
-      "id": "res_1349dbe7-4d7c-438a-8d50-6ca4aafed212",
+      "id": "res_d377441f-2a34-4c52-8e26-7cca77a9dcf8",
       "name": "sfx_metal_fold.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_metal_fold.png",
@@ -190,7 +190,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_metal_fold.png"
     },
     {
-      "id": "res_2ffc7608-0c1c-4a16-ab9b-28c7472e17cf",
+      "id": "res_5d56fa97-547c-46d8-a707-be94f87b4da9",
       "name": "sfx_metal_scrape.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_metal_scrape.png",
@@ -198,7 +198,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_metal_scrape.png"
     },
     {
-      "id": "res_8d667dcd-7fc2-4bd3-ad65-128321e8b070",
+      "id": "res_8608a2c0-3b92-4cd1-8ea8-4c328cf33725",
       "name": "sfx_order_accept.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_order_accept.png",
@@ -206,7 +206,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_order_accept.png"
     },
     {
-      "id": "res_1a21c00c-f718-4252-af5e-f5fcd5768bd2",
+      "id": "res_8d5c57db-09f4-402b-9059-f2557419d5ca",
       "name": "sfx_order_complete.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_order_complete.png",
@@ -214,7 +214,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_order_complete.png"
     },
     {
-      "id": "res_0b3d0028-e9a1-4c9a-8e96-b4139afe2ee7",
+      "id": "res_31e7eeb5-752d-4c9c-9eab-e9558e4043ac",
       "name": "sfx_ore_drop.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ore_drop.png",
@@ -222,7 +222,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ore_drop.png"
     },
     {
-      "id": "res_e75ba0a0-0dfa-4ab4-806a-c1a8f331b703",
+      "id": "res_f454e231-44ba-4664-b5b9-d230276fc0fa",
       "name": "sfx_quality_up.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_quality_up.png",
@@ -230,7 +230,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_quality_up.png"
     },
     {
-      "id": "res_a559210c-f498-4f21-9630-63c7767e9afb",
+      "id": "res_5a586730-5fe2-44ac-af28-8338d1b7becd",
       "name": "sfx_quench_sizzle.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_quench_sizzle.png",
@@ -238,7 +238,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_quench_sizzle.png"
     },
     {
-      "id": "res_e3cca2d8-2787-4141-8323-a8ae794d372d",
+      "id": "res_9a6e0d46-f87b-4078-9621-35508012b284",
       "name": "sfx_story_door_knock.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_story_door_knock.png",
@@ -246,7 +246,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_story_door_knock.png"
     },
     {
-      "id": "res_dd08bbcb-cf8c-4427-a2a3-4fa73a064be8",
+      "id": "res_e0cdd677-6b03-49fe-bb32-cf54d9d642f4",
       "name": "sfx_story_reveal.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_story_reveal.png",
@@ -254,7 +254,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_story_reveal.png"
     },
     {
-      "id": "res_730687e6-6eb1-4db9-a6cb-f7c0494b8017",
+      "id": "res_67de5244-2055-428b-9afd-91c40e4053d8",
       "name": "sfx_story_tension.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_story_tension.png",
@@ -262,7 +262,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_story_tension.png"
     },
     {
-      "id": "res_c123c046-fe93-4010-ab9a-104e81d8ddf0",
+      "id": "res_1d735eea-a8bf-457f-a79c-32a43ae4472e",
       "name": "sfx_ui_coin.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ui_coin.png",
@@ -270,7 +270,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ui_coin.png"
     },
     {
-      "id": "res_7e088b40-346e-439f-b7b4-679fbe70ccc9",
+      "id": "res_ddddd707-a469-407a-80aa-96b8a3a16f73",
       "name": "sfx_ui_fail.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ui_fail.png",
@@ -278,7 +278,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ui_fail.png"
     },
     {
-      "id": "res_51970fe0-169b-4bd9-aded-d69d02ec9946",
+      "id": "res_e77a8402-fef2-49bc-9604-bd53c8d266b8",
       "name": "sfx_ui_page_turn.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ui_page_turn.png",
@@ -286,7 +286,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ui_page_turn.png"
     },
     {
-      "id": "res_eed15a69-a884-4672-867e-8d6ab2ea5adb",
+      "id": "res_5bd59a09-86ea-4661-bbb2-7daf41f5470b",
       "name": "sfx_ui_success.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ui_success.png",
@@ -294,7 +294,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ui_success.png"
     },
     {
-      "id": "res_727f858a-7bbe-42ab-98f3-f2deccc3d7b6",
+      "id": "res_919b427b-d16a-4e7a-bb14-28adf0031916",
       "name": "sfx_ui_tap.ogg",
       "folder": "assets/audio/assets/audio/sfx",
       "assetPath": "assets/assets/audio/assets/audio/sfx/sfx_ui_tap.png",
@@ -302,7 +302,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_audio_assets_audio_sfx_sfx_ui_tap.png"
     },
     {
-      "id": "res_1b38d8a8-a645-4d7c-9304-be7ce022fc48",
+      "id": "res_dc7ebff0-bf30-4d83-a448-e4e7b63eac52",
       "name": "bar_fill_blue_20260518070323.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bar_fill_blue_20260518070323.png.png",
@@ -310,7 +310,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bar_fill_blue_20260518070323.png.png"
     },
     {
-      "id": "res_18bfdcc5-f128-45c7-be2e-956eba434eec",
+      "id": "res_2a63953b-80d2-4c09-ada3-23ec06b87f08",
       "name": "bar_fill_blue.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bar_fill_blue.png.png",
@@ -318,7 +318,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bar_fill_blue.png.png"
     },
     {
-      "id": "res_bab5b0d8-e604-412c-9867-ce7b23441705",
+      "id": "res_e8ad0fc4-6640-49dc-be53-c1c1662c3116",
       "name": "bar_fill_gold_20260518070315.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bar_fill_gold_20260518070315.png.png",
@@ -326,7 +326,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bar_fill_gold_20260518070315.png.png"
     },
     {
-      "id": "res_dd650d4b-e86a-4699-99f2-1829c728caf7",
+      "id": "res_9b120ad6-4333-451c-a8b4-f8924782ebb5",
       "name": "bar_fill_gold.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bar_fill_gold.png.png",
@@ -334,7 +334,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bar_fill_gold.png.png"
     },
     {
-      "id": "res_55ee4615-a5dc-4e81-b7e6-2f0ec409335d",
+      "id": "res_4e5c5470-d77a-4524-ab9b-b553767192ab",
       "name": "bar_fill_red_20260518070318.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bar_fill_red_20260518070318.png.png",
@@ -342,7 +342,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bar_fill_red_20260518070318.png.png"
     },
     {
-      "id": "res_55446dd8-95d1-4b35-8afd-6921c001e1f2",
+      "id": "res_fa334e54-abeb-44f9-b2cf-e35ff4b85880",
       "name": "bar_fill_red.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bar_fill_red.png.png",
@@ -350,7 +350,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bar_fill_red.png.png"
     },
     {
-      "id": "res_4646a148-b4dc-47e3-8210-209b471227bc",
+      "id": "res_9cf96b4f-76f2-40af-8bf6-921c7697d1e3",
       "name": "bar_progress_bg_20260518070337.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bar_progress_bg_20260518070337.png.png",
@@ -358,7 +358,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bar_progress_bg_20260518070337.png.png"
     },
     {
-      "id": "res_a8dd3fbc-a76d-450d-b220-944f6f9b2e47",
+      "id": "res_4208b926-c5c5-42e1-9824-10ff8bff5f70",
       "name": "bar_progress_bg.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bar_progress_bg.png.png",
@@ -366,7 +366,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bar_progress_bg.png.png"
     },
     {
-      "id": "res_95122c65-93b7-4458-9c54-21473468fcf9",
+      "id": "res_b63d4365-5644-443c-b0fb-8d08e3b8d1ac",
       "name": "bg_home.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bg_home.png.png",
@@ -374,7 +374,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bg_home.png.png"
     },
     {
-      "id": "res_796b05a7-eb72-4f20-926f-282507d76427",
+      "id": "res_85d7180d-da21-48a3-be14-8e4f584018ff",
       "name": "bg_story_backyard_20260517054233.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bg_story_backyard_20260517054233.png.png",
@@ -382,7 +382,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bg_story_backyard_20260517054233.png.png"
     },
     {
-      "id": "res_24e7bc98-76ee-49b0-aca1-8e99f8ceb5b4",
+      "id": "res_16d7d378-7753-45c3-8fee-6ffe1ca78535",
       "name": "bg_story_backyard.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bg_story_backyard.png.png",
@@ -390,7 +390,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bg_story_backyard.png.png"
     },
     {
-      "id": "res_55ddcd11-597f-42db-9041-c4050b78d904",
+      "id": "res_4ef90909-2410-44b1-9ec0-acc5ec7e73ac",
       "name": "bg_story_street_20260517054406.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bg_story_street_20260517054406.png.png",
@@ -398,7 +398,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bg_story_street_20260517054406.png.png"
     },
     {
-      "id": "res_88277511-8b92-4521-b51b-c54a6d07da34",
+      "id": "res_f66d9d89-1099-47ba-a719-dfeb40382286",
       "name": "bg_story_street.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bg_story_street.png.png",
@@ -406,7 +406,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bg_story_street.png.png"
     },
     {
-      "id": "res_dc89ca7f-fd63-4267-ae31-864aed4ebf25",
+      "id": "res_6a54e739-59e7-4337-a37d-f41bac69bb9f",
       "name": "bg_story_workshop_20260517054319.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bg_story_workshop_20260517054319.png.png",
@@ -414,7 +414,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bg_story_workshop_20260517054319.png.png"
     },
     {
-      "id": "res_da09c3b0-371d-4422-85f3-36a0ad590cee",
+      "id": "res_85d82880-8843-47c0-ba74-b224be784bd0",
       "name": "bg_story_workshop.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bg_story_workshop.png.png",
@@ -422,7 +422,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bg_story_workshop.png.png"
     },
     {
-      "id": "res_e6b1ca84-19f1-4ce9-b591-3660074e5ee9",
+      "id": "res_eee86377-c0d1-46f8-90f4-7409744cd182",
       "name": "bgm_forging.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bgm_forging.ogg.png",
@@ -430,7 +430,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bgm_forging.ogg.png"
     },
     {
-      "id": "res_d7a66b23-28e8-4e21-844f-c09d5f6eb498",
+      "id": "res_8b141272-0095-402e-b275-047bd8d43ca1",
       "name": "bgm_workshop.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/bgm_workshop.ogg.png",
@@ -438,7 +438,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_bgm_workshop.ogg.png"
     },
     {
-      "id": "res_385ee0f5-9f24-48b4-9ce6-59cc6ebb6041",
+      "id": "res_433320c1-4494-4cfe-9bbe-7b6242f6e867",
       "name": "btn_accept_20260518065627.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_accept_20260518065627.png.png",
@@ -446,7 +446,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_accept_20260518065627.png.png"
     },
     {
-      "id": "res_2f721766-5a8f-44a0-8ddd-815a26f65066",
+      "id": "res_0fb9518a-bea3-44c9-9481-2bce7e980fa9",
       "name": "btn_accept.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_accept.png.png",
@@ -454,7 +454,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_accept.png.png"
     },
     {
-      "id": "res_f7bddb77-45d9-40e5-8b40-0e1f8b56dc9c",
+      "id": "res_a7e49035-6542-4516-8b72-a53715e90640",
       "name": "btn_choice_20260518065638.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_choice_20260518065638.png.png",
@@ -462,7 +462,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_choice_20260518065638.png.png"
     },
     {
-      "id": "res_3be24a19-2215-4f15-9657-ade69eadde06",
+      "id": "res_422b6f0b-dd1c-4e3f-b917-2710d65b39f8",
       "name": "btn_choice.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_choice.png.png",
@@ -470,7 +470,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_choice.png.png"
     },
     {
-      "id": "res_31d2b4a2-0449-4a91-8756-99bbc1f47979",
+      "id": "res_9b45fe26-25b7-450d-8911-a3a0b0c13834",
       "name": "btn_disabled_20260518065626.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_disabled_20260518065626.png.png",
@@ -478,7 +478,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_disabled_20260518065626.png.png"
     },
     {
-      "id": "res_36c2fb64-a60a-43d0-9dfd-26992b796ab5",
+      "id": "res_f575cb9a-2b19-4b6c-98f1-babb5c2b0519",
       "name": "btn_disabled.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_disabled.png.png",
@@ -486,7 +486,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_disabled.png.png"
     },
     {
-      "id": "res_131aa3a3-4b52-4636-8ec0-30f898a0a1f5",
+      "id": "res_b933ef78-e7ed-41cd-9166-eca5e7b007f7",
       "name": "btn_gold_20260518065658.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_gold_20260518065658.png.png",
@@ -494,7 +494,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_gold_20260518065658.png.png"
     },
     {
-      "id": "res_f76161cf-5161-4ef9-9f20-388e6d5bb682",
+      "id": "res_3b61fe24-35de-49f4-8b04-4331b80dca4d",
       "name": "btn_gold.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_gold.png.png",
@@ -502,7 +502,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_gold.png.png"
     },
     {
-      "id": "res_f9174628-c4eb-49f4-ad08-07b57feeeb2d",
+      "id": "res_8e80e0c6-48b4-477f-9f7c-6b73b1bce198",
       "name": "btn_primary_20260518065623.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_primary_20260518065623.png.png",
@@ -510,7 +510,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_primary_20260518065623.png.png"
     },
     {
-      "id": "res_ace9f3b2-e14b-418f-bf2d-b793c47c4ebd",
+      "id": "res_c951d871-c6ec-4102-8f1a-2295abdb39ba",
       "name": "btn_primary.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_primary.png.png",
@@ -518,7 +518,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_primary.png.png"
     },
     {
-      "id": "res_b07bae83-f8e5-4fb5-8a7e-2eb8d70eeca7",
+      "id": "res_f0357dae-1ede-406b-8af9-72cb786425fa",
       "name": "btn_secondary_20260518065642.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_secondary_20260518065642.png.png",
@@ -526,7 +526,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_secondary_20260518065642.png.png"
     },
     {
-      "id": "res_c7dd9a77-8908-441a-9ae7-f2cb3c13afff",
+      "id": "res_30a8254d-6a7a-4e98-9f07-87772cde39a6",
       "name": "btn_secondary.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/btn_secondary.png.png",
@@ -534,7 +534,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_btn_secondary.png.png"
     },
     {
-      "id": "res_1ab43d83-3f19-430f-a8d7-b26e8229bf47",
+      "id": "res_ad943aec-c89b-4d5b-a6aa-4695a21060b8",
       "name": "char_apprentice_20260517065602.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_apprentice_20260517065602.png.png",
@@ -542,7 +542,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_apprentice_20260517065602.png.png"
     },
     {
-      "id": "res_c0ca4ee5-24e2-4ec0-abed-98fe3cab31a7",
+      "id": "res_2028536b-1a7e-4efe-a2a3-8c173e4bb6f0",
       "name": "char_apprentice.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_apprentice.png.png",
@@ -550,7 +550,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_apprentice.png.png"
     },
     {
-      "id": "res_f9dcdd04-2d6f-4826-8982-e3f69bda0e64",
+      "id": "res_2db348c8-704a-483b-99c5-b7be7438ec56",
       "name": "char_disciple_20260517064840.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_disciple_20260517064840.png.png",
@@ -558,7 +558,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_disciple_20260517064840.png.png"
     },
     {
-      "id": "res_022c33cd-c5c9-4cf4-bcd7-22018ac33e04",
+      "id": "res_e818557a-8fec-4f4d-b3ca-783516d70c70",
       "name": "char_disciple.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_disciple.png.png",
@@ -566,7 +566,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_disciple.png.png"
     },
     {
-      "id": "res_2993664d-88a2-48a3-b7a6-3a8eecd68247",
+      "id": "res_9d783054-50b1-4081-97a7-62e44c600343",
       "name": "char_envoy_20260517064825.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_envoy_20260517064825.png.png",
@@ -574,7 +574,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_envoy_20260517064825.png.png"
     },
     {
-      "id": "res_63bc0918-6c24-47ae-ae0d-8ac3d5a7d3be",
+      "id": "res_3d999cc0-f4e2-4a4f-99c6-4c8527353b18",
       "name": "char_envoy.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_envoy.png.png",
@@ -582,7 +582,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_envoy.png.png"
     },
     {
-      "id": "res_44c37885-1360-4100-896c-e8cda3cbf505",
+      "id": "res_d0511bc0-c22e-4356-8634-fcb383bd9425",
       "name": "char_guard_20260517065604.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_guard_20260517065604.png.png",
@@ -590,7 +590,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_guard_20260517065604.png.png"
     },
     {
-      "id": "res_23912fe2-6074-4bbc-8ef7-1da468b1df98",
+      "id": "res_4b5d1a29-8cb1-4689-9879-4db2510d72e8",
       "name": "char_guard.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_guard.png.png",
@@ -598,7 +598,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_guard.png.png"
     },
     {
-      "id": "res_85a713dd-4565-4d40-ab72-641de04e0d7e",
+      "id": "res_614eccb7-a27b-4e0f-91ce-8acbd2aa35c5",
       "name": "char_han_20260517064954.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_han_20260517064954.png.png",
@@ -606,7 +606,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_han_20260517064954.png.png"
     },
     {
-      "id": "res_76fc4d17-5587-430b-a75f-9e2d2fdb4d72",
+      "id": "res_b56aa901-de69-43dd-a806-fcf609b8d304",
       "name": "char_han.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_han.png.png",
@@ -614,7 +614,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_han.png.png"
     },
     {
-      "id": "res_39ed5048-0c79-4ff4-9594-701ab4f8051f",
+      "id": "res_fdeece3b-1c09-480a-af5f-bc34902a2f74",
       "name": "char_hunter_20260517065644.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_hunter_20260517065644.png.png",
@@ -622,7 +622,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_hunter_20260517065644.png.png"
     },
     {
-      "id": "res_bf881061-95c7-41db-a378-4cae3ceeb4d2",
+      "id": "res_50a681a7-9f75-4fad-9cb5-b1823dd451aa",
       "name": "char_hunter.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_hunter.png.png",
@@ -630,7 +630,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_hunter.png.png"
     },
     {
-      "id": "res_f782325d-4b78-4004-94c3-3d54caf03796",
+      "id": "res_ba887aa1-9a5d-45b6-a52b-5f72c4fbbfd2",
       "name": "char_keeper_20260517054254.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_keeper_20260517054254.png.png",
@@ -638,7 +638,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_keeper_20260517054254.png.png"
     },
     {
-      "id": "res_ff35b562-254e-4721-87dc-61a9416d9114",
+      "id": "res_d3ce78a5-6cbd-4e4f-9346-30b37dfb3f5e",
       "name": "char_keeper_20260517054922.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_keeper_20260517054922.png.png",
@@ -646,7 +646,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_keeper_20260517054922.png.png"
     },
     {
-      "id": "res_98fa1181-c83a-4a92-834e-73a1d6a034cd",
+      "id": "res_3f915834-8d8c-4889-ad33-3f9159bb348a",
       "name": "char_keeper_20260517055313.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_keeper_20260517055313.png.png",
@@ -654,7 +654,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_keeper_20260517055313.png.png"
     },
     {
-      "id": "res_6d47a60c-0a71-438e-8be6-9525e492fbc7",
+      "id": "res_0a22e91a-eac1-43e1-b773-4e17eeaaa2d9",
       "name": "char_keeper.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_keeper.png.png",
@@ -662,7 +662,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_keeper.png.png"
     },
     {
-      "id": "res_2a455c39-5d99-4029-b1f9-b9b88f2796e1",
+      "id": "res_ecbc9771-12b4-4e8c-a235-59b9cd4cdbd6",
       "name": "char_luchen_20260517054249.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_luchen_20260517054249.png.png",
@@ -670,7 +670,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_luchen_20260517054249.png.png"
     },
     {
-      "id": "res_190c4c48-9c21-462c-a78f-48f87d8a3223",
+      "id": "res_f7a1fdad-fbb1-4412-8dc8-43ff55d9ce68",
       "name": "char_luchen_20260517054833.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_luchen_20260517054833.png.png",
@@ -678,7 +678,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_luchen_20260517054833.png.png"
     },
     {
-      "id": "res_ee2643ac-de73-4ba9-bf72-2f09037f0dce",
+      "id": "res_d3a81247-fc0a-4a49-83c8-2e6a6d735247",
       "name": "char_luchen.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_luchen.png.png",
@@ -686,7 +686,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_luchen.png.png"
     },
     {
-      "id": "res_3f267b46-cd49-42e7-949c-793898cac5cd",
+      "id": "res_e4708442-1d72-433d-afdd-1e241880bc3e",
       "name": "char_magistrate_20260517065606.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_magistrate_20260517065606.png.png",
@@ -694,7 +694,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_magistrate_20260517065606.png.png"
     },
     {
-      "id": "res_b08ae0dd-fd75-49ad-9257-0d211aedccbd",
+      "id": "res_255cac12-3317-4164-95a6-ab7e5d42e389",
       "name": "char_magistrate.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_magistrate.png.png",
@@ -702,7 +702,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_magistrate.png.png"
     },
     {
-      "id": "res_95c80940-4248-4b2d-a86c-64c6ff4e6214",
+      "id": "res_ddf2d02f-de51-4aec-b20e-144b08944353",
       "name": "char_player_20260517064830.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_player_20260517064830.png.png",
@@ -710,7 +710,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_player_20260517064830.png.png"
     },
     {
-      "id": "res_1c6fd424-5dfd-4cbf-b5e6-219ba6aa69f6",
+      "id": "res_b5f2f8c0-cf14-4411-813d-08a7ebee1d6a",
       "name": "char_player.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_player.png.png",
@@ -718,7 +718,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_player.png.png"
     },
     {
-      "id": "res_17bea242-254b-466f-b804-09f76d8c36ab",
+      "id": "res_d17b8438-e63b-489f-90c7-a641b6a74a8d",
       "name": "char_shen_20260517054245.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_shen_20260517054245.png.png",
@@ -726,7 +726,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_shen_20260517054245.png.png"
     },
     {
-      "id": "res_31a11487-421b-4e8d-8ff4-aed53cf12b45",
+      "id": "res_82cd655f-6101-44d3-87c5-f5c9a6fd3811",
       "name": "char_shen_20260517054820.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_shen_20260517054820.png.png",
@@ -734,7 +734,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_shen_20260517054820.png.png"
     },
     {
-      "id": "res_ad92d4be-34d3-48af-942b-8b8334c561e1",
+      "id": "res_9a239e75-0c18-42ae-9cf2-fd94c608a92a",
       "name": "char_shen_20260517055614.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_shen_20260517055614.png.png",
@@ -742,7 +742,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_shen_20260517055614.png.png"
     },
     {
-      "id": "res_4ee2cb0c-bfff-4b2a-ad2f-3c25875caf2f",
+      "id": "res_297dffbf-d085-4c6d-a772-9955c52b8f99",
       "name": "char_shen.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_shen.png.png",
@@ -750,7 +750,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_shen.png.png"
     },
     {
-      "id": "res_49971290-acfe-4155-bd66-168dcbb4f0ce",
+      "id": "res_1bada66f-8753-4957-9395-3af297f7cb17",
       "name": "char_widow_20260517065601.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_widow_20260517065601.png.png",
@@ -758,7 +758,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_widow_20260517065601.png.png"
     },
     {
-      "id": "res_0a43ef75-71c2-4f90-b6da-5af36f6c3229",
+      "id": "res_16750a92-810e-4b62-adba-0b5c01b4cdf6",
       "name": "char_widow.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/char_widow.png.png",
@@ -766,7 +766,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_char_widow.png.png"
     },
     {
-      "id": "res_6413abd0-7c38-4b09-95c8-1f48fab894e4",
+      "id": "res_ff3113f0-364a-4ebf-b504-26979156e75a",
       "name": "divider_bamboo_20260518070155.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/divider_bamboo_20260518070155.png.png",
@@ -774,7 +774,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_divider_bamboo_20260518070155.png.png"
     },
     {
-      "id": "res_c35fbc00-ccef-4091-bf12-b0753ba7db75",
+      "id": "res_0d7d04a8-298b-4128-9885-586a8a9836a4",
       "name": "divider_bamboo.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/divider_bamboo.png.png",
@@ -782,7 +782,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_divider_bamboo.png.png"
     },
     {
-      "id": "res_a18cabec-fc8e-4cb3-a873-12d4aeb97ba4",
+      "id": "res_ecc98027-9e59-413a-9c11-2449760d0fcc",
       "name": "divider_moon_20260518070056.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/divider_moon_20260518070056.png.png",
@@ -790,7 +790,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_divider_moon_20260518070056.png.png"
     },
     {
-      "id": "res_a8eaddb3-df46-473f-ab9c-2fbe229d41ad",
+      "id": "res_d72b9d6b-c80c-4d25-bb59-3b1ed0ac793f",
       "name": "divider_moon.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/divider_moon.png.png",
@@ -798,7 +798,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_divider_moon.png.png"
     },
     {
-      "id": "res_b3ba6f37-8cfc-4bf5-8f30-01bf70cc605c",
+      "id": "res_3b9b860c-19bc-4a12-a077-eb427ae81f3d",
       "name": "divider_mountain_20260518070053.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/divider_mountain_20260518070053.png.png",
@@ -806,7 +806,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_divider_mountain_20260518070053.png.png"
     },
     {
-      "id": "res_b6991269-847b-4e3b-af69-066b13db7a9c",
+      "id": "res_1c871ff3-38b8-4f5e-aada-a063ba13a00e",
       "name": "divider_mountain.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/divider_mountain.png.png",
@@ -814,7 +814,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_divider_mountain.png.png"
     },
     {
-      "id": "res_079f947e-b11d-4552-9515-eb7e135c9504",
+      "id": "res_b51072d6-4a61-47da-95fc-4d700384b27b",
       "name": "frame_item_lg_20260518070154.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/frame_item_lg_20260518070154.png.png",
@@ -822,7 +822,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_frame_item_lg_20260518070154.png.png"
     },
     {
-      "id": "res_8994a1a5-8645-4398-a17b-ca926e5616b8",
+      "id": "res_60f7b593-ddf1-4c29-a553-9fc2f108dcf9",
       "name": "frame_item_lg.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/frame_item_lg.png.png",
@@ -830,7 +830,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_frame_item_lg.png.png"
     },
     {
-      "id": "res_91842a2a-f04c-4cc9-9dfa-c20830fdc481",
+      "id": "res_5c6a8d5d-fe14-4491-b6af-bf621c499850",
       "name": "frame_item_md_20260518070205.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/frame_item_md_20260518070205.png.png",
@@ -838,7 +838,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_frame_item_md_20260518070205.png.png"
     },
     {
-      "id": "res_312173fb-3e9a-4872-9de2-32f3342cfffe",
+      "id": "res_fee48806-91cd-4d02-8986-c2baeab87805",
       "name": "frame_item_md.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/frame_item_md.png.png",
@@ -846,7 +846,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_frame_item_md.png.png"
     },
     {
-      "id": "res_deb70b92-aae3-443f-a2e8-4c9372242096",
+      "id": "res_5959d6ff-1387-4827-948b-12c56bc6ef06",
       "name": "frame_item_sm_20260518070206.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/frame_item_sm_20260518070206.png.png",
@@ -854,7 +854,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_frame_item_sm_20260518070206.png.png"
     },
     {
-      "id": "res_2725cc18-f32c-4e66-b242-3a8fd1ff1282",
+      "id": "res_5b2a8a55-23e1-4e63-8fd7-ce918fc1e230",
       "name": "frame_item_sm.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/frame_item_sm.png.png",
@@ -862,7 +862,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_frame_item_sm.png.png"
     },
     {
-      "id": "res_8d6de140-593c-4335-9634-19bfad4e2bef",
+      "id": "res_e1e3f06b-2dc6-44ca-9978-cf1daf7753d1",
       "name": "frame_item_xs_20260518070119.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/frame_item_xs_20260518070119.png.png",
@@ -870,7 +870,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_frame_item_xs_20260518070119.png.png"
     },
     {
-      "id": "res_f1602523-be86-4cb5-aa00-27811b7725ca",
+      "id": "res_bf7b2210-1023-4d4c-a8c8-85a52295efd7",
       "name": "frame_item_xs.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/frame_item_xs.png.png",
@@ -878,7 +878,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_frame_item_xs.png.png"
     },
     {
-      "id": "res_b8f9afe5-f0bc-4d70-bb9b-f9b6ca8c7ff3",
+      "id": "res_af24c54c-ef5d-44ff-a3fc-4f7ab68a2bcc",
       "name": "icon_anvil.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_anvil.png.png",
@@ -886,7 +886,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_anvil.png.png"
     },
     {
-      "id": "res_c50cf4c6-a7eb-4733-b9f2-adb18a8b1a91",
+      "id": "res_cff28627-7d1e-43c5-8989-c75c63798ce6",
       "name": "icon_base_1_20260518070443.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_base_1_20260518070443.png.png",
@@ -894,7 +894,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_base_1_20260518070443.png.png"
     },
     {
-      "id": "res_71281b69-d191-4c2d-ae30-472194f82871",
+      "id": "res_8f3381cf-d8e4-438d-9a2b-19ff09b3d37b",
       "name": "icon_base_1.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_base_1.png.png",
@@ -902,7 +902,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_base_1.png.png"
     },
     {
-      "id": "res_3f3f33d1-dc26-44e1-8678-3fd8e807569e",
+      "id": "res_b90fe6f0-a52d-47d1-98fa-daaecf463e33",
       "name": "icon_base_2_20260518070351.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_base_2_20260518070351.png.png",
@@ -910,7 +910,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_base_2_20260518070351.png.png"
     },
     {
-      "id": "res_b467b614-3b1c-4b5a-8b6f-210f237f35db",
+      "id": "res_63312687-1d7a-42fc-bcd4-89405f51c147",
       "name": "icon_base_2.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_base_2.png.png",
@@ -918,7 +918,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_base_2.png.png"
     },
     {
-      "id": "res_f5d3dcd7-4975-4ca3-9363-a7d23a16f6bc",
+      "id": "res_fb126cfd-61c3-4d80-a460-b7aad67ec3e4",
       "name": "icon_charcoal.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_charcoal.png.png",
@@ -926,7 +926,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_charcoal.png.png"
     },
     {
-      "id": "res_cb331b39-03df-42fe-a697-09f39f9b96c2",
+      "id": "res_c6aff95a-1bd8-4f73-bd70-85bcb58b78e1",
       "name": "icon_coins.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_coins.png.png",
@@ -934,7 +934,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_coins.png.png"
     },
     {
-      "id": "res_6d727297-7d77-4ad8-98ae-78080f4869fa",
+      "id": "res_2c7b1461-fb8c-47d4-b3a9-98a9129f0ae5",
       "name": "icon_display.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_display.png.png",
@@ -942,7 +942,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_display.png.png"
     },
     {
-      "id": "res_f9d782ac-dbc3-4640-9b2d-62e8c337d633",
+      "id": "res_c0b35613-1206-4442-af6b-8bd696603441",
       "name": "icon_fame.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_fame.png.png",
@@ -950,7 +950,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_fame.png.png"
     },
     {
-      "id": "res_3ef45d5d-ce45-4012-b765-5509f668e4d1",
+      "id": "res_b9e3982c-2c62-4456-b775-228f9fa39aeb",
       "name": "icon_furnace.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_furnace.png.png",
@@ -958,7 +958,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_furnace.png.png"
     },
     {
-      "id": "res_d1f02a7f-6869-4538-ad4a-8487f0f49bd0",
+      "id": "res_6b8be3a1-cbaa-4ba5-8c2d-f8f438046a76",
       "name": "icon_grinder.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_grinder.png.png",
@@ -966,7 +966,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_grinder.png.png"
     },
     {
-      "id": "res_711c0efe-939b-443b-8588-05b8616abc38",
+      "id": "res_81fddec4-4bd0-4cc4-8733-64230d91cf7a",
       "name": "icon_grinding_agent.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_grinding_agent.png.png",
@@ -974,7 +974,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_grinding_agent.png.png"
     },
     {
-      "id": "res_744c488e-6b57-4e27-bf21-3405d1e28d08",
+      "id": "res_8be4a983-f37a-437c-817c-dfc303f359dd",
       "name": "icon_jade.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_jade.png.png",
@@ -982,7 +982,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_jade.png.png"
     },
     {
-      "id": "res_ede3a296-941a-4184-8c5d-639c0277ef26",
+      "id": "res_02e42f02-ab11-4f31-8ab1-6e7fc501be79",
       "name": "icon_ore.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_ore.png.png",
@@ -990,7 +990,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_ore.png.png"
     },
     {
-      "id": "res_dce0c99e-723b-44b9-894a-f73b85d5c0de",
+      "id": "res_5b709bb0-1244-4ca9-859e-6d53e78afcc3",
       "name": "icon_quench_pool.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/icon_quench_pool.png.png",
@@ -998,7 +998,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_icon_quench_pool.png.png"
     },
     {
-      "id": "res_bdeca091-edfa-4880-bc23-bd4ac41aa0f5",
+      "id": "res_cf3ce6c8-a137-4d3a-960c-c54cdb1656d1",
       "name": "music_1778997590814.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/music_1778997590814.ogg.png",
@@ -1006,7 +1006,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_music_1778997590814.ogg.png"
     },
     {
-      "id": "res_a5e3eef0-da50-484a-a0ad-4f8f5ed8b30d",
+      "id": "res_2870e67f-8ce5-4c79-8483-f3d40b6e4244",
       "name": "music_1778997664501.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/music_1778997664501.ogg.png",
@@ -1014,7 +1014,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_music_1778997664501.ogg.png"
     },
     {
-      "id": "res_02d5a995-6938-4b13-baa7-a456d875ab87",
+      "id": "res_6fd13c1f-9d62-410e-95d4-6348a6cc3f9f",
       "name": "panel_card_20260518065914.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_card_20260518065914.png.png",
@@ -1022,7 +1022,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_card_20260518065914.png.png"
     },
     {
-      "id": "res_60737d4d-027a-4d07-b30f-45fd208423fd",
+      "id": "res_b733077b-4b57-4959-bac8-1dcfa2981e9a",
       "name": "panel_card_blue_20260518065702.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_card_blue_20260518065702.png.png",
@@ -1030,7 +1030,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_card_blue_20260518065702.png.png"
     },
     {
-      "id": "res_40ac9092-ace4-41d0-a267-6d416d727b3f",
+      "id": "res_942cc757-a642-4e6a-9267-f3370b17d064",
       "name": "panel_card_blue.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_card_blue.png.png",
@@ -1038,7 +1038,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_card_blue.png.png"
     },
     {
-      "id": "res_0d89678c-725f-4714-9d31-a0e8474a2a78",
+      "id": "res_4d62919c-64e9-4eb4-8379-47287ad7fbc3",
       "name": "panel_card_green_20260518070138.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_card_green_20260518070138.png.png",
@@ -1046,7 +1046,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_card_green_20260518070138.png.png"
     },
     {
-      "id": "res_d643502d-ad62-4797-a9f8-409ee8031f63",
+      "id": "res_eb70dc92-c187-4783-a274-acbda25a0feb",
       "name": "panel_card_green.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_card_green.png.png",
@@ -1054,7 +1054,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_card_green.png.png"
     },
     {
-      "id": "res_5ee120b5-c0d0-43a7-8203-03dd2bd1fe8d",
+      "id": "res_d390514d-cace-431f-adb8-79ebf557acfa",
       "name": "panel_card.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_card.png.png",
@@ -1062,7 +1062,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_card.png.png"
     },
     {
-      "id": "res_7a56c3dc-aef8-491c-85ee-365c5fe4a854",
+      "id": "res_22618997-0c54-404e-a6aa-e9a18e6db522",
       "name": "panel_dialogue_20260518070101.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_dialogue_20260518070101.png.png",
@@ -1070,7 +1070,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_dialogue_20260518070101.png.png"
     },
     {
-      "id": "res_49ceead4-a209-41c6-bbd4-1ff4e88a9a60",
+      "id": "res_2e9fdf3f-dcdb-4317-8236-343ee7a7ab23",
       "name": "panel_dialogue.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_dialogue.png.png",
@@ -1078,7 +1078,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_dialogue.png.png"
     },
     {
-      "id": "res_194b0cd1-51ec-4921-9221-80c1110a6eef",
+      "id": "res_c01b5936-425a-4bf5-8771-26d28dc95b4d",
       "name": "panel_header_20260518065550.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_header_20260518065550.png.png",
@@ -1086,7 +1086,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_header_20260518065550.png.png"
     },
     {
-      "id": "res_a0fa701a-9605-4a33-8eca-d5b5d39a7797",
+      "id": "res_2b015975-266a-4f23-8fdf-aa32d592e5b7",
       "name": "panel_header.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_header.png.png",
@@ -1094,7 +1094,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_header.png.png"
     },
     {
-      "id": "res_95ed8058-fe13-46fa-9b8c-3fed50789b0b",
+      "id": "res_7c3decd6-098d-45b5-8d1f-f92988cd17ec",
       "name": "panel_header2_20260518065615.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_header2_20260518065615.png.png",
@@ -1102,7 +1102,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_header2_20260518065615.png.png"
     },
     {
-      "id": "res_b282c4a6-8f25-483a-b387-574bb0174ab9",
+      "id": "res_89bc4ff5-6be1-4c29-8a20-3a1f4bbdcf65",
       "name": "panel_header2.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_header2.png.png",
@@ -1110,7 +1110,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_header2.png.png"
     },
     {
-      "id": "res_1ec6dc06-36f7-4a2d-9c45-d45fdb7c4ee0",
+      "id": "res_fcb4d1fc-5c9b-418e-a3bd-60f378c0b9c9",
       "name": "panel_popup_20260518070147.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_popup_20260518070147.png.png",
@@ -1118,7 +1118,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_popup_20260518070147.png.png"
     },
     {
-      "id": "res_a76cc34a-d659-4f54-b8ea-1fbf10bd9eb8",
+      "id": "res_3c0ab62b-3f4e-4af8-994f-7e7904cf518b",
       "name": "panel_popup.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/panel_popup.png.png",
@@ -1126,7 +1126,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_panel_popup.png.png"
     },
     {
-      "id": "res_18b45992-c797-43fb-b351-1f8a87dd1165",
+      "id": "res_b66cbd5c-f34b-4769-b41c-e7293d7b6189",
       "name": "sfx_ambient_night.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ambient_night.ogg.png",
@@ -1134,7 +1134,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ambient_night.ogg.png"
     },
     {
-      "id": "res_45582272-7e52-4f08-895f-2e012729fca1",
+      "id": "res_56c87a98-bcfc-4edb-a365-f96e45aa1c35",
       "name": "sfx_ambient_rain.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ambient_rain.ogg.png",
@@ -1142,7 +1142,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ambient_rain.ogg.png"
     },
     {
-      "id": "res_e9570bf5-a0e4-42c6-9149-70b7af87c1b1",
+      "id": "res_bf900540-82f6-4bfb-8a4e-bdef5ea84bbe",
       "name": "sfx_ambient_workshop.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ambient_workshop.ogg.png",
@@ -1150,7 +1150,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ambient_workshop.ogg.png"
     },
     {
-      "id": "res_8ebeb691-24a3-4d30-986c-b47755a610ea",
+      "id": "res_a8ae120e-072a-469d-99e4-4a3386195180",
       "name": "sfx_anvil_ring.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_anvil_ring.ogg.png",
@@ -1158,7 +1158,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_anvil_ring.ogg.png"
     },
     {
-      "id": "res_ebe3047a-61c7-49fb-9552-d54101fbe664",
+      "id": "res_82e1a2fa-3f2a-43c1-a9df-4196a1209cfe",
       "name": "sfx_bellows_pump.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_bellows_pump.ogg.png",
@@ -1166,7 +1166,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_bellows_pump.ogg.png"
     },
     {
-      "id": "res_d55c511e-22bf-4fc1-a955-b9c8f64ae0ee",
+      "id": "res_f1a04047-a53d-4d33-8b45-a13417d79108",
       "name": "sfx_char_approve.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_char_approve.ogg.png",
@@ -1174,7 +1174,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_char_approve.ogg.png"
     },
     {
-      "id": "res_0cae47d8-f854-4502-910b-7035be47d30c",
+      "id": "res_e77b1125-a308-44d4-843e-2434433bab41",
       "name": "sfx_char_disapprove.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_char_disapprove.ogg.png",
@@ -1182,7 +1182,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_char_disapprove.ogg.png"
     },
     {
-      "id": "res_2da6ff92-8f33-442d-907f-df38d4a35c05",
+      "id": "res_df5d50e8-5099-4518-a5e7-95726fac9741",
       "name": "sfx_char_greet.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_char_greet.ogg.png",
@@ -1190,7 +1190,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_char_greet.ogg.png"
     },
     {
-      "id": "res_3e6c54dd-5d90-46de-96fc-29a3daae416b",
+      "id": "res_687d1aff-69b8-41b3-a4ca-6b1af30380c4",
       "name": "sfx_char_laugh.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_char_laugh.ogg.png",
@@ -1198,7 +1198,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_char_laugh.ogg.png"
     },
     {
-      "id": "res_e7b8b110-ffbe-476c-83cc-c25ff66beac0",
+      "id": "res_a600a16e-54d7-4146-877e-06e35efaeabd",
       "name": "sfx_char_surprise.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_char_surprise.ogg.png",
@@ -1206,7 +1206,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_char_surprise.ogg.png"
     },
     {
-      "id": "res_6aac018d-d0ae-4af7-950c-723af6243c97",
+      "id": "res_4e937d48-d227-40be-b7f2-1f24e2fc6601",
       "name": "sfx_char_think.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_char_think.ogg.png",
@@ -1214,7 +1214,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_char_think.ogg.png"
     },
     {
-      "id": "res_65ede998-adb8-468a-b7dc-99042dbe41c4",
+      "id": "res_cc51d33f-0444-4021-8a9b-168e1a2eb598",
       "name": "sfx_fire_crackle.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_fire_crackle.ogg.png",
@@ -1222,7 +1222,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_fire_crackle.ogg.png"
     },
     {
-      "id": "res_cc2308b6-27e2-4898-bfae-7cd26cde64b1",
+      "id": "res_398e635a-0958-477f-8009-a3065aa65272",
       "name": "sfx_forge_complete.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_forge_complete.ogg.png",
@@ -1230,7 +1230,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_forge_complete.ogg.png"
     },
     {
-      "id": "res_7f5321e0-49a1-435d-bcf9-774d33a2bb6c",
+      "id": "res_16e26134-9df3-4ee4-9de5-b11eeedf3d85",
       "name": "sfx_grinding.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_grinding.ogg.png",
@@ -1238,7 +1238,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_grinding.ogg.png"
     },
     {
-      "id": "res_7fd82088-b9d5-4db4-bd36-dcaad876c668",
+      "id": "res_021c2b1f-58cb-44ad-b779-b3be4c7b1c61",
       "name": "sfx_hammer_hit.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_hammer_hit.ogg.png",
@@ -1246,7 +1246,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_hammer_hit.ogg.png"
     },
     {
-      "id": "res_0d192a5d-8816-4820-9da4-72a8c35bd1b5",
+      "id": "res_ec2a1146-7e8c-4062-b326-a55e3c87780e",
       "name": "sfx_hammer_strike_heavy.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_hammer_strike_heavy.ogg.png",
@@ -1254,7 +1254,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_hammer_strike_heavy.ogg.png"
     },
     {
-      "id": "res_036ab8cf-9a2b-4d71-b0b9-bf8d914b3e0f",
+      "id": "res_4a7c0f64-69e2-4a42-835e-b59680c07413",
       "name": "sfx_hammer_strike_light.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_hammer_strike_light.ogg.png",
@@ -1262,7 +1262,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_hammer_strike_light.ogg.png"
     },
     {
-      "id": "res_8c4da02b-669d-4c3b-a168-e2e1a32f651d",
+      "id": "res_0195adf2-1c48-4f14-89db-7c184bd8e23c",
       "name": "sfx_hammer_strike_perfect.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_hammer_strike_perfect.ogg.png",
@@ -1270,7 +1270,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_hammer_strike_perfect.ogg.png"
     },
     {
-      "id": "res_a783349c-90ca-47c1-a710-05f28b3aa8a9",
+      "id": "res_de3ed36b-0dcc-4814-9909-d17987188a79",
       "name": "sfx_metal_fold.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_metal_fold.ogg.png",
@@ -1278,7 +1278,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_metal_fold.ogg.png"
     },
     {
-      "id": "res_2031ce62-6f94-41e5-a43b-ffb574742963",
+      "id": "res_ba7fb05b-e311-405a-8709-2b82a233c1a1",
       "name": "sfx_metal_scrape.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_metal_scrape.ogg.png",
@@ -1286,7 +1286,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_metal_scrape.ogg.png"
     },
     {
-      "id": "res_8d1ee556-f391-4cd2-b033-69ed90f14aaf",
+      "id": "res_eba39a3e-55bc-437c-8d4f-6d693467444d",
       "name": "sfx_order_accept.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_order_accept.ogg.png",
@@ -1294,7 +1294,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_order_accept.ogg.png"
     },
     {
-      "id": "res_275ec3b1-46d0-4252-9b59-634e4fd8622c",
+      "id": "res_16408f9d-c58b-40cd-a96d-16f5ed154cd0",
       "name": "sfx_order_complete.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_order_complete.ogg.png",
@@ -1302,7 +1302,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_order_complete.ogg.png"
     },
     {
-      "id": "res_818d8bb5-233e-4ba8-b3ed-e46bc66b842b",
+      "id": "res_c23f75ff-ab52-4e36-8cb9-02956782bae8",
       "name": "sfx_ore_drop.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ore_drop.ogg.png",
@@ -1310,7 +1310,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ore_drop.ogg.png"
     },
     {
-      "id": "res_cb1888b3-796e-4fb4-aceb-959c16eb3cca",
+      "id": "res_cce8bf12-14d4-46e8-8d3b-502438f0ad44",
       "name": "sfx_quality_up.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_quality_up.ogg.png",
@@ -1318,7 +1318,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_quality_up.ogg.png"
     },
     {
-      "id": "res_886fda41-9037-4e28-8ef6-e603c6bfc446",
+      "id": "res_0876dee3-76ff-4ef8-a0bf-556d3436cb3a",
       "name": "sfx_quench_sizzle.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_quench_sizzle.ogg.png",
@@ -1326,7 +1326,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_quench_sizzle.ogg.png"
     },
     {
-      "id": "res_bfff4e7e-4b06-4cfa-9bb2-099531adabf3",
+      "id": "res_a5e6552c-42eb-4f37-9d99-5ecd978fbd0a",
       "name": "sfx_story_door_knock.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_story_door_knock.ogg.png",
@@ -1334,7 +1334,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_story_door_knock.ogg.png"
     },
     {
-      "id": "res_292c0ed4-52ad-42a7-bb65-9634141b04ce",
+      "id": "res_ef232880-be5a-4287-8a2c-c220e4096137",
       "name": "sfx_story_reveal.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_story_reveal.ogg.png",
@@ -1342,7 +1342,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_story_reveal.ogg.png"
     },
     {
-      "id": "res_9cc5c680-49c9-47d0-a365-f0f6fc2d118f",
+      "id": "res_f5f43f1e-2b06-4f73-bebf-642575ad8e01",
       "name": "sfx_story_tension.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_story_tension.ogg.png",
@@ -1350,7 +1350,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_story_tension.ogg.png"
     },
     {
-      "id": "res_98dd3e92-0071-4ccf-8745-5ec3d9997e7b",
+      "id": "res_347323fd-d262-4277-86dd-98f174f67dcb",
       "name": "sfx_ui_coin.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ui_coin.ogg.png",
@@ -1358,7 +1358,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ui_coin.ogg.png"
     },
     {
-      "id": "res_44fde1ae-ee22-4d27-86b9-426d14f37092",
+      "id": "res_cac0c7ed-fbb8-4832-a275-49d2e4161de6",
       "name": "sfx_ui_fail.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ui_fail.ogg.png",
@@ -1366,7 +1366,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ui_fail.ogg.png"
     },
     {
-      "id": "res_74063148-56fb-4e56-83d5-ead3087a3d4f",
+      "id": "res_5f79e53b-9dae-46bf-8dba-01d4ca6e2ca4",
       "name": "sfx_ui_page_turn.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ui_page_turn.ogg.png",
@@ -1374,7 +1374,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ui_page_turn.ogg.png"
     },
     {
-      "id": "res_d75ce6e7-d564-4576-b582-82054f714ec5",
+      "id": "res_ff2a886e-ea4a-4021-812e-64c9e3e486ca",
       "name": "sfx_ui_success.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ui_success.ogg.png",
@@ -1382,7 +1382,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ui_success.ogg.png"
     },
     {
-      "id": "res_b9ec06ff-feec-47b7-8a30-83afb51ca3ec",
+      "id": "res_cd2e0618-8ae9-46b2-805d-1a942475a4d7",
       "name": "sfx_ui_tap.ogg.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/sfx_ui_tap.ogg.png",
@@ -1390,7 +1390,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_sfx_ui_tap.ogg.png"
     },
     {
-      "id": "res_bd8f341e-84b9-44a6-a0a2-b25feb27c6ed",
+      "id": "res_6534ba49-cafc-4d29-94e1-f384bd21cac0",
       "name": "ui_btn_ink_minimal_20260518071457.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/ui_btn_ink_minimal_20260518071457.png.png",
@@ -1398,7 +1398,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_ui_btn_ink_minimal_20260518071457.png.png"
     },
     {
-      "id": "res_822e6360-1961-4b15-adf0-b943ff8a614f",
+      "id": "res_67848f1b-6fc6-4ccb-a61d-f3e948083b6d",
       "name": "ui_misc_ink_minimal_20260518071427.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/ui_misc_ink_minimal_20260518071427.png.png",
@@ -1406,7 +1406,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_ui_misc_ink_minimal_20260518071427.png.png"
     },
     {
-      "id": "res_7473f779-1570-4635-95b4-1e20c981277e",
+      "id": "res_f2d0f89a-d140-4c28-b220-503dffbe55b5",
       "name": "ui_panel_ink_minimal_20260518071446.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/ui_panel_ink_minimal_20260518071446.png.png",
@@ -1414,7 +1414,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_ui_panel_ink_minimal_20260518071446.png.png"
     },
     {
-      "id": "res_f1dd6619-e540-49d5-9a58-61f49f46bcdb",
+      "id": "res_359cb3f9-e3e3-441f-a4be-aeda28aaf9af",
       "name": "ui_slots_ink_minimal_20260518071427.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/ui_slots_ink_minimal_20260518071427.png.png",
@@ -1422,7 +1422,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_ui_slots_ink_minimal_20260518071427.png.png"
     },
     {
-      "id": "res_4eee50cb-f880-448c-ab29-69ef60fe65f1",
+      "id": "res_e0a8b160-a435-42ca-80a1-dc50035ae925",
       "name": "weapon_001_hunter_knife.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_001_hunter_knife.png.png",
@@ -1430,7 +1430,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_001_hunter_knife.png.png"
     },
     {
-      "id": "res_59258947-9c83-4e0b-836d-23749a3a0d17",
+      "id": "res_7df8587f-6de3-4e5f-8242-c3cc231c6dad",
       "name": "weapon_002_guard_blade.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_002_guard_blade.png.png",
@@ -1438,7 +1438,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_002_guard_blade.png.png"
     },
     {
-      "id": "res_84cbe9ef-0cb9-42a9-8fce-2f6a123ffcaa",
+      "id": "res_60f0a593-338c-4f33-ae1a-8085e08f8578",
       "name": "weapon_003_mountain_cleaver.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_003_mountain_cleaver.png.png",
@@ -1446,7 +1446,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_003_mountain_cleaver.png.png"
     },
     {
-      "id": "res_f86cb559-e8ea-4d78-9e5e-6664e8421529",
+      "id": "res_9b69ac02-b4a4-401f-98e6-0f663cd251b0",
       "name": "weapon_004_ranger_sword_20260517052540.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_004_ranger_sword_20260517052540.png.png",
@@ -1454,7 +1454,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_004_ranger_sword_20260517052540.png.png"
     },
     {
-      "id": "res_d0deeb35-9dda-4f5a-b54f-8e32622f8942",
+      "id": "res_1c0219da-ce03-48f2-9b27-0bc2b2cd928d",
       "name": "weapon_004_ranger_sword.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_004_ranger_sword.png.png",
@@ -1462,7 +1462,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_004_ranger_sword.png.png"
     },
     {
-      "id": "res_9bb5c09a-f37e-4214-91a8-f62cc12df451",
+      "id": "res_06f682bf-e1a5-4f80-889c-fe1d5275a92c",
       "name": "weapon_005_legion_breaker_20260517052543.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_005_legion_breaker_20260517052543.png.png",
@@ -1470,7 +1470,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_005_legion_breaker_20260517052543.png.png"
     },
     {
-      "id": "res_a9860c3c-8758-49d4-8f0f-dc240655eaf4",
+      "id": "res_b5f79780-1edf-4a4b-b61d-6289fd2a4456",
       "name": "weapon_005_legion_breaker.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_005_legion_breaker.png.png",
@@ -1478,7 +1478,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_005_legion_breaker.png.png"
     },
     {
-      "id": "res_092d7824-49b0-4860-8955-33952ab67923",
+      "id": "res_39a427ab-4ecf-44a7-a515-5542229781d7",
       "name": "weapon_006_azure_sword_20260517052504.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_006_azure_sword_20260517052504.png.png",
@@ -1486,7 +1486,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_006_azure_sword_20260517052504.png.png"
     },
     {
-      "id": "res_d4f78a0f-61cd-4eb5-a1dd-22f80ea93424",
+      "id": "res_fd6b03c4-37e0-4ea0-a825-b3ff4a5223a2",
       "name": "weapon_006_azure_sword.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_006_azure_sword.png.png",
@@ -1494,7 +1494,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_006_azure_sword.png.png"
     },
     {
-      "id": "res_57d9501e-c16f-4994-a343-09b003990c9f",
+      "id": "res_3a8fa3bb-48d3-4b54-9f42-40e4d91cf6f2",
       "name": "weapon_007_fortress_greatsword_20260517064443.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_007_fortress_greatsword_20260517064443.png.png",
@@ -1502,7 +1502,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_007_fortress_greatsword_20260517064443.png.png"
     },
     {
-      "id": "res_a31092cb-d6bc-4480-bfcb-3752a7038208",
+      "id": "res_b5c8a13e-80ab-48e7-bb6f-ff032f135c6d",
       "name": "weapon_007_fortress_greatsword.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_007_fortress_greatsword.png.png",
@@ -1510,7 +1510,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_007_fortress_greatsword.png.png"
     },
     {
-      "id": "res_611eab11-812d-4aa1-9209-452de09bf2f4",
+      "id": "res_10e389f9-81f8-447d-8dd7-6dc1f29d00bd",
       "name": "weapon_008_peak_cleaver_20260517064505.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_008_peak_cleaver_20260517064505.png.png",
@@ -1518,7 +1518,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_008_peak_cleaver_20260517064505.png.png"
     },
     {
-      "id": "res_20ae68da-62fa-4790-9092-411c178a4c2d",
+      "id": "res_79a3917c-30c3-4824-833a-ce9ea8ffb5f1",
       "name": "weapon_008_peak_cleaver.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_008_peak_cleaver.png.png",
@@ -1526,7 +1526,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_008_peak_cleaver.png.png"
     },
     {
-      "id": "res_601e3c42-07c6-4823-a68c-f60ed92c4a69",
+      "id": "res_10e6bc77-196a-496c-8732-e3c6be0b7082",
       "name": "weapon_009_meteoric_saber_20260517064509.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_009_meteoric_saber_20260517064509.png.png",
@@ -1534,7 +1534,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_009_meteoric_saber_20260517064509.png.png"
     },
     {
-      "id": "res_4b117f79-755b-48b7-b054-7abf317df705",
+      "id": "res_b365114c-799f-4cd5-a5ab-370cb4f96642",
       "name": "weapon_009_meteoric_saber.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_009_meteoric_saber.png.png",
@@ -1542,7 +1542,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_009_meteoric_saber.png.png"
     },
     {
-      "id": "res_b6c0db9b-861c-4e7f-8155-c7dd884a9b3c",
+      "id": "res_b8f47b94-6b14-4080-8c14-420f6e9f26c2",
       "name": "weapon_010_imperial_decree_20260517064502.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_010_imperial_decree_20260517064502.png.png",
@@ -1550,7 +1550,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_010_imperial_decree_20260517064502.png.png"
     },
     {
-      "id": "res_6bd0ece7-7029-4609-a4a0-da18721fdecc",
+      "id": "res_4e613955-153f-480c-9ad9-d2b2597605d0",
       "name": "weapon_010_imperial_decree.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_010_imperial_decree.png.png",
@@ -1558,7 +1558,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_010_imperial_decree.png.png"
     },
     {
-      "id": "res_410aac73-caf4-40e1-a7f2-49e41bc394ad",
+      "id": "res_52e15b7c-9474-44d9-8889-14853f47caeb",
       "name": "weapon_011_guild_ceremonial_20260517064451.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_011_guild_ceremonial_20260517064451.png.png",
@@ -1566,7 +1566,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_011_guild_ceremonial_20260517064451.png.png"
     },
     {
-      "id": "res_01d0538c-a658-4df2-a76d-605a8aded4f5",
+      "id": "res_ef313ee7-d539-4711-8cc9-ec7650877600",
       "name": "weapon_011_guild_ceremonial.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_011_guild_ceremonial.png.png",
@@ -1574,7 +1574,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_011_guild_ceremonial.png.png"
     },
     {
-      "id": "res_f77472b8-f487-4a30-b824-19331bb25053",
+      "id": "res_45db05cd-7827-4580-83f8-7dd6d0037c95",
       "name": "weapon_012_frostgleam_reforged_20260517064443.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_012_frostgleam_reforged_20260517064443.png.png",
@@ -1582,7 +1582,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_012_frostgleam_reforged_20260517064443.png.png"
     },
     {
-      "id": "res_522d6252-9b09-4661-b91f-9f6d1c65003d",
+      "id": "res_7b1bba4f-51c2-4388-8d17-9e36e63a0805",
       "name": "weapon_012_frostgleam_reforged.png.meta",
       "folder": "assets/data",
       "assetPath": "assets/assets/data/weapon_012_frostgleam_reforged.png.png",
@@ -1590,7 +1590,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_data_weapon_012_frostgleam_reforged.png.png"
     },
     {
-      "id": "res_04c3425d-92e9-427f-b490-98a2b0c6d560",
+      "id": "res_59cea31d-7e18-46d8-977d-b9131388ba76",
       "name": "bg_home.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/bg_home.png",
@@ -1598,7 +1598,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_bg_home.png"
     },
     {
-      "id": "res_1b363a68-1f01-4c3d-a2f8-5a0a5bda7e7d",
+      "id": "res_fa393dab-cf24-41cf-a795-326d4ff9161c",
       "name": "bg_story_backyard_20260517054233.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/bg_story_backyard_20260517054233.png",
@@ -1606,7 +1606,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_bg_story_backyard_20260517054233.png"
     },
     {
-      "id": "res_873150d5-7bb3-423c-9e6b-66f774870d69",
+      "id": "res_e02f961e-dce9-4789-9dea-a65c0fe4e579",
       "name": "bg_story_backyard.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/bg_story_backyard.png",
@@ -1614,7 +1614,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_bg_story_backyard.png"
     },
     {
-      "id": "res_2696d6fd-09cf-4913-9929-9138bfeba591",
+      "id": "res_21b05e04-c7fa-4cd4-a676-91ce0b504f90",
       "name": "bg_story_street_20260517054406.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/bg_story_street_20260517054406.png",
@@ -1622,7 +1622,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_bg_story_street_20260517054406.png"
     },
     {
-      "id": "res_f2db1b4c-5ed2-4ae3-903f-84200144e204",
+      "id": "res_88af09de-13df-4f2e-a540-590383dddf7b",
       "name": "bg_story_street.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/bg_story_street.png",
@@ -1630,7 +1630,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_bg_story_street.png"
     },
     {
-      "id": "res_e6f6f7c5-24f2-4d05-b389-6e79bae6dee0",
+      "id": "res_5aa41c51-308d-4ffd-8a32-e2d6267219c3",
       "name": "bg_story_workshop_20260517054319.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/bg_story_workshop_20260517054319.png",
@@ -1638,7 +1638,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_bg_story_workshop_20260517054319.png"
     },
     {
-      "id": "res_bd367b2d-57ed-4223-b400-0691dddafdae",
+      "id": "res_9852e1e6-672c-44fd-9ba8-03d7421444ba",
       "name": "bg_story_workshop.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/bg_story_workshop.png",
@@ -1646,7 +1646,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_bg_story_workshop.png"
     },
     {
-      "id": "res_60d7696f-8335-4d28-853f-62eddcb57ab0",
+      "id": "res_2fd2cee0-9aed-47ab-8a96-2bcdba553aa4",
       "name": "char_apprentice.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_apprentice.png",
@@ -1654,7 +1654,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_apprentice.png"
     },
     {
-      "id": "res_161e1c50-c59f-4c2e-9492-d559d9256abd",
+      "id": "res_c04d0d6f-8948-4dcf-b972-075a2c2f0d98",
       "name": "char_disciple.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_disciple.png",
@@ -1662,7 +1662,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_disciple.png"
     },
     {
-      "id": "res_e90e70db-378c-4b27-943f-9ccd37455d8b",
+      "id": "res_c57a8260-4e67-4101-a32d-ca5d5cdebabf",
       "name": "char_envoy.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_envoy.png",
@@ -1670,7 +1670,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_envoy.png"
     },
     {
-      "id": "res_a6ff10b7-3dc4-4fc3-ac0f-62c0d9972b5f",
+      "id": "res_228365a2-c156-4e11-99ed-125fc9d7c178",
       "name": "char_guard.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_guard.png",
@@ -1678,7 +1678,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_guard.png"
     },
     {
-      "id": "res_9bfa84f4-50f2-4f8d-b9ba-5142fbbf3e45",
+      "id": "res_3213f50d-df16-435f-acb4-1649fe22027e",
       "name": "char_han.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_han.png",
@@ -1686,7 +1686,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_han.png"
     },
     {
-      "id": "res_43ef5f71-b05b-40d0-93f0-7aa288a39938",
+      "id": "res_7317aeaf-b5da-4c73-b803-5c4228d093c9",
       "name": "char_hunter.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_hunter.png",
@@ -1694,7 +1694,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_hunter.png"
     },
     {
-      "id": "res_22fcb4dc-6b8f-4346-b098-cf1747ec9296",
+      "id": "res_90ffe3eb-ef3b-45ba-bef1-0025fe82492e",
       "name": "char_keeper.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_keeper.png",
@@ -1702,7 +1702,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_keeper.png"
     },
     {
-      "id": "res_dd7a9223-5731-4d98-87a9-e6519b32ef95",
+      "id": "res_71e7d992-28e4-45a4-b4f2-d3e5adb09bfb",
       "name": "char_luchen.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_luchen.png",
@@ -1710,7 +1710,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_luchen.png"
     },
     {
-      "id": "res_46572027-59e7-4e7e-a761-8ab32475494c",
+      "id": "res_47f3d8d6-4e63-4801-85a3-165ce446efa1",
       "name": "char_magistrate.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_magistrate.png",
@@ -1718,7 +1718,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_magistrate.png"
     },
     {
-      "id": "res_240de8e8-5d3b-4957-bc1b-acf942d13f0a",
+      "id": "res_e0c2eca3-d528-403d-a869-31773e1189f9",
       "name": "char_player.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_player.png",
@@ -1726,7 +1726,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_player.png"
     },
     {
-      "id": "res_e0b1339a-a22a-437f-85a9-ce59352a15a5",
+      "id": "res_43140aea-e774-4f33-9967-450732288e42",
       "name": "char_shen.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_shen.png",
@@ -1734,7 +1734,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_shen.png"
     },
     {
-      "id": "res_6d433326-12ed-4f48-b850-977dc186d882",
+      "id": "res_63f2931b-c7fd-4b0e-b3ea-025afcc43d37",
       "name": "char_widow.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/char_widow.png",
@@ -1742,7 +1742,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_char_widow.png"
     },
     {
-      "id": "res_f252e429-354c-43db-82b0-3e049253ff0f",
+      "id": "res_4b6e767b-af4a-4c49-a414-c0a93db67bd8",
       "name": "icon_anvil.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_anvil.png",
@@ -1750,7 +1750,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_anvil.png"
     },
     {
-      "id": "res_ea417db5-86a2-4f4c-ac17-ebe07b55b73b",
+      "id": "res_520285bc-2180-4b16-9a8e-505649db8674",
       "name": "icon_charcoal.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_charcoal.png",
@@ -1758,7 +1758,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_charcoal.png"
     },
     {
-      "id": "res_f3f48547-ea7a-4d8d-90bd-3f5fd285a0db",
+      "id": "res_d2fdba1e-c16b-427e-9c1d-b101d09efef9",
       "name": "icon_coins.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_coins.png",
@@ -1766,7 +1766,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_coins.png"
     },
     {
-      "id": "res_7e189362-94fc-46a9-8354-7ca4727db27e",
+      "id": "res_432e383a-d0fa-44b1-ab6d-9ec971a30d26",
       "name": "icon_display.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_display.png",
@@ -1774,7 +1774,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_display.png"
     },
     {
-      "id": "res_6ec6a66f-a0d4-467a-8186-48ce41ac869f",
+      "id": "res_5e81a988-9dc6-4446-a3aa-834fdc239dbb",
       "name": "icon_fame.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_fame.png",
@@ -1782,7 +1782,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_fame.png"
     },
     {
-      "id": "res_748b5034-99a1-47ef-a794-9de551e57f1b",
+      "id": "res_8d8e595b-f40a-4ec2-922d-0b5e6d8df6a0",
       "name": "icon_furnace.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_furnace.png",
@@ -1790,7 +1790,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_furnace.png"
     },
     {
-      "id": "res_f0f4fcbe-bcfc-4e30-9f79-2156ff5439ad",
+      "id": "res_e7dadddb-f090-4f8b-84e1-1672d42823c8",
       "name": "icon_grinder.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_grinder.png",
@@ -1798,7 +1798,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_grinder.png"
     },
     {
-      "id": "res_867c4866-ccf8-4be0-b0df-4c186223aab0",
+      "id": "res_9fcf833a-5e5c-4668-b2b5-6ded79ab9bdd",
       "name": "icon_grinding_agent.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_grinding_agent.png",
@@ -1806,7 +1806,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_grinding_agent.png"
     },
     {
-      "id": "res_4d9af764-dc27-45a3-b9c7-7969f0bcfabf",
+      "id": "res_0f0eabb0-eb4c-4981-81f1-c6eadc3beb9d",
       "name": "icon_jade.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_jade.png",
@@ -1814,7 +1814,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_jade.png"
     },
     {
-      "id": "res_6601ed85-bb6c-4ec6-94d3-ac1572d3b89d",
+      "id": "res_7203100f-07d4-4d50-b196-cc3a633af3c5",
       "name": "icon_ore.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_ore.png",
@@ -1822,7 +1822,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_ore.png"
     },
     {
-      "id": "res_c6836ce2-9472-4c17-9b2e-8ed9ef1ebec6",
+      "id": "res_89f06b6a-11a1-452a-b6b8-68d1f4f9cf6d",
       "name": "icon_quench_pool.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/icon_quench_pool.png",
@@ -1830,7 +1830,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_icon_quench_pool.png"
     },
     {
-      "id": "res_731d9986-67a5-482c-840a-2acbde65a0cc",
+      "id": "res_a5158ad7-6c98-4e02-aea8-9a8d8459dd4f",
       "name": "weapon_001_hunter_knife.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_001_hunter_knife.png",
@@ -1838,7 +1838,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_001_hunter_knife.png"
     },
     {
-      "id": "res_4a49795c-0602-4e5f-b357-b7bba65e3062",
+      "id": "res_e3694cde-1572-44aa-b8bf-15ecf6f718f2",
       "name": "weapon_002_guard_blade.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_002_guard_blade.png",
@@ -1846,7 +1846,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_002_guard_blade.png"
     },
     {
-      "id": "res_165470e3-676d-4e28-9747-3cabb4e660d9",
+      "id": "res_ca178a24-39fb-4337-9a66-9feea93b3dde",
       "name": "weapon_003_mountain_cleaver.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_003_mountain_cleaver.png",
@@ -1854,7 +1854,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_003_mountain_cleaver.png"
     },
     {
-      "id": "res_2a7134c3-78d4-41da-94dd-a96fb420fa4c",
+      "id": "res_727fb2be-699c-4162-aa1a-8d060723a6a3",
       "name": "weapon_004_ranger_sword_20260517052540.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_004_ranger_sword_20260517052540.png",
@@ -1862,7 +1862,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_004_ranger_sword_20260517052540.png"
     },
     {
-      "id": "res_b61ea5e1-19bb-4d2f-b145-a2af8c0962e2",
+      "id": "res_888d9350-0702-4b00-97db-66dd269c9342",
       "name": "weapon_004_ranger_sword.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_004_ranger_sword.png",
@@ -1870,7 +1870,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_004_ranger_sword.png"
     },
     {
-      "id": "res_4d94ae98-ea75-46b1-bdab-6833e86cb06e",
+      "id": "res_2267ccd2-923a-4ee7-a116-6ea35694165a",
       "name": "weapon_005_legion_breaker_20260517052543.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_005_legion_breaker_20260517052543.png",
@@ -1878,7 +1878,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_005_legion_breaker_20260517052543.png"
     },
     {
-      "id": "res_3f1fc0a5-111e-4598-b025-66d3aa5f3899",
+      "id": "res_c2d5d3fa-d657-45f0-a920-afd48df45c94",
       "name": "weapon_005_legion_breaker.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_005_legion_breaker.png",
@@ -1886,7 +1886,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_005_legion_breaker.png"
     },
     {
-      "id": "res_c9961f67-8568-46be-b4a3-3b62a52b7afa",
+      "id": "res_fb9b8428-8214-4b78-926d-7f5e29109506",
       "name": "weapon_006_azure_sword_20260517052504.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_006_azure_sword_20260517052504.png",
@@ -1894,7 +1894,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_006_azure_sword_20260517052504.png"
     },
     {
-      "id": "res_af86fcc7-d3b7-45af-b0a8-2f6a1529beae",
+      "id": "res_0757eba5-f77c-47a0-8a13-0bbef8eab4bb",
       "name": "weapon_006_azure_sword.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_006_azure_sword.png",
@@ -1902,7 +1902,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_006_azure_sword.png"
     },
     {
-      "id": "res_b90605b7-fc49-46e6-86e2-853afd7d6854",
+      "id": "res_0999d572-538f-4cbc-9337-2056476ca1b0",
       "name": "weapon_007_fortress_greatsword_20260517064443.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_007_fortress_greatsword_20260517064443.png",
@@ -1910,7 +1910,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_007_fortress_greatsword_20260517064443.png"
     },
     {
-      "id": "res_bc4c2a88-6cdb-47fc-9040-f81f0df9aa76",
+      "id": "res_655061bf-0d3d-470c-80d1-ee9df7839e4b",
       "name": "weapon_007_fortress_greatsword.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_007_fortress_greatsword.png",
@@ -1918,7 +1918,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_007_fortress_greatsword.png"
     },
     {
-      "id": "res_38144901-7807-45bd-b90f-ffcd4ffcfb9d",
+      "id": "res_d85c5a3f-b017-4899-bcb9-c6bdbd9107f5",
       "name": "weapon_008_peak_cleaver_20260517064505.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_008_peak_cleaver_20260517064505.png",
@@ -1926,7 +1926,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_008_peak_cleaver_20260517064505.png"
     },
     {
-      "id": "res_2c389c5d-021b-4f35-bec6-d711f2193361",
+      "id": "res_ec3849f8-26a3-4a39-afc8-a5e13f80b3c2",
       "name": "weapon_008_peak_cleaver.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_008_peak_cleaver.png",
@@ -1934,7 +1934,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_008_peak_cleaver.png"
     },
     {
-      "id": "res_6f5c14d9-95f7-4a89-8e7e-a6bd9ecde36b",
+      "id": "res_5ddcdca0-da77-416f-ba86-26be3063e1df",
       "name": "weapon_009_meteoric_saber_20260517064509.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_009_meteoric_saber_20260517064509.png",
@@ -1942,7 +1942,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_009_meteoric_saber_20260517064509.png"
     },
     {
-      "id": "res_b7ada2dc-bb5b-405d-a70a-58a855023a26",
+      "id": "res_ad751bc6-a02b-4834-89ee-e2cb20acd002",
       "name": "weapon_009_meteoric_saber.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_009_meteoric_saber.png",
@@ -1950,7 +1950,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_009_meteoric_saber.png"
     },
     {
-      "id": "res_f951e3ba-a98a-40dd-9ea1-d895db35a26e",
+      "id": "res_9d46b4a2-7e59-40a1-8dbf-c6f841a2c367",
       "name": "weapon_010_imperial_decree_20260517064502.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_010_imperial_decree_20260517064502.png",
@@ -1958,7 +1958,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_010_imperial_decree_20260517064502.png"
     },
     {
-      "id": "res_9e572383-4130-4608-834a-9a59017319a4",
+      "id": "res_dd9bd0ad-cb61-4f70-920a-da92e2085bdc",
       "name": "weapon_010_imperial_decree.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_010_imperial_decree.png",
@@ -1966,7 +1966,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_010_imperial_decree.png"
     },
     {
-      "id": "res_7e4e4d9e-8dad-42bc-90dd-8678cccbd837",
+      "id": "res_20a858b4-ceec-420e-8608-2b0e872c5f17",
       "name": "weapon_011_guild_ceremonial_20260517064451.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_011_guild_ceremonial_20260517064451.png",
@@ -1974,7 +1974,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_011_guild_ceremonial_20260517064451.png"
     },
     {
-      "id": "res_7623222a-be3a-4f2e-b09c-0372bb1ab706",
+      "id": "res_150c3c9d-c9bd-4c13-91dc-e2b4ccb2d521",
       "name": "weapon_011_guild_ceremonial.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_011_guild_ceremonial.png",
@@ -1982,7 +1982,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_011_guild_ceremonial.png"
     },
     {
-      "id": "res_a48baaa0-e520-4fc4-b620-f0daf6d4c2e0",
+      "id": "res_f39adeca-5ce3-48b5-be82-afcb17f867d3",
       "name": "weapon_012_frostgleam_reforged_20260517064443.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_012_frostgleam_reforged_20260517064443.png",
@@ -1990,7 +1990,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_012_frostgleam_reforged_20260517064443.png"
     },
     {
-      "id": "res_f39715ca-64ff-4eb0-a144-f9ff865813b3",
+      "id": "res_3f313c1b-17ff-43ea-8ddf-7e0f0e21fe4c",
       "name": "weapon_012_frostgleam_reforged.png",
       "folder": "assets/image/assets/image",
       "assetPath": "assets/assets/image/assets/image/weapon_012_frostgleam_reforged.png",
@@ -1998,7 +1998,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_weapon_012_frostgleam_reforged.png"
     },
     {
-      "id": "res_5b6eb114-3dfe-435a-8a7c-b0f09c48e638",
+      "id": "res_3f114c7b-7670-4871-b656-f0ddfecd3c32",
       "name": "bar_fill_blue.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/bar_fill_blue.png",
@@ -2006,7 +2006,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_bar_fill_blue.png"
     },
     {
-      "id": "res_25e118e3-6b9f-4182-b12e-4af86b9cba60",
+      "id": "res_9d35b32e-9211-4d9b-bec0-538ceca10899",
       "name": "bar_fill_gold.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/bar_fill_gold.png",
@@ -2014,7 +2014,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_bar_fill_gold.png"
     },
     {
-      "id": "res_935de279-5631-4779-908b-84023e39f806",
+      "id": "res_659dbabb-4901-4375-9762-449911db6993",
       "name": "bar_fill_red.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/bar_fill_red.png",
@@ -2022,7 +2022,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_bar_fill_red.png"
     },
     {
-      "id": "res_25cdeb12-8715-49b0-b9c3-c018109b1eff",
+      "id": "res_1cb3fa3a-c7dc-4313-8a0f-5d25cf62311e",
       "name": "bar_progress_bg.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/bar_progress_bg.png",
@@ -2030,7 +2030,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_bar_progress_bg.png"
     },
     {
-      "id": "res_ab687d5c-66f9-41a8-92f6-7d3b40351987",
+      "id": "res_0f616e42-06cb-4fc6-9f0f-d60d5fd43883",
       "name": "btn_accept.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/btn_accept.png",
@@ -2038,7 +2038,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_btn_accept.png"
     },
     {
-      "id": "res_60fb1889-017a-4c58-8753-0e8026c4c293",
+      "id": "res_3e2d98f2-8cc2-40ec-845a-e001413f151b",
       "name": "btn_choice.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/btn_choice.png",
@@ -2046,7 +2046,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_btn_choice.png"
     },
     {
-      "id": "res_47235b4b-7937-416f-80c3-e534fdc18387",
+      "id": "res_7ae941d1-9eb0-481e-8aec-808e91b104b1",
       "name": "btn_disabled.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/btn_disabled.png",
@@ -2054,7 +2054,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_btn_disabled.png"
     },
     {
-      "id": "res_f9c45d13-4e4d-4950-8000-8b0d3d99938c",
+      "id": "res_acdfd71a-b21b-4357-a17c-cb652428c4e0",
       "name": "btn_gold.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/btn_gold.png",
@@ -2062,7 +2062,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_btn_gold.png"
     },
     {
-      "id": "res_a962e3be-da49-41fc-9dc0-93f0ac1ffd0a",
+      "id": "res_18be281f-0c60-4b39-8929-1ddb67de29a1",
       "name": "btn_primary.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/btn_primary.png",
@@ -2070,7 +2070,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_btn_primary.png"
     },
     {
-      "id": "res_575cbc23-483f-4a95-8cc1-e4d27bcaca02",
+      "id": "res_fac8e410-6edf-4509-83bd-23c6fbeda3c4",
       "name": "btn_secondary.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/btn_secondary.png",
@@ -2078,7 +2078,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_btn_secondary.png"
     },
     {
-      "id": "res_3a4543c6-d049-4581-891f-6e3dd0a5c20d",
+      "id": "res_2dd57ce3-e05e-4c3d-ba30-3f68bb0daa4e",
       "name": "divider_bamboo.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/divider_bamboo.png",
@@ -2086,7 +2086,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_divider_bamboo.png"
     },
     {
-      "id": "res_30986fe5-abdc-407a-a750-04b3b54f7286",
+      "id": "res_c542a4de-b0d0-44e8-ac58-16d9bcefb1f8",
       "name": "divider_moon.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/divider_moon.png",
@@ -2094,7 +2094,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_divider_moon.png"
     },
     {
-      "id": "res_1dbf6f09-cc17-409b-9c34-d948765c2cdd",
+      "id": "res_c9c2955b-38ba-4cbb-98a3-2536e7bc5650",
       "name": "divider_mountain.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/divider_mountain.png",
@@ -2102,7 +2102,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_divider_mountain.png"
     },
     {
-      "id": "res_5d779c13-5441-49cb-94d7-ec8cfb50478b",
+      "id": "res_677128a2-889f-465b-a7fc-10af9349ba26",
       "name": "frame_item_lg.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/frame_item_lg.png",
@@ -2110,7 +2110,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_frame_item_lg.png"
     },
     {
-      "id": "res_ee2d22bf-f737-4c59-8c98-43678f20e010",
+      "id": "res_38fc75fb-aa06-4f48-8dec-a5a36d0bbc61",
       "name": "frame_item_md.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/frame_item_md.png",
@@ -2118,7 +2118,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_frame_item_md.png"
     },
     {
-      "id": "res_de5480d6-048a-4dff-bd67-7cb141858dd8",
+      "id": "res_d67297be-7879-440e-9e34-80cbe6083e49",
       "name": "frame_item_sm.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/frame_item_sm.png",
@@ -2126,7 +2126,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_frame_item_sm.png"
     },
     {
-      "id": "res_c2d29588-5b6d-4f00-a0e6-b46e0b0a3daf",
+      "id": "res_c7f17be7-52eb-4b18-87f0-e132896b2fe9",
       "name": "frame_item_xs.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/frame_item_xs.png",
@@ -2134,7 +2134,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_frame_item_xs.png"
     },
     {
-      "id": "res_44d02142-4ba8-4e6b-a495-d8b05990a4c1",
+      "id": "res_6b8df9e2-8e45-4e49-99f3-180d6a36fa29",
       "name": "icon_base_1.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/icon_base_1.png",
@@ -2142,7 +2142,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_icon_base_1.png"
     },
     {
-      "id": "res_950af51b-815f-473b-ab6e-2f706dabcac3",
+      "id": "res_4ca670c8-066c-4c60-813a-f2b0705e7714",
       "name": "icon_base_2.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/icon_base_2.png",
@@ -2150,7 +2150,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_icon_base_2.png"
     },
     {
-      "id": "res_e6d6aba3-68c7-4cd3-931a-d504e2865062",
+      "id": "res_0eb66ccd-b9b2-442e-8b37-16ca680cc8c5",
       "name": "panel_card_blue.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/panel_card_blue.png",
@@ -2158,7 +2158,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_panel_card_blue.png"
     },
     {
-      "id": "res_f8321d35-d32f-49f8-a05b-8719d34b051e",
+      "id": "res_28994172-d682-4371-b4dc-8038a0b7692f",
       "name": "panel_card_green.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/panel_card_green.png",
@@ -2166,7 +2166,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_panel_card_green.png"
     },
     {
-      "id": "res_2bca5968-8c56-45df-8c43-66428bd73bd0",
+      "id": "res_2208968e-2104-4be5-88a8-87a8581c98dc",
       "name": "panel_card.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/panel_card.png",
@@ -2174,7 +2174,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_panel_card.png"
     },
     {
-      "id": "res_44e8de26-5982-47cb-9232-cac47ed060be",
+      "id": "res_b6d5b154-24d0-478d-99fc-14ba6a55e2a4",
       "name": "panel_dialogue.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/panel_dialogue.png",
@@ -2182,7 +2182,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_panel_dialogue.png"
     },
     {
-      "id": "res_a11f2a20-a3a0-481e-8890-ec0eadec75cc",
+      "id": "res_0f6572dd-d7b1-4dec-9187-9b89041a7b8e",
       "name": "panel_header.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/panel_header.png",
@@ -2190,7 +2190,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_panel_header.png"
     },
     {
-      "id": "res_2b05cc66-b5c3-4c6f-a79c-31c72d4e18fd",
+      "id": "res_9acf9963-2f53-420f-81cd-37a2c20fd142",
       "name": "panel_header2.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/panel_header2.png",
@@ -2198,7 +2198,7 @@
       "androidDrawablePath": "android-xml/res/drawable-nodpi/assets_image_assets_image_ui_panel_header2.png"
     },
     {
-      "id": "res_622c238c-403e-4cca-bad7-91a15bc0cf3e",
+      "id": "res_fa990076-ae0c-4769-af14-7cf7d8861491",
       "name": "panel_popup.png",
       "folder": "assets/image/assets/image/ui",
       "assetPath": "assets/assets/image/assets/image/ui/panel_popup.png",
@@ -2227,7 +2227,7 @@
   "h5": null,
   "documents": [
     {
-      "id": "doc_1d2e6fbf",
+      "id": "doc_592b56df",
       "name": "HomeScreen_工坊主界面",
       "categoryPath": [
         "游戏界面"
@@ -2252,7 +2252,7 @@
       }
     },
     {
-      "id": "doc_3c0047cc",
+      "id": "doc_60b23372",
       "name": "OrderBoardScreen_订单板",
       "categoryPath": [
         "游戏界面"
@@ -2277,7 +2277,7 @@
       }
     },
     {
-      "id": "doc_cf61de2e",
+      "id": "doc_b02f2da0",
       "name": "ForgeScreen_锻造界面",
       "categoryPath": [
         "游戏界面"
@@ -2303,7 +2303,7 @@
       }
     },
     {
-      "id": "doc_fdf5013f",
+      "id": "doc_e8b8d583",
       "name": "ResultScreen_结算界面",
       "categoryPath": [
         "游戏界面"
@@ -2328,7 +2328,7 @@
       }
     },
     {
-      "id": "doc_bb25af14",
+      "id": "doc_cc38ce96",
       "name": "UpgradeScreen_设施升级",
       "categoryPath": [
         "游戏界面"
@@ -2353,7 +2353,7 @@
       }
     },
     {
-      "id": "doc_be8fef73",
+      "id": "doc_8de0835c",
       "name": "CodexScreen_名器图鉴",
       "categoryPath": [
         "游戏界面"
@@ -2378,7 +2378,7 @@
       }
     },
     {
-      "id": "doc_2696e0d2",
+      "id": "doc_b9f9a09c",
       "name": "StoryScreen_剧情对话",
       "categoryPath": [
         "游戏界面"
@@ -2403,7 +2403,7 @@
       }
     },
     {
-      "id": "doc_dc119ed5",
+      "id": "doc_5c9c4e02",
       "name": "SettingsScreen_设置",
       "categoryPath": [
         "游戏界面"

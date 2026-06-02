@@ -1,0 +1,870 @@
+{
+  "format": "layout-editor.project-snapshot",
+  "formatVersion": 1,
+  "exportedAt": "2026-06-01T02:58:23.210Z",
+  "project": {
+    "id": "proj_8ae5aaff",
+    "name": "默认项目",
+    "createdAt": "2026-05-31T18:11:39.889Z",
+    "updatedAt": "2026-06-01T02:58:17.311Z",
+    "categories": [
+      {
+        "id": "cat_7667b2b1",
+        "name": "默认分类",
+        "createdAt": "2026-05-31T18:11:39.893Z",
+        "updatedAt": "2026-05-31T18:11:39.893Z"
+      }
+    ],
+    "documents": [
+      {
+        "version": "0.2.0",
+        "meta": {
+          "id": "doc_3ad34d60",
+          "name": "2D瓦片庭院",
+          "createdAt": "2026-06-01T02:21:32.119Z",
+          "updatedAt": "2026-06-01T02:58:17.311Z"
+        },
+        "page": {
+          "id": "doc_3ad34d60",
+          "name": "2D瓦片庭院",
+          "shell": "full_screen_panel",
+          "devicePreset": "pc_1366x768",
+          "categoryId": "cat_7667b2b1"
+        },
+        "theme": "dark",
+        "root": {
+          "id": "gamescene2d_rqh2jua7",
+          "type": "GameScene2D",
+          "props": {
+            "gravity": 0,
+            "mode": "topdown",
+            "bounds": {
+              "width": 640,
+              "height": 416
+            },
+            "backgroundColor": "#1c2416",
+            "showColliders": true,
+            "pixelPerUnit": 1
+          },
+          "layout": {
+            "mode": "none"
+          },
+          "style": {
+            "width": "100%",
+            "height": "100%",
+            "background": "#1c2416",
+            "overflow": "hidden",
+            "position": "relative"
+          },
+          "children": [
+            {
+              "id": "tilemap2d_3s7u0vwu",
+              "type": "TileMap2D",
+              "props": {
+                "tilesetSrc": "./assets/topdown-basic/TX_Tileset_Grass.png",
+                "tilesets": [
+                  "./assets/topdown-basic/TX_Tileset_Grass.png",
+                  "./assets/topdown-basic/TX_Tileset_Stone_Ground.png",
+                  "./assets/topdown-basic/TX_Tileset_Wall.png"
+                ],
+                "tileSize": 32,
+                "columns": 20,
+                "rows": 13,
+                "data": [
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  13,
+                  0,
+                  14,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  6,
+                  0,
+                  12,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  13,
+                  0,
+                  14,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  6,
+                  0,
+                  12,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  65536,
+                  65537,
+                  65537,
+                  65537,
+                  65537,
+                  65537,
+                  65537,
+                  65537,
+                  65537,
+                  65537,
+                  65537,
+                  65538,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  65544,
+                  65545,
+                  65545,
+                  65548,
+                  65545,
+                  65545,
+                  65574,
+                  65545,
+                  65540,
+                  65545,
+                  65545,
+                  65546,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  65544,
+                  65566,
+                  65545,
+                  65545,
+                  65545,
+                  65545,
+                  65548,
+                  65545,
+                  65545,
+                  65574,
+                  65545,
+                  65546,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  65544,
+                  65540,
+                  65545,
+                  65545,
+                  65566,
+                  65545,
+                  65545,
+                  65545,
+                  65545,
+                  65548,
+                  65545,
+                  65546,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  65544,
+                  65545,
+                  65574,
+                  65545,
+                  65540,
+                  65545,
+                  65545,
+                  65566,
+                  65545,
+                  65545,
+                  65545,
+                  65546,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  65544,
+                  65545,
+                  65548,
+                  65545,
+                  65545,
+                  65574,
+                  65545,
+                  65540,
+                  65545,
+                  65545,
+                  65566,
+                  65546,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  65552,
+                  65553,
+                  65553,
+                  65553,
+                  65553,
+                  65553,
+                  65553,
+                  65553,
+                  65553,
+                  65553,
+                  65553,
+                  65554,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  13,
+                  0,
+                  14,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  6,
+                  0,
+                  12,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  0,
+                  12,
+                  0,
+                  13,
+                  0,
+                  14,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  6,
+                  0,
+                  12,
+                  0,
+                  13,
+                  0,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185,
+                  131185
+                ],
+                "collisionTiles": [
+                  131185
+                ]
+              },
+              "style": {
+                "width": 655.42,
+                "height": 426.02,
+                "position": "absolute",
+                "left": 0,
+                "top": 0
+              },
+              "children": []
+            },
+            {
+              "id": "panel_gep19dky",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 82.95,
+                "height": 102.41,
+                "position": "absolute",
+                "left": 36.87,
+                "top": 40.96,
+                "backgroundImage": "./assets/topdown-basic/TX_Plant.png",
+                "backgroundSize": "369px 369px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-17px -10px"
+              },
+              "children": []
+            },
+            {
+              "id": "collider2d_vxld7di3",
+              "type": "Collider2D",
+              "props": {
+                "shape": "rect",
+                "isStatic": true,
+                "isTrigger": false,
+                "tag": "obstacle"
+              },
+              "style": {
+                "width": 22.53,
+                "height": 18.43,
+                "position": "absolute",
+                "left": 67.59,
+                "top": 120.84
+              },
+              "children": []
+            },
+            {
+              "id": "panel_3jrjrni1",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 69.64,
+                "height": 100.36,
+                "position": "absolute",
+                "left": 532.53,
+                "top": 40.96,
+                "backgroundImage": "./assets/topdown-basic/TX_Plant.png",
+                "backgroundSize": "369px 369px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-116px -12px"
+              },
+              "children": []
+            },
+            {
+              "id": "collider2d_qq438qgo",
+              "type": "Collider2D",
+              "props": {
+                "shape": "rect",
+                "isStatic": true,
+                "isTrigger": false,
+                "tag": "obstacle"
+              },
+              "style": {
+                "width": 20.48,
+                "height": 18.43,
+                "position": "absolute",
+                "left": 557.11,
+                "top": 118.8
+              },
+              "children": []
+            },
+            {
+              "id": "panel_g3kk7mc0",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 63.49,
+                "height": 96.27,
+                "position": "absolute",
+                "left": 45.06,
+                "top": 276.51,
+                "backgroundImage": "./assets/topdown-basic/TX_Plant.png",
+                "backgroundSize": "399px 399px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-230px -24px"
+              },
+              "children": []
+            },
+            {
+              "id": "collider2d_v9svssv9",
+              "type": "Collider2D",
+              "props": {
+                "shape": "rect",
+                "isStatic": true,
+                "isTrigger": false,
+                "tag": "obstacle"
+              },
+              "style": {
+                "width": 18.43,
+                "height": 18.43,
+                "position": "absolute",
+                "left": 67.59,
+                "top": 348.19
+              },
+              "children": []
+            },
+            {
+              "id": "panel_qgh81w0g",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 82.95,
+                "height": 102.41,
+                "position": "absolute",
+                "left": 524.34,
+                "top": 268.31,
+                "backgroundImage": "./assets/topdown-basic/TX_Plant.png",
+                "backgroundSize": "369px 369px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-17px -10px"
+              },
+              "children": []
+            },
+            {
+              "id": "collider2d_b657cd7y",
+              "type": "Collider2D",
+              "props": {
+                "shape": "rect",
+                "isStatic": true,
+                "isTrigger": false,
+                "tag": "obstacle"
+              },
+              "style": {
+                "width": 22.53,
+                "height": 18.43,
+                "position": "absolute",
+                "left": 555.06,
+                "top": 348.19
+              },
+              "children": []
+            },
+            {
+              "id": "panel_e3dwtmnc",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 48.13,
+                "height": 43.01,
+                "position": "absolute",
+                "left": 153.61,
+                "top": 61.45,
+                "backgroundImage": "./assets/topdown-basic/TX_Plant.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-216px -185px"
+              },
+              "children": []
+            },
+            {
+              "id": "panel_84mp087u",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 40.96,
+                "height": 35.84,
+                "position": "absolute",
+                "left": 481.33,
+                "top": 57.35,
+                "backgroundImage": "./assets/topdown-basic/TX_Plant.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-346px -190px"
+              },
+              "children": []
+            },
+            {
+              "id": "panel_55eiuhzu",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 38.92,
+                "height": 32.77,
+                "position": "absolute",
+                "left": 98.31,
+                "top": 356.39,
+                "backgroundImage": "./assets/topdown-basic/TX_Plant.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-156px -190px"
+              },
+              "children": []
+            },
+            {
+              "id": "panel_8obvltr8",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 39.94,
+                "height": 46.08,
+                "position": "absolute",
+                "left": 532.53,
+                "top": 344.1,
+                "backgroundImage": "./assets/topdown-basic/TX_Plant.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-282px -186px"
+              },
+              "children": []
+            },
+            {
+              "id": "panel_7agxq9vj",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 32.77,
+                "height": 47.11,
+                "position": "absolute",
+                "left": 153.61,
+                "top": 135.18,
+                "backgroundImage": "./assets/topdown-basic/TX_Props.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-160px -18px"
+              },
+              "children": []
+            },
+            {
+              "id": "collider2d_rpic8tbr",
+              "type": "Collider2D",
+              "props": {
+                "shape": "rect",
+                "isStatic": true,
+                "isTrigger": false,
+                "tag": "obstacle"
+              },
+              "style": {
+                "width": 28.67,
+                "height": 30.72,
+                "position": "absolute",
+                "left": 155.66,
+                "top": 149.52
+              },
+              "children": []
+            },
+            {
+              "id": "panel_gerbr844",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 21.51,
+                "height": 34.82,
+                "position": "absolute",
+                "left": 102.41,
+                "top": 237.59,
+                "backgroundImage": "./assets/topdown-basic/TX_Props.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-165px -217px"
+              },
+              "children": []
+            },
+            {
+              "id": "collider2d_wsk57e8c",
+              "type": "Collider2D",
+              "props": {
+                "shape": "rect",
+                "isStatic": true,
+                "isTrigger": false,
+                "tag": "obstacle"
+              },
+              "style": {
+                "width": 17.41,
+                "height": 18.43,
+                "position": "absolute",
+                "left": 104.46,
+                "top": 251.93
+              },
+              "children": []
+            },
+            {
+              "id": "panel_6uff9b36",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 37.89,
+                "height": 73.73,
+                "position": "absolute",
+                "left": 487.47,
+                "top": 122.89,
+                "backgroundImage": "./assets/topdown-basic/TX_Props.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-445px -21px"
+              },
+              "children": []
+            },
+            {
+              "id": "collider2d_wczc26qy",
+              "type": "Collider2D",
+              "props": {
+                "shape": "rect",
+                "isStatic": true,
+                "isTrigger": false,
+                "tag": "obstacle"
+              },
+              "style": {
+                "width": 29.7,
+                "height": 22.53,
+                "position": "absolute",
+                "left": 491.57,
+                "top": 172.05
+              },
+              "children": []
+            },
+            {
+              "id": "panel_thsohiw3",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 32.77,
+                "height": 58.37,
+                "position": "absolute",
+                "left": 483.37,
+                "top": 307.23,
+                "backgroundImage": "./assets/topdown-basic/TX_Props.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-288px -158px"
+              },
+              "children": []
+            },
+            {
+              "id": "collider2d_ybg33qjw",
+              "type": "Collider2D",
+              "props": {
+                "shape": "rect",
+                "isStatic": true,
+                "isTrigger": false,
+                "tag": "obstacle"
+              },
+              "style": {
+                "width": 28.67,
+                "height": 22.53,
+                "position": "absolute",
+                "left": 485.42,
+                "top": 342.05
+              },
+              "children": []
+            },
+            {
+              "id": "panel_tzyuymei",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 27.65,
+                "height": 32.77,
+                "position": "absolute",
+                "left": 98.31,
+                "top": 307.23,
+                "backgroundImage": "./assets/topdown-basic/TX_Props.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-99px -160px"
+              },
+              "children": []
+            },
+            {
+              "id": "panel_yobb483w",
+              "type": "Panel",
+              "props": {},
+              "style": {
+                "width": 81.93,
+                "height": 65.54,
+                "position": "absolute",
+                "left": 286.75,
+                "top": 24.58,
+                "backgroundImage": "./assets/topdown-basic/TX_Struct.png",
+                "backgroundSize": "512px 512px",
+                "backgroundRepeat": "no-repeat",
+                "backgroundPosition": "-408px -27px"
+              },
+              "children": []
+            },
+            {
+              "id": "enemy2d_pizmmnvi",
+              "type": "Enemy2D",
+              "props": {
+                "behavior": "patrol",
+                "speed": 35,
+                "patrolRange": 160,
+                "detectRange": 220,
+                "attackOnContact": true,
+                "damage": 1,
+                "hp": 3,
+                "gravityScale": 0,
+                "tag": "enemy",
+                "animations": {
+                  "idle": {
+                    "src": "./assets/topdown-basic/chars/Orc-Idle.png",
+                    "frameWidth": 100,
+                    "frameHeight": 100,
+                    "frameCount": 6,
+                    "columns": 6,
+                    "fps": 8
+                  },
+                  "walk": {
+                    "src": "./assets/topdown-basic/chars/Orc-Walk.png",
+                    "frameWidth": 100,
+                    "frameHeight": 100,
+                    "frameCount": 8,
+                    "columns": 8,
+                    "fps": 12
+                  }
+                },
+                "currentAnimation": "idle"
+              },
+              "style": {
+                "width": 81.93,
+                "height": 81.93,
+                "position": "absolute",
+                "left": 442.41,
+                "top": 172.05
+              },
+              "children": []
+            },
+            {
+              "id": "charactercontroller2d_alob7hhu",
+              "type": "CharacterController2D",
+              "props": {
+                "speed": 90,
+                "jumpForce": 0,
+                "gravityScale": 0,
+                "animations": {
+                  "idle": {
+                    "src": "./assets/topdown-basic/chars/Soldier-Idle.png",
+                    "frameWidth": 100,
+                    "frameHeight": 100,
+                    "frameCount": 6,
+                    "columns": 6,
+                    "fps": 8
+                  },
+                  "walk": {
+                    "src": "./assets/topdown-basic/chars/Soldier-Walk.png",
+                    "frameWidth": 100,
+                    "frameHeight": 100,
+                    "frameCount": 8,
+                    "columns": 8,
+                    "fps": 12
+                  }
+                },
+                "currentAnimation": "idle",
+                "inputBindings": {
+                  "left": "ArrowLeft",
+                  "right": "ArrowRight",
+                  "up": "ArrowUp",
+                  "down": "ArrowDown"
+                }
+              },
+              "style": {
+                "width": 81.93,
+                "height": 81.93,
+                "position": "absolute",
+                "left": 245.78,
+                "top": 172.05
+              },
+              "children": []
+            },
+            {
+              "id": "joystick_ofpmhrmp",
+              "type": "Joystick",
+              "props": {
+                "size": 100,
+                "deadZone": 0.15,
+                "fixed": true,
+                "targetCharacterId": "player",
+                "screenFixed": true
+              },
+              "style": {
+                "width": 102.41,
+                "height": 102.41,
+                "position": "absolute",
+                "left": 24.58,
+                "bottom": 24.58
+              },
+              "children": []
+            },
+            {
+              "id": "text_cfssj1ch",
+              "type": "Text",
+              "props": {
+                "text": "TileMap2D 顶视庭院 · 草地 + 石板广场 + 砖墙（多图集）· 双击进入画板模式可刷涂",
+                "screenFixed": true
+              },
+              "style": {
+                "position": "absolute",
+                "left": 16.39,
+                "top": 12.29,
+                "color": "#bef264",
+                "fontSize": 13.31,
+                "fontWeight": 700
+              },
+              "children": []
+            }
+          ]
+        }
+      }
+    ],
+    "components": [],
+    "defaultDevicePreset": "phone_portrait_1080x1920",
+    "designResolution": {
+      "width": 1190,
+      "height": 768
+    },
+    "designResolutionScaleMode": "MatchHeight",
+    "previewFitToHost": false,
+    "originalDesignResolution": {
+      "width": 1366,
+      "height": 768
+    },
+    "cumulativeRescaleScale": 0.8711566617862372,
+    "useResponsiveLayout": true
+  },
+  "resources": []
+}

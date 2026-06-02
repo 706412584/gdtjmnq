@@ -4,7 +4,7 @@ local UI = require("urhox-libs/UI")
 local registry = require("ui_registry")
 
 -- ────────────────────────────────────────────────────────────────────────────
--- 设计分辨率: 1366×768 | 缩放策略: MatchWidth
+-- 设计分辨率: 1920×1080 | 缩放策略: MatchWidth
 -- 宽度精确匹配设计宽，纵向按比例（横版游戏）
 -- ────────────────────────────────────────────────────────────────────────────
 
@@ -22,7 +22,7 @@ function Start()
         fonts = {
             { family = "sans", weights = { normal = "Fonts/MiSans-Regular.ttf" } },
         },
-        scale = function() return graphics.width / 1366 end,
+        scale = function() return graphics.width / 1920 end,
     })
     local buildFn = firstPageBuilder()
     if buildFn then

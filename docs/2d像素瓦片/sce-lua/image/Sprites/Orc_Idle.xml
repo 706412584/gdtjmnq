@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<SpriteSheet texture="../topdown-basic/chars/Orc-Idle.png">
+    <Sprite name="Orc_Idle_0" x="0" y="0" width="100" height="100" hotSpotX="0.5" hotSpotY="0.5" />
+    <Sprite name="Orc_Idle_1" x="100" y="0" width="100" height="100" hotSpotX="0.5" hotSpotY="0.5" />
+    <Sprite name="Orc_Idle_2" x="200" y="0" width="100" height="100" hotSpotX="0.5" hotSpotY="0.5" />
+    <Sprite name="Orc_Idle_3" x="300" y="0" width="100" height="100" hotSpotX="0.5" hotSpotY="0.5" />
+    <Sprite name="Orc_Idle_4" x="400" y="0" width="100" height="100" hotSpotX="0.5" hotSpotY="0.5" />
+    <Sprite name="Orc_Idle_5" x="500" y="0" width="100" height="100" hotSpotX="0.5" hotSpotY="0.5" />
+</SpriteSheet>

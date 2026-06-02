@@ -1,0 +1,57 @@
+{
+  "projectId": "proj_8ae5aaff",
+  "projectName": "默认项目",
+  "exportedAt": "2026-06-01T02:58:23.213Z",
+  "documentCount": 1,
+  "resourceCount": 0,
+  "resources": [],
+  "outputs": {
+    "lua": false,
+    "sceLua": true,
+    "csharp": false,
+    "androidXml": false,
+    "h5": false
+  },
+  "exporterTargets": [
+    {
+      "id": "sce-lua",
+      "version": "1.0.0"
+    }
+  ],
+  "androidXml": null,
+  "sceLua": {
+    "entryScript": "sce-lua/scripts/main.lua",
+    "registryScript": "sce-lua/scripts/ui_registry.lua"
+  },
+  "h5": null,
+  "documents": [
+    {
+      "id": "doc_3ad34d60",
+      "name": "2D瓦片庭院",
+      "categoryPath": [
+        "默认分类"
+      ],
+      "shell": "full_screen_panel",
+      "devicePreset": "pc_1366x768",
+      "luaPath": null,
+      "sceLuaPath": "sce-lua/scripts/ui_2D瓦片庭院.lua",
+      "csharpPath": null,
+      "androidXmlPath": null,
+      "h5Path": null,
+      "h5HandlerPath": null,
+      "sceLuaActionPath": "sce-lua/scripts/actions_2D瓦片庭院.lua",
+      "csharpActionPath": null,
+      "actionBindings": [],
+      "nodeTypeCounts": {
+        "GameScene2D": 1,
+        "TileMap2D": 1,
+        "Panel": 14,
+        "Collider2D": 8,
+        "Enemy2D": 1,
+        "CharacterController2D": 1,
+        "Joystick": 1,
+        "Text": 1
+      }
+    }
+  ]
+}
