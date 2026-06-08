@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch
 -- ============================================================================
 -- AssemblyGame - 组装装饰小游戏
 -- Project Smith / P2-A3

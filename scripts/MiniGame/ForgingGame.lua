@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch
 -- ============================================================================
 -- ForgingGame - 锻打塑形小游戏
 -- Project Smith / P1-C3

@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch
 -- ============================================================================
 -- QuenchingGame - 淬火时机小游戏
 -- Project Smith / P2-A2

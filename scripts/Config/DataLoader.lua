@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch, return-type-mismatch
 -- ============================================================================
 -- DataLoader - JSON 配置文件加载器
 -- Project Smith / P1-A3

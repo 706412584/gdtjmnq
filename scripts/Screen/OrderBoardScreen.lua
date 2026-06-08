@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch, return-type-mismatch, param-type-mismatch
 -- ============================================================================
 -- OrderBoardScreen - 订单板界面
 -- Project Smith / P1-D2

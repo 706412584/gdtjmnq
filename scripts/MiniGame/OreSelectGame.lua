@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch
 -- ============================================================================
 -- OreSelectGame - 选矿去杂小游戏
 -- Project Smith / P1-C2

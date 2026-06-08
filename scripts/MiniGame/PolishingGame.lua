@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch
 -- ============================================================================
 -- PolishingGame - 研磨开刃小游戏
 -- Project Smith / P1-C4

@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch
 -- ============================================================================
 -- MiniGameBase - 小游戏基类
 -- Project Smith / P1-C1

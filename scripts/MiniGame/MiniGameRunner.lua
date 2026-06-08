@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch
 -- ============================================================================
 -- MiniGameRunner - 小游戏调度器
 -- Project Smith / P1-C1

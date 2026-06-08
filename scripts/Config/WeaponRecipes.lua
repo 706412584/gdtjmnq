@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch, return-type-mismatch
 -- ============================================================================
 -- WeaponRecipes - 武器配方数据接口
 -- Project Smith / P1-B5

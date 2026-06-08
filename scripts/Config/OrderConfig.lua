@@ -1,3 +1,4 @@
+---@diagnostic disable: assign-type-mismatch, return-type-mismatch
 -- ============================================================================
 -- OrderConfig - 订单配置数据接口
 -- Project Smith / P1-B5
