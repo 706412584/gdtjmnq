@@ -530,7 +530,7 @@ function M.Build(payload)
                             fontSize = 22.49,
                             fontWeight = 400,
                             textAlign = "center",
-                            lineHeight = 0.889,
+                            lineHeight = 1.3,
                             fontColor = "#c9a45a",
                             verticalAlign = "middle",
                         },

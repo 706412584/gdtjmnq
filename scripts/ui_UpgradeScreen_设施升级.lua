@@ -1711,7 +1711,7 @@ function M.Build(payload)
                     fontSize = 22.49,
                     fontWeight = 700,
                     textAlign = "left",
-                    lineHeight = 0.978,
+                    lineHeight = 1.3,
                     fontColor = "#1f1a17",
                     verticalAlign = "top",
                 },
