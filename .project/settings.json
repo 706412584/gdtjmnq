@@ -19,7 +19,28 @@
       "../scripts"
     ],
     "asset_ignores": [
-      "image/**",
+      "image/bg_*",
+      "image/weapon_*",
+      "image/scene_*",
+      "image/deco_*",
+      "image/cgt-*",
+      "image/slices/**",
+      "image/icon/**",
+      "image/char_archer*",
+      "image/char_blacksmith*",
+      "image/char_merchant*",
+      "image/char_swordwoman*",
+      "image/char_taoist*",
+      "image/char_disciple*",
+      "image/char_guard*",
+
+      "image/char_magistrate*",
+      "image/char_player*",
+      "image/char_shen*",
+      "image/char_keeper*",
+      "image/*_202605*.png",
+      "image/*_202606*.png",
+      "image/*.meta",
       "audio/**",
       "video/**"
     ]
