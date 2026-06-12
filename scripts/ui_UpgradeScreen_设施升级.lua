@@ -825,7 +825,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.85)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#C9A45A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -845,7 +845,7 @@ function M.Build(payload)
                                     backgroundImage = "image/icon_ore.png",
                                     backgroundFit = "contain",
                                     borderRadius = 6,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#C9A45A",
                                     borderWidth = 2,
                                 },
                             },
