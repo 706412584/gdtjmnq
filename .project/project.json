@@ -5,7 +5,7 @@
     "id": "529757584"
   },
   "entry": "main.lua",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "taptap_publish": {
     "title": "古代铁匠模拟器",
     "description": "化身古代铁匠，从选矿、冶炼到锻打、淬火，亲手打造传世兵器。完成各方订单，提升声望，解锁失传锻造秘技，书写属于你的铸剑传奇。",
@@ -24,10 +24,10 @@
     "promotional_image": ""
   },
   "test_qrcode": {
-    "url": "https://tapcode-sce.spark.xd.com/qrcode/p_9tid_1780040823031.png",
-    "generated_at": "2026-05-29T07:47:03.166Z"
+    "url": "https://tapcode-sce.spark.xd.com/qrcode/p_9tid_1780951048478.png",
+    "generated_at": "2026-06-08T20:37:28.652Z"
   },
   "metadata": {
-    "updated_at": "2026-05-29T07:47:03.166Z"
+    "updated_at": "2026-06-08T20:37:28.652Z"
   }
 }

@@ -18,7 +18,11 @@
       "../assets",
       "../scripts"
     ],
-    "asset_ignores": []
+    "asset_ignores": [
+      "image/**",
+      "audio/**",
+      "video/**"
+    ]
   },
   "@runtime": {
     "multiplayer": {

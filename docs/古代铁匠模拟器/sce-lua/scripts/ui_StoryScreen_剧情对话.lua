@@ -120,7 +120,6 @@ function M.Build(payload)
                             fontWeight = 400,
                             textAlign = "left",
                             lineHeight = 1.016,
-                            letterSpacing = 0,
                             fontColor = "#f7e8c866",
                             verticalAlign = "top",
                         },
@@ -132,7 +131,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_6",
                     position = "absolute",
-                    left = 112.45,
+                    left = "5.86%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -163,7 +162,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_7",
                     position = "absolute",
-                    left = 253,
+                    left = "13.18%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -194,7 +193,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_8",
                     position = "absolute",
-                    left = 393.56,
+                    left = "20.50%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -225,7 +224,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_9",
                     position = "absolute",
-                    left = 534.11,
+                    left = "27.82%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -256,7 +255,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_a",
                     position = "absolute",
-                    left = 674.67,
+                    left = "35.14%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -287,7 +286,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_b",
                     position = "absolute",
-                    left = 815.23,
+                    left = "42.46%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -318,7 +317,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_c",
                     position = "absolute",
-                    left = 955.78,
+                    left = "49.78%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -349,7 +348,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_d",
                     position = "absolute",
-                    left = 1096.34,
+                    left = "57.10%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -380,7 +379,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_e",
                     position = "absolute",
-                    left = 1236.9,
+                    left = "64.42%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -411,7 +410,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_f",
                     position = "absolute",
-                    left = 1377.45,
+                    left = "71.74%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -442,7 +441,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_g",
                     position = "absolute",
-                    left = 1518.01,
+                    left = "79.06%",
                     width = 28.11,
                     height = "100%",
                     borderRadius = 4,
@@ -473,9 +472,9 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_h",
                     position = "absolute",
-                    left = 1658.57,
                     width = 28.11,
                     height = "100%",
+                    right = 233,
                     borderRadius = 4,
                     borderColor = "#a78bfa",
                     borderWidth = 1,
@@ -501,8 +500,8 @@ function M.Build(payload)
                 UI.Panel {
                     id = "ph_i",
                     position = "absolute",
-                    left = 84,
-                    top = 141,
+                    left = "4.38%",
+                    top = "13.06%",
                     width = 514,
                     height = 568,
                     backgroundColor = "#00000000",
@@ -513,8 +512,8 @@ function M.Build(payload)
                             position = "absolute",
                             left = 0,
                             top = 0,
-                            width = 506,
                             height = 570,
+                            right = 8,
                             backgroundColor = "rgba(31,26,23,0.85)",
                             borderRadius = 8,
                             borderColor = "#C9A45A",
@@ -531,7 +530,6 @@ function M.Build(payload)
                             fontWeight = 400,
                             textAlign = "center",
                             lineHeight = 0.889,
-                            letterSpacing = 0,
                             fontColor = "#c9a45a",
                             verticalAlign = "middle",
                         },
@@ -541,11 +539,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sr_n",
                     position = "absolute",
-                    left = 56.22,
-                    top = 896.75,
+                    left = "2.93%",
                     width = 393.56,
                     height = 50.6,
                     display = "none",
+                    bottom = 132,
                     backgroundColor = "#3A322B",
                     borderRadius = 6,
                     borderColor = "#C9A45A",
@@ -563,7 +561,6 @@ function M.Build(payload)
                     fontWeight = 700,
                     textAlign = "left",
                     lineHeight = 1.423,
-                    letterSpacing = 11.24,
                     fontColor = "#c9a45a",
                     verticalAlign = "top",
                 },
@@ -579,18 +576,17 @@ function M.Build(payload)
                     fontWeight = 400,
                     textAlign = "left",
                     lineHeight = 1.164,
-                    letterSpacing = 0,
                     fontColor = "#f7e8c899",
                     verticalAlign = "top",
                 },
                 UI.Panel {
                     id = "df_q",
                     position = "absolute",
-                    left = 1470.22,
-                    top = 140.56,
+                    top = "13.02%",
                     width = 393.56,
                     height = 281.11,
                     backgroundColor = "#00000000",
+                    right = 56,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -609,8 +605,8 @@ function M.Build(payload)
                         UI.Panel {
                             id = "sc_s",
                             position = "absolute",
-                            left = 8.43,
-                            top = 8.43,
+                            left = "2.14%",
+                            top = "3.00%",
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
@@ -641,10 +637,10 @@ function M.Build(payload)
                         UI.Panel {
                             id = "sc_t",
                             position = "absolute",
-                            left = 376.69,
-                            top = 8.43,
+                            top = "3.00%",
                             width = 8.43,
                             height = 8.43,
+                            right = 8,
                             borderRadius = 4,
                             borderColor = "#a78bfa",
                             borderWidth = 1,
@@ -673,10 +669,10 @@ function M.Build(payload)
                         UI.Panel {
                             id = "sc_u",
                             position = "absolute",
-                            left = 8.43,
-                            top = 264.25,
+                            left = "2.14%",
                             width = 8.43,
                             height = 8.43,
+                            bottom = 8,
                             borderRadius = 4,
                             borderColor = "#a78bfa",
                             borderWidth = 1,
@@ -705,10 +701,10 @@ function M.Build(payload)
                         UI.Panel {
                             id = "sc_v",
                             position = "absolute",
-                            left = 376.69,
-                            top = 264.25,
                             width = 8.43,
                             height = 8.43,
+                            right = 8,
+                            bottom = 8,
                             borderRadius = 4,
                             borderColor = "#a78bfa",
                             borderWidth = 1,
@@ -745,7 +741,6 @@ function M.Build(payload)
                     fontWeight = 700,
                     textAlign = "left",
                     lineHeight = 1.118,
-                    letterSpacing = 0,
                     fontColor = "#c9a45a",
                     verticalAlign = "top",
                 },
@@ -755,10 +750,10 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sl_x",
                     position = "absolute",
-                    left = 1492.71,
-                    top = 202.4,
+                    top = "18.75%",
                     width = 348.58,
                     height = 2.81,
+                    right = 79,
                     borderRadius = 4,
                     borderColor = "#a78bfa",
                     borderWidth = 1,
@@ -793,7 +788,6 @@ function M.Build(payload)
                     fontWeight = 400,
                     textAlign = "left",
                     lineHeight = 1.186,
-                    letterSpacing = 0,
                     fontColor = "#f1e5cc",
                     verticalAlign = "top",
                 },
@@ -801,10 +795,10 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sr_z",
                     position = "absolute",
-                    left = 56.22,
-                    top = 742.14,
-                    width = 1807.55,
+                    left = 56,
                     height = 309.22,
+                    right = 56,
+                    bottom = 28,
                     backgroundColor = "rgba(15,12,10,0.92)",
                     borderRadius = 10,
                     borderColor = "#C9A45A",
@@ -814,8 +808,8 @@ function M.Build(payload)
                 UI.Panel {
                     id = "sr_10",
                     position = "absolute",
-                    left = 84.33,
-                    top = 750.57,
+                    left = "4.39%",
+                    top = "69.53%",
                     width = 224.89,
                     height = 44.98,
                     backgroundColor = "#C96A2B",
@@ -835,7 +829,6 @@ function M.Build(payload)
                     fontWeight = 700,
                     textAlign = "left",
                     lineHeight = 1.626,
-                    letterSpacing = 0,
                     fontColor = "#f1e5cc",
                     verticalAlign = "top",
                 },
@@ -851,18 +844,17 @@ function M.Build(payload)
                     fontWeight = 400,
                     textAlign = "left",
                     lineHeight = 1.067,
-                    letterSpacing = 0,
                     fontColor = "#f1e5cc",
                     verticalAlign = "top",
                 },
                 UI.Panel {
                     id = "plate_13",
                     position = "absolute",
-                    left = 84.33,
-                    top = 916.43,
+                    left = "4.39%",
                     width = 413.94,
                     height = 112.45,
                     backgroundColor = "#00000000",
+                    bottom = 51,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -886,7 +878,6 @@ function M.Build(payload)
                             fontSize = 18.27,
                             fontWeight = 700,
                             textAlign = "center",
-                            letterSpacing = 2.81,
                             fontColor = "#f1e5cc",
                             verticalAlign = "middle",
                         },
@@ -895,11 +886,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "plate_16",
                     position = "absolute",
-                    left = 515.14,
-                    top = 916.43,
+                    left = "26.83%",
                     width = 413.94,
                     height = 112.45,
                     backgroundColor = "#00000000",
+                    bottom = 51,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -922,7 +913,6 @@ function M.Build(payload)
                             fontSize = 18.27,
                             fontWeight = 700,
                             textAlign = "center",
-                            letterSpacing = 2.81,
                             fontColor = "#c9a45a",
                             verticalAlign = "middle",
                         },
@@ -931,11 +921,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "plate_19",
                     position = "absolute",
-                    left = 945.94,
-                    top = 916.43,
+                    left = "49.27%",
                     width = 413.94,
                     height = 112.45,
                     backgroundColor = "#00000000",
+                    bottom = 51,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -958,7 +948,6 @@ function M.Build(payload)
                             fontSize = 18.27,
                             fontWeight = 700,
                             textAlign = "center",
-                            letterSpacing = 2.81,
                             fontColor = "#c96a2b",
                             verticalAlign = "middle",
                         },
@@ -967,11 +956,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "plate_1c",
                     position = "absolute",
-                    left = 1376.75,
-                    top = 916.43,
                     width = 413.94,
                     height = 112.45,
                     backgroundColor = "#00000000",
+                    right = 129,
+                    bottom = 51,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -995,7 +984,6 @@ function M.Build(payload)
                             fontSize = 18.27,
                             fontWeight = 700,
                             textAlign = "center",
-                            letterSpacing = 2.81,
                             fontColor = "#f1e5cc",
                             verticalAlign = "middle",
                         },
@@ -1004,11 +992,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "plate_1f",
                     position = "absolute",
-                    left = 1638.89,
-                    top = 22.49,
+                    top = "2.08%",
                     width = 112.45,
                     height = 39.36,
                     backgroundColor = "#00000000",
+                    right = 169,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1032,7 +1020,6 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.66,
-                            letterSpacing = 2.81,
                             fontColor = "#c9a45a",
                             verticalAlign = "middle",
                         },
@@ -1041,11 +1028,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "plate_1i",
                     position = "absolute",
-                    left = 1765.39,
-                    top = 22.49,
+                    top = "2.08%",
                     width = 126.5,
                     height = 39.36,
                     backgroundColor = "#00000000",
+                    right = 28,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1069,7 +1056,6 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.66,
-                            letterSpacing = 2.81,
                             fontColor = "#c9a45a",
                             verticalAlign = "middle",
                         },

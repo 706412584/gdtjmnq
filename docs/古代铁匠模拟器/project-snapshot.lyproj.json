@@ -1,12 +1,12 @@
 {
   "format": "layout-editor.project-snapshot",
   "formatVersion": 1,
-  "exportedAt": "2026-06-08T14:22:59.296Z",
+  "exportedAt": "2026-06-09T05:52:35.267Z",
   "project": {
     "id": "proj_8c76e1b6",
     "name": "古代铁匠模拟器",
     "createdAt": "2026-05-19T11:50:50.929Z",
-    "updatedAt": "2026-06-08T09:30:41.687Z",
+    "updatedAt": "2026-06-08T20:01:37.954Z",
     "categories": [
       {
         "id": "cat_cd161d79",
@@ -18887,7 +18887,8 @@
     "previewViewport": {
       "width": 1920,
       "height": 1080
-    }
+    },
+    "designResolutionScaleMode": "MatchWidth"
   },
   "resources": []
 }
