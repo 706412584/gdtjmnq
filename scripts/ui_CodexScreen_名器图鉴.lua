@@ -134,133 +134,45 @@ function M.Build(payload)
                             borderColor = "#3A322B",
                             borderWidth = 1,
                         },
-                        -- [!] ShapeCircle 包含 1 条 draw 命令 (circle)。
-                        -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                        -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                         UI.Panel {
                             id = "sc_a",
                             position = "absolute",
-                            left = "2.73%",
                             top = "0.90%",
+                            left = "2.73%",
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            borderColor = "#a78bfa",
-                            borderWidth = 1,
-                            overflow = "hidden",
-                            children = {
-                                UI.Label {
-                                    id = "sc_a__placeholder",
-                                    text = "[!] ShapeCircle",
-                                    fontSize = 5,
-                                    fontColor = {
-                                        167,
-                                        139,
-                                        250,
-                                        255,
-                                    },
-                                    textAlign = "center",
-                                    verticalAlign = "middle",
-                                    width = "100%",
-                                    height = "100%",
-                                },
-                            },
+                            backgroundColor = "#5a4a3a",
                         },
-                        -- [!] ShapeCircle 包含 1 条 draw 命令 (circle)。
-                        -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                        -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                         UI.Panel {
                             id = "sc_b",
                             position = "absolute",
                             top = "0.90%",
+                            right = 8,
                             width = 8.43,
                             height = 8.43,
-                            right = 8,
                             borderRadius = 4,
-                            borderColor = "#a78bfa",
-                            borderWidth = 1,
-                            overflow = "hidden",
-                            children = {
-                                UI.Label {
-                                    id = "sc_b__placeholder",
-                                    text = "[!] ShapeCircle",
-                                    fontSize = 5,
-                                    fontColor = {
-                                        167,
-                                        139,
-                                        250,
-                                        255,
-                                    },
-                                    textAlign = "center",
-                                    verticalAlign = "middle",
-                                    width = "100%",
-                                    height = "100%",
-                                },
-                            },
+                            backgroundColor = "#5a4a3a",
                         },
-                        -- [!] ShapeCircle 包含 1 条 draw 命令 (circle)。
-                        -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                        -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                         UI.Panel {
                             id = "sc_c",
                             position = "absolute",
                             left = "2.73%",
+                            bottom = 8,
                             width = 8.43,
                             height = 8.43,
-                            bottom = 8,
                             borderRadius = 4,
-                            borderColor = "#a78bfa",
-                            borderWidth = 1,
-                            overflow = "hidden",
-                            children = {
-                                UI.Label {
-                                    id = "sc_c__placeholder",
-                                    text = "[!] ShapeCircle",
-                                    fontSize = 5,
-                                    fontColor = {
-                                        167,
-                                        139,
-                                        250,
-                                        255,
-                                    },
-                                    textAlign = "center",
-                                    verticalAlign = "middle",
-                                    width = "100%",
-                                    height = "100%",
-                                },
-                            },
+                            backgroundColor = "#5a4a3a",
                         },
-                        -- [!] ShapeCircle 包含 1 条 draw 命令 (circle)。
-                        -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                        -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                         UI.Panel {
                             id = "sc_d",
                             position = "absolute",
-                            width = 8.43,
-                            height = 8.43,
                             right = 8,
                             bottom = 8,
+                            width = 8.43,
+                            height = 8.43,
                             borderRadius = 4,
-                            borderColor = "#a78bfa",
-                            borderWidth = 1,
-                            overflow = "hidden",
-                            children = {
-                                UI.Label {
-                                    id = "sc_d__placeholder",
-                                    text = "[!] ShapeCircle",
-                                    fontSize = 5,
-                                    fontColor = {
-                                        167,
-                                        139,
-                                        250,
-                                        255,
-                                    },
-                                    textAlign = "center",
-                                    verticalAlign = "middle",
-                                    width = "100%",
-                                    height = "100%",
-                                },
-                            },
+                            backgroundColor = "#5a4a3a",
                         },
                     },
                 },
@@ -588,133 +500,45 @@ function M.Build(payload)
                             borderColor = "#C9A45A",
                             borderWidth = 1,
                         },
-                        -- [!] ShapeCircle 包含 1 条 draw 命令 (circle)。
-                        -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                        -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                         UI.Panel {
                             id = "sc_15",
                             position = "absolute",
-                            left = "0.55%",
                             top = "0.90%",
+                            left = "0.55%",
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            borderColor = "#a78bfa",
-                            borderWidth = 1,
-                            overflow = "hidden",
-                            children = {
-                                UI.Label {
-                                    id = "sc_15__placeholder",
-                                    text = "[!] ShapeCircle",
-                                    fontSize = 5,
-                                    fontColor = {
-                                        167,
-                                        139,
-                                        250,
-                                        255,
-                                    },
-                                    textAlign = "center",
-                                    verticalAlign = "middle",
-                                    width = "100%",
-                                    height = "100%",
-                                },
-                            },
+                            backgroundColor = "#5a4a3a",
                         },
-                        -- [!] ShapeCircle 包含 1 条 draw 命令 (circle)。
-                        -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                        -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                         UI.Panel {
                             id = "sc_16",
                             position = "absolute",
                             top = "0.90%",
+                            right = 8,
                             width = 8.43,
                             height = 8.43,
-                            right = 8,
                             borderRadius = 4,
-                            borderColor = "#a78bfa",
-                            borderWidth = 1,
-                            overflow = "hidden",
-                            children = {
-                                UI.Label {
-                                    id = "sc_16__placeholder",
-                                    text = "[!] ShapeCircle",
-                                    fontSize = 5,
-                                    fontColor = {
-                                        167,
-                                        139,
-                                        250,
-                                        255,
-                                    },
-                                    textAlign = "center",
-                                    verticalAlign = "middle",
-                                    width = "100%",
-                                    height = "100%",
-                                },
-                            },
+                            backgroundColor = "#5a4a3a",
                         },
-                        -- [!] ShapeCircle 包含 1 条 draw 命令 (circle)。
-                        -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                        -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                         UI.Panel {
                             id = "sc_17",
                             position = "absolute",
                             left = "0.55%",
+                            bottom = 8,
                             width = 8.43,
                             height = 8.43,
-                            bottom = 8,
                             borderRadius = 4,
-                            borderColor = "#a78bfa",
-                            borderWidth = 1,
-                            overflow = "hidden",
-                            children = {
-                                UI.Label {
-                                    id = "sc_17__placeholder",
-                                    text = "[!] ShapeCircle",
-                                    fontSize = 5,
-                                    fontColor = {
-                                        167,
-                                        139,
-                                        250,
-                                        255,
-                                    },
-                                    textAlign = "center",
-                                    verticalAlign = "middle",
-                                    width = "100%",
-                                    height = "100%",
-                                },
-                            },
+                            backgroundColor = "#5a4a3a",
                         },
-                        -- [!] ShapeCircle 包含 1 条 draw 命令 (circle)。
-                        -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                        -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                         UI.Panel {
                             id = "sc_18",
                             position = "absolute",
-                            width = 8.43,
-                            height = 8.43,
                             right = 8,
                             bottom = 8,
+                            width = 8.43,
+                            height = 8.43,
                             borderRadius = 4,
-                            borderColor = "#a78bfa",
-                            borderWidth = 1,
-                            overflow = "hidden",
-                            children = {
-                                UI.Label {
-                                    id = "sc_18__placeholder",
-                                    text = "[!] ShapeCircle",
-                                    fontSize = 5,
-                                    fontColor = {
-                                        167,
-                                        139,
-                                        250,
-                                        255,
-                                    },
-                                    textAlign = "center",
-                                    verticalAlign = "middle",
-                                    width = "100%",
-                                    height = "100%",
-                                },
-                            },
+                            backgroundColor = "#5a4a3a",
                         },
                     },
                 },
@@ -773,65 +597,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_1e",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_1e__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_1f",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_1f__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_1g",
@@ -933,65 +713,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_1o",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_1o__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_1p",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_1p__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_1q",
@@ -1093,65 +829,21 @@ function M.Build(payload)
                                     borderColor = "#4F7A63",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_1y",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_1y__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_1z",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_1z__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_20",
@@ -1253,65 +945,21 @@ function M.Build(payload)
                                     borderColor = "#4F7A63",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_28",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_28__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_29",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_29__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_2a",
@@ -1413,65 +1061,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_2i",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_2i__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_2j",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_2j__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_2k",
@@ -1573,65 +1177,21 @@ function M.Build(payload)
                                     borderColor = "#C9A45A",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_2s",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_2s__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_2t",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_2t__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_2u",
@@ -1733,65 +1293,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_32",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_32__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_33",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_33__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_34",
@@ -1893,65 +1409,21 @@ function M.Build(payload)
                                     borderColor = "#C96A2B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_3c",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_3c__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_3d",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_3d__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_3e",
@@ -2053,65 +1525,21 @@ function M.Build(payload)
                                     borderColor = "#C9A45A",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_3m",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_3m__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_3n",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_3n__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_3o",
@@ -2213,65 +1641,21 @@ function M.Build(payload)
                                     borderColor = "#4F7A63",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_3w",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_3w__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_3x",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_3x__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_3y",
@@ -2373,65 +1757,21 @@ function M.Build(payload)
                                     borderColor = "#4F7A63",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_46",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_46__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_47",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_47__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_48",
@@ -2533,65 +1873,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_4g",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_4g__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_4h",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_4h__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_4i",
@@ -2693,65 +1989,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_4q",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_4q__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_4r",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_4r__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_4s",
@@ -2853,65 +2105,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_50",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_50__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_51",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_51__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_52",
@@ -3013,65 +2221,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_5a",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_5a__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_5b",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_5b__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_5c",
@@ -3173,65 +2337,21 @@ function M.Build(payload)
                                     borderColor = "#4F7A63",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_5k",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_5k__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_5l",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_5l__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_5m",
@@ -3333,65 +2453,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_5u",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_5u__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_5v",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_5v__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_5w",
@@ -3493,65 +2569,21 @@ function M.Build(payload)
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_64",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_64__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
-                                -- [!] ShapeLine 包含 1 条 draw 命令 (line)。
-                                -- urhox-libs/UI 没有 render(self, canvas) 协议和等价的 canvas 绘图 API。
-                                -- 如需在真机渲染这些图形，请改用 backgroundColor + borderRadius + borderColor 表达，或在 Lua 层手写 NanoVG 调用。
                                 UI.Panel {
                                     id = "sl_65",
                                     position = "absolute",
                                     width = "100%",
                                     height = "100%",
-                                    borderRadius = 4,
-                                    borderColor = "#a78bfa",
-                                    borderWidth = 1,
-                                    overflow = "hidden",
-                                    children = {
-                                        UI.Label {
-                                            id = "sl_65__placeholder",
-                                            text = "[!] ShapeLine",
-                                            fontSize = 11,
-                                            fontColor = {
-                                                167,
-                                                139,
-                                                250,
-                                                255,
-                                            },
-                                            textAlign = "center",
-                                            verticalAlign = "middle",
-                                            width = "100%",
-                                            height = "100%",
-                                        },
-                                    },
+                                    backgroundColor = "#3d3522",
+                                    borderRadius = 2,
                                 },
                                 UI.Label {
                                     id = "tx_66",
