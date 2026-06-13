@@ -218,6 +218,7 @@ function CodexScreen.Create(container, params)
                     if imgPath then
                         img.backgroundImage = imgPath
                         img.backgroundFit = "contain"
+                        img.backgroundColor = "rgba(0,0,0,0)"
                     end
                 end
                 -- 隐藏 "???" 覆盖层文字
@@ -241,9 +242,11 @@ function CodexScreen.Create(container, params)
                     border.borderColor = "#3A322B"
                 end
                 if img then
-                    img.backgroundImage = nil
+                    -- 清除布局预设的武器图片，用暗色背景替代
+                    img.backgroundImage = ""
+                    img.backgroundColor = "#3d3522"
                 end
-                -- 显示 "???" 覆盖层文字
+                -- 显示 "???" 覆盖层文字（仅 locked-style cells 有此元素）
                 if overlay then
                     overlay.visible = true
                 end
