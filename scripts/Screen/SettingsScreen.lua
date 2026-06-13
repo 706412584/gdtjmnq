@@ -3,32 +3,34 @@
 -- Project Smith / P3-C3
 --
 -- 使用 ui_SettingsScreen_设置.lua 布局 + FindById 绑定数据/事件
+-- 隐藏暂未实现的功能Tab（操作、账号），保留可用功能
 -- ============================================================================
 
 local UI          = require("urhox-libs/UI")
 local GameState   = require("Core.GameState")
 local ScreenRouter = require("Utils.ScreenRouter")
+local SFXManager  = require("Utils.SFXManager")
 local Layout      = require("ui_SettingsScreen_设置")
 
 local SettingsScreen = {}
 
 -- ============================================================================
--- 侧栏 Tab 定义
+-- 侧栏 Tab 定义（仅保留可用功能）
 -- ============================================================================
 
 local TAB_DEFS = {
     { id = "side_e", bgId = "sr_f", labelId = "tx_g", name = "音画",   sectionTitle = "· 音画 ·  灯火与笛声" },
-    { id = "side_h", bgId = "sr_i", labelId = "tx_j", name = "操作",   sectionTitle = "· 操作 ·  手感调校" },
-    { id = "side_k", bgId = "sr_l", labelId = "tx_m", name = "账号",   sectionTitle = "· 账号 ·  铁匠身份" },
-    { id = "side_n", bgId = "sr_o", labelId = "tx_p", name = "游戏",   sectionTitle = "· 游戏 ·  锻造统计" },
-    { id = "side_q", bgId = "sr_r", labelId = "tx_s", name = "帮助",   sectionTitle = "· 帮助 ·  师承指引" },
+    { id = "side_h", bgId = "sr_i", labelId = "tx_j", name = "操作",   sectionTitle = "· 操作 ·  手感调校", hidden = true },
+    { id = "side_k", bgId = "sr_l", labelId = "tx_m", name = "账号",   sectionTitle = "· 账号 ·  铁匠身份", hidden = true },
+    { id = "side_n", bgId = "sr_o", labelId = "tx_p", name = "游戏",   sectionTitle = "· 游戏 ·  画质偏好" },
+    { id = "side_q", bgId = "sr_r", labelId = "tx_s", name = "帮助",   sectionTitle = "· 帮助 ·  师承指引", hidden = true },
     { id = "side_t", bgId = "sr_u", labelId = "tx_v", name = "关于",   sectionTitle = "· 关于 ·  工坊铭记" },
 }
 
 -- 音量行定义 (id: 轨道背景, 填充条, 滑块圆点, 百分比文字)
 local VOLUME_ROWS = {
-    { rowId = "row_18", labelId = "tx_1a", trackId = "sr_14", fillId = "sr_15", thumbId = "sc_16", valueId = "tx_17", key = "masterVolume", default = 76 },
-    { rowId = "row_1f", labelId = "tx_1h", trackId = "sr_1b", fillId = "sr_1c", thumbId = "sc_1d", valueId = "tx_1e", key = "musicVolume",  default = 64 },
+    { rowId = "row_18", labelId = "tx_1a", trackId = "sr_14", fillId = "sr_15", thumbId = "sc_16", valueId = "tx_17", key = "masterVolume", default = 80 },
+    { rowId = "row_1f", labelId = "tx_1h", trackId = "sr_1b", fillId = "sr_1c", thumbId = "sc_1d", valueId = "tx_1e", key = "musicVolume",  default = 80 },
     { rowId = "row_1m", labelId = "tx_1o", trackId = "sr_1i", fillId = "sr_1j", thumbId = "sc_1k", valueId = "tx_1l", key = "ambientVolume", default = 50 },
 }
 
@@ -86,11 +88,11 @@ function SettingsScreen.Create(container, params)
     local settings = GameState.GetSettings()
     local state = {
         activeTab     = 1,   -- 当前激活的Tab索引
-        masterVolume  = settings.sfxVolume or 76,
-        musicVolume   = settings.musicVolume or 64,
+        masterVolume  = settings.sfxVolume or 80,
+        musicVolume   = settings.musicVolume or 80,
         ambientVolume = settings.ambientVolume or 50,
-        vibration     = settings.vibration ~= false,  -- 默认开
-        lowPower      = settings.lowPower == true,     -- 默认关
+        vibration     = settings.vibration ~= false,
+        lowPower      = settings.lowPower == true,
         quality       = settings.quality or "standard",
         fontSize      = settings.fontSize or "medium",
         language      = settings.language or "zh-CN",
@@ -101,11 +103,22 @@ function SettingsScreen.Create(container, params)
     audio:SetMasterGain(SOUND_MUSIC, state.musicVolume / 100)
 
     -- ----------------------------------------------------------------
+    -- 隐藏未实现的 Tab
+    -- ----------------------------------------------------------------
+    for _, def in ipairs(TAB_DEFS) do
+        if def.hidden then
+            local tabPanel = root:FindById(def.id)
+            if tabPanel then tabPanel.visible = false end
+        end
+    end
+
+    -- ----------------------------------------------------------------
     -- 返回按钮
     -- ----------------------------------------------------------------
     local backBtn = root:FindById("plate_3")
     if backBtn then
         backBtn.props.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             ScreenRouter.GoTo("home")
         end
     end
@@ -117,10 +130,10 @@ function SettingsScreen.Create(container, params)
 
     -- 所有内容行（按Tab显隐）
     -- Tab1=音画: row_18, row_1f, row_1m (音量行)
-    -- Tab2=操作: row_1r, row_1w (开关行)
-    -- Tab3=账号: (暂无内容行)
+    -- Tab2=操作: row_1r, row_1w (开关行) -- 已隐藏
+    -- Tab3=账号: (暂无内容行) -- 已隐藏
     -- Tab4=游戏: row_27, row_2g (画质/字体)
-    -- Tab5=帮助: (暂无)
+    -- Tab5=帮助: (暂无) -- 已隐藏
     -- Tab6=关于: row_2r (语言)
     local TAB_ROWS = {
         [1] = { "row_18", "row_1f", "row_1m" },
@@ -143,14 +156,16 @@ function SettingsScreen.Create(container, params)
         state.activeTab = tabIdx
         -- 更新侧栏高亮
         for i, def in ipairs(TAB_DEFS) do
-            local bg = root:FindById(def.bgId)
-            local label = root:FindById(def.labelId)
-            if i == tabIdx then
-                if bg then bg.backgroundColor = "#C96A2B" end
-                if label then label.fontColor = "#f1e5cc" end
-            else
-                if bg then bg.backgroundColor = "#00000000" end
-                if label then label.fontColor = "#1f1a17" end
+            if not def.hidden then
+                local bg = root:FindById(def.bgId)
+                local label = root:FindById(def.labelId)
+                if i == tabIdx then
+                    if bg then bg.backgroundColor = "#C96A2B" end
+                    if label then label.fontColor = "#f1e5cc" end
+                else
+                    if bg then bg.backgroundColor = "#00000000" end
+                    if label then label.fontColor = "#1f1a17" end
+                end
             end
         end
         -- 更新标题
@@ -169,18 +184,21 @@ function SettingsScreen.Create(container, params)
         end
     end
 
-    -- 绑定Tab点击
+    -- 绑定Tab点击（仅可用Tab）
     for i, def in ipairs(TAB_DEFS) do
-        local tabPanel = root:FindById(def.id)
-        if tabPanel then
-            tabPanel.props.onClick = function()
-                SwitchTab(i)
+        if not def.hidden then
+            local tabPanel = root:FindById(def.id)
+            if tabPanel then
+                tabPanel.props.onClick = function()
+                    SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+                    SwitchTab(i)
+                end
             end
         end
     end
 
     -- ----------------------------------------------------------------
-    -- 音量滑块交互 (通过点击行调整 ±5)
+    -- 音量滑块交互 (通过点击行调整 ±10)
     -- ----------------------------------------------------------------
     local TRACK_MAX_WIDTH = 843.34
 
@@ -196,9 +214,8 @@ function SettingsScreen.Create(container, params)
             valLabel.text = tostring(math.floor(value)) .. "%"
         end
         if thumb then
-            -- 滑块位置用 left 百分比（相对行宽）
-            local baseLeft = 26.17 -- 轨道起点百分比
-            local trackSpan = 56.08 -- 轨道跨度百分比 (843.34/1503.95*100)
+            local baseLeft = 26.17
+            local trackSpan = 56.08
             thumb.left = string.format("%.2f%%", baseLeft + trackSpan * ratio)
         end
     end
@@ -207,11 +224,9 @@ function SettingsScreen.Create(container, params)
         local value = state[def.key] or def.default
         UpdateVolumeVisual(def, value)
 
-        -- 整行可点击 → 叠加一个透明的触控区域
         local row = root:FindById(def.rowId)
         if row then
             row.props.onClick = function()
-                -- 简易: 每次点击 +10, 超100循环回0
                 ---@diagnostic disable-next-line: assign-type-mismatch
                 local v = (state[def.key] or def.default) + 10
                 if v > 100 then v = 0 end
@@ -223,36 +238,6 @@ function SettingsScreen.Create(container, params)
                 elseif def.key == "musicVolume" then
                     audio:SetMasterGain(SOUND_MUSIC, v / 100)
                 end
-            end
-        end
-    end
-
-    -- ----------------------------------------------------------------
-    -- 开关行交互
-    -- ----------------------------------------------------------------
-    local function UpdateToggleVisual(def, isOn)
-        local bg = root:FindById(def.bgId)
-        local thumb = root:FindById(def.thumbId)
-        if bg then
-            bg.backgroundColor = isOn and "#4F7A63" or "rgba(31,26,23,0.3)"
-        end
-        if thumb then
-            -- ON: 右侧, OFF: 左侧
-            if isOn then
-                thumb.left = "28.97%"
-            else
-                thumb.left = "26.36%"
-            end
-        end
-    end
-
-    for _, def in ipairs(TOGGLE_ROWS) do
-        UpdateToggleVisual(def, state[def.key])
-        local row = root:FindById(def.rowId)
-        if row then
-            row.props.onClick = function()
-                state[def.key] = not state[def.key]
-                UpdateToggleVisual(def, state[def.key])
             end
         end
     end
@@ -287,6 +272,7 @@ function SettingsScreen.Create(container, params)
         local bg = root:FindById(opt.bgId)
         if bg then
             bg.props.onClick = function()
+                SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
                 state.quality = opt.value
                 UpdateOptionVisual(QUALITY_OPTS, opt.value)
             end
@@ -299,6 +285,7 @@ function SettingsScreen.Create(container, params)
         local bg = root:FindById(opt.bgId)
         if bg then
             bg.props.onClick = function()
+                SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
                 state.fontSize = opt.value
                 UpdateOptionVisual(FONT_OPTS, opt.value)
             end
@@ -311,6 +298,7 @@ function SettingsScreen.Create(container, params)
         local bg = root:FindById(opt.bgId)
         if bg then
             bg.props.onClick = function()
+                SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
                 state.language = opt.value
                 UpdateOptionVisual(LANG_OPTS, opt.value)
             end
@@ -324,22 +312,17 @@ function SettingsScreen.Create(container, params)
     local saveBtn = root:FindById("plate_2u")
     if saveBtn then
         saveBtn.props.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             GameState.SetSettings({
                 sfxVolume     = math.floor(state.masterVolume),
                 musicVolume   = math.floor(state.musicVolume),
                 ambientVolume = math.floor(state.ambientVolume),
-                vibration     = state.vibration,
-                lowPower      = state.lowPower,
                 quality       = state.quality,
                 fontSize      = state.fontSize,
                 language      = state.language,
             })
+            UI.Toast.Show("设置已保存")
             print("[SettingsScreen] Settings saved")
-            -- 简易Toast反馈：临时改按钮文字
-            local label = root:FindById("tx_2w")
-            if label then
-                label.text = "已保存"
-            end
         end
     end
 
@@ -347,11 +330,10 @@ function SettingsScreen.Create(container, params)
     local resetBtn = root:FindById("plate_2x")
     if resetBtn then
         resetBtn.props.onClick = function()
-            state.masterVolume = 76
-            state.musicVolume = 64
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            state.masterVolume = 80
+            state.musicVolume = 80
             state.ambientVolume = 50
-            state.vibration = true
-            state.lowPower = false
             state.quality = "standard"
             state.fontSize = "medium"
             state.language = "zh-CN"
@@ -359,23 +341,28 @@ function SettingsScreen.Create(container, params)
             for _, def in ipairs(VOLUME_ROWS) do
                 UpdateVolumeVisual(def, state[def.key])
             end
-            for _, def in ipairs(TOGGLE_ROWS) do
-                UpdateToggleVisual(def, state[def.key])
-            end
             UpdateOptionVisual(QUALITY_OPTS, state.quality)
             UpdateOptionVisual(FONT_OPTS, state.fontSize)
             UpdateOptionVisual(LANG_OPTS, state.language)
             -- 应用音量
             audio:SetMasterGain(SOUND_EFFECT, state.masterVolume / 100)
             audio:SetMasterGain(SOUND_MUSIC, state.musicVolume / 100)
+            UI.Toast.Show("已恢复默认设置")
             print("[SettingsScreen] Settings reset to defaults")
         end
     end
 
-    -- 退出登录 (作为"删档重来"功能)
+    -- 删档重来（原"退出登录"按钮）
     local logoutBtn = root:FindById("plate_30")
     if logoutBtn then
+        -- 更新按钮文字为"删档重来"
+        local logoutLabel = root:FindById("tx_32")
+        if logoutLabel then
+            logoutLabel.text = "删档重来"
+            logoutLabel.fontColor = "#E94560"
+        end
         logoutBtn.props.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             UI.Modal.Confirm({
                 title = "确认删档",
                 message = "确定要删除所有存档数据吗？铜钱、声望、材料、订单进度、图鉴等全部数据将被清空，此操作不可撤销！",
@@ -406,8 +393,6 @@ function SettingsScreen.Create(container, params)
             sfxVolume     = math.floor(state.masterVolume),
             musicVolume   = math.floor(state.musicVolume),
             ambientVolume = math.floor(state.ambientVolume),
-            vibration     = state.vibration,
-            lowPower      = state.lowPower,
             quality       = state.quality,
             fontSize      = state.fontSize,
             language      = state.language,

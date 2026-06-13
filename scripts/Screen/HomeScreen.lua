@@ -80,10 +80,13 @@ function HomeScreen.Create(container, params)
     local progressBar_ = root:FindById("sr_21")  -- 填充条
     local progressText_ = root:FindById("tx_22")
 
-    -- 右侧功能按钮
+    -- 右侧功能按钮（功能未实现，暂时隐藏）
     local giftBtn_ = root:FindById("plate_23")
     local freeBoxBtn_ = root:FindById("plate_26")
     local adDoubleBtn_ = root:FindById("plate_29")
+    if giftBtn_ then giftBtn_.visible = false end
+    if freeBoxBtn_ then freeBoxBtn_.visible = false end
+    if adDoubleBtn_ then adDoubleBtn_.visible = false end
 
     -- 底部导航按钮
     local navOrderBtn_ = root:FindById("plate_2e")
@@ -212,25 +215,7 @@ function HomeScreen.Create(container, params)
     if facilityStorage_ then facilityStorage_.props.onClick = OnFacilityTap("storage") end
     if facilityDisplay_ then facilityDisplay_.props.onClick = OnFacilityTap("display") end
 
-    -- 右侧功能按钮
-    if giftBtn_ then
-        giftBtn_.props.onClick = function()
-            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            print("[HomeScreen] Gift pack tapped (not implemented)")
-        end
-    end
-    if freeBoxBtn_ then
-        freeBoxBtn_.props.onClick = function()
-            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            print("[HomeScreen] Free box tapped (not implemented)")
-        end
-    end
-    if adDoubleBtn_ then
-        adDoubleBtn_.props.onClick = function()
-            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            print("[HomeScreen] Ad double tapped (not implemented)")
-        end
-    end
+    -- 右侧功能按钮（已隐藏，功能待实现后再开放）
 
     -- 底部导航
     if navOrderBtn_ then
