@@ -120,7 +120,14 @@ function UpgradeScreen.Create(container, params)
     local blueprintLine = root:FindById("sl_3r")
     if blueprintLine then blueprintLine.visible = false end
     -- 解锁路径圆点和连线
-    local decorIds = { "sc_3s", "sc_3t", "sc_3u", "sc_3v", "sc_3w", "sl_3x", "sl_3y", "sl_3z", "sl_40", "tx_41", "df_3k" }
+    local decorIds = {
+        "df_3k",     -- 底部蓝图容器（框架不级联隐藏absolute子元素，需逐个隐藏）
+        "sr_3l", "sc_3m", "sc_3n", "sc_3o", "sc_3p",  -- 内部装饰
+        "sc_3s", "sc_3t", "sc_3u", "sc_3v", "sc_3w",  -- 解锁路径圆点
+        "sl_3x", "sl_3y", "sl_3z", "sl_40",           -- 连线
+        "tx_41", "tx_42", "tx_43", "tx_44", "tx_45",  -- 章节标签
+        "plate_46", "sr_47", "tx_48",                  -- "查看完整树状图"按钮
+    }
     for i = 1, #decorIds do
         local el = root:FindById(decorIds[i])
         if el then el.visible = false end
