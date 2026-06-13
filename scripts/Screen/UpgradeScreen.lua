@@ -103,7 +103,7 @@ function UpgradeScreen.Create(container, params)
     local matsText   = root:FindById("tx_b")
 
     if backBtn then
-        backBtn.onClick = function()
+        backBtn.props.onClick = function()
             ScreenRouter.GoTo("home")
         end
     end
@@ -291,7 +291,7 @@ function UpgradeScreen.Create(container, params)
         local def = CARD_DEFS[i]
         local refs = cardRefs_[def.facilityId]
         if refs and refs.btn then
-            refs.btn.onClick = function()
+            refs.btn.props.onClick = function()
                 DoUpgrade(def.facilityId)
             end
         end

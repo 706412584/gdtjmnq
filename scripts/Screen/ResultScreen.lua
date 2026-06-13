@@ -278,7 +278,7 @@ function ResultScreen.Create(container, params)
     -- 交付订单
     local deliverBtn = root:FindById("plate_1p")
     if deliverBtn then
-        deliverBtn.onClick = function()
+        deliverBtn.props.onClick = function()
             ScreenRouter.GoTo("home")
         end
     end
@@ -286,7 +286,7 @@ function ResultScreen.Create(container, params)
     -- 广告双倍奖励
     local adBtn = root:FindById("plate_1s")
     if adBtn then
-        adBtn.onClick = function()
+        adBtn.props.onClick = function()
             -- TODO: 播放广告逻辑
             print("[ResultScreen] Ad double reward requested")
             ScreenRouter.GoTo("home")
@@ -295,7 +295,7 @@ function ResultScreen.Create(container, params)
 
     -- 入图鉴
     if codexBtn then
-        codexBtn.onClick = function()
+        codexBtn.props.onClick = function()
             ScreenRouter.GoTo("codex")
         end
     end

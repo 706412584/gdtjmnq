@@ -116,7 +116,7 @@ function StoryScreen.Create(container, params)
 
     -- 跳过按钮
     if skipBtn_ then
-        skipBtn_.onClick = function()
+        skipBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
             -- 跳过当前全部剧情，标记完成
             StoryManager.SkipCurrentChapter()
@@ -126,7 +126,7 @@ function StoryScreen.Create(container, params)
 
     -- 返回按钮
     if backBtn_ then
-        backBtn_.onClick = function()
+        backBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
             ScreenRouter.GoTo(returnTo_)
         end
@@ -191,7 +191,7 @@ function StoryScreen.Create(container, params)
                 end
                 -- 绑定点击
                 local idx = i
-                choicePlates_[i].onClick = function()
+                choicePlates_[i].props.onClick = function()
                     OnChoiceSelected(idx)
                 end
             else
@@ -372,13 +372,13 @@ function StoryScreen.Create(container, params)
     -- 5. 绑定对话底板点击事件
     -- ----------------------------------------------------------------
     if dialogueBox_ then
-        dialogueBox_.onClick = function()
+        dialogueBox_.props.onClick = function()
             OnTapAdvance()
         end
     end
     -- 同时给滚动文本区绑定点击
     if scrollText_ then
-        scrollText_.onClick = function()
+        scrollText_.props.onClick = function()
             OnTapAdvance()
         end
     end

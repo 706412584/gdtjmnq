@@ -84,7 +84,7 @@ function OrderBoardScreen.Create(container, params)
     -- ----------------------------------------------------------------
 
     if backBtn_ then
-        backBtn_.onClick = function()
+        backBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             ScreenRouter.GoTo("home")
         end
@@ -99,25 +99,25 @@ function OrderBoardScreen.Create(container, params)
     end
 
     if tabAll_ then
-        tabAll_.onClick = function()
+        tabAll_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
             SetFilter(nil)
         end
     end
     if tabT1_ then
-        tabT1_.onClick = function()
+        tabT1_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
             SetFilter(1)
         end
     end
     if tabT2_ then
-        tabT2_.onClick = function()
+        tabT2_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
             SetFilter(2)
         end
     end
     if tabT3_ then
-        tabT3_.onClick = function()
+        tabT3_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
             SetFilter(3)
         end

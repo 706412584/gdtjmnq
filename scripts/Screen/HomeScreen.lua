@@ -173,25 +173,25 @@ function HomeScreen.Create(container, params)
 
     -- 顶部按钮
     if mailBtn_ then
-        mailBtn_.onClick = function()
+        mailBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             print("[HomeScreen] Mail button tapped (not implemented)")
         end
     end
     if taskBtn_ then
-        taskBtn_.onClick = function()
+        taskBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             ScreenRouter.GoTo("orderBoard")
         end
     end
     if friendBtn_ then
-        friendBtn_.onClick = function()
+        friendBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             print("[HomeScreen] Friend button tapped (not implemented)")
         end
     end
     if settingsBtn_ then
-        settingsBtn_.onClick = function()
+        settingsBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             ScreenRouter.GoTo("settings")
         end
@@ -205,27 +205,27 @@ function HomeScreen.Create(container, params)
         end
     end
 
-    if facilityFurnace_ then facilityFurnace_.onClick = OnFacilityTap("furnace") end
-    if facilityAnvil_ then facilityAnvil_.onClick = OnFacilityTap("anvil") end
-    if facilityGrinder_ then facilityGrinder_.onClick = OnFacilityTap("grinder") end
-    if facilityStorage_ then facilityStorage_.onClick = OnFacilityTap("storage") end
-    if facilityDisplay_ then facilityDisplay_.onClick = OnFacilityTap("display") end
+    if facilityFurnace_ then facilityFurnace_.props.onClick = OnFacilityTap("furnace") end
+    if facilityAnvil_ then facilityAnvil_.props.onClick = OnFacilityTap("anvil") end
+    if facilityGrinder_ then facilityGrinder_.props.onClick = OnFacilityTap("grinder") end
+    if facilityStorage_ then facilityStorage_.props.onClick = OnFacilityTap("storage") end
+    if facilityDisplay_ then facilityDisplay_.props.onClick = OnFacilityTap("display") end
 
     -- 右侧功能按钮
     if giftBtn_ then
-        giftBtn_.onClick = function()
+        giftBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             print("[HomeScreen] Gift pack tapped (not implemented)")
         end
     end
     if freeBoxBtn_ then
-        freeBoxBtn_.onClick = function()
+        freeBoxBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             print("[HomeScreen] Free box tapped (not implemented)")
         end
     end
     if adDoubleBtn_ then
-        adDoubleBtn_.onClick = function()
+        adDoubleBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             print("[HomeScreen] Ad double tapped (not implemented)")
         end
@@ -233,26 +233,26 @@ function HomeScreen.Create(container, params)
 
     -- 底部导航
     if navOrderBtn_ then
-        navOrderBtn_.onClick = function()
+        navOrderBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             ScreenRouter.GoTo("orderBoard")
         end
     end
     if navWorkshopBtn_ then
-        navWorkshopBtn_.onClick = function()
+        navWorkshopBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             -- 已在工坊主页，不跳转；或可刷新
             print("[HomeScreen] Already on workshop")
         end
     end
     if navCodexBtn_ then
-        navCodexBtn_.onClick = function()
+        navCodexBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             ScreenRouter.GoTo("codex")
         end
     end
     if navStoryBtn_ then
-        navStoryBtn_.onClick = function()
+        navStoryBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             if StoryManager.HasPendingStory() then
                 ScreenRouter.GoTo("story", { returnTo = "home" })
@@ -262,7 +262,7 @@ function HomeScreen.Create(container, params)
         end
     end
     if navShopBtn_ then
-        navShopBtn_.onClick = function()
+        navShopBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             print("[HomeScreen] Shop tapped (not implemented)")
         end

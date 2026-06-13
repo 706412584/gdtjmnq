@@ -105,7 +105,7 @@ function SettingsScreen.Create(container, params)
     -- ----------------------------------------------------------------
     local backBtn = root:FindById("plate_3")
     if backBtn then
-        backBtn.onClick = function()
+        backBtn.props.onClick = function()
             ScreenRouter.GoTo("home")
         end
     end
@@ -173,7 +173,7 @@ function SettingsScreen.Create(container, params)
     for i, def in ipairs(TAB_DEFS) do
         local tabPanel = root:FindById(def.id)
         if tabPanel then
-            tabPanel.onClick = function()
+            tabPanel.props.onClick = function()
                 SwitchTab(i)
             end
         end
@@ -210,7 +210,7 @@ function SettingsScreen.Create(container, params)
         -- 整行可点击 → 叠加一个透明的触控区域
         local row = root:FindById(def.rowId)
         if row then
-            row.onClick = function()
+            row.props.onClick = function()
                 -- 简易: 每次点击 +10, 超100循环回0
                 ---@diagnostic disable-next-line: assign-type-mismatch
                 local v = (state[def.key] or def.default) + 10
@@ -250,7 +250,7 @@ function SettingsScreen.Create(container, params)
         UpdateToggleVisual(def, state[def.key])
         local row = root:FindById(def.rowId)
         if row then
-            row.onClick = function()
+            row.props.onClick = function()
                 state[def.key] = not state[def.key]
                 UpdateToggleVisual(def, state[def.key])
             end
@@ -286,7 +286,7 @@ function SettingsScreen.Create(container, params)
     for _, opt in ipairs(QUALITY_OPTS) do
         local bg = root:FindById(opt.bgId)
         if bg then
-            bg.onClick = function()
+            bg.props.onClick = function()
                 state.quality = opt.value
                 UpdateOptionVisual(QUALITY_OPTS, opt.value)
             end
@@ -298,7 +298,7 @@ function SettingsScreen.Create(container, params)
     for _, opt in ipairs(FONT_OPTS) do
         local bg = root:FindById(opt.bgId)
         if bg then
-            bg.onClick = function()
+            bg.props.onClick = function()
                 state.fontSize = opt.value
                 UpdateOptionVisual(FONT_OPTS, opt.value)
             end
@@ -310,7 +310,7 @@ function SettingsScreen.Create(container, params)
     for _, opt in ipairs(LANG_OPTS) do
         local bg = root:FindById(opt.bgId)
         if bg then
-            bg.onClick = function()
+            bg.props.onClick = function()
                 state.language = opt.value
                 UpdateOptionVisual(LANG_OPTS, opt.value)
             end
@@ -323,7 +323,7 @@ function SettingsScreen.Create(container, params)
     -- 保存设置
     local saveBtn = root:FindById("plate_2u")
     if saveBtn then
-        saveBtn.onClick = function()
+        saveBtn.props.onClick = function()
             GameState.SetSettings({
                 sfxVolume     = math.floor(state.masterVolume),
                 musicVolume   = math.floor(state.musicVolume),
@@ -346,7 +346,7 @@ function SettingsScreen.Create(container, params)
     -- 重置默认
     local resetBtn = root:FindById("plate_2x")
     if resetBtn then
-        resetBtn.onClick = function()
+        resetBtn.props.onClick = function()
             state.masterVolume = 76
             state.musicVolume = 64
             state.ambientVolume = 50
@@ -375,7 +375,7 @@ function SettingsScreen.Create(container, params)
     -- 退出登录 (作为"删档重来"功能)
     local logoutBtn = root:FindById("plate_30")
     if logoutBtn then
-        logoutBtn.onClick = function()
+        logoutBtn.props.onClick = function()
             UI.Modal.Confirm({
                 title = "确认删档",
                 message = "确定要删除所有存档数据吗？铜钱、声望、材料、订单进度、图鉴等全部数据将被清空，此操作不可撤销！",

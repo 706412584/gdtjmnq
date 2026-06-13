@@ -134,7 +134,7 @@ function CodexScreen.Create(container, params)
     -- ----------------------------------------------------------------
     local backBtn = root:FindById("plate_3")
     if backBtn then
-        backBtn.onClick = function()
+        backBtn.props.onClick = function()
             ScreenRouter.GoTo("home")
         end
     end
@@ -295,7 +295,7 @@ function CodexScreen.Create(container, params)
         local catBtn = root:FindById(catDef.catId)
         if catBtn then
             local key = catDef.key
-            catBtn.onClick = function()
+            catBtn.props.onClick = function()
                 SetCategoryActive(key)
             end
         end

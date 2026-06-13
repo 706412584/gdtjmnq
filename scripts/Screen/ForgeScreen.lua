@@ -222,7 +222,7 @@ function ForgeScreen.Create(container, params)
     -- ----------------------------------------------------------------
 
     if backBtn then
-        backBtn.onClick = function()
+        backBtn.props.onClick = function()
             MiniGameRunner.Stop()
             OrderManager.CancelOrder()
             ScreenRouter.GoTo("home")
@@ -230,14 +230,14 @@ function ForgeScreen.Create(container, params)
     end
 
     if pauseBtn then
-        pauseBtn.onClick = function()
+        pauseBtn.props.onClick = function()
             -- TODO: 暂停小游戏
             print("[ForgeScreen] Pause requested")
         end
     end
 
     if itemBtn then
-        itemBtn.onClick = function()
+        itemBtn.props.onClick = function()
             -- TODO: 打开道具面板
             print("[ForgeScreen] Item panel requested")
         end
