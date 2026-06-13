@@ -181,17 +181,17 @@ function ForgeScreen.Create(container, params)
     -- 隐藏超出实际步骤数的进度点
     for i = 1, #stageDots do
         if stageDots[i] then
-            stageDots[i].display = (i <= totalSteps) and "flex" or "none"
+            stageDots[i].visible = (i <= totalSteps)
         end
     end
 
     -- 隐藏暂时不需要的节拍区和锤按钮（由小游戏模块自行管理）
     -- 布局中的这些元素仅作为视觉参考，实际交互由小游戏渲染
-    if beatTitle then beatTitle.display = "none" end
-    if hammerBtn then hammerBtn.display = "none" end
-    if hammerHint then hammerHint.display = "none" end
+    if beatTitle then beatTitle.visible = false end
+    if hammerBtn then hammerBtn.visible = false end
+    if hammerHint then hammerHint.visible = false end
     for i = 1, #beats do
-        if beats[i] then beats[i].display = "none" end
+        if beats[i] then beats[i].visible = false end
     end
 
     -- 初始化品质显示

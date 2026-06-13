@@ -99,19 +99,19 @@ function StoryScreen.Create(container, params)
     -- 隐藏全部选项按钮
     for i = 1, #choicePlates_ do
         if choicePlates_[i] then
-            choicePlates_[i].display = "none"
+            choicePlates_[i].visible = false
         end
     end
 
     -- 横屏章节面板在竖屏下隐藏（坐标溢出）
     if chapterPanel_ then
-        chapterPanel_.display = "none"
+        chapterPanel_.visible = false
     end
     if chapterTitle_ then
-        chapterTitle_.display = "none"
+        chapterTitle_.visible = false
     end
     if chapterSummary_ then
-        chapterSummary_.display = "none"
+        chapterSummary_.visible = false
     end
 
     -- 跳过按钮
@@ -151,7 +151,7 @@ function StoryScreen.Create(container, params)
         if charConfig and charConfig.portrait then
             portraitImg_.backgroundImage = charConfig.portrait
             if portraitFrame_ then
-                portraitFrame_.display = "flex"
+                portraitFrame_.visible = true
             end
             -- 更新左侧角色名信息
             if charTitleLabel_ then
@@ -163,7 +163,7 @@ function StoryScreen.Create(container, params)
         else
             -- 旁白或无立绘角色，隐藏立绘
             if portraitFrame_ then
-                portraitFrame_.display = "none"
+                portraitFrame_.visible = false
             end
             if charTitleLabel_ then
                 charTitleLabel_.text = ""
@@ -185,7 +185,7 @@ function StoryScreen.Create(container, params)
         for i = 1, #choicePlates_ do
             if i <= #choices then
                 -- 显示并设置文本
-                choicePlates_[i].display = "flex"
+                choicePlates_[i].visible = true
                 if choiceLabels_[i] then
                     choiceLabels_[i].text = choices[i].text or ""
                 end
@@ -196,7 +196,7 @@ function StoryScreen.Create(container, params)
                 end
             else
                 -- 超出选项数量的按钮隐藏
-                choicePlates_[i].display = "none"
+                choicePlates_[i].visible = false
             end
         end
     end
@@ -211,7 +211,7 @@ function StoryScreen.Create(container, params)
         -- 隐藏所有选项
         for i = 1, #choicePlates_ do
             if choicePlates_[i] then
-                choicePlates_[i].display = "none"
+                choicePlates_[i].visible = false
             end
         end
 

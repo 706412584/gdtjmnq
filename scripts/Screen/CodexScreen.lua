@@ -189,12 +189,12 @@ function CodexScreen.Create(container, params)
 
             if not recipe then
                 -- 没有对应武器数据，隐藏此 cell
-                cell.display = "none"
+                cell.visible = false
                 goto continue
             end
 
             -- 显示 cell
-            cell.display = "flex"
+            cell.visible = true
 
             local isUnlocked = unlockedSet[recipe.id] == true
             local border = root:FindById(def.borderId)
@@ -222,7 +222,7 @@ function CodexScreen.Create(container, params)
                 end
                 -- 隐藏 "???" 覆盖层文字
                 if overlay then
-                    overlay.display = "none"
+                    overlay.visible = false
                 end
                 if nameLabel then
                     nameLabel.text = recipe.name or "???"
@@ -245,7 +245,7 @@ function CodexScreen.Create(container, params)
                 end
                 -- 显示 "???" 覆盖层文字
                 if overlay then
-                    overlay.display = "flex"
+                    overlay.visible = true
                 end
                 if nameLabel then
                     nameLabel.text = "?????"
@@ -306,7 +306,7 @@ function CodexScreen.Create(container, params)
         local catDef = CAT_DEFS[i]
         if catDef.key == "extra1" or catDef.key == "extra2" or catDef.key == "extra3" then
             local catBtn = root:FindById(catDef.catId)
-            if catBtn then catBtn.display = "none" end
+            if catBtn then catBtn.visible = false end
         end
     end
 

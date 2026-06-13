@@ -164,7 +164,7 @@ function SettingsScreen.Create(container, params)
         for id, _ in pairs(ALL_ROW_IDS) do
             local row = root:FindById(id)
             if row then
-                row.display = visibleSet[id] and "flex" or "none"
+                row.visible = visibleSet[id] == true
             end
         end
     end

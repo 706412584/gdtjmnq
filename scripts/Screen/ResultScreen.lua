@@ -168,7 +168,7 @@ function ResultScreen.Create(container, params)
         if row then
             if i <= #stepScores then
                 -- 有数据，显示该行
-                row.display = "flex"
+                row.visible = true
                 local s = stepScores[i]
                 local stepName = STEP_NAMES[s.stepType] or s.stepType or ("步骤 " .. i)
                 local scoreVal = math.floor((s.score or 0) * 100 + 0.5)
@@ -189,7 +189,7 @@ function ResultScreen.Create(container, params)
                 end
             else
                 -- 无数据，隐藏该行
-                row.display = "none"
+                row.visible = false
             end
         end
     end
@@ -262,13 +262,13 @@ function ResultScreen.Create(container, params)
     if not hasBonus then
         -- 隐藏第四个槽
         local rew4 = root:FindById("rew_2f")
-        if rew4 then rew4.display = "none" end
+        if rew4 then rew4.visible = false end
     end
 
     -- 首次锻造：显示入图鉴按钮
     local codexBtn = root:FindById("plate_1v")
     if codexBtn then
-        codexBtn.display = result.isFirstForge and "flex" or "none"
+        codexBtn.visible = result.isFirstForge == true
     end
 
     -- ----------------------------------------------------------------

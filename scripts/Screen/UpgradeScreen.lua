@@ -111,19 +111,19 @@ function UpgradeScreen.Create(container, params)
     -- 隐藏第 6 张无数据卡片
     local extraCard = root:FindById(EXTRA_CARD_ID)
     if extraCard then
-        extraCard.display = "none"
+        extraCard.visible = false
     end
 
     -- 隐藏底部蓝图装饰区域（横屏装饰元素，竖屏不显示）
     local blueprintTitle = root:FindById("tx_3q")
-    if blueprintTitle then blueprintTitle.display = "none" end
+    if blueprintTitle then blueprintTitle.visible = false end
     local blueprintLine = root:FindById("sl_3r")
-    if blueprintLine then blueprintLine.display = "none" end
+    if blueprintLine then blueprintLine.visible = false end
     -- 解锁路径圆点和连线
     local decorIds = { "sc_3s", "sc_3t", "sc_3u", "sc_3v", "sc_3w", "sl_3x", "sl_3y", "sl_3z", "sl_40", "tx_41", "df_3k" }
     for i = 1, #decorIds do
         local el = root:FindById(decorIds[i])
-        if el then el.display = "none" end
+        if el then el.visible = false end
     end
 
     -- ----------------------------------------------------------------
@@ -203,10 +203,10 @@ function UpgradeScreen.Create(container, params)
             if label then
                 if buffTexts[j] then
                     label.text = buffTexts[j]
-                    label.display = "flex"
+                    label.visible = true
                 else
                     label.text = ""
-                    label.display = "none"
+                    label.visible = false
                 end
             end
         end

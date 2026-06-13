@@ -238,7 +238,7 @@ function OrderBoardScreen.Create(container, params)
         local w = custWidgets_[idx]
         if not w or not w.card then return end
 
-        w.card.display = "flex"
+        w.card.visible = true
 
         -- 背景色：选中高亮
         if w.bg then
@@ -275,7 +275,7 @@ function OrderBoardScreen.Create(container, params)
     local function HideCustomerCard(idx)
         local w = custWidgets_[idx]
         if w and w.card then
-            w.card.display = "none"
+            w.card.visible = false
         end
     end
 
@@ -284,7 +284,7 @@ function OrderBoardScreen.Create(container, params)
         local w = orderWidgets_[idx]
         if not w or not w.card then return end
 
-        w.card.display = "flex"
+        w.card.visible = true
 
         local recipe = WeaponRecipes.GetById(order.weaponId)
         local weaponName = recipe and recipe.name or "未知武器"
@@ -382,7 +382,7 @@ function OrderBoardScreen.Create(container, params)
     local function HideOrderCard(idx)
         local w = orderWidgets_[idx]
         if w and w.card then
-            w.card.display = "none"
+            w.card.visible = false
         end
     end
 
