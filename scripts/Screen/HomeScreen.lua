@@ -254,17 +254,13 @@ function HomeScreen.Create(container, params)
     if navStoryBtn_ then
         navStoryBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            if StoryManager.HasPendingStory() then
-                ScreenRouter.GoTo("story", { returnTo = "home" })
-            else
-                print("[HomeScreen] No pending story")
-            end
+            ScreenRouter.GoTo("story", { returnTo = "home" })
         end
     end
     if navShopBtn_ then
         navShopBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            print("[HomeScreen] Shop tapped (not implemented)")
+            UI.Toast.Show("商店功能即将开放，敬请期待")
         end
     end
 
