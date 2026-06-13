@@ -348,6 +348,52 @@ function StoryManager.SetFlag(flag, value)
     storyFlags_[flag] = value
 end
 
+--- 跳过当前章节剩余对话，直接推进到下一章或标记完成
+function StoryManager.SkipCurrentChapter()
+    local chapter, nodeId = StoryManager.GetProgress()
+    print("[StoryManager] Skipping rest of chapter " .. chapter .. " from node " .. (nodeId or "?"))
+
+    -- 查找当前章节的 chapterEnd 节点
+    if not chapterCache_[chapter] then
+        LoadChapter(chapter)
+    end
+
+    local nodes = chapterCache_[chapter]
+    if not nodes then return end
+
+    -- 找到最后一个节点（chapterEnd 节点）
+    local endNode = nil
+    for i = #nodes, 1, -1 do
+        if nodes[i].chapterEnd then
+            endNode = nodes[i]
+            break
+        end
+    end
+
+    if endNode then
+        -- 推进到下一章
+        local nextChapter = chapter + 1
+        local loaded = LoadChapter(nextChapter)
+        if loaded and chapterCache_[nextChapter] and #chapterCache_[nextChapter] > 0 then
+            local firstNode = chapterCache_[nextChapter][1]
+            GameState.SetStoryProgress(nextChapter, firstNode.id)
+            print("[StoryManager] Skipped to chapter " .. nextChapter)
+        else
+            -- 没有下一章，停在最后节点
+            GameState.SetStoryProgress(chapter, endNode.id)
+            print("[StoryManager] Skipped to end of chapter " .. chapter)
+        end
+    else
+        -- 没有 chapterEnd 节点，推进到最后节点
+        local lastNode = nodes[#nodes]
+        if lastNode then
+            GameState.SetStoryProgress(chapter, lastNode.id)
+        end
+    end
+
+    EventBus.Emit("story_chapter_skipped", { chapter = chapter })
+end
+
 --- 检查当前节点是否会触发订单
 ---@return boolean
 function StoryManager.ShouldTriggerOrder()

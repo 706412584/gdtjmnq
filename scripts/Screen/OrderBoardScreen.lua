@@ -1,10 +1,12 @@
 ---@diagnostic disable: assign-type-mismatch, return-type-mismatch, param-type-mismatch
 -- ============================================================================
--- OrderBoardScreen - 订单板界面
--- Project Smith / P1-D2
+-- OrderBoardScreen - 订单板界面（迁移版：使用 ui_OrderBoardScreen 布局框架）
+-- Project Smith
 --
--- 显示: 可接取订单列表（卡片式），含客户名/对话/武器/奖励/材料需求
--- 点击接单后跳转到 ForgeScreen
+-- 策略：
+--   布局提供顶栏（返回/标题/标签）和整体框架
+--   订单列表区域 df_j 作为容器承载动态订单卡片
+--   预设的卡片模板 cust_* 隐藏，替换为代码动态生成的订单卡片
 -- ============================================================================
 
 local UI             = require("urhox-libs/UI")
@@ -15,42 +17,22 @@ local WeaponRecipes  = require("Config.WeaponRecipes")
 local ScreenRouter   = require("Utils.ScreenRouter")
 local SFXManager     = require("Utils.SFXManager")
 
+local OrderLayout = require("ui_OrderBoardScreen_订单板")
+
 local OrderBoardScreen = {}
 
 -- ============================================================================
--- UI 素材路径（武侠水墨风）
--- ============================================================================
-
-local UI_ASSETS = {
-    panel_header    = "image/ui/panel_header.png",
-    panel_card_blue = "image/ui/panel_card_blue.png",
-    btn_accept      = "image/ui/btn_accept.png",
-    divider_bamboo  = "image/ui/divider_bamboo.png",
-}
-
--- ============================================================================
--- 色板
+-- 色板（用于动态卡片）
 -- ============================================================================
 
 local C = {
-    bgPrimary    = { 26,  26,  46,  255 },
-    bgSecondary  = { 22,  33,  62,  255 },
-    bgCard       = { 30,  40,  68,  255 },
-    bgCardHover  = { 38,  48,  78,  255 },
-    accent       = { 233, 69,  96,  255 },
-    gold         = { 212, 165, 116, 255 },
-    textPrimary  = { 232, 224, 208, 255 },
-    textSecondary = { 160, 147, 125, 255 },
-    success      = { 78,  205, 196, 255 },
-    warning      = { 255, 217, 61,  255 },
-    btnAccept    = { 78,  165, 130, 255 },
-    btnAcceptHover = { 90, 180, 145, 255 },
-    btnBack      = { 80,  80,  100, 255 },
-    divider      = { 60,  60,  90,  120 },
-    tierColors   = {
-        [1] = { 180, 180, 180, 255 },  -- T1 灰白
-        [2] = { 120, 200, 120, 255 },  -- T2 绿
-    },
+    gold         = "#C9A45A",
+    textPrimary  = "#F1E5CC",
+    textSecondary = "#9C8A6A",
+    success      = "#4F7A63",
+    accent       = "#C96A2B",
+    cardBg       = "rgba(31,26,23,0.55)",
+    cardBorder   = "#3A322B",
 }
 
 -- ============================================================================
@@ -61,48 +43,141 @@ function OrderBoardScreen.Create(container, params)
     local screen = {}
     local unsubs_ = {}
 
-    -- 订单列表容器引用
-    local orderListContainer_
-    -- 状态提示
-    local statusLabel_
+    -- ----------------------------------------------------------------
+    -- 1. 构建布局框架
+    -- ----------------------------------------------------------------
+    local root = OrderLayout.Build()
+    container:AddChild(root)
 
     -- ----------------------------------------------------------------
-    -- 创建单张订单卡片
+    -- 2. 获取关键元素引用
+    -- ----------------------------------------------------------------
+
+    -- 返回按钮
+    local backBtn_ = root:FindById("plate_3")
+    -- 标题
+    local titleLabel_ = root:FindById("tx_6")
+    -- 筛选标签按钮
+    local tabAll_ = root:FindById("plate_7")
+    local tabT1_ = root:FindById("plate_a")
+    local tabT2_ = root:FindById("plate_d")
+    local tabT3_ = root:FindById("plate_g")
+    -- 主内容区域
+    local contentArea_ = root:FindById("df_j")
+    -- 右侧详情区（横屏特有，可能需隐藏预设内容）
+    local detailTitle_ = root:FindById("tx_p")
+
+    -- 预设卡片模板（隐藏，用动态替代）
+    local presetCards = { "cust_q", "cust_11", "cust_1c", "cust_1n", "cust_1y" }
+    for _, cardId in ipairs(presetCards) do
+        local card = root:FindById(cardId)
+        if card then card.display = "none" end
+    end
+
+    -- 隐藏横屏右侧详情面板中的预设内容
+    if detailTitle_ then
+        detailTitle_.text = ""
+    end
+
+    -- ----------------------------------------------------------------
+    -- 3. 绑定按钮事件
+    -- ----------------------------------------------------------------
+
+    if backBtn_ then
+        backBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            ScreenRouter.GoTo("home")
+        end
+    end
+
+    -- 当前筛选等级（nil 表示全部）
+    local currentFilter_ = nil
+
+    local function SetFilter(tier)
+        currentFilter_ = tier
+        RefreshOrderList()
+    end
+
+    if tabAll_ then
+        tabAll_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
+            SetFilter(nil)
+        end
+    end
+    if tabT1_ then
+        tabT1_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
+            SetFilter(1)
+        end
+    end
+    if tabT2_ then
+        tabT2_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
+            SetFilter(2)
+        end
+    end
+    if tabT3_ then
+        tabT3_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
+            SetFilter(3)
+        end
+    end
+
+    -- ----------------------------------------------------------------
+    -- 4. 动态订单卡片容器（覆盖在 contentArea_ 之上）
+    -- ----------------------------------------------------------------
+
+    -- 创建一个滚动容器覆盖在 df_j 区域
+    local orderScrollView_ = UI.ScrollView {
+        id = "order_scroll",
+        position = "absolute",
+        left = "1.17%",
+        top = 107,
+        width = "97.66%",
+        bottom = 34,
+        scrollY = true,
+        showScrollbar = true,
+        bounces = true,
+        paddingHorizontal = 12,
+        paddingTop = 12,
+        paddingBottom = 20,
+        children = {},
+    }
+    root:AddChild(orderScrollView_)
+
+    -- 隐藏原始的 df_j（预设内容）
+    if contentArea_ then
+        contentArea_.display = "none"
+    end
+
+    -- ----------------------------------------------------------------
+    -- 5. 创建订单卡片
     -- ----------------------------------------------------------------
     local function CreateOrderCard(order)
         local recipe = WeaponRecipes.GetById(order.weaponId)
         local weaponName = recipe and recipe.name or "未知武器"
 
         -- 材料需求文本
-        local materialTexts = {}
+        local matChildren = {}
         if recipe and recipe.requiredMaterials then
             for mat, count in pairs(recipe.requiredMaterials) do
                 local has = GameState.GetMaterial(mat)
                 local color = has >= count and C.success or C.accent
-                materialTexts[#materialTexts + 1] = {
+                matChildren[#matChildren + 1] = UI.Label {
                     text = mat .. " " .. has .. "/" .. count,
-                    color = color,
+                    fontSize = 12,
+                    fontColor = color,
+                    marginRight = 8,
                 }
             end
         end
 
-        -- 材料标签列表
-        local matLabels = {}
-        for i = 1, #materialTexts do
-            matLabels[#matLabels + 1] = UI.Label {
-                text = materialTexts[i].text,
-                fontSize = 11,
-                fontColor = materialTexts[i].color,
-            }
-        end
-
-        local tierColor = C.tierColors[order.tier] or C.textSecondary
-
         return UI.Panel {
             width = "100%",
-            backgroundImage = UI_ASSETS.panel_card_blue,
-            backgroundFit = "cover",
+            backgroundColor = C.cardBg,
             borderRadius = 8,
+            borderWidth = 1,
+            borderColor = C.cardBorder,
             padding = 12,
             gap = 6,
             marginBottom = 10,
@@ -117,33 +192,30 @@ function OrderBoardScreen.Create(container, params)
                         UI.Label {
                             text = order.customerName,
                             fontSize = 15,
+                            fontWeight = 700,
                             fontColor = C.textPrimary,
                         },
                         UI.Label {
                             text = "T" .. order.tier,
                             fontSize = 12,
-                            fontColor = tierColor,
+                            fontColor = C.gold,
                         },
                     }
                 },
-
                 -- 对话
                 UI.Label {
-                    text = "\"" .. order.dialogue .. "\"",
+                    text = "\"" .. (order.dialogue or "") .. "\"",
                     fontSize = 12,
                     fontColor = C.textSecondary,
                     maxLines = 2,
                 },
-
-                -- 分隔线
+                -- 分割线
                 UI.Panel {
                     width = "100%",
-                    height = 16,
-                    backgroundImage = UI_ASSETS.divider_bamboo,
-                    backgroundFit = "contain",
+                    height = 1,
+                    backgroundColor = C.cardBorder,
                     marginVertical = 4,
                 },
-
                 -- 武器名 + 奖励
                 UI.Panel {
                     width = "100%",
@@ -161,12 +233,12 @@ function OrderBoardScreen.Create(container, params)
                             gap = 10,
                             children = {
                                 UI.Label {
-                                    text = "铜钱+" .. order.baseRewardCoins,
+                                    text = "铜钱+" .. (order.baseRewardCoins or 0),
                                     fontSize = 11,
                                     fontColor = C.gold,
                                 },
                                 UI.Label {
-                                    text = "声望+" .. order.baseRewardFame,
+                                    text = "声望+" .. (order.baseRewardFame or 0),
                                     fontSize = 11,
                                     fontColor = C.success,
                                 },
@@ -174,28 +246,24 @@ function OrderBoardScreen.Create(container, params)
                         },
                     }
                 },
-
                 -- 材料需求
                 UI.Panel {
                     width = "100%",
                     flexDirection = "row",
                     flexWrap = "wrap",
-                    gap = 8,
-                    children = matLabels,
+                    gap = 4,
+                    children = matChildren,
                 },
-
                 -- 接单按钮
-                UI.Button {
-                    text = "接受订单",
+                UI.Panel {
                     width = "100%",
-                    height = 42,
-                    fontSize = 14,
-                    backgroundImage = UI_ASSETS.btn_accept,
-                    backgroundFit = "cover",
-                    fontColor = C.textPrimary,
+                    height = 40,
+                    backgroundColor = C.success,
                     borderRadius = 6,
-                    marginTop = 4,
-                    onClick = function(self)
+                    justifyContent = "center",
+                    alignItems = "center",
+                    marginTop = 6,
+                    onClick = function()
                         local ok, err = OrderManager.AcceptOrder(order.id)
                         if ok then
                             SFXManager.Play(SFXManager.SFX.ORDER_ACCEPT, 0.7)
@@ -206,28 +274,40 @@ function OrderBoardScreen.Create(container, params)
                             })
                         else
                             SFXManager.Play(SFXManager.SFX.UI_FAIL, 0.4)
-                            if statusLabel_ then
-                                statusLabel_.text = err or "无法接单"
-                            end
                             print("[OrderBoard] Accept failed: " .. tostring(err))
                         end
                     end,
+                    children = {
+                        UI.Label {
+                            text = "接受订单",
+                            fontSize = 14,
+                            fontWeight = 700,
+                            fontColor = C.textPrimary,
+                        },
+                    },
                 },
             }
         }
     end
 
     -- ----------------------------------------------------------------
-    -- 刷新订单列表
+    -- 6. 刷新订单列表
     -- ----------------------------------------------------------------
-    local function RefreshOrderList()
-        if not orderListContainer_ then return end
-        orderListContainer_:ClearChildren()
+    function RefreshOrderList()
+        orderScrollView_:ClearChildren()
 
         local orders = OrderManager.GetAvailableOrders()
 
-        if #orders == 0 then
-            orderListContainer_:AddChild(
+        -- 筛选
+        local filtered = {}
+        for i = 1, #orders do
+            if currentFilter_ == nil or orders[i].tier == currentFilter_ then
+                filtered[#filtered + 1] = orders[i]
+            end
+        end
+
+        if #filtered == 0 then
+            orderScrollView_:AddChild(
                 UI.Label {
                     text = "暂无可接取的订单",
                     fontSize = 14,
@@ -240,92 +320,18 @@ function OrderBoardScreen.Create(container, params)
             return
         end
 
-        for i = 1, #orders do
-            orderListContainer_:AddChild(CreateOrderCard(orders[i]))
+        for i = 1, #filtered do
+            orderScrollView_:AddChild(CreateOrderCard(filtered[i]))
         end
+
+        print("[OrderBoard] Refreshed: " .. #filtered .. " orders displayed")
     end
-
-    -- ----------------------------------------------------------------
-    -- 组装页面
-    -- ----------------------------------------------------------------
-    statusLabel_ = UI.Label {
-        text = "",
-        fontSize = 12,
-        fontColor = C.accent,
-        textAlign = "center",
-        width = "100%",
-        height = 16,
-    }
-
-    orderListContainer_ = UI.Panel {
-        width = "100%",
-        gap = 0,
-    }
-
-    local panel = UI.Panel {
-        width = "100%",
-        height = "100%",
-        flexDirection = "column",
-        children = {
-            -- 顶栏
-            UI.Panel {
-                width = "100%",
-                flexDirection = "row",
-                justifyContent = "space-between",
-                alignItems = "center",
-                paddingHorizontal = 16,
-                paddingVertical = 12,
-                backgroundImage = UI_ASSETS.panel_header,
-                backgroundFit = "cover",
-                children = {
-                    UI.Button {
-                        text = "< 返回",
-                        fontSize = 14,
-                        fontColor = C.textSecondary,
-                        backgroundColor = { 0, 0, 0, 0 },
-                        onClick = function(self)
-                            ScreenRouter.GoTo("home")
-                        end,
-                    },
-                    UI.Label {
-                        text = "订单板",
-                        fontSize = 18,
-                        fontColor = C.gold,
-                    },
-                    -- 占位保持居中
-                    UI.Panel { width = 60 },
-                },
-            },
-
-            -- 状态提示
-            statusLabel_,
-
-            -- 可滚动订单列表
-            UI.ScrollView {
-                width = "100%",
-                flexGrow = 1,
-                flexBasis = 0,
-                scrollY = true,
-                showScrollbar = true,
-                bounces = true,
-                paddingHorizontal = 14,
-                paddingTop = 8,
-                paddingBottom = 20,
-                children = {
-                    orderListContainer_,
-                },
-            },
-        }
-    }
-
-    container:AddChild(panel)
-    screen.panel = panel
 
     -- 初次加载
     RefreshOrderList()
 
     -- ----------------------------------------------------------------
-    -- 清理
+    -- 7. 清理
     -- ----------------------------------------------------------------
     function screen.Destroy()
         for i = 1, #unsubs_ do
@@ -334,6 +340,7 @@ function OrderBoardScreen.Create(container, params)
         unsubs_ = {}
     end
 
+    print("[OrderBoard] Created (layout migration)")
     return screen
 end
 

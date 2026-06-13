@@ -1,12 +1,12 @@
 -- ============================================================================
--- StoryScreen - AVG 对话界面
--- Project Smith / P2-B4
+-- StoryScreen - AVG 对话界面（迁移版：使用 ui_StoryScreen 布局）
+-- Project Smith
 --
 -- 功能：
---   1. 全屏背景图展示
---   2. 角色立绘展示（左/右侧）
---   3. 底部对话框（半透明，显示说话人名+对话文本）
---   4. 点击任意位置推进对话
+--   1. 使用 ui_StoryScreen_剧情对话.Build() 作为视觉层
+--   2. 通过 FindById 绑定动态元素
+--   3. 保留完整对话推进逻辑（ShowNextLine/ShowChoices/FinishNode）
+--   4. 角色立绘/背景图动态切换
 --   5. 分支选择按钮展示
 --   6. 对话完毕后自动返回指定界面
 -- ============================================================================
@@ -17,34 +17,9 @@ local ScreenRouter = require("Utils.ScreenRouter")
 local EventBus     = require("Core.EventBus")
 local SFXManager   = require("Utils.SFXManager")
 
+local StoryLayout  = require("ui_StoryScreen_剧情对话")
+
 local StoryScreen = {}
-
--- ============================================================================
--- UI 素材路径（武侠水墨风）
--- ============================================================================
-
-local UI_ASSETS = {
-    panel_card = "image/ui/panel_card.png",
-    btn_choice = "image/ui/btn_choice.png",
-}
-
--- ============================================================================
--- 色板
--- ============================================================================
-
-local C = {
-    bgPrimary     = { 26,  26,  46,  255 },
-    bgDialogue    = { 10,  10,  20,  220 },
-    bgChoice      = { 40,  50,  80,  240 },
-    bgChoiceHover = { 55,  65,  100, 255 },
-    bgChoicePress = { 30,  40,  65,  255 },
-    gold          = { 212, 165, 116, 255 },
-    textPrimary   = { 232, 224, 208, 255 },
-    textSecondary = { 160, 147, 125, 255 },
-    textNarrator  = { 180, 190, 200, 255 },
-    accent        = { 233, 69,  96,  255 },
-    divider       = { 80,  80,  120, 100 },
-}
 
 -- ============================================================================
 -- Screen 接口
@@ -65,17 +40,100 @@ function StoryScreen.Create(container, params)
     local isShowingChoices_ = false
     local finished_ = false
 
-    -- UI 元素引用（增量更新）
-    local bgPanel_
-    local portraitPanel_
-    local speakerLabel_
-    local textLabel_
-    local dialogueBox_
-    local choiceContainer_
-    local tapArea_
+    -- ----------------------------------------------------------------
+    -- 1. 构建 UI 树（从布局模块）
+    -- ----------------------------------------------------------------
+    local root = StoryLayout.Build()
+    container:AddChild(root)
 
     -- ----------------------------------------------------------------
-    -- 内部函数
+    -- 2. 通过 FindById 获取动态元素引用
+    -- ----------------------------------------------------------------
+
+    -- 背景图容器
+    local bgPanel_ = root:FindById("ph_1")
+    -- 角色立绘容器
+    local portraitFrame_ = root:FindById("ph_i")
+    local portraitImg_ = root:FindById("sr_j")
+    -- 角色名标签（对话框上方）
+    local nameTag_ = root:FindById("sr_10")
+    local nameLabel_ = root:FindById("tx_11")
+    -- 对话文本
+    local textLabel_ = root:FindById("tx_12")
+    -- 对话底板（用于点击推进）
+    local dialogueBox_ = root:FindById("sr_z")
+    -- 对话滚动容器
+    local scrollText_ = root:FindById("scroll_text")
+
+    -- 左侧面板信息（角色大名+描述）
+    local charTitleLabel_ = root:FindById("tx_o")
+    local charDescLabel_ = root:FindById("tx_p")
+
+    -- 章节信息面板（横屏专属，竖屏下可能溢出，隐藏处理）
+    local chapterPanel_ = root:FindById("df_q")
+    local chapterTitle_ = root:FindById("tx_w")
+    local chapterSummary_ = root:FindById("tx_y")
+
+    -- 选项按钮（固定 4 个槽位）
+    local choicePlates_ = {
+        root:FindById("plate_13"),
+        root:FindById("plate_16"),
+        root:FindById("plate_19"),
+        root:FindById("plate_1c"),
+    }
+    local choiceLabels_ = {
+        root:FindById("tx_15"),
+        root:FindById("tx_18"),
+        root:FindById("tx_1b"),
+        root:FindById("tx_1e"),
+    }
+
+    -- 顶部按钮
+    local skipBtn_ = root:FindById("plate_1f")
+    local backBtn_ = root:FindById("plate_1i")
+
+    -- ----------------------------------------------------------------
+    -- 3. 初始化：隐藏选项按钮 + 绑定顶部按钮
+    -- ----------------------------------------------------------------
+
+    -- 隐藏全部选项按钮
+    for i = 1, #choicePlates_ do
+        if choicePlates_[i] then
+            choicePlates_[i].display = "none"
+        end
+    end
+
+    -- 横屏章节面板在竖屏下隐藏（坐标溢出）
+    if chapterPanel_ then
+        chapterPanel_.display = "none"
+    end
+    if chapterTitle_ then
+        chapterTitle_.display = "none"
+    end
+    if chapterSummary_ then
+        chapterSummary_.display = "none"
+    end
+
+    -- 跳过按钮
+    if skipBtn_ then
+        skipBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
+            -- 跳过当前全部剧情，标记完成
+            StoryManager.SkipCurrentChapter()
+            ScreenRouter.GoTo(returnTo_)
+        end
+    end
+
+    -- 返回按钮
+    if backBtn_ then
+        backBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
+            ScreenRouter.GoTo(returnTo_)
+        end
+    end
+
+    -- ----------------------------------------------------------------
+    -- 4. 对话逻辑函数
     -- ----------------------------------------------------------------
 
     --- 更新背景图
@@ -87,29 +145,134 @@ function StoryScreen.Create(container, params)
 
     --- 更新角色立绘
     local function UpdatePortrait(speakerId)
-        if not portraitPanel_ then return end
+        if not portraitImg_ then return end
 
         local charConfig = StoryManager.GetCharacterConfig(speakerId)
-        if charConfig.portrait then
-            portraitPanel_.backgroundImage = charConfig.portrait
-            portraitPanel_.opacity = 1.0
-            -- 根据站位调整位置
-            if charConfig.side == "left" then
-                portraitPanel_.alignSelf = "flex-start"
-                portraitPanel_.marginLeft = 10
-                portraitPanel_.marginRight = 0
-            else
-                portraitPanel_.alignSelf = "flex-end"
-                portraitPanel_.marginLeft = 0
-                portraitPanel_.marginRight = 10
+        if charConfig and charConfig.portrait then
+            portraitImg_.backgroundImage = charConfig.portrait
+            if portraitFrame_ then
+                portraitFrame_.display = "flex"
+            end
+            -- 更新左侧角色名信息
+            if charTitleLabel_ then
+                charTitleLabel_.text = "· " .. (charConfig.name or "") .. " · "
+            end
+            if charDescLabel_ then
+                charDescLabel_.text = charConfig.desc or ""
             end
         else
-            portraitPanel_.opacity = 0.0
+            -- 旁白或无立绘角色，隐藏立绘
+            if portraitFrame_ then
+                portraitFrame_.display = "none"
+            end
+            if charTitleLabel_ then
+                charTitleLabel_.text = ""
+            end
+            if charDescLabel_ then
+                charDescLabel_.text = ""
+            end
         end
     end
 
+    --- 显示选择按钮
+    local function ShowChoices()
+        -- 选择出现音效
+        SFXManager.Play(SFXManager.SFX.STORY_REVEAL, 0.4)
+
+        if not currentNode_ or not currentNode_.choices then return end
+
+        local choices = currentNode_.choices
+        for i = 1, #choicePlates_ do
+            if i <= #choices then
+                -- 显示并设置文本
+                choicePlates_[i].display = "flex"
+                if choiceLabels_[i] then
+                    choiceLabels_[i].text = choices[i].text or ""
+                end
+                -- 绑定点击
+                local idx = i
+                choicePlates_[i].onClick = function()
+                    OnChoiceSelected(idx)
+                end
+            else
+                -- 超出选项数量的按钮隐藏
+                choicePlates_[i].display = "none"
+            end
+        end
+    end
+
+    --- 处理选择
+    function OnChoiceSelected(choiceIndex)
+        -- 选择确认音效
+        SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
+
+        isShowingChoices_ = false
+
+        -- 隐藏所有选项
+        for i = 1, #choicePlates_ do
+            if choicePlates_[i] then
+                choicePlates_[i].display = "none"
+            end
+        end
+
+        -- 通知 StoryManager 应用选择效果并推进
+        StoryManager.MakeChoice(choiceIndex)
+
+        -- 加载下一个节点
+        LoadNextNode()
+    end
+
+    --- 完成当前对话节点
+    local function FinishNode()
+        -- 检查是否触发订单
+        local shouldTriggerOrder = currentNode_.triggerOrder == true
+
+        -- 通知 StoryManager 推进
+        StoryManager.CompleteDialogueNode()
+
+        if shouldTriggerOrder then
+            -- 剧情触发订单：跳到订单板
+            ScreenRouter.GoTo("orderBoard")
+            return
+        end
+
+        -- 尝试加载下一个节点
+        LoadNextNode()
+    end
+
+    --- 加载下一个节点
+    function LoadNextNode()
+        currentNode_ = StoryManager.GetCurrentNode()
+        lineIndex_ = 0
+        isShowingChoices_ = false
+
+        if not currentNode_ then
+            -- 没有更多节点，返回
+            print("[StoryScreen] No more story nodes, returning to " .. returnTo_)
+            ScreenRouter.GoTo(returnTo_)
+            return
+        end
+
+        -- 检查条件
+        if currentNode_.condition then
+            if not StoryManager.HasPendingStory() then
+                print("[StoryScreen] Next node condition not met, returning")
+                ScreenRouter.GoTo(returnTo_)
+                return
+            end
+        end
+
+        -- 更新背景
+        if currentNode_.background then
+            UpdateBackground(currentNode_.background)
+        end
+
+        -- 显示第一行
+        ShowNextLine()
+    end
+
     --- 显示下一行对话
-    local function ShowNextLine()
+    function ShowNextLine()
         if not currentNode_ or finished_ then return end
 
         local lines = currentNode_.lines
@@ -123,11 +286,9 @@ function StoryScreen.Create(container, params)
         if lineIndex_ > #lines then
             -- 所有台词播完
             if currentNode_.type == "choice" then
-                -- 显示选择
                 isShowingChoices_ = true
                 ShowChoices()
             else
-                -- 完成对话，推进节点
                 FinishNode()
             end
             return
@@ -164,7 +325,6 @@ function StoryScreen.Create(container, params)
                 or string.find(text, "若是") or string.find(text, "恐怕") then
                 sfx = SFXManager.SFX.CHAR_THINK
             elseif lineIndex_ == 1 then
-                -- 角色在该节点的第一句话，播放问候音
                 sfx = SFXManager.SFX.CHAR_GREET
             end
             if sfx then
@@ -172,142 +332,29 @@ function StoryScreen.Create(container, params)
             end
         end
 
-        -- 更新 UI
+        -- 更新 UI（增量）
         UpdatePortrait(speakerId)
 
-        if speakerLabel_ then
+        if nameLabel_ then
             if speakerId == "narrator" then
-                speakerLabel_.text = ""
+                nameLabel_.text = "旁白"
+                if nameTag_ then
+                    nameTag_.backgroundColor = "#3A322B"
+                end
             else
-                speakerLabel_.text = line.name or charConfig.name or ""
+                nameLabel_.text = line.name or charConfig.name or ""
+                if nameTag_ then
+                    nameTag_.backgroundColor = "#C96A2B"
+                end
             end
         end
 
         if textLabel_ then
             textLabel_.text = line.text or ""
-            if speakerId == "narrator" then
-                textLabel_.fontColor = C.textNarrator
-            else
-                textLabel_.fontColor = C.textPrimary
-            end
         end
     end
 
-    --- 显示选择按钮
-    function ShowChoices()
-        -- 选择出现音效
-        SFXManager.Play(SFXManager.SFX.STORY_REVEAL, 0.4)
-
-        if not choiceContainer_ or not currentNode_ or not currentNode_.choices then return end
-
-        -- 隐藏点击继续提示，并让点击穿透到选项按钮
-        if tapArea_ then
-            tapArea_.opacity = 0.0
-            tapArea_.pointerEvents = "none"
-        end
-
-        choiceContainer_:ClearChildren()
-
-        local choices = currentNode_.choices
-        for i = 1, #choices do
-            local choice = choices[i]
-            local idx = i  -- 闭包捕获
-
-            choiceContainer_:AddChild(UI.Button {
-                text = choice.text,
-                width = "90%",
-                height = 48,
-                fontSize = 14,
-                backgroundImage = UI_ASSETS.btn_choice,
-                backgroundFit = "cover",
-                fontColor = C.textPrimary,
-                borderRadius = 8,
-                marginBottom = 8,
-                onClick = function()
-                    OnChoiceSelected(idx)
-                end,
-            })
-        end
-
-        choiceContainer_.opacity = 1.0
-    end
-
-    --- 处理选择
-    function OnChoiceSelected(choiceIndex)
-        -- 选择确认音效
-        SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
-
-        isShowingChoices_ = false
-
-        if choiceContainer_ then
-            choiceContainer_:ClearChildren()
-            choiceContainer_.opacity = 0.0
-        end
-
-        -- 恢复点击区域
-        if tapArea_ then
-            tapArea_.opacity = 1.0
-            tapArea_.pointerEvents = "auto"
-        end
-
-        -- 通知 StoryManager 应用选择效果并推进
-        StoryManager.MakeChoice(choiceIndex)
-
-        -- 加载下一个节点
-        LoadNextNode()
-    end
-
-    --- 完成当前对话节点
-    function FinishNode()
-        -- 检查是否触发订单
-        local shouldTriggerOrder = currentNode_.triggerOrder == true
-
-        -- 通知 StoryManager 推进
-        StoryManager.CompleteDialogueNode()
-
-        if shouldTriggerOrder then
-            -- 剧情触发订单：跳到订单板
-            ScreenRouter.GoTo("orderBoard")
-            return
-        end
-
-        -- 尝试加载下一个节点
-        LoadNextNode()
-    end
-
-    --- 加载下一个节点
-    function LoadNextNode()
-        currentNode_ = StoryManager.GetCurrentNode()
-        lineIndex_ = 0
-        isShowingChoices_ = false
-
-        if not currentNode_ then
-            -- 没有更多节点，返回
-            print("[StoryScreen] No more story nodes, returning to " .. returnTo_)
-            ScreenRouter.GoTo(returnTo_)
-            return
-        end
-
-        -- 检查条件
-        if currentNode_.condition then
-            -- 条件不满足，返回（等待下次触发）
-            if not StoryManager.HasPendingStory() then
-                print("[StoryScreen] Next node condition not met, returning")
-                ScreenRouter.GoTo(returnTo_)
-                return
-            end
-        end
-
-        -- 更新背景
-        if currentNode_.background then
-            UpdateBackground(currentNode_.background)
-        end
-
-        -- 显示第一行
-        ShowNextLine()
-    end
-
-    --- 点击处理
+    --- 点击处理（推进对话）
     local function OnTapAdvance()
         if finished_ then
             ScreenRouter.GoTo(returnTo_)
@@ -322,120 +369,22 @@ function StoryScreen.Create(container, params)
     end
 
     -- ----------------------------------------------------------------
-    -- UI 构建
+    -- 5. 绑定对话底板点击事件
     -- ----------------------------------------------------------------
-
-    -- 角色立绘容器
-    portraitPanel_ = UI.Panel {
-        width = 180,
-        height = 300,
-        position = "absolute",
-        bottom = 180,
-        left = 10,
-        backgroundFit = "contain",
-        opacity = 0.0,
-    }
-
-    -- 说话人名字
-    speakerLabel_ = UI.Label {
-        text = "",
-        fontSize = 15,
-        fontColor = C.gold,
-        fontWeight = "bold",
-    }
-
-    -- 对话文本（whiteSpace="normal" 启用自动换行）
-    textLabel_ = UI.Label {
-        text = "",
-        fontSize = 14,
-        fontColor = C.textPrimary,
-        width = "100%",
-        flexShrink = 1,
-        whiteSpace = "normal",
-        lineHeight = 1.6,
-    }
-
-    -- 点击继续提示
-    local continueHint = UI.Label {
-        text = "[ 点击继续 ]",
-        fontSize = 11,
-        fontColor = C.textSecondary,
-        textAlign = "right",
-        width = "100%",
-    }
-
-    -- 对话框（半透明底 + 水墨面板装饰）
-    dialogueBox_ = UI.Panel {
-        width = "100%",
-        position = "absolute",
-        bottom = 0,
-        left = 0,
-        right = 0,
-        backgroundColor = { 10, 10, 20, 200 },
-        backgroundImage = UI_ASSETS.panel_card,
-        backgroundFit = "cover",
-        paddingTop = 16,
-        paddingBottom = 14,
-        paddingHorizontal = 20,
-        gap = 6,
-        minHeight = 150,
-        children = {
-            speakerLabel_,
-            textLabel_,
-            continueHint,
-        },
-    }
-
-    -- 选择容器（覆盖在对话框上方）
-    choiceContainer_ = UI.Panel {
-        width = "100%",
-        position = "absolute",
-        bottom = 150,
-        left = 0,
-        right = 0,
-        alignItems = "center",
-        opacity = 0.0,
-    }
-
-    -- 点击区域（覆盖整个屏幕用于推进对话）
-    tapArea_ = UI.Panel {
-        width = "100%",
-        height = "100%",
-        position = "absolute",
-        top = 0,
-        left = 0,
-        onClick = function()
+    if dialogueBox_ then
+        dialogueBox_.onClick = function()
             OnTapAdvance()
-        end,
-    }
-
-    -- 背景面板
-    bgPanel_ = UI.Panel {
-        width = "100%",
-        height = "100%",
-        backgroundColor = C.bgPrimary,
-        backgroundFit = "cover",
-    }
-
-    -- 组装主面板
-    -- 注意 children 顺序决定 z-index：后面的在上层
-    -- tapArea_ 放在 choiceContainer_ 之前，确保选项按钮可点击
-    local mainPanel = UI.Panel {
-        width = "100%",
-        height = "100%",
-        children = {
-            bgPanel_,
-            portraitPanel_,
-            dialogueBox_,
-            tapArea_,
-            choiceContainer_,
-        },
-    }
-
-    container:AddChild(mainPanel)
+        end
+    end
+    -- 同时给滚动文本区绑定点击
+    if scrollText_ then
+        scrollText_.onClick = function()
+            OnTapAdvance()
+        end
+    end
 
     -- ----------------------------------------------------------------
-    -- 启动对话
+    -- 6. 启动对话
     -- ----------------------------------------------------------------
     if currentNode_ then
         -- 设置背景
@@ -450,9 +399,12 @@ function StoryScreen.Create(container, params)
             .. " (" .. (currentNode_.title or "") .. ")")
     else
         -- 没有可用节点
-        textLabel_.text = "暂无新剧情"
-        speakerLabel_.text = ""
-        continueHint.text = "[ 点击返回 ]"
+        if textLabel_ then
+            textLabel_.text = "暂无新剧情"
+        end
+        if nameLabel_ then
+            nameLabel_.text = ""
+        end
         finished_ = true
     end
 
@@ -460,7 +412,7 @@ function StoryScreen.Create(container, params)
     -- screen 控制器
     -- ----------------------------------------------------------------
     function screen.Destroy()
-        -- 清理
+        -- 清理（目前无需特殊清理）
     end
 
     return screen

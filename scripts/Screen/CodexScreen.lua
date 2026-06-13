@@ -1,55 +1,21 @@
 -- ============================================================================
--- CodexScreen - 名器图鉴界面
+-- CodexScreen - 名器图鉴界面（基于 Layout Editor 布局）
 -- Project Smith / P2-C3
 --
 -- 功能：
---   1. 展示所有武器配方（按武器线分组）
---   2. 已解锁的武器显示详情（图片、名称、描述、工序）
---   3. 未解锁的武器显示剪影/问号占位
---   4. 返回主界面按钮
+--   1. 展示所有武器配方（18格网格，12个武器 + 6个空位隐藏）
+--   2. 已解锁的武器显示详情（图片、名称、品质）
+--   3. 未解锁的武器显示问号占位
+--   4. 左侧分类筛选（全部/按武器线）
+--   5. 返回主界面按钮
 -- ============================================================================
 
-local UI             = require("urhox-libs/UI")
+local Layout         = require("ui_CodexScreen_名器图鉴")
 local GameState      = require("Core.GameState")
 local WeaponRecipes  = require("Config.WeaponRecipes")
 local ScreenRouter   = require("Utils.ScreenRouter")
 
 local CodexScreen = {}
-
--- ============================================================================
--- UI 素材路径（武侠水墨风）
--- ============================================================================
-
-local UI_ASSETS = {
-    panel_header    = "image/ui/panel_header.png",
-    panel_card      = "image/ui/panel_card.png",
-    panel_card_blue = "image/ui/panel_card_blue.png",
-    btn_secondary   = "image/ui/btn_secondary.png",
-    frame_item_md   = "image/ui/frame_item_md.png",
-    divider_bamboo  = "image/ui/divider_bamboo.png",
-}
-
--- ============================================================================
--- 色板
--- ============================================================================
-
-local C = {
-    bgPrimary     = { 26,  26,  46,  255 },
-    bgSecondary   = { 22,  33,  62,  255 },
-    bgCard        = { 30,  40,  68,  255 },
-    bgCardLocked  = { 20,  25,  40,  200 },
-    accent        = { 233, 69,  96,  255 },
-    gold          = { 212, 165, 116, 255 },
-    textPrimary   = { 232, 224, 208, 255 },
-    textSecondary = { 160, 147, 125, 255 },
-    textLocked    = { 80,  80,  100, 180 },
-    success       = { 78,  205, 196, 255 },
-    warning       = { 255, 217, 61,  255 },
-    divider       = { 60,  60,  90,  255 },
-    btnBack       = { 60,  50,  80,  255 },
-    btnBackHover  = { 80,  70,  100, 255 },
-    btnBackPress  = { 45,  38,  60,  255 },
-}
 
 -- ============================================================================
 -- 武器图片映射
@@ -70,24 +36,59 @@ local WEAPON_IMAGES = {
     WEAPON_012 = "image/weapon_012_frostgleam_reforged.png",
 }
 
--- 武器线显示名
-local LINE_NAMES = {
-    short_blade    = "短刃",
-    long_sword     = "长剑",
-    heavy_blade    = "重剑",
-    ritual         = "礼器",
-    heavy_sword    = "重剑",
-    ceremony_blade = "礼剑",
+-- 品质等级映射（根据 tier 或手动指定）
+local QUALITY_GRADES = {
+    [1] = { text = "寻", color = "#3A322B", borderColor = "#3A322B" },
+    [2] = { text = "良", color = "#3A322B", borderColor = "#3A322B" },
+    [3] = { text = "名", color = "#4F7A63", borderColor = "#4F7A63" },
+    [4] = { text = "逸", color = "#C9A45A", borderColor = "#C9A45A" },
+    [5] = { text = "神", color = "#C96A2B", borderColor = "#C96A2B" },
 }
 
--- 工序显示名
-local STEP_NAMES = {
-    ore_select = "选矿",
-    smelting   = "熔炼",
-    forging    = "锻打",
-    quenching  = "淬火",
-    polishing  = "研磨",
-    assembly   = "组装",
+-- ============================================================================
+-- 网格 Cell 定义（18 cells, 3 rows × 6 columns）
+-- 每个 cell 占 10 个连续 base-36 ID：
+--   +0=cell, +1=sr(border), +2=ph, +3=sr(inner), +4=sl(img),
+--   +5=sl(overlay, locked only), +6=tx(???, locked only),
+--   +7=tx(name), +8=sr(badge), +9=tx(grade)
+-- "locked" 标记表示布局中存在 +5/+6 覆盖层元素
+-- ============================================================================
+
+local CELL_DEFS = {
+    -- Row 1 (unlocked style: no +5/+6 overlay elements)
+    { cellId = "cell_1a", borderId = "sr_1b", imgId = "sl_1e", nameId = "tx_1h", badgeBgId = "sr_1i", gradeId = "tx_1j" },
+    { cellId = "cell_1k", borderId = "sr_1l", imgId = "sl_1o", nameId = "tx_1r", badgeBgId = "sr_1s", gradeId = "tx_1t" },
+    { cellId = "cell_1u", borderId = "sr_1v", imgId = "sl_1y", nameId = "tx_21", badgeBgId = "sr_22", gradeId = "tx_23" },
+    { cellId = "cell_24", borderId = "sr_25", imgId = "sl_28", nameId = "tx_2b", badgeBgId = "sr_2c", gradeId = "tx_2d" },
+    { cellId = "cell_2e", borderId = "sr_2f", imgId = "sl_2i", nameId = "tx_2l", badgeBgId = "sr_2m", gradeId = "tx_2n" },
+    { cellId = "cell_2o", borderId = "sr_2p", imgId = "sl_2s", nameId = "tx_2v", badgeBgId = "sr_2w", gradeId = "tx_2x" },
+    -- Row 2 (cell_2y=unlocked style; rest=locked style with overlay)
+    { cellId = "cell_2y", borderId = "sr_2z", imgId = "sl_32", nameId = "tx_35", badgeBgId = "sr_36", gradeId = "tx_37" },
+    { cellId = "cell_38", borderId = "sr_39", imgId = "sl_3d", overlayId = "tx_3e", nameId = "tx_3f", badgeBgId = "sr_3g", gradeId = "tx_3h", locked = true },
+    { cellId = "cell_3i", borderId = "sr_3j", imgId = "sl_3n", overlayId = "tx_3o", nameId = "tx_3p", badgeBgId = "sr_3q", gradeId = "tx_3r", locked = true },
+    { cellId = "cell_3s", borderId = "sr_3t", imgId = "sl_3x", overlayId = "tx_3y", nameId = "tx_3z", badgeBgId = "sr_40", gradeId = "tx_41", locked = true },
+    { cellId = "cell_42", borderId = "sr_43", imgId = "sl_47", overlayId = "tx_48", nameId = "tx_49", badgeBgId = "sr_4a", gradeId = "tx_4b", locked = true },
+    { cellId = "cell_4c", borderId = "sr_4d", imgId = "sl_4h", overlayId = "tx_4i", nameId = "tx_4j", badgeBgId = "sr_4k", gradeId = "tx_4l", locked = true },
+    -- Row 3 (all locked style)
+    { cellId = "cell_4m", borderId = "sr_4n", imgId = "sl_4r", overlayId = "tx_4s", nameId = "tx_4t", badgeBgId = "sr_4u", gradeId = "tx_4v", locked = true },
+    { cellId = "cell_4w", borderId = "sr_4x", imgId = "sl_51", overlayId = "tx_52", nameId = "tx_53", badgeBgId = "sr_54", gradeId = "tx_55", locked = true },
+    { cellId = "cell_56", borderId = "sr_57", imgId = "sl_5b", overlayId = "tx_5c", nameId = "tx_5d", badgeBgId = "sr_5e", gradeId = "tx_5f", locked = true },
+    { cellId = "cell_5g", borderId = "sr_5h", imgId = "sl_5l", overlayId = "tx_5m", nameId = "tx_5n", badgeBgId = "sr_5o", gradeId = "tx_5p", locked = true },
+    { cellId = "cell_5q", borderId = "sr_5r", imgId = "sl_5v", overlayId = "tx_5w", nameId = "tx_5x", badgeBgId = "sr_5y", gradeId = "tx_5z", locked = true },
+    { cellId = "cell_60", borderId = "sr_61", imgId = "sl_65", overlayId = "tx_66", nameId = "tx_67", badgeBgId = "sr_68", gradeId = "tx_69", locked = true },
+}
+
+-- 左侧分类按钮 IDs
+-- 布局8个分类，实际数据4条武器线：short_blade/long_sword/heavy_sword/ceremony_blade
+local CAT_DEFS = {
+    { catId = "cat_f",  labelId = "tx_h",  bgId = "sr_g",  key = "all",            label = "全部" },
+    { catId = "cat_i",  labelId = "tx_k",  bgId = "sr_j",  key = "short_blade",    label = "短刃" },
+    { catId = "cat_l",  labelId = "tx_n",  bgId = "sr_m",  key = "long_sword",     label = "长剑" },
+    { catId = "cat_o",  labelId = "tx_q",  bgId = "sr_p",  key = "heavy_sword",    label = "重剑" },
+    { catId = "cat_r",  labelId = "tx_t",  bgId = "sr_s",  key = "ceremony_blade", label = "礼剑" },
+    { catId = "cat_u",  labelId = "tx_w",  bgId = "sr_v",  key = "extra1" },
+    { catId = "cat_x",  labelId = "tx_z",  bgId = "sr_y",  key = "extra2" },
+    { catId = "cat_10", labelId = "tx_12", bgId = "sr_11", key = "extra3" },
 }
 
 -- ============================================================================
@@ -99,6 +100,10 @@ local STEP_NAMES = {
 ---@return table screen
 function CodexScreen.Create(container, params)
     local screen = {}
+
+    -- 构建布局
+    local root = Layout.Build()
+    container:AddChild(root)
 
     -- 获取已解锁图鉴
     local unlockedSet = {}
@@ -112,290 +117,231 @@ function CodexScreen.Create(container, params)
 
     -- 按武器线分组
     local lineGroups = {}
-    local lineOrder = {}
     for i = 1, #allRecipes do
         local recipe = allRecipes[i]
         local line = recipe.line
         if not lineGroups[line] then
             lineGroups[line] = {}
-            lineOrder[#lineOrder + 1] = line
         end
         lineGroups[line][#lineGroups[line] + 1] = recipe
     end
 
-    -- ----------------------------------------------------------------
-    -- 武器卡片
-    -- ----------------------------------------------------------------
-    local function CreateWeaponCard(recipe, isUnlocked)
-        local weaponId = recipe.id
+    -- 当前筛选
+    local currentFilter = "all"
 
-        if isUnlocked then
-            -- 已解锁：显示完整信息
-            local imgPath = WEAPON_IMAGES[weaponId]
+    -- ----------------------------------------------------------------
+    -- 顶部栏绑定
+    -- ----------------------------------------------------------------
+    local backBtn = root:FindById("plate_3")
+    if backBtn then
+        backBtn.onClick = function()
+            ScreenRouter.GoTo("home")
+        end
+    end
 
-            -- 工序标签
-            local stepLabels = {}
-            for j = 1, #recipe.steps do
-                stepLabels[#stepLabels + 1] = UI.Label {
-                    text = STEP_NAMES[recipe.steps[j]] or recipe.steps[j],
-                    fontSize = 9,
-                    fontColor = C.success,
-                    backgroundColor = { 78, 205, 196, 40 },
-                    paddingHorizontal = 4,
-                    paddingVertical = 1,
-                    borderRadius = 3,
-                }
+    local statsLabel = root:FindById("tx_7")
+
+    -- ----------------------------------------------------------------
+    -- 获取筛选后的武器列表
+    -- ----------------------------------------------------------------
+    local function GetFilteredRecipes()
+        if currentFilter == "all" then
+            return allRecipes
+        end
+        return lineGroups[currentFilter] or {}
+    end
+
+    -- ----------------------------------------------------------------
+    -- 计算武器品质 tier
+    -- ----------------------------------------------------------------
+    local function GetWeaponTier(recipe)
+        -- 根据配方 tier 字段或按顺序推断
+        if recipe.tier then return recipe.tier end
+        -- 默认按解锁章节推断品质
+        local ch = recipe.unlockChapter or 1
+        if ch <= 1 then return 2 end       -- 良
+        if ch <= 2 then return 3 end       -- 名
+        if ch <= 3 then return 4 end       -- 逸
+        return 5                            -- 神
+    end
+
+    -- ----------------------------------------------------------------
+    -- 刷新网格内容
+    -- ----------------------------------------------------------------
+    local function RefreshGrid()
+        local filtered = GetFilteredRecipes()
+        local totalWeapons = #allRecipes
+        local totalUnlocked = #codexList
+
+        -- 更新统计文字
+        if statsLabel then
+            local pct = totalWeapons > 0 and math.floor(totalUnlocked / totalWeapons * 1000) / 10 or 0
+            statsLabel.text = "已录  " .. totalUnlocked .. " / " .. totalWeapons .. "  ·  完成度 " .. pct .. "%"
+        end
+
+        -- 遍历所有 cell
+        for idx = 1, #CELL_DEFS do
+            local def = CELL_DEFS[idx]
+            local cell = root:FindById(def.cellId)
+            if not cell then goto continue end
+
+            local recipe = filtered[idx]
+
+            if not recipe then
+                -- 没有对应武器数据，隐藏此 cell
+                cell.display = "none"
+                goto continue
             end
 
-            return UI.Panel {
-                width = "100%",
-                backgroundImage = UI_ASSETS.panel_card,
-                backgroundFit = "cover",
-                borderRadius = 8,
-                padding = 10,
-                marginBottom = 8,
-                flexDirection = "row",
-                gap = 10,
-                children = {
-                    -- 武器图片（带边框）
-                    UI.Panel {
-                        width = 76,
-                        height = 76,
-                        backgroundImage = UI_ASSETS.frame_item_md,
-                        backgroundFit = "cover",
-                        justifyContent = "center",
-                        alignItems = "center",
-                        children = {
-                            UI.Panel {
-                                width = 56,
-                                height = 56,
-                                backgroundImage = imgPath,
-                                backgroundFit = "contain",
-                            },
-                        },
-                    },
-                    -- 信息区
-                    UI.Panel {
-                        flexGrow = 1,
-                        flexShrink = 1,
-                        gap = 3,
-                        children = {
-                            UI.Label {
-                                text = recipe.name,
-                                fontSize = 15,
-                                fontColor = C.gold,
-                            },
-                            UI.Label {
-                                text = recipe.description or "",
-                                fontSize = 11,
-                                fontColor = C.textSecondary,
-                            },
-                            -- 工序流程
-                            UI.Panel {
-                                flexDirection = "row",
-                                flexWrap = "wrap",
-                                gap = 4,
-                                marginTop = 3,
-                                children = stepLabels,
-                            },
-                        },
-                    },
-                },
-            }
-        else
-            -- 未解锁：显示占位
-            return UI.Panel {
-                width = "100%",
-                backgroundImage = UI_ASSETS.panel_card_blue,
-                backgroundFit = "cover",
-                borderRadius = 8,
-                padding = 10,
-                marginBottom = 8,
-                flexDirection = "row",
-                alignItems = "center",
-                opacity = 0.6,
-                gap = 10,
-                children = {
-                    -- 问号占位
-                    UI.Panel {
-                        width = 76,
-                        height = 76,
-                        backgroundImage = UI_ASSETS.frame_item_md,
-                        backgroundFit = "cover",
-                        justifyContent = "center",
-                        alignItems = "center",
-                        children = {
-                            UI.Label {
-                                text = "?",
-                                fontSize = 28,
-                                fontColor = C.textLocked,
-                                textAlign = "center",
-                            },
-                        },
-                    },
-                    -- 锁定提示
-                    UI.Panel {
-                        flexGrow = 1,
-                        flexShrink = 1,
-                        children = {
-                            UI.Label {
-                                text = "???",
-                                fontSize = 15,
-                                fontColor = C.textLocked,
-                            },
-                            UI.Label {
-                                text = "完成相关订单后解锁",
-                                fontSize = 11,
-                                fontColor = C.textLocked,
-                            },
-                        },
-                    },
-                },
-            }
+            -- 显示 cell
+            cell.display = "flex"
+
+            local isUnlocked = unlockedSet[recipe.id] == true
+            local border = root:FindById(def.borderId)
+            local img = root:FindById(def.imgId)
+            local nameLabel = root:FindById(def.nameId)
+            local badgeBg = root:FindById(def.badgeBgId)
+            local gradeLabel = root:FindById(def.gradeId)
+            -- locked-style cells 有覆盖层文字 "???"
+            local overlay = def.overlayId and root:FindById(def.overlayId) or nil
+
+            if isUnlocked then
+                -- 已解锁：显示武器图片、名称、品质
+                local tier = GetWeaponTier(recipe)
+                local grade = QUALITY_GRADES[tier] or QUALITY_GRADES[2]
+
+                if border then
+                    border.borderColor = grade.borderColor
+                end
+                if img then
+                    local imgPath = WEAPON_IMAGES[recipe.id]
+                    if imgPath then
+                        img.backgroundImage = imgPath
+                        img.backgroundFit = "contain"
+                    end
+                end
+                -- 隐藏 "???" 覆盖层文字
+                if overlay then
+                    overlay.display = "none"
+                end
+                if nameLabel then
+                    nameLabel.text = recipe.name or "???"
+                    nameLabel.fontColor = "#f1e5cc"
+                end
+                if badgeBg then
+                    badgeBg.backgroundColor = grade.color
+                end
+                if gradeLabel then
+                    gradeLabel.text = grade.text
+                    gradeLabel.fontColor = "#f1e5cc"
+                end
+            else
+                -- 未解锁：问号占位，暗色调
+                if border then
+                    border.borderColor = "#3A322B"
+                end
+                if img then
+                    img.backgroundImage = nil
+                end
+                -- 显示 "???" 覆盖层文字
+                if overlay then
+                    overlay.display = "flex"
+                end
+                if nameLabel then
+                    nameLabel.text = "?????"
+                    nameLabel.fontColor = "#3a322b"
+                end
+                if badgeBg then
+                    badgeBg.backgroundColor = "#3A322B"
+                end
+                if gradeLabel then
+                    gradeLabel.text = "?"
+                    gradeLabel.fontColor = "#3a322b"
+                end
+            end
+
+            ::continue::
         end
     end
 
     -- ----------------------------------------------------------------
-    -- 武器线分组
+    -- 分类按钮交互
     -- ----------------------------------------------------------------
-    local function CreateLineSection(lineId, recipes)
-        local lineName = LINE_NAMES[lineId] or lineId
-        local unlockedCount = 0
-        local cards = {}
+    local ACTIVE_BG = "#C96A2B"
+    local ACTIVE_TEXT = "#f1e5cc"
+    local INACTIVE_BG = "rgba(0,0,0,0)"
+    local INACTIVE_TEXT = "#1f1a17"
 
-        for i = 1, #recipes do
-            local isUnlocked = unlockedSet[recipes[i].id] == true
-            if isUnlocked then unlockedCount = unlockedCount + 1 end
-            cards[#cards + 1] = CreateWeaponCard(recipes[i], isUnlocked)
+    local function SetCategoryActive(activeKey)
+        currentFilter = activeKey
+        for i = 1, #CAT_DEFS do
+            local catDef = CAT_DEFS[i]
+            local bg = root:FindById(catDef.bgId)
+            local lbl = root:FindById(catDef.labelId)
+            if catDef.key == activeKey then
+                if bg then bg.backgroundColor = ACTIVE_BG end
+                if lbl then lbl.fontColor = ACTIVE_TEXT end
+            else
+                if bg then bg.backgroundColor = INACTIVE_BG end
+                if lbl then lbl.fontColor = INACTIVE_TEXT end
+            end
         end
+        RefreshGrid()
+    end
 
-        return UI.Panel {
-            width = "100%",
-            marginBottom = 12,
-            children = {
-                -- 分组标题
-                UI.Panel {
-                    width = "100%",
-                    flexDirection = "row",
-                    justifyContent = "space-between",
-                    alignItems = "center",
-                    marginBottom = 6,
-                    children = {
-                        UI.Label {
-                            text = "-- " .. lineName .. "系 --",
-                            fontSize = 14,
-                            fontColor = C.gold,
-                        },
-                        UI.Label {
-                            text = unlockedCount .. "/" .. #recipes,
-                            fontSize = 12,
-                            fontColor = C.textSecondary,
-                        },
-                    },
-                },
-                -- 卡片列表
-                table.unpack(cards),
-            },
-        }
+    -- 绑定分类按钮点击
+    for i = 1, #CAT_DEFS do
+        local catDef = CAT_DEFS[i]
+        local catBtn = root:FindById(catDef.catId)
+        if catBtn then
+            local key = catDef.key
+            catBtn.onClick = function()
+                SetCategoryActive(key)
+            end
+        end
+    end
+
+    -- 隐藏无数据的 extra 分类按钮
+    for i = 1, #CAT_DEFS do
+        local catDef = CAT_DEFS[i]
+        if catDef.key == "extra1" or catDef.key == "extra2" or catDef.key == "extra3" then
+            local catBtn = root:FindById(catDef.catId)
+            if catBtn then catBtn.display = "none" end
+        end
     end
 
     -- ----------------------------------------------------------------
-    -- 统计
+    -- 初始化
     -- ----------------------------------------------------------------
-    local totalWeapons = #allRecipes
-    local totalUnlocked = #codexList
+    -- 更新分类标签文本（显示每个分类下的武器数量）
+    local function UpdateCategoryLabels()
+        for i = 1, #CAT_DEFS do
+            local catDef = CAT_DEFS[i]
+            if not catDef.label then goto next_cat end
 
-    -- ----------------------------------------------------------------
-    -- 页面组装
-    -- ----------------------------------------------------------------
+            local lbl = root:FindById(catDef.labelId)
+            if not lbl then goto next_cat end
 
-    -- 内容区域（各武器线）
-    local sectionChildren = {}
-    for i = 1, #lineOrder do
-        sectionChildren[#sectionChildren + 1] = CreateLineSection(lineOrder[i], lineGroups[lineOrder[i]])
+            if catDef.key == "all" then
+                lbl.text = catDef.label .. " · " .. #allRecipes
+            else
+                local group = lineGroups[catDef.key]
+                local count = group and #group or 0
+                lbl.text = catDef.label .. " · " .. count
+            end
+
+            ::next_cat::
+        end
     end
 
-    local scrollContent = UI.Panel {
-        width = "100%",
-        paddingHorizontal = 14,
-        paddingTop = 8,
-        paddingBottom = 20,
-        children = sectionChildren,
-    }
+    UpdateCategoryLabels()
+    SetCategoryActive("all")
 
-    local panel = UI.Panel {
-        width = "100%",
-        height = "100%",
-        flexDirection = "column",
-        backgroundColor = C.bgPrimary,
-        children = {
-            -- 顶部栏
-            UI.Panel {
-                width = "100%",
-                flexDirection = "row",
-                alignItems = "center",
-                paddingHorizontal = 12,
-                paddingTop = 36,
-                paddingBottom = 10,
-                backgroundImage = UI_ASSETS.panel_header,
-                backgroundFit = "cover",
-                children = {
-                    -- 返回按钮
-                    UI.Button {
-                        text = "< 返回",
-                        width = 70,
-                        height = 36,
-                        fontSize = 13,
-                        backgroundImage = UI_ASSETS.btn_secondary,
-                        backgroundFit = "cover",
-                        fontColor = C.textPrimary,
-                        borderRadius = 6,
-                        onClick = function()
-                            ScreenRouter.GoTo("home")
-                        end,
-                    },
-                    -- 标题
-                    UI.Label {
-                        text = "名器图鉴",
-                        fontSize = 18,
-                        fontColor = C.gold,
-                        textAlign = "center",
-                        flexGrow = 1,
-                    },
-                    -- 收集进度
-                    UI.Label {
-                        text = totalUnlocked .. "/" .. totalWeapons,
-                        fontSize = 13,
-                        fontColor = C.textSecondary,
-                        width = 70,
-                        textAlign = "right",
-                    },
-                },
-            },
-            -- 分隔线
-            UI.Panel {
-                width = "100%",
-                height = 16,
-                backgroundImage = UI_ASSETS.divider_bamboo,
-                backgroundFit = "contain",
-            },
-            -- 可滚动内容区
-            UI.ScrollView {
-                width = "100%",
-                flexGrow = 1,
-                flexShrink = 1,
-                flexBasis = 0,
-                children = {
-                    scrollContent,
-                },
-            },
-        },
-    }
-
-    container:AddChild(panel)
-
+    -- ----------------------------------------------------------------
+    -- Destroy
+    -- ----------------------------------------------------------------
     function screen.Destroy()
-        -- 静态页面，无需清理事件
+        -- 静态页面，无需清理
     end
 
     return screen

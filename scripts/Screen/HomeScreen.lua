@@ -1,76 +1,25 @@
 -- ============================================================================
--- HomeScreen - 工坊主界面
--- Project Smith / P1-D1
+-- HomeScreen - 工坊主界面（迁移版：使用 ui_HomeScreen 布局）
+-- Project Smith
 --
--- 显示: 标题、货币栏、功能按钮（接单/升级/图鉴）、设施状态
--- 遵循增量更新策略: 货币/声望变化只更新对应 Label
+-- 功能：
+--   1. 使用 ui_HomeScreen_工坊主界面.Build() 作为视觉层
+--   2. 通过 FindById 绑定动态元素（货币、设施等级、名望进度）
+--   3. 绑定底部导航、顶部按钮、设施卡片点击事件
+--   4. 增量更新：EventBus 订阅只修改文本/进度条
 -- ============================================================================
 
-local UI          = require("urhox-libs/UI")
-local EventBus    = require("Core.EventBus")
-local GameState   = require("Core.GameState")
+local UI             = require("urhox-libs/UI")
+local EventBus       = require("Core.EventBus")
+local GameState      = require("Core.GameState")
 local FacilityConfig = require("Config.FacilityConfig")
 local ScreenRouter   = require("Utils.ScreenRouter")
 local StoryManager   = require("Story.StoryManager")
 local SFXManager     = require("Utils.SFXManager")
 
+local HomeLayout = require("ui_HomeScreen_工坊主界面")
+
 local HomeScreen = {}
-
--- ============================================================================
--- 资源路径
--- ============================================================================
-
-local ICONS = {
-    coins   = "image/icon_coins.png",
-    fame    = "image/icon_fame.png",
-    jade    = "image/icon_jade.png",
-    furnace = "image/icon_furnace.png",
-    anvil   = "image/icon_anvil.png",
-    grinder = "image/icon_grinder.png",
-    quench_pool = "image/icon_quench_pool.png",
-    display = "image/icon_display.png",
-}
-
-local BG_HOME = "image/bg_home.png"
-
--- UI 素材路径（武侠水墨风）
-local UI_ASSETS = {
-    btn_primary   = "image/ui/btn_primary.png",
-    btn_gold      = "image/ui/btn_gold.png",
-    btn_secondary = "image/ui/btn_secondary.png",
-    btn_choice    = "image/ui/btn_choice.png",
-    btn_accept    = "image/ui/btn_accept.png",
-    panel_header  = "image/ui/panel_header.png",
-    panel_header2 = "image/ui/panel_header2.png",
-    panel_card    = "image/ui/panel_card.png",
-    panel_card_blue = "image/ui/panel_card_blue.png",
-    frame_item_sm = "image/ui/frame_item_sm.png",
-    frame_item_xs = "image/ui/frame_item_xs.png",
-    divider_moon      = "image/ui/divider_moon.png",
-    divider_bamboo    = "image/ui/divider_bamboo.png",
-    divider_mountain  = "image/ui/divider_mountain.png",
-}
-
--- ============================================================================
--- 色板
--- ============================================================================
-
-local C = {
-    bgPrimary     = { 26,  26,  46,  255 },
-    bgSecondary   = { 22,  33,  62,  255 },
-    bgCard        = { 30,  40,  68,  200 },
-    accent        = { 233, 69,  96,  255 },
-    gold          = { 212, 165, 116, 255 },
-    goldBright    = { 245, 200, 140, 255 },
-    goldDark      = { 160, 120, 70,  255 },
-    textPrimary   = { 232, 224, 208, 255 },
-    textSecondary = { 160, 147, 125, 255 },
-    textDim       = { 120, 110, 95,  180 },
-    success       = { 78,  205, 196, 255 },
-    warning       = { 255, 217, 61,  255 },
-    overlay       = { 0,   0,   0,   100 },
-    overlayLight  = { 0,   0,   0,   60  },
-}
 
 -- ============================================================================
 -- Screen 接口
@@ -78,517 +27,293 @@ local C = {
 
 --- 创建主界面
 ---@param container table UI 容器
----@param params table|nil 参数
+---@param params table|nil
 ---@return table screen
 function HomeScreen.Create(container, params)
     local screen = {}
 
-    -- UI 元素引用（用于增量更新）
-    local coinsLabel_
-    local fameLabel_
-    local jadeLabel_
-    local facilityCards_ = {}
-    local storyBtn_
-
-    -- 事件取消函数列表
+    -- 事件取消函数
     local unsubs_ = {}
 
-    -- ================================================================
-    -- 顶部标题区（游戏 Logo + 副标题）
-    -- ================================================================
-    local function CreateTitleSection()
-        return UI.Panel {
-            width = "100%",
-            alignItems = "center",
-            gap = 4,
-            paddingTop = 8,
-            children = {
-                -- 游戏标题
-                UI.Label {
-                    text = "古代铁匠模拟器",
-                    fontSize = 28,
-                    fontColor = C.goldBright,
-                    fontWeight = "bold",
-                    textAlign = "center",
-                    textShadow = { offsetX = 0, offsetY = 2, blur = 8, color = { 0, 0, 0, 180 } },
-                    textStroke = { width = 1.5, color = { 80, 50, 20, 200 } },
-                    letterSpacing = 4,
-                },
-                -- 副标题
-                UI.Label {
-                    text = "铁铺初立  万器待铸",
-                    fontSize = 12,
-                    fontColor = C.textDim,
-                    textAlign = "center",
-                    letterSpacing = 6,
-                    textShadow = { offsetX = 0, offsetY = 1, blur = 4, color = { 0, 0, 0, 120 } },
-                },
-            }
-        }
-    end
+    -- ----------------------------------------------------------------
+    -- 1. 构建 UI 树（从布局模块）
+    -- ----------------------------------------------------------------
+    local root = HomeLayout.Build()
+    container:AddChild(root)
 
-    -- ================================================================
-    -- 货币栏（紧凑横条）
-    -- ================================================================
-    local function CreateCurrencyItem(iconPath, label)
-        return UI.Panel {
-            flexDirection = "row",
-            alignItems = "center",
-            gap = 3,
-            flexShrink = 1,
-            children = {
-                UI.Panel {
-                    width = 18, height = 18,
-                    backgroundImage = iconPath,
-                    backgroundFit = "contain",
-                },
-                label,
-            },
-        }
-    end
+    -- ----------------------------------------------------------------
+    -- 2. 通过 FindById 获取动态元素引用
+    -- ----------------------------------------------------------------
 
-    local function CreateCurrencyBar()
-        coinsLabel_ = UI.Label {
-            text = tostring(GameState.GetCoins()),
-            fontSize = 13,
-            fontColor = C.gold,
-            flexShrink = 1,
-        }
-        fameLabel_ = UI.Label {
-            text = tostring(GameState.GetFame()),
-            fontSize = 13,
-            fontColor = C.success,
-            flexShrink = 1,
-        }
-        jadeLabel_ = UI.Label {
-            text = tostring(GameState.GetJade()),
-            fontSize = 13,
-            fontColor = C.warning,
-            flexShrink = 1,
-        }
+    -- 货币数值标签
+    local coinsLabel_ = root:FindById("res_v_c")
+    local jadeLabel_ = root:FindById("res_v_h")
+    local fameLabel_ = root:FindById("res_v_m")
 
-        return UI.Panel {
-            width = "90%",
-            flexDirection = "row",
-            justifyContent = "space-around",
-            alignItems = "center",
-            paddingVertical = 8,
-            paddingHorizontal = 12,
-            backgroundColor = C.overlay,
-            borderRadius = 20,
-            borderWidth = 1,
-            borderColor = { 212, 165, 116, 40 },
-            children = {
-                CreateCurrencyItem(ICONS.coins, coinsLabel_),
-                -- 分隔点
-                UI.Panel { width = 3, height = 3, borderRadius = 2, backgroundColor = C.textDim },
-                CreateCurrencyItem(ICONS.fame, fameLabel_),
-                UI.Panel { width = 3, height = 3, borderRadius = 2, backgroundColor = C.textDim },
-                CreateCurrencyItem(ICONS.jade, jadeLabel_),
-            }
-        }
-    end
+    -- 章节标题
+    local chapterTitle_ = root:FindById("tx_6")
 
-    -- ================================================================
-    -- 核心 CTA 按钮区
-    -- ================================================================
-    local function CreateMainActions()
-        -- 剧情按钮（仅在有待展示剧情时显示）
-        local hasPending = StoryManager.HasPendingStory()
-        storyBtn_ = UI.Panel {
-            width = "88%",
-            height = 50,
-            backgroundImage = UI_ASSETS.btn_primary,
-            backgroundFit = "cover",
-            borderRadius = 10,
-            justifyContent = "center",
-            alignItems = "center",
-            visible = hasPending,
-            onClick = function()
-                if StoryManager.HasPendingStory() then
-                    SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-                    ScreenRouter.GoTo("story", { returnTo = "home" })
-                end
-            end,
-            children = {
-                UI.Label {
-                    text = "继续剧情",
-                    fontSize = 16,
-                    fontColor = C.textPrimary,
-                    fontWeight = "bold",
-                    textShadow = { offsetX = 0, offsetY = 1, blur = 3, color = { 0, 0, 0, 150 } },
-                },
-            }
-        }
+    -- 顶部功能按钮
+    local mailBtn_ = root:FindById("plate_n")
+    local taskBtn_ = root:FindById("plate_q")
+    local friendBtn_ = root:FindById("plate_t")
+    local settingsBtn_ = root:FindById("plate_w")
 
-        -- 查看订单 — 主 CTA
-        local orderBtn = UI.Panel {
-            width = "88%",
-            height = 56,
-            backgroundImage = UI_ASSETS.btn_gold,
-            backgroundFit = "cover",
-            borderRadius = 10,
-            justifyContent = "center",
-            alignItems = "center",
-            boxShadow = {
-                { x = 0, y = 3, blur = 12, spread = 0, color = { 212, 165, 116, 60 } },
-            },
-            onClick = function()
-                SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-                ScreenRouter.GoTo("orderBoard")
-            end,
-            children = {
-                UI.Label {
-                    text = "查看订单",
-                    fontSize = 18,
-                    fontColor = C.textPrimary,
-                    fontWeight = "bold",
-                    letterSpacing = 2,
-                    textShadow = { offsetX = 0, offsetY = 1, blur = 3, color = { 0, 0, 0, 150 } },
-                },
-            }
-        }
+    -- 设施卡片
+    local facilityFurnace_ = root:FindById("ph_1a")
+    local facilityAnvil_ = root:FindById("ph_1f")
+    local facilityGrinder_ = root:FindById("ph_1k")
+    local facilityStorage_ = root:FindById("ph_1p")
+    local facilityDisplay_ = root:FindById("ph_1u")
 
-        return UI.Panel {
-            width = "100%",
-            alignItems = "center",
-            gap = 10,
-            children = {
-                storyBtn_,
-                orderBtn,
-            }
-        }
-    end
-
-    -- ================================================================
-    -- 次级功能按钮行（升级/图鉴/设置 横排紧凑）
-    -- ================================================================
-    local function CreateSecondaryButton(text, bgImage, fontColor, onClickFn)
-        return UI.Panel {
-            flexGrow = 1,
-            flexBasis = 0,
-            height = 42,
-            backgroundImage = bgImage,
-            backgroundFit = "cover",
-            borderRadius = 8,
-            justifyContent = "center",
-            alignItems = "center",
-            onClick = function()
-                SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-                onClickFn()
-            end,
-            children = {
-                UI.Label {
-                    text = text,
-                    fontSize = 13,
-                    fontColor = fontColor or C.textPrimary,
-                    textShadow = { offsetX = 0, offsetY = 1, blur = 2, color = { 0, 0, 0, 120 } },
-                },
-            }
-        }
-    end
-
-    local function CreateSecondaryActions()
-        return UI.Panel {
-            width = "88%",
-            flexDirection = "row",
-            gap = 8,
-            children = {
-                CreateSecondaryButton("升级设施", UI_ASSETS.btn_secondary, C.textPrimary, function()
-                    ScreenRouter.GoTo("upgrade")
-                end),
-                CreateSecondaryButton("名器图鉴", UI_ASSETS.btn_choice, C.gold, function()
-                    ScreenRouter.GoTo("codex")
-                end),
-                CreateSecondaryButton("设置", UI_ASSETS.btn_secondary, C.textSecondary, function()
-                    ScreenRouter.GoTo("settings")
-                end),
-            }
-        }
-    end
-
-    -- ================================================================
-    -- 设施状态栏（横向紧凑条）
-    -- ================================================================
-    local function CreateFacilityChip(facilityId)
-        local level = GameState.GetFacilityLevel(facilityId)
-        local name = FacilityConfig.GetName(facilityId)
-        local iconPath = ICONS[facilityId]
-
-        local levelLabel = UI.Label {
-            text = "Lv" .. level,
-            fontSize = 10,
-            fontColor = C.gold,
-            textAlign = "center",
-        }
-
-        facilityCards_[facilityId] = { levelLabel = levelLabel }
-
-        return UI.Panel {
-            alignItems = "center",
-            gap = 2,
-            paddingVertical = 6,
-            paddingHorizontal = 6,
-            minWidth = 52,
-            onClick = function()
-                SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-                ScreenRouter.GoTo("upgrade")
-            end,
-            children = {
-                -- 图标框
-                UI.Panel {
-                    width = 36, height = 36,
-                    backgroundImage = UI_ASSETS.frame_item_xs,
-                    backgroundFit = "cover",
-                    justifyContent = "center",
-                    alignItems = "center",
-                    children = {
-                        iconPath and UI.Panel {
-                            width = 24, height = 24,
-                            backgroundImage = iconPath,
-                            backgroundFit = "contain",
-                        } or nil,
-                    }
-                },
-                UI.Label {
-                    text = name,
-                    fontSize = 10,
-                    fontColor = C.textSecondary,
-                    textAlign = "center",
-                },
-                levelLabel,
-            }
-        }
-    end
-
-    local function CreateFacilitiesBar()
-        local facilityIds = FacilityConfig.GetAllIds()
-        local chips = {}
-        for i = 1, #facilityIds do
-            chips[#chips + 1] = CreateFacilityChip(facilityIds[i])
-        end
-
-        return UI.Panel {
-            width = "92%",
-            backgroundColor = C.overlayLight,
-            borderRadius = 12,
-            borderWidth = 1,
-            borderColor = { 212, 165, 116, 25 },
-            paddingVertical = 6,
-            paddingHorizontal = 4,
-            gap = 4,
-            children = {
-                -- 标题行
-                UI.Panel {
-                    width = "100%",
-                    flexDirection = "row",
-                    justifyContent = "center",
-                    alignItems = "center",
-                    paddingBottom = 2,
-                    gap = 8,
-                    children = {
-                        UI.Panel {
-                            width = 20, height = 1,
-                            backgroundColor = { 212, 165, 116, 40 },
-                        },
-                        UI.Label {
-                            text = "工坊设施",
-                            fontSize = 11,
-                            fontColor = C.textDim,
-                            letterSpacing = 2,
-                        },
-                        UI.Panel {
-                            width = 20, height = 1,
-                            backgroundColor = { 212, 165, 116, 40 },
-                        },
-                    }
-                },
-                -- 设施图标行
-                UI.Panel {
-                    width = "100%",
-                    flexDirection = "row",
-                    justifyContent = "space-around",
-                    alignItems = "flex-start",
-                    children = chips,
-                },
-            }
-        }
-    end
-
-    -- ================================================================
-    -- 装饰分隔线
-    -- ================================================================
-    local function CreateDivider(asset, w, h)
-        return UI.Panel {
-            width = w or "60%",
-            height = h or 20,
-            alignSelf = "center",
-            backgroundImage = asset,
-            backgroundFit = "contain",
-            opacity = 0.6,
-        }
-    end
-
-    -- ================================================================
-    -- 组装页面
-    -- ================================================================
-    local panel = UI.Panel {
-        width = "100%",
-        height = "100%",
-        backgroundImage = BG_HOME,
-        backgroundFit = "cover",
-        children = {
-            -- ========================================================
-            -- 全局暗化遮罩层（压暗繁杂背景）
-            -- ========================================================
-            UI.Panel {
-                position = "absolute",
-                top = 0, left = 0, right = 0, bottom = 0,
-                backgroundColor = { 10, 10, 25, 110 },  -- 约 43% 不透明度暗化
-            },
-            -- 底部额外加深渐变（操作区域更清晰）
-            UI.Panel {
-                position = "absolute",
-                left = 0, right = 0, bottom = 0,
-                height = "55%",
-                backgroundGradient = {
-                    type = "linear",
-                    direction = "to-top",
-                    from = { 8, 8, 20, 200 },   -- 底部深沉
-                    to   = { 8, 8, 20, 0 },     -- 渐隐
-                },
-            },
-            -- 顶部渐变（标题区可读性）
-            UI.Panel {
-                position = "absolute",
-                left = 0, right = 0, top = 0,
-                height = "25%",
-                backgroundGradient = {
-                    type = "linear",
-                    direction = "to-bottom",
-                    from = { 8, 8, 20, 180 },
-                    to   = { 8, 8, 20, 0 },
-                },
-            },
-
-            -- ========================================================
-            -- 内容层（在遮罩之上）
-            -- ========================================================
-            UI.Panel {
-                position = "absolute",
-                top = 0, left = 0, right = 0, bottom = 0,
-                flexDirection = "column",
-                alignItems = "center",
-                children = {
-                    -- 顶部安全区留白
-                    UI.Panel { height = 36 },
-
-                    -- 标题
-                    CreateTitleSection(),
-
-                    -- 装饰分隔
-                    CreateDivider(UI_ASSETS.divider_mountain, "50%", 16),
-
-                    -- 货币栏
-                    CreateCurrencyBar(),
-
-                    -- 弹性间隔（把按钮推向中下部）
-                    UI.Panel { flexGrow = 1 },
-
-                    -- 主按钮区
-                    CreateMainActions(),
-
-                    -- 间距
-                    UI.Panel { height = 10 },
-
-                    -- 次级按钮行
-                    CreateSecondaryActions(),
-
-                    -- 间距
-                    UI.Panel { height = 12 },
-
-                    -- 装饰分隔
-                    CreateDivider(UI_ASSETS.divider_bamboo, "40%", 14),
-
-                    -- 间距
-                    UI.Panel { height = 4 },
-
-                    -- 设施状态栏
-                    CreateFacilitiesBar(),
-
-                    -- 底部版本号 + 安全区
-                    UI.Panel {
-                        width = "100%",
-                        alignItems = "center",
-                        paddingTop = 8,
-                        paddingBottom = 16,
-                        children = {
-                            UI.Label {
-                                text = "P2",
-                                fontSize = 9,
-                                fontColor = { 80, 80, 100, 80 },
-                            },
-                        }
-                    },
-                }
-            },
-        }
+    -- 设施名称标签（用于显示等级）
+    local facilityLabels_ = {
+        furnace     = root:FindById("ph_t_1e"),
+        anvil       = root:FindById("ph_t_1j"),
+        grinder     = root:FindById("ph_t_1o"),
+        storage     = root:FindById("ph_t_1t"),
+        display     = root:FindById("ph_t_1y"),
     }
 
-    container:AddChild(panel)
-    screen.panel = panel
+    -- 名望进度条
+    local progressBar_ = root:FindById("sr_21")  -- 填充条
+    local progressText_ = root:FindById("tx_22")
 
-    -- ================================================================
-    -- 增量更新：监听 EventBus
-    -- ================================================================
+    -- 右侧功能按钮
+    local giftBtn_ = root:FindById("plate_23")
+    local freeBoxBtn_ = root:FindById("plate_26")
+    local adDoubleBtn_ = root:FindById("plate_29")
+
+    -- 底部导航按钮
+    local navOrderBtn_ = root:FindById("plate_2e")
+    local navWorkshopBtn_ = root:FindById("plate_2h")
+    local navCodexBtn_ = root:FindById("plate_2k")
+    local navStoryBtn_ = root:FindById("plate_2n")
+    local navShopBtn_ = root:FindById("plate_2q")
+
+    -- ----------------------------------------------------------------
+    -- 3. 初始化数据绑定
+    -- ----------------------------------------------------------------
+
+    --- 刷新货币显示
     local function RefreshCurrency()
         if coinsLabel_ then coinsLabel_.text = tostring(GameState.GetCoins()) end
-        if fameLabel_ then fameLabel_.text = tostring(GameState.GetFame()) end
         if jadeLabel_ then jadeLabel_.text = tostring(GameState.GetJade()) end
+        if fameLabel_ then fameLabel_.text = tostring(GameState.GetFame()) end
     end
 
-    local function RefreshFacility(data)
-        if not data or not data.facilityId then return end
-        local card = facilityCards_[data.facilityId]
-        if card and card.levelLabel then
-            card.levelLabel.text = "Lv" .. (data.newLevel or GameState.GetFacilityLevel(data.facilityId))
+    --- 刷新设施等级显示
+    local function RefreshFacilities()
+        local facilityMap = {
+            furnace = "熔炉",
+            anvil = "锻台",
+            grinder = "研磨台",
+            storage = "库房",
+            display = "陈列架",
+        }
+        for fId, baseName in pairs(facilityMap) do
+            local label = facilityLabels_[fId]
+            if label then
+                local lv = GameState.GetFacilityLevel(fId)
+                label.text = baseName .. " Lv" .. lv
+            end
         end
     end
 
-    local function RefreshStoryButton()
-        if not storyBtn_ then return end
-        storyBtn_.visible = StoryManager.HasPendingStory()
+    --- 刷新名望进度条
+    local function RefreshFameProgress()
+        local fame = GameState.GetFame()
+        -- 名望进阶阈值（简化：每 1000 声望一阶）
+        local tier = math.floor(fame / 1000)
+        local tierStart = tier * 1000
+        local tierEnd = (tier + 1) * 1000
+        local progress = (fame - tierStart) / (tierEnd - tierStart)
+        progress = math.max(0, math.min(1, progress))
+
+        -- 更新进度条宽度（父容器宽度的百分比）
+        if progressBar_ then
+            progressBar_.width = string.format("%.1f%%", progress * 100)
+        end
+
+        -- 更新进度文字
+        if progressText_ then
+            local pctText = math.floor(progress * 100)
+            local tierNames = { "初入行", "学徒", "出师礼", "匠人", "名匠", "宗师" }
+            local nextTierName = tierNames[math.min(tier + 2, #tierNames)] or "宗师"
+            progressText_.text = string.format(
+                "名望进阶  %d%%  下一阶 · %s (%d/%d)",
+                pctText, nextTierName, fame, tierEnd
+            )
+        end
     end
+
+    --- 刷新章节标题
+    local function RefreshChapterTitle()
+        if not chapterTitle_ then return end
+        local chapter, _ = StoryManager.GetProgress()
+        local chapterNames = {
+            "第一章 · 入门徒",
+            "第二章 · 初展锋",
+            "第三章 · 名声起",
+            "第四章 · 暗潮涌",
+            "第五章 · 匠心成",
+        }
+        chapterTitle_.text = chapterNames[chapter] or ("第" .. chapter .. "章")
+    end
+
+    -- 初始刷新
+    RefreshCurrency()
+    RefreshFacilities()
+    RefreshFameProgress()
+    RefreshChapterTitle()
+
+    -- ----------------------------------------------------------------
+    -- 4. 绑定点击事件
+    -- ----------------------------------------------------------------
+
+    -- 顶部按钮
+    if mailBtn_ then
+        mailBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            print("[HomeScreen] Mail button tapped (not implemented)")
+        end
+    end
+    if taskBtn_ then
+        taskBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            ScreenRouter.GoTo("orderBoard")
+        end
+    end
+    if friendBtn_ then
+        friendBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            print("[HomeScreen] Friend button tapped (not implemented)")
+        end
+    end
+    if settingsBtn_ then
+        settingsBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            ScreenRouter.GoTo("settings")
+        end
+    end
+
+    -- 设施卡片 → 升级界面
+    local function OnFacilityTap(facilityId)
+        return function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            ScreenRouter.GoTo("upgrade", { facilityId = facilityId })
+        end
+    end
+
+    if facilityFurnace_ then facilityFurnace_.onClick = OnFacilityTap("furnace") end
+    if facilityAnvil_ then facilityAnvil_.onClick = OnFacilityTap("anvil") end
+    if facilityGrinder_ then facilityGrinder_.onClick = OnFacilityTap("grinder") end
+    if facilityStorage_ then facilityStorage_.onClick = OnFacilityTap("storage") end
+    if facilityDisplay_ then facilityDisplay_.onClick = OnFacilityTap("display") end
+
+    -- 右侧功能按钮
+    if giftBtn_ then
+        giftBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            print("[HomeScreen] Gift pack tapped (not implemented)")
+        end
+    end
+    if freeBoxBtn_ then
+        freeBoxBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            print("[HomeScreen] Free box tapped (not implemented)")
+        end
+    end
+    if adDoubleBtn_ then
+        adDoubleBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            print("[HomeScreen] Ad double tapped (not implemented)")
+        end
+    end
+
+    -- 底部导航
+    if navOrderBtn_ then
+        navOrderBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            ScreenRouter.GoTo("orderBoard")
+        end
+    end
+    if navWorkshopBtn_ then
+        navWorkshopBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            -- 已在工坊主页，不跳转；或可刷新
+            print("[HomeScreen] Already on workshop")
+        end
+    end
+    if navCodexBtn_ then
+        navCodexBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            ScreenRouter.GoTo("codex")
+        end
+    end
+    if navStoryBtn_ then
+        navStoryBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            if StoryManager.HasPendingStory() then
+                ScreenRouter.GoTo("story", { returnTo = "home" })
+            else
+                print("[HomeScreen] No pending story")
+            end
+        end
+    end
+    if navShopBtn_ then
+        navShopBtn_.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            print("[HomeScreen] Shop tapped (not implemented)")
+        end
+    end
+
+    -- ----------------------------------------------------------------
+    -- 5. 增量更新：EventBus 订阅
+    -- ----------------------------------------------------------------
 
     unsubs_[#unsubs_ + 1] = EventBus.On("reward_collected", function()
         SFXManager.Play(SFXManager.SFX.UI_COIN, 0.5)
         RefreshCurrency()
-        RefreshStoryButton()
+        RefreshFameProgress()
     end)
+
     unsubs_[#unsubs_ + 1] = EventBus.On("coins_changed", RefreshCurrency)
+
     unsubs_[#unsubs_ + 1] = EventBus.On("fame_changed", function()
         RefreshCurrency()
-        RefreshStoryButton()
+        RefreshFameProgress()
     end)
-    unsubs_[#unsubs_ + 1] = EventBus.On("facility_upgraded", function(data)
-        RefreshFacility(data)
-        RefreshCurrency()
-        RefreshStoryButton()
-    end)
-    unsubs_[#unsubs_ + 1] = EventBus.On("story_node_complete", RefreshStoryButton)
-    unsubs_[#unsubs_ + 1] = EventBus.On("story_choice_made", RefreshStoryButton)
 
-    -- ================================================================
-    -- 清理
-    -- ================================================================
+    unsubs_[#unsubs_ + 1] = EventBus.On("facility_upgraded", function(data)
+        RefreshFacilities()
+        RefreshCurrency()
+    end)
+
+    unsubs_[#unsubs_ + 1] = EventBus.On("story_node_complete", function()
+        RefreshChapterTitle()
+    end)
+
+    unsubs_[#unsubs_ + 1] = EventBus.On("story_choice_made", function()
+        RefreshChapterTitle()
+    end)
+
+    unsubs_[#unsubs_ + 1] = EventBus.On("story_chapter_skipped", function()
+        RefreshChapterTitle()
+    end)
+
+    -- ----------------------------------------------------------------
+    -- 6. screen 控制器
+    -- ----------------------------------------------------------------
+
     function screen.Destroy()
         for i = 1, #unsubs_ do
             unsubs_[i]()
         end
         unsubs_ = {}
-        facilityCards_ = {}
     end
 
+    print("[HomeScreen] Created (layout migration)")
     return screen
 end
 
