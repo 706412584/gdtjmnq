@@ -17,6 +17,7 @@ local ScreenRouter   = require("Utils.ScreenRouter")
 local StoryManager   = require("Story.StoryManager")
 local SFXManager     = require("Utils.SFXManager")
 
+local UpgradePopup  = require("Screen.UpgradePopup")
 local HomeLayout = require("ui_HomeScreen_工坊主界面")
 
 local HomeScreen = {}
@@ -197,11 +198,11 @@ function HomeScreen.Create(container, params)
         end
     end
 
-    -- 设施卡片 → 升级界面
+    -- 设施卡片 → 升级弹窗
     local function OnFacilityTap(facilityId)
         return function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            ScreenRouter.GoTo("upgrade", { facilityId = facilityId })
+            UpgradePopup.Open(facilityId)
         end
     end
 
