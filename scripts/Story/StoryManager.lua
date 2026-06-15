@@ -41,7 +41,7 @@ local CHARACTER_CONFIG = {
     widow      = { name = "妇人",     portrait = "image/char_widow.png",     side = "right" },
     apprentice = { name = "学徒",     portrait = "image/char_apprentice.png",side = "right" },
     guard      = { name = "官差",     portrait = "image/char_guard.png",     side = "right" },
-    player     = { name = "主角",     portrait = "image/char_player.png",    side = "left" },
+    player     = { name = "主角",     portrait = "image/char_player.png",    side = "right" },
     narrator   = { name = "",         portrait = nil,                        side = "none" },
 }
 

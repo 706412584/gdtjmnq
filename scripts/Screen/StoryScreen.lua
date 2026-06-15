@@ -152,6 +152,14 @@ function StoryScreen.Create(container, params)
             portraitImg_.backgroundImage = charConfig.portrait
             if portraitFrame_ then
                 portraitFrame_.visible = true
+                -- 根据 side 字段切换立绘位置（左/右）
+                if charConfig.side == "right" then
+                    portraitFrame_.left = nil
+                    portraitFrame_.right = "4.38%"
+                else
+                    portraitFrame_.right = nil
+                    portraitFrame_.left = "4.38%"
+                end
             end
             -- 更新左侧角色名信息
             if charTitleLabel_ then
