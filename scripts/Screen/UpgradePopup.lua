@@ -176,10 +176,11 @@ local function EnsureModal()
     if modal_ then return end
 
     -- ============================
-    -- 左侧：设施大图区
+    -- 左侧：设施大图区（百分比自适应）
     -- ============================
     imgPanel_ = UI.Panel {
-        width = 200, height = 200,
+        width = "100%",
+        aspectRatio = 1,
         borderRadius = 12,
         backgroundColor = "rgba(26,26,46,0.5)",
         borderColor = "#3A322B",
@@ -187,10 +188,10 @@ local function EnsureModal()
     }
 
     local leftColumn = UI.Panel {
-        width = 220,
-        height = "100%",
+        width = "35%",
         alignItems = "center",
         justifyContent = "center",
+        paddingRight = 16,
         children = {
             imgPanel_,
         },
@@ -288,9 +289,8 @@ local function EnsureModal()
     }
 
     local rightColumn = UI.Panel {
-        flexGrow = 1,
+        width = "65%",
         flexShrink = 1,
-        paddingLeft = 20,
         justifyContent = "center",
         children = {
             headerRow,
@@ -318,18 +318,19 @@ local function EnsureModal()
     -- ============================
     costLabel_ = UI.Label {
         text = "",
-        fontSize = 15,
+        fontSize = 16,
         fontColor = "#D4A574",
         flexGrow = 1,
         verticalAlign = "middle",
-        height = 40,
+        height = 44,
     }
 
     upgradeBtn_ = UI.Button {
         text = "升阶锻造",
         variant = "primary",
-        width = 160,
-        height = 40,
+        width = "35%",
+        minWidth = 120,
+        height = 44,
         onClick = function()
             DoUpgrade()
         end,
@@ -348,7 +349,7 @@ local function EnsureModal()
     -- ============================
     modal_ = UI.Modal {
         title = "设施升级",
-        size = "lg",
+        size = "fullscreen",
         showCloseButton = true,
         closeOnOverlay = true,
         contentPadding = { 20, 24, 16, 24 },
