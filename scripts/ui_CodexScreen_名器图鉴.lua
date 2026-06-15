@@ -53,8 +53,8 @@ function M.Build(payload)
                     position = "absolute",
                     left = "1.46%",
                     top = "2.32%",
-                    width = 44.98,
-                    height = 44.98,
+                    width = 90,
+                    height = 56,
                     backgroundColor = "#00000000",
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -73,9 +73,9 @@ function M.Build(payload)
                             position = "absolute",
                             left = 0,
                             top = 0,
-                            width = 44.98,
-                            height = 44.98,
-                            fontSize = 19.68,
+                            width = "100%",
+                            height = "100%",
+                            fontSize = 24,
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.626,

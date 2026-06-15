@@ -18,6 +18,7 @@ local GameState      = require("Core.GameState")
 local OrderManager   = require("Core.OrderManager")
 local MiniGameRunner = require("MiniGame.MiniGameRunner")
 local ScreenRouter   = require("Utils.ScreenRouter")
+local BackButton     = require("Utils.BackButton")
 local Layout         = require("ui_ForgeScreen_锻造界面")
 
 -- 小游戏模块
@@ -221,13 +222,11 @@ function ForgeScreen.Create(container, params)
     -- 按钮事件
     -- ----------------------------------------------------------------
 
-    if backBtn then
-        backBtn.props.onClick = function()
-            MiniGameRunner.Stop()
-            OrderManager.CancelOrder()
-            ScreenRouter.GoTo("home")
-        end
-    end
+    BackButton.Setup(root, function()
+        MiniGameRunner.Stop()
+        OrderManager.CancelOrder()
+        ScreenRouter.GoTo("home")
+    end)
 
     if pauseBtn then
         pauseBtn.props.onClick = function()

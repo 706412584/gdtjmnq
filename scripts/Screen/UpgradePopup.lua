@@ -345,15 +345,24 @@ local function EnsureModal()
     }
 
     -- ============================
-    -- 创建 Modal
+    -- 创建 Modal（左右各 30% 边距 → 宽度 40%）
     -- ============================
     modal_ = UI.Modal {
         title = "设施升级",
-        size = "fullscreen",
+        size = "xl",
         showCloseButton = true,
         closeOnOverlay = true,
         contentPadding = { 20, 24, 16, 24 },
         contentGap = 0,
+        borderRadius = 8,
+        backgroundColor = "#1A1A2E",
+        borderColor = "#C9A45A",
+        borderWidth = 1.5,
+        titleTextColor = "#E4B982",
+        titleFontWeight = "bold",
+        contentBgColor = { 26, 26, 46, 255 },
+        headerStripeColor = { 201, 164, 90, 60 },
+        headerStripeHeight = 1,
     }
 
     modal_:AddContent(contentRow)

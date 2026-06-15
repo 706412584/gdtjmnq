@@ -16,6 +16,7 @@ local OrderManager   = require("Core.OrderManager")
 local WeaponRecipes  = require("Config.WeaponRecipes")
 local ScreenRouter   = require("Utils.ScreenRouter")
 local SFXManager     = require("Utils.SFXManager")
+local BackButton     = require("Utils.BackButton")
 
 local OrderLayout = require("ui_OrderBoardScreen_订单板")
 
@@ -534,12 +535,7 @@ function OrderBoardScreen.Create(container, params)
     -- 7. 绑定顶栏按钮事件
     -- ----------------------------------------------------------------
 
-    if backBtn_ then
-        backBtn_.props.onClick = function()
-            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            ScreenRouter.GoTo("home")
-        end
-    end
+    BackButton.Setup(root, "home")
 
     local function SetFilter(tier)
         currentFilter_ = tier

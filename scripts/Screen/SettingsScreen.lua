@@ -6,11 +6,13 @@
 -- 隐藏暂未实现的功能Tab（操作、账号），保留可用功能
 -- ============================================================================
 
-local UI          = require("urhox-libs/UI")
-local GameState   = require("Core.GameState")
+local UI           = require("urhox-libs/UI")
+local GameState    = require("Core.GameState")
 local ScreenRouter = require("Utils.ScreenRouter")
-local SFXManager  = require("Utils.SFXManager")
-local Layout      = require("ui_SettingsScreen_设置")
+local SFXManager   = require("Utils.SFXManager")
+local ThemedDialog = require("Utils.ThemedDialog")
+local BackButton   = require("Utils.BackButton")
+local Layout       = require("ui_SettingsScreen_设置")
 
 local SettingsScreen = {}
 
@@ -103,7 +105,7 @@ function SettingsScreen.Create(container, params)
     audio:SetMasterGain(SOUND_MUSIC, state.musicVolume / 100)
 
     -- ----------------------------------------------------------------
-    -- 隐藏未实现的 Tab
+    -- 隐藏未实现的 Tab（visible=false 跳过布局，不占空间）
     -- ----------------------------------------------------------------
     for _, def in ipairs(TAB_DEFS) do
         if def.hidden then
@@ -113,13 +115,25 @@ function SettingsScreen.Create(container, params)
     end
 
     -- ----------------------------------------------------------------
-    -- 返回按钮
+    -- 左上角返回按钮（统一样式）
     -- ----------------------------------------------------------------
-    local backBtn = root:FindById("plate_3")
-    if backBtn then
-        backBtn.props.onClick = function()
-            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            ScreenRouter.GoTo("home")
+    BackButton.Setup(root, "home")
+
+    -- ----------------------------------------------------------------
+    -- 重新定位可见 Tab（隐藏的 Tab 留下空位，需手动重排）
+    -- ----------------------------------------------------------------
+    local visibleTabIds = {}
+    for _, def in ipairs(TAB_DEFS) do
+        if not def.hidden then
+            visibleTabIds[#visibleTabIds + 1] = def.id
+        end
+    end
+    local TAB_START_TOP = 12.50   -- 第一个 Tab 的 top%
+    local TAB_INTERVAL  = 8.33   -- 每个 Tab 间距%
+    for i, tabId in ipairs(visibleTabIds) do
+        local tabPanel = root:FindById(tabId)
+        if tabPanel then
+            tabPanel.top = string.format("%.2f%%", TAB_START_TOP + (i - 1) * TAB_INTERVAL)
         end
     end
 
@@ -198,47 +212,60 @@ function SettingsScreen.Create(container, params)
     end
 
     -- ----------------------------------------------------------------
-    -- 音量滑块交互 (通过点击行调整 ±10)
+    -- 音量滑块 - 用真正的 UI.Slider 替换布局中的假进度条
     -- ----------------------------------------------------------------
-    local TRACK_MAX_WIDTH = 843.34
-
-    local function UpdateVolumeVisual(def, value)
-        local fill = root:FindById(def.fillId)
-        local valLabel = root:FindById(def.valueId)
-        local thumb = root:FindById(def.thumbId)
-        local ratio = value / 100
-        if fill then
-            fill.width = math.floor(TRACK_MAX_WIDTH * ratio)
-        end
-        if valLabel then
-            valLabel.text = tostring(math.floor(value)) .. "%"
-        end
-        if thumb then
-            local baseLeft = 26.17
-            local trackSpan = 56.08
-            thumb.left = string.format("%.2f%%", baseLeft + trackSpan * ratio)
-        end
-    end
+    local volumeSliders = {}
 
     for _, def in ipairs(VOLUME_ROWS) do
         local value = state[def.key] or def.default
-        UpdateVolumeVisual(def, value)
-
         local row = root:FindById(def.rowId)
         if row then
-            row.props.onClick = function()
-                ---@diagnostic disable-next-line: assign-type-mismatch
-                local v = (state[def.key] or def.default) + 10
-                if v > 100 then v = 0 end
-                state[def.key] = v
-                UpdateVolumeVisual(def, v)
-                -- 应用音量
-                if def.key == "masterVolume" then
-                    audio:SetMasterGain(SOUND_EFFECT, v / 100)
-                elseif def.key == "musicVolume" then
-                    audio:SetMasterGain(SOUND_MUSIC, v / 100)
-                end
+            -- 隐藏布局中的假轨道/填充/滑块圆点
+            local track = root:FindById(def.trackId)
+            local fill = root:FindById(def.fillId)
+            local thumb = root:FindById(def.thumbId)
+            if track then track.visible = false end
+            if fill then fill.visible = false end
+            if thumb then thumb.visible = false end
+
+            -- 更新百分比文字颜色统一为金色
+            local valLabel = root:FindById(def.valueId)
+            if valLabel then
+                valLabel.text = tostring(math.floor(value)) .. "%"
+                valLabel.fontColor = "#C9A45A"
             end
+
+            -- 创建真正的 Slider 控件，绝对定位在文字下方
+            local slider = UI.Slider {
+                value = value / 100,
+                min = 0,
+                max = 1,
+                step = 0.01,
+                position = "absolute",
+                left = "26%",
+                top = "55%",
+                width = "55%",
+                height = 32,
+                trackHeight = 6,
+                thumbSize = 20,
+                trackColor = "rgba(60,50,40,0.5)",
+                trackFillColor = "#C9A45A",
+                thumbColor = "#D4A574",
+                onChange = function(self, v)
+                    local vol = math.floor(v * 100 + 0.5)
+                    state[def.key] = vol
+                    if valLabel then
+                        valLabel.text = tostring(vol) .. "%"
+                    end
+                    if def.key == "masterVolume" then
+                        audio:SetMasterGain(SOUND_EFFECT, v)
+                    elseif def.key == "musicVolume" then
+                        audio:SetMasterGain(SOUND_MUSIC, v)
+                    end
+                end,
+            }
+            row:AddChild(slider)
+            volumeSliders[def.key] = slider
         end
     end
 
@@ -337,9 +364,12 @@ function SettingsScreen.Create(container, params)
             state.quality = "standard"
             state.fontSize = "medium"
             state.language = "zh-CN"
-            -- 刷新所有视觉
+            -- 刷新所有滑块
             for _, def in ipairs(VOLUME_ROWS) do
-                UpdateVolumeVisual(def, state[def.key])
+                local sl = volumeSliders[def.key]
+                if sl then sl.value = state[def.key] / 100 end
+                local valLabel = root:FindById(def.valueId)
+                if valLabel then valLabel.text = tostring(state[def.key]) .. "%" end
             end
             UpdateOptionVisual(QUALITY_OPTS, state.quality)
             UpdateOptionVisual(FONT_OPTS, state.fontSize)
@@ -363,11 +393,12 @@ function SettingsScreen.Create(container, params)
         end
         logoutBtn.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            UI.Modal.Confirm({
+            ThemedDialog.Confirm({
                 title = "确认删档",
                 message = "确定要删除所有存档数据吗？铜钱、声望、材料、订单进度、图鉴等全部数据将被清空，此操作不可撤销！",
                 confirmText = "确认删除",
                 cancelText = "取消",
+                danger = true,
                 onConfirm = function()
                     GameState.Reset()
                     GameState.ForceSave(function()

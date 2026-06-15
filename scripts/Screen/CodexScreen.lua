@@ -14,6 +14,7 @@ local Layout         = require("ui_CodexScreen_名器图鉴")
 local GameState      = require("Core.GameState")
 local WeaponRecipes  = require("Config.WeaponRecipes")
 local ScreenRouter   = require("Utils.ScreenRouter")
+local BackButton     = require("Utils.BackButton")
 
 local CodexScreen = {}
 
@@ -132,12 +133,7 @@ function CodexScreen.Create(container, params)
     -- ----------------------------------------------------------------
     -- 顶部栏绑定
     -- ----------------------------------------------------------------
-    local backBtn = root:FindById("plate_3")
-    if backBtn then
-        backBtn.props.onClick = function()
-            ScreenRouter.GoTo("home")
-        end
-    end
+    BackButton.Setup(root, "home")
 
     local statsLabel = root:FindById("tx_7")
 

@@ -117,7 +117,7 @@ function InitUI()
                 normal = "Fonts/MiSans-Regular.ttf",
             } }
         },
-        scale = UI.Scale.DESIGN_RESOLUTION(1504, 1114),
+        scale = UI.Scale.DESIGN_RESOLUTION(1920, 1080),
     })
 end
 

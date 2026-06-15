@@ -11,6 +11,7 @@ local EventBus       = require("Core.EventBus")
 local GameState      = require("Core.GameState")
 local FacilityConfig = require("Config.FacilityConfig")
 local ScreenRouter   = require("Utils.ScreenRouter")
+local BackButton     = require("Utils.BackButton")
 local Layout         = require("ui_UpgradeScreen_设施升级")
 
 local UpgradeScreen = {}
@@ -98,15 +99,10 @@ function UpgradeScreen.Create(container, params)
     -- ----------------------------------------------------------------
     -- 顶栏绑定
     -- ----------------------------------------------------------------
-    local backBtn    = root:FindById("plate_3")
     local coinsText  = root:FindById("tx_9")
     local matsText   = root:FindById("tx_b")
 
-    if backBtn then
-        backBtn.props.onClick = function()
-            ScreenRouter.GoTo("home")
-        end
-    end
+    BackButton.Setup(root, "home")
 
     -- 隐藏第 6 张无数据卡片
     local extraCard = root:FindById(EXTRA_CARD_ID)
