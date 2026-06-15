@@ -402,12 +402,11 @@ function StoryScreen.Create(container, params)
 
         -- 上下浮动（正弦波）
         local floatY = math.sin(idleTime_ * FLOAT_SPEED) * FLOAT_AMP
-        portraitImg_.top = math.floor(floatY + 0.5)
+        portraitImg_.translateY = floatY
 
         -- 呼吸缩放（用略不同频率产生自然感）
         local breathScale = 1.0 + math.sin(idleTime_ * BREATH_SPEED) * BREATH_AMP
-        portraitImg_.scaleX = breathScale
-        portraitImg_.scaleY = breathScale
+        portraitImg_.scale = breathScale
     end
 
     SubscribeToEvent("Update", HandleIdleAnim)
