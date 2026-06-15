@@ -1,10 +1,10 @@
 ---@diagnostic disable: param-type-mismatch
 -- ============================================================================
--- UpgradePopup - 设施升级弹窗
+-- UpgradePopup - 设施升级弹窗（横屏优化版）
 -- Project Smith
 --
 -- 点击主界面设施卡片后弹出，展示该设施的升级信息和操作按钮。
--- 使用 UI.Modal 组件，Open() 后自动挂载到 UI root。
+-- 横屏布局：左侧设施大图 + 右侧详细信息，底部升级操作栏。
 -- ============================================================================
 
 local UI             = require("urhox-libs/UI")
@@ -24,20 +24,32 @@ local FACILITY_IMAGES = {
     display      = "image/card_display_20260613074325.png",
 }
 
+-- 设施描述补充
+local FACILITY_FLAVOR = {
+    furnace = "熔炼矿石的核心设备，温度越高越能提炼精纯金属。",
+    anvil   = "锻打定型的工作台，坚实的锻台让每一锤都更精准。",
+    grinder = "研磨开刃的利器，精细的磨石让刀剑锋利无匹。",
+    storage = "存放材料的仓库，扩容后可囤积更多珍稀矿料。",
+    display = "展示成品的架子，精美的陈列架能提升铁匠声望。",
+}
+
 ---@type Modal|nil
 local modal_ = nil
 ---@type string|nil
 local currentFacility_ = nil
 
 -- 内容元素引用
-local nameLabel_   = nil
-local levelLabel_  = nil
-local descLabel_   = nil
-local coeffLabel_  = nil
-local costLabel_   = nil
-local upgradeBtn_  = nil
-local progressBar_ = nil
-local imgPanel_    = nil
+local nameLabel_      = nil
+local levelLabel_     = nil
+local descLabel_      = nil
+local flavorLabel_    = nil
+local coeffLabel_     = nil
+local costLabel_      = nil
+local upgradeBtn_     = nil
+local progressBar_    = nil
+local progressText_   = nil
+local imgPanel_       = nil
+local nextDescLabel_  = nil
 
 -- ============================================================================
 -- 刷新弹窗内容
@@ -55,14 +67,18 @@ local function RefreshContent()
     local isMax    = FacilityConfig.IsMaxLevel(facilityId, level)
 
     if nameLabel_ then nameLabel_.text = name end
-    if levelLabel_ then levelLabel_.text = "等阶 Lv." .. level .. " / " .. maxLevel end
-    if descLabel_ then descLabel_.text = desc end
-    if coeffLabel_ then coeffLabel_.text = "工具系数 x" .. string.format("%.2f", coeff) end
+    if levelLabel_ then levelLabel_.text = "Lv." .. level .. " / " .. maxLevel end
+    if descLabel_ then descLabel_.text = "当前: " .. desc end
+    if flavorLabel_ then flavorLabel_.text = FACILITY_FLAVOR[facilityId] or "" end
+    if coeffLabel_ then coeffLabel_.text = "工具系数  x" .. string.format("%.2f", coeff) end
 
     -- 进度条
     if progressBar_ then
         local pct = math.floor(level / maxLevel * 100)
         progressBar_.width = pct .. "%"
+    end
+    if progressText_ then
+        progressText_.text = level .. " / " .. maxLevel
     end
 
     -- 图片
@@ -74,7 +90,21 @@ local function RefreshContent()
         end
     end
 
-    -- 升级按钮
+    -- 下一级预览
+    if not isMax then
+        local nextDesc = FacilityConfig.GetLevelDesc(facilityId, level + 1)
+        local nextCoeff = FacilityConfig.GetToolCoeff(facilityId, level + 1)
+        if nextDescLabel_ then
+            nextDescLabel_.text = "下一级: " .. nextDesc .. "  (x" .. string.format("%.2f", nextCoeff) .. ")"
+            nextDescLabel_.visible = true
+        end
+    else
+        if nextDescLabel_ then
+            nextDescLabel_.visible = false
+        end
+    end
+
+    -- 升级按钮 & 费用
     if isMax then
         if costLabel_ then
             costLabel_.text = "已达满级"
@@ -89,12 +119,12 @@ local function RefreshContent()
         if cost then
             local canAfford = GameState.CanAffordCoins(cost.coins)
             if costLabel_ then
-                costLabel_.text = "升级需要 " .. cost.coins .. " 铜钱"
+                costLabel_.text = "升级费用: " .. cost.coins .. " 铜钱"
                 costLabel_.fontColor = canAfford and "#D4A574" or "#E94560"
             end
             if upgradeBtn_ then
                 upgradeBtn_:SetDisabled(not canAfford)
-                upgradeBtn_:SetText(canAfford and "升阶" or "铜钱不足")
+                upgradeBtn_:SetText(canAfford and "升阶锻造" or "铜钱不足")
             end
         end
     end
@@ -129,7 +159,7 @@ local function DoUpgrade()
     GameState.SetFacilityLevel(facilityId, level + 1)
 
     SFXManager.Play(SFXManager.SFX.UI_COIN, 0.5)
-    UI.Toast.Show(FacilityConfig.GetName(facilityId) .. " 升至 Lv." .. (level + 1), { type = "success" })
+    UI.Toast.Show(FacilityConfig.GetName(facilityId) .. " 升至 Lv." .. (level + 1))
 
     -- 刷新弹窗内容
     RefreshContent()
@@ -145,52 +175,91 @@ end
 local function EnsureModal()
     if modal_ then return end
 
-    -- 设施图片区
+    -- ============================
+    -- 左侧：设施大图区
+    -- ============================
     imgPanel_ = UI.Panel {
-        width = 120, height = 120,
-        alignSelf = "center",
-        borderRadius = 8,
-        backgroundColor = "rgba(26,26,46,0.6)",
-        marginBottom = 12,
+        width = 200, height = 200,
+        borderRadius = 12,
+        backgroundColor = "rgba(26,26,46,0.5)",
+        borderColor = "#3A322B",
+        borderWidth = 1,
     }
 
-    -- 名称
+    local leftColumn = UI.Panel {
+        width = 220,
+        height = "100%",
+        alignItems = "center",
+        justifyContent = "center",
+        children = {
+            imgPanel_,
+        },
+    }
+
+    -- ============================
+    -- 右侧：信息区
+    -- ============================
+
+    -- 名称 + 等级行
     nameLabel_ = UI.Label {
         text = "",
-        fontSize = 20,
+        fontSize = 22,
+        fontWeight = 700,
         fontColor = "#E8E0D0",
-        textAlign = "center",
-        width = "100%",
-        marginBottom = 4,
     }
 
-    -- 等级
     levelLabel_ = UI.Label {
         text = "",
         fontSize = 14,
-        fontColor = "#A0937D",
-        textAlign = "center",
-        width = "100%",
-        marginBottom = 12,
+        fontColor = "#C9A45A",
+        marginLeft = 12,
     }
 
-    -- 进度条背景
+    local headerRow = UI.Panel {
+        flexDirection = "row",
+        alignItems = "baseline",
+        width = "100%",
+        marginBottom = 8,
+        children = { nameLabel_, levelLabel_ },
+    }
+
+    -- 进度条
     progressBar_ = UI.Panel {
         width = "0%",
         height = "100%",
         backgroundColor = "#C9A45A",
-        borderRadius = 3,
+        borderRadius = 4,
+    }
+
+    progressText_ = UI.Label {
+        text = "",
+        fontSize = 11,
+        fontColor = "#E8E0D0",
+        position = "absolute",
+        right = 8,
+        top = 0,
+        height = "100%",
+        verticalAlign = "middle",
     }
 
     local progressBg = UI.Panel {
-        width = "100%", height = 6,
+        width = "100%", height = 18,
         backgroundColor = "#3A322B",
-        borderRadius = 3,
-        marginBottom = 16,
-        children = { progressBar_ },
+        borderRadius = 4,
+        marginBottom = 14,
+        children = { progressBar_, progressText_ },
     }
 
-    -- 描述
+    -- 风味描述
+    flavorLabel_ = UI.Label {
+        text = "",
+        fontSize = 13,
+        fontColor = "#A0937D",
+        width = "100%",
+        marginBottom = 10,
+    }
+
+    -- 当前状态
     descLabel_ = UI.Label {
         text = "",
         fontSize = 14,
@@ -204,48 +273,90 @@ local function EnsureModal()
         text = "",
         fontSize = 14,
         fontColor = "#D4A574",
+        fontWeight = 700,
         width = "100%",
-        marginBottom = 16,
+        marginBottom = 8,
     }
 
-    -- 费用
+    -- 下一级预览
+    nextDescLabel_ = UI.Label {
+        text = "",
+        fontSize = 13,
+        fontColor = "#4ECDC4",
+        width = "100%",
+        marginBottom = 4,
+    }
+
+    local rightColumn = UI.Panel {
+        flexGrow = 1,
+        flexShrink = 1,
+        paddingLeft = 20,
+        justifyContent = "center",
+        children = {
+            headerRow,
+            progressBg,
+            flavorLabel_,
+            descLabel_,
+            coeffLabel_,
+            nextDescLabel_,
+        },
+    }
+
+    -- ============================
+    -- 主内容区：左右横排
+    -- ============================
+    local contentRow = UI.Panel {
+        flexDirection = "row",
+        width = "100%",
+        height = "100%",
+        alignItems = "center",
+        children = { leftColumn, rightColumn },
+    }
+
+    -- ============================
+    -- 底部操作栏（作为 Footer）
+    -- ============================
     costLabel_ = UI.Label {
         text = "",
-        fontSize = 14,
+        fontSize = 15,
         fontColor = "#D4A574",
-        textAlign = "center",
-        width = "100%",
-        marginBottom = 12,
+        flexGrow = 1,
+        verticalAlign = "middle",
+        height = 40,
     }
 
-    -- 升级按钮
     upgradeBtn_ = UI.Button {
-        text = "升阶",
+        text = "升阶锻造",
         variant = "primary",
-        width = "100%",
-        height = 44,
+        width = 160,
+        height = 40,
         onClick = function()
             DoUpgrade()
         end,
     }
 
-    -- 创建 Modal
-    modal_ = UI.Modal {
-        title = "设施升级",
-        size = "sm",
-        showCloseButton = true,
-        closeOnOverlay = true,
+    local footerRow = UI.Panel {
+        flexDirection = "row",
+        width = "100%",
+        alignItems = "center",
+        justifyContent = "space-between",
+        children = { costLabel_, upgradeBtn_ },
     }
 
-    -- 添加内容
-    modal_:AddContent(imgPanel_)
-    modal_:AddContent(nameLabel_)
-    modal_:AddContent(levelLabel_)
-    modal_:AddContent(progressBg)
-    modal_:AddContent(descLabel_)
-    modal_:AddContent(coeffLabel_)
-    modal_:AddContent(costLabel_)
-    modal_:AddContent(upgradeBtn_)
+    -- ============================
+    -- 创建 Modal
+    -- ============================
+    modal_ = UI.Modal {
+        title = "设施升级",
+        size = "lg",
+        showCloseButton = true,
+        closeOnOverlay = true,
+        contentPadding = { 20, 24, 16, 24 },
+        contentGap = 0,
+    }
+
+    modal_:AddContent(contentRow)
+    modal_:SetFooter(footerRow)
 end
 
 -- ============================================================================
