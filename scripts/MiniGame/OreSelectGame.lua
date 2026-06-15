@@ -1,15 +1,15 @@
----@diagnostic disable: assign-type-mismatch
+---@diagnostic disable: assign-type-mismatch, param-type-mismatch
 -- ============================================================================
--- OreSelectGame - 选矿去杂小游戏
+-- OreSelectGame - 选矿去杂小游戏（古风手绘风格优化版）
 -- Project Smith / P1-C2
 --
 -- 玩法: 屏幕显示若干矿石块，其中混有杂质。
---   - 玩家点击选择优质矿石（绿色高亮）
+--   - 玩家点击选择优质矿石（金色高亮）
 --   - 点击杂质会扣分（红色闪烁）
 --   - 限时内选够指定数量的好矿即完成
 --   - 精度 = 正确选择数 / 总点击数，速度加分
 --
--- 渲染方式: UI 组件（按 dev-plan 规格）
+-- 渲染方式: UI 组件（自定义绘制风格面板，匹配古风锻造界面）
 -- 输入: 点击
 -- ============================================================================
 
@@ -21,26 +21,36 @@ local SFXManager = require("Utils.SFXManager")
 local OreSelectGame = MiniGameBase.Extend()
 
 -- ============================================================================
--- 色板
+-- 色板（古代工坊风格）
 -- ============================================================================
 
 local C = {
-    bgPrimary    = { 26,  26,  46,  255 },
-    bgCard       = { 30,  40,  68,  255 },
-    gold         = { 212, 165, 116, 255 },
-    textPrimary  = { 232, 224, 208, 255 },
-    textSecondary = { 160, 147, 125, 255 },
-    accent       = { 233, 69,  96,  255 },
-    success      = { 78,  205, 196, 255 },
-    warning      = { 255, 217, 61,  255 },
+    -- 基础
+    bgOverlay    = "rgba(15,12,10,0.75)",       -- 半透明深色遮罩
+    bgCard       = "rgba(26,20,15,0.85)",       -- 矿石牌底色
+    borderGold   = "#7A5C32",                   -- 暗金色描边
+    borderLight  = "#C9A45A",                   -- 亮金色描边（激活态）
 
-    oreGood      = { 90,  140, 110, 255 },   -- 优质矿石
-    oreGoodBorder = { 120, 190, 140, 255 },
-    oreBad       = { 100, 80,  70,  255 },   -- 杂质
-    oreBadBorder = { 160, 100, 80,  255 },
-    oreDefault   = { 70,  75,  95,  255 },   -- 未选中
-    oreSelected  = { 60,  160, 120, 255 },   -- 已选中（好）
-    oreWrong     = { 200, 60,  60,  255 },   -- 选错（坏）
+    -- 文字
+    textPrimary  = "#E8E0D0",                   -- 暖白正文
+    textGold     = "#D4A574",                   -- 鎏金标题
+    textSecondary = "#A0937D",                  -- 烟灰副文
+    textAccent   = "#E94560",                   -- 炉火红（警告）
+    textSuccess  = "#4ECDC4",                   -- 青铜绿（成功）
+    textWarning  = "#FFD93D",                   -- 淬火黄
+
+    -- 矿石状态
+    oreDefault      = "rgba(40,35,30,0.80)",    -- 默认底色
+    oreBorderNormal = "#5A4A3A",               -- 默认描边
+    oreHover        = "rgba(60,50,40,0.90)",    -- 悬停底色
+    oreSelected     = "rgba(35,75,55,0.85)",    -- 选中正确
+    oreBorderGood   = "#4ECDC4",               -- 正确描边
+    oreWrong        = "rgba(90,30,30,0.85)",    -- 选错
+    oreBorderBad    = "#E94560",               -- 错误描边
+
+    -- 进度
+    progressBg      = "rgba(40,35,30,0.6)",
+    progressFill    = "#C96A2B",               -- 炉火橙
 }
 
 -- 矿石名称池
@@ -75,6 +85,7 @@ function OreSelectGame:init(config)
     self.progressLabel_ = nil
     self.feedbackLabel_ = nil
     self.gridContainer_ = nil
+    self.timerBar_ = nil
 
     -- 生成矿石数据
     self:generateOres_()
@@ -118,101 +129,156 @@ function OreSelectGame:generateOres_()
 end
 
 -- ============================================================================
--- UI 构建
+-- UI 构建（古风绘制风格）
 -- ============================================================================
 
 function OreSelectGame:buildUI_()
     local container = self.container_
     if not container then return end
 
+    -- ============================
+    -- 顶部信息条（半透明条带）
+    -- ============================
     self.timerLabel_ = UI.Label {
-        text = "剩余: " .. self.timeLimit_ .. "s",
-        fontSize = 14,
-        fontColor = C.warning,
+        text = string.format("%.1f", self.timeLimit_) .. "s",
+        fontSize = 16,
+        fontColor = C.textWarning,
     }
 
     self.progressLabel_ = UI.Label {
         text = "已选: 0/" .. self.goodCount_,
-        fontSize = 14,
-        fontColor = C.success,
+        fontSize = 15,
+        fontColor = C.textSuccess,
     }
 
-    self.feedbackLabel_ = UI.Label {
-        text = "点选优质矿石，避开杂质",
-        fontSize = 12,
-        fontColor = C.textSecondary,
-        textAlign = "center",
+    -- 倒计时进度条
+    self.timerBar_ = UI.Panel {
         width = "100%",
-        height = 18,
+        height = "100%",
+        backgroundColor = C.progressFill,
+        borderRadius = 3,
     }
 
-    -- 创建矿石按钮网格
-    local oreWidgets = {}
-    for i = 1, #self.ores_ do
-        local ore = self.ores_[i]
-        local idx = i
-        local btn = UI.Button {
-            text = ore.name,
-            width = "30%",
-            height = 56,
-            fontSize = 12,
-            backgroundColor = C.oreDefault,
-            hoverBackgroundColor = { 85, 90, 110, 255 },
-            pressedBackgroundColor = { 55, 60, 80, 255 },
-            fontColor = C.textPrimary,
-            borderRadius = 6,
-            onClick = function(self_btn)
-                self:onOrePick_(idx, self_btn)
-            end,
-        }
-        ore.widget = btn
-        oreWidgets[#oreWidgets + 1] = btn
-    end
+    local timerBarBg = UI.Panel {
+        width = "40%",
+        height = 6,
+        backgroundColor = C.progressBg,
+        borderRadius = 3,
+        marginHorizontal = 12,
+        children = { self.timerBar_ },
+    }
 
-    self.gridContainer_ = UI.Panel {
+    local topBar = UI.Panel {
         width = "100%",
         flexDirection = "row",
-        flexWrap = "wrap",
-        justifyContent = "space-around",
-        gap = 8,
-        paddingHorizontal = 8,
-        children = oreWidgets,
+        alignItems = "center",
+        justifyContent = "space-between",
+        paddingHorizontal = 20,
+        paddingVertical = 10,
+        backgroundColor = C.bgOverlay,
+        borderBottomWidth = 1,
+        borderColor = C.borderGold,
+        children = {
+            self.timerLabel_,
+            timerBarBg,
+            self.progressLabel_,
+        },
     }
 
-    -- 步骤指示
+    -- ============================
+    -- 步骤标题
+    -- ============================
     local stepText = ""
     if self.config_ and self.config_.stepIndex and self.config_.totalSteps then
         stepText = "步骤 " .. self.config_.stepIndex .. "/" .. self.config_.totalSteps .. ": "
     end
 
+    local titleLabel = UI.Label {
+        text = stepText .. "选矿去杂",
+        fontSize = 18,
+        fontColor = C.textGold,
+        textAlign = "center",
+        width = "100%",
+        marginTop = 12,
+    }
+
+    -- ============================
+    -- 提示/反馈文字
+    -- ============================
+    self.feedbackLabel_ = UI.Label {
+        text = "点选优质矿石，避开杂质",
+        fontSize = 13,
+        fontColor = C.textSecondary,
+        textAlign = "center",
+        width = "100%",
+        marginBottom = 8,
+    }
+
+    -- ============================
+    -- 矿石网格（古风牌面风格）
+    -- ============================
+    local oreWidgets = {}
+    local columns = 4  -- 每行4个，横屏更合适
+    if self.totalSlots_ <= 6 then
+        columns = 3
+    end
+
+    for i = 1, #self.ores_ do
+        local ore = self.ores_[i]
+        local idx = i
+
+        -- 矿石牌 — 用自定义 Panel 模拟古风按钮
+        local oreLabel = UI.Label {
+            text = ore.name,
+            fontSize = 14,
+            fontColor = C.textPrimary,
+            textAlign = "center",
+            width = "100%",
+        }
+
+        local oreCard = UI.Panel {
+            width = "22%",
+            height = 52,
+            backgroundColor = C.oreDefault,
+            borderWidth = 1,
+            borderColor = C.oreBorderNormal,
+            borderRadius = 4,
+            justifyContent = "center",
+            alignItems = "center",
+            onClick = function(self_w)
+                self:onOrePick_(idx, self_w, oreLabel)
+            end,
+            children = { oreLabel },
+        }
+
+        ore.widget = oreCard
+        ore.label = oreLabel
+        oreWidgets[#oreWidgets + 1] = oreCard
+    end
+
+    self.gridContainer_ = UI.Panel {
+        width = "100%",
+        flexGrow = 1,
+        flexDirection = "row",
+        flexWrap = "wrap",
+        justifyContent = "center",
+        alignContent = "center",
+        gap = 10,
+        paddingHorizontal = 16,
+        children = oreWidgets,
+    }
+
+    -- ============================
+    -- 组合主面板
+    -- ============================
     local panel = UI.Panel {
         width = "100%",
         height = "100%",
         flexDirection = "column",
-        alignItems = "center",
-        paddingTop = 20,
-        paddingHorizontal = 12,
-        gap = 10,
         children = {
-            UI.Label {
-                text = stepText .. "选矿去杂",
-                fontSize = 18,
-                fontColor = C.gold,
-            },
-            -- 顶部信息栏
-            UI.Panel {
-                width = "100%",
-                flexDirection = "row",
-                justifyContent = "space-between",
-                paddingHorizontal = 8,
-                children = {
-                    self.timerLabel_,
-                    self.progressLabel_,
-                },
-            },
-            -- 反馈文字
+            topBar,
+            titleLabel,
             self.feedbackLabel_,
-            -- 矿石网格
             self.gridContainer_,
         },
     }
@@ -224,7 +290,7 @@ end
 -- 矿石点击
 -- ============================================================================
 
-function OreSelectGame:onOrePick_(index, btnWidget)
+function OreSelectGame:onOrePick_(index, cardWidget, labelWidget)
     if self.finished_ then return end
 
     local ore = self.ores_[index]
@@ -234,12 +300,15 @@ function OreSelectGame:onOrePick_(index, btnWidget)
     ore.picked = true
 
     if ore.isGood then
-        -- 正确选择
+        -- 正确选择 — 金色/青铜绿高亮
         self.correctPicks_ = self.correctPicks_ + 1
-        btnWidget.backgroundColor = C.oreSelected
-        btnWidget.fontColor = C.textPrimary
+        cardWidget.backgroundColor = C.oreSelected
+        cardWidget.borderColor = C.oreBorderGood
+        cardWidget.borderWidth = 2
+        if labelWidget then labelWidget.fontColor = C.textSuccess end
+
         self.feedbackLabel_.text = "好矿! (" .. self.correctPicks_ .. "/" .. self.goodCount_ .. ")"
-        self.feedbackLabel_.fontColor = C.success
+        self.feedbackLabel_.fontColor = C.textSuccess
         SFXManager.Play(SFXManager.SFX.ORE_DROP, 0.6)
 
         -- 更新进度
@@ -250,11 +319,14 @@ function OreSelectGame:onOrePick_(index, btnWidget)
             self:finishGame_()
         end
     else
-        -- 选错杂质
-        btnWidget.backgroundColor = C.oreWrong
-        btnWidget.fontColor = C.textPrimary
-        self.feedbackLabel_.text = "杂质! 小心选择"
-        self.feedbackLabel_.fontColor = C.accent
+        -- 选错杂质 — 红色闪烁
+        cardWidget.backgroundColor = C.oreWrong
+        cardWidget.borderColor = C.oreBorderBad
+        cardWidget.borderWidth = 2
+        if labelWidget then labelWidget.fontColor = C.textAccent end
+
+        self.feedbackLabel_.text = "杂质! 小心辨别"
+        self.feedbackLabel_.fontColor = C.textAccent
         SFXManager.Play(SFXManager.SFX.UI_FAIL, 0.4)
     end
 end
@@ -268,12 +340,21 @@ function OreSelectGame:update(dt)
 
     self.elapsed_ = self.elapsed_ + dt
     local remaining = math.max(0, self.timeLimit_ - self.elapsed_)
+    local pct = remaining / self.timeLimit_
 
-    -- 更新倒计时
+    -- 更新倒计时文字
     if self.timerLabel_ then
-        self.timerLabel_.text = "剩余: " .. string.format("%.1f", remaining) .. "s"
+        self.timerLabel_.text = string.format("%.1f", remaining) .. "s"
         if remaining < 3 then
-            self.timerLabel_.fontColor = C.accent
+            self.timerLabel_.fontColor = C.textAccent
+        end
+    end
+
+    -- 更新倒计时进度条
+    if self.timerBar_ then
+        self.timerBar_.width = math.floor(pct * 100) .. "%"
+        if remaining < 3 then
+            self.timerBar_.backgroundColor = C.textAccent
         end
     end
 
@@ -323,17 +404,33 @@ function OreSelectGame:finishGame_()
 
     self:finish(finalScore, rating)
 
-    -- 更新 UI
+    -- 更新 UI — 禁用所有未选矿石
+    for i = 1, #self.ores_ do
+        local ore = self.ores_[i]
+        if not ore.picked and ore.widget then
+            ore.widget.backgroundColor = "rgba(30,25,20,0.5)"
+            ore.widget.borderColor = "#3A322B"
+            if ore.label then ore.label.fontColor = "#6A5A4A" end
+        end
+    end
+
+    -- 更新反馈文字
     if self.feedbackLabel_ then
-        self.feedbackLabel_.text = rating .. "! (得分: " .. string.format("%.0f", finalScore * 100) .. ")"
+        local ratingName = {
+            Perfect = "神匠之眼!",
+            Great = "眼力不错!",
+            Good = "尚可",
+            Poor = "需要历练...",
+        }
+        self.feedbackLabel_.text = (ratingName[rating] or rating) .. " (得分: " .. string.format("%.0f", finalScore * 100) .. ")"
         if rating == "Perfect" then
-            self.feedbackLabel_.fontColor = C.warning
+            self.feedbackLabel_.fontColor = C.textWarning
         elseif rating == "Great" then
-            self.feedbackLabel_.fontColor = C.success
+            self.feedbackLabel_.fontColor = C.textSuccess
         elseif rating == "Good" then
             self.feedbackLabel_.fontColor = C.textPrimary
         else
-            self.feedbackLabel_.fontColor = C.accent
+            self.feedbackLabel_.fontColor = C.textAccent
         end
     end
 
