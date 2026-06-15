@@ -69,7 +69,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             backgroundImage = "image/char_keeper.png",
-                            backgroundFit = "contain",
+                            backgroundFit = "cover",
                         },
                     },
                 },
