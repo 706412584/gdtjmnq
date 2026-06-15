@@ -55,10 +55,9 @@ function M.Build(payload)
                     position = "absolute",
                     left = "4.38%",
                     top = "13.06%",
-                    width = 514,
+                    width = 380,
                     height = 568,
                     backgroundColor = "transparent",
-                    borderRadius = 8,
                     overflow = "hidden",
                     children = {
                         UI.Panel {
@@ -68,7 +67,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "transparent",
                             backgroundImage = "image/char_keeper.png",
-                            backgroundFit = "contain",
+                            backgroundFit = "cover",
                         },
                     },
                 },
