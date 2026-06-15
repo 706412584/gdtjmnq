@@ -19,6 +19,25 @@ local ChallengeModifier  = require("Core.ChallengeModifier")
 
 local OrderManager = {}
 
+-- 材料中文名称映射
+local MATERIAL_NAMES = {
+    ore           = "矿石",
+    charcoal      = "木炭",
+    grinding_agent = "研磨剂",
+    wood          = "木材",
+    leather       = "皮革",
+    iron          = "铁锭",
+    steel         = "钢材",
+    jade_dust     = "玉粉",
+}
+
+--- 获取材料中文名
+---@param key string
+---@return string
+function OrderManager.GetMaterialName(key)
+    return MATERIAL_NAMES[key] or key
+end
+
 -- 当前正在执行的订单
 ---@type table|nil
 local activeOrder_ = nil
@@ -74,7 +93,9 @@ function OrderManager.AcceptOrder(orderId)
 
     for mat, count in pairs(recipe.requiredMaterials) do
         if not GameState.CanAffordMaterial(mat, count) then
-            return false, "材料不足: " .. mat
+            local name = MATERIAL_NAMES[mat] or mat
+            local have = GameState.GetMaterial(mat) or 0
+            return false, name .. "不足 (需" .. count .. "/有" .. have .. ")"
         end
     end
 

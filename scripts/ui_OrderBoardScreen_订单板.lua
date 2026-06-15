@@ -1304,6 +1304,7 @@ function M.Build(payload)
                                     borderRadius = 18,
                                     borderColor = "#C9A45A",
                                     borderWidth = 2,
+                                    pointerEvents = "none",
                                 },
                                 UI.Label {
                                     id = "plate_t_3f",
@@ -1340,6 +1341,7 @@ function M.Build(payload)
                                     borderRadius = 13,
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
+                                    pointerEvents = "none",
                                 },
                                 UI.Label {
                                     id = "plate_t_3i",
@@ -1614,6 +1616,7 @@ function M.Build(payload)
                                     borderRadius = 18,
                                     borderColor = "#C9A45A",
                                     borderWidth = 2,
+                                    pointerEvents = "none",
                                 },
                                 UI.Label {
                                     id = "plate_t_46",
@@ -1650,6 +1653,7 @@ function M.Build(payload)
                                     borderRadius = 13,
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
+                                    pointerEvents = "none",
                                 },
                                 UI.Label {
                                     id = "plate_t_49",
@@ -1924,6 +1928,7 @@ function M.Build(payload)
                                     borderRadius = 18,
                                     borderColor = "#C9A45A",
                                     borderWidth = 2,
+                                    pointerEvents = "none",
                                 },
                                 UI.Label {
                                     id = "plate_t_4x",
@@ -1960,6 +1965,7 @@ function M.Build(payload)
                                     borderRadius = 13,
                                     borderColor = "#3A322B",
                                     borderWidth = 2,
+                                    pointerEvents = "none",
                                 },
                                 UI.Label {
                                     id = "plate_t_50",

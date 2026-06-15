@@ -353,18 +353,53 @@ function OrderBoardScreen.Create(container, params)
 
         -- 接单按钮
         if w.acceptBtn then
-            w.acceptBtn.props.onClick = function()
-                local ok, err = OrderManager.AcceptOrder(order.id)
-                if ok then
-                    SFXManager.Play(SFXManager.SFX.ORDER_ACCEPT, 0.7)
-                    ScreenRouter.GoTo("forge", {
-                        orderId = order.id,
-                        order = order,
-                        recipe = recipe,
-                    })
-                else
+            -- 检查材料是否充足，决定按钮状态
+            local canAccept = true
+            local shortage = nil
+            if recipe and recipe.requiredMaterials then
+                for mat, count in pairs(recipe.requiredMaterials) do
+                    if not GameState.CanAffordMaterial(mat, count) then
+                        canAccept = false
+                        local name = OrderManager.GetMaterialName(mat)
+                        shortage = name .. "不足"
+                        break
+                    end
+                end
+            end
+            -- 如果有进行中的订单也禁用
+            if OrderManager.GetActiveOrder() then
+                canAccept = false
+                shortage = "已有进行中的订单"
+            end
+
+            if canAccept then
+                -- 正常可点击状态
+                w.acceptBtn.props.onClick = function()
+                    print("[OrderBoard] Accept clicked! orderId=" .. tostring(order.id))
+                    local ok, err = OrderManager.AcceptOrder(order.id)
+                    if ok then
+                        SFXManager.Play(SFXManager.SFX.ORDER_ACCEPT, 0.7)
+                        ScreenRouter.GoTo("forge", {
+                            orderId = order.id,
+                            order = order,
+                            recipe = recipe,
+                        })
+                    else
+                        SFXManager.Play(SFXManager.SFX.UI_FAIL, 0.4)
+                        UI.Toast.Show(tostring(err), { type = "warning", duration = 2.5 })
+                        print("[OrderBoard] Accept failed: " .. tostring(err))
+                    end
+                end
+            else
+                -- 禁用状态 - 变灰并提示原因
+                local kids = w.acceptBtn.children
+                if kids and kids[1] then
+                    kids[1].backgroundColor = "#5A5A5A"
+                    kids[1].borderColor = "#3A3A3A"
+                end
+                w.acceptBtn.props.onClick = function()
                     SFXManager.Play(SFXManager.SFX.UI_FAIL, 0.4)
-                    print("[OrderBoard] Accept failed: " .. tostring(err))
+                    UI.Toast.Show(shortage or "无法接单", { type = "warning", duration = 2 })
                 end
             end
         end

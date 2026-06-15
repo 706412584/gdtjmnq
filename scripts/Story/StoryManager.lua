@@ -31,16 +31,16 @@ local nodeIndex_ = {}
 --- 角色显示配置
 local CHARACTER_CONFIG = {
     keeper     = { name = "老掌柜",   portrait = "image/char_keeper.png",    side = "left" },
-    shen       = { name = "沈绫",     portrait = "image/char_shen.png",      side = "right" },
-    luchen     = { name = "陆沉",     portrait = "image/char_luchen.png",    side = "right" },
-    han        = { name = "韩铸",     portrait = "image/char_han.png",        side = "right" },
-    disciple   = { name = "阿晦",     portrait = "image/char_disciple.png",  side = "right" },
-    envoy      = { name = "王都使者", portrait = "image/char_envoy.png",     side = "right" },
-    hunter     = { name = "猎户",     portrait = "image/char_hunter.png",    side = "right" },
-    magistrate = { name = "县衙差役", portrait = "image/char_magistrate.png",side = "right" },
-    widow      = { name = "妇人",     portrait = "image/char_widow.png",     side = "right" },
-    apprentice = { name = "学徒",     portrait = "image/char_apprentice.png",side = "right" },
-    guard      = { name = "官差",     portrait = "image/char_guard.png",     side = "right" },
+    shen       = { name = "沈绫",     portrait = "image/char_shen.png",      side = "left" },
+    luchen     = { name = "陆沉",     portrait = "image/char_luchen.png",    side = "left" },
+    han        = { name = "韩铸",     portrait = "image/char_han.png",        side = "left" },
+    disciple   = { name = "阿晦",     portrait = "image/char_disciple.png",  side = "left" },
+    envoy      = { name = "王都使者", portrait = "image/char_envoy.png",     side = "left" },
+    hunter     = { name = "猎户",     portrait = "image/char_hunter.png",    side = "left" },
+    magistrate = { name = "县衙差役", portrait = "image/char_magistrate.png",side = "left" },
+    widow      = { name = "妇人",     portrait = "image/char_widow.png",     side = "left" },
+    apprentice = { name = "学徒",     portrait = "image/char_apprentice.png",side = "left" },
+    guard      = { name = "官差",     portrait = "image/char_guard.png",     side = "left" },
     player     = { name = "主角",     portrait = "image/char_player.png",    side = "right" },
     narrator   = { name = "",         portrait = nil,                        side = "none" },
 }
@@ -255,7 +255,7 @@ end
 ---@param speakerId string
 ---@return table { name, portrait, side }
 function StoryManager.GetCharacterConfig(speakerId)
-    return CHARACTER_CONFIG[speakerId] or { name = speakerId, portrait = nil, side = "right" }
+    return CHARACTER_CONFIG[speakerId] or { name = speakerId, portrait = nil, side = "left" }
 end
 
 --- 完成当前对话节点（非选择型），推进到 next

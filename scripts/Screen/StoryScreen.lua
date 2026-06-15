@@ -133,6 +133,109 @@ function StoryScreen.Create(container, params)
     end
 
     -- ----------------------------------------------------------------
+    -- 3.5 打字机/自动播放/倍速 状态
+    -- ----------------------------------------------------------------
+    local typewriter_ = {
+        fullText = "",
+        charIndex = 0,
+        elapsed = 0,
+        done = true,
+        baseSpeed = 20,  -- 基础每秒显示字数
+    }
+    local speedMultiplier_ = 1   -- 1 / 2 / 3
+    local autoPlay_ = false      -- 自动播放模式
+    local autoDelay_ = 1.5       -- 自动播放等待时间(秒)
+    local autoTimer_ = 0
+
+    -- 自动按钮（动态创建在跳过按钮左边）
+    local autoBtn_ = UI.Panel {
+        id = "plate_auto",
+        position = "absolute",
+        top = "2.08%",
+        width = 130,
+        height = 46,
+        backgroundColor = "#00000000",
+        right = 340,
+        children = {
+            UI.Panel {
+                position = "absolute",
+                width = "100%",
+                height = "100%",
+                borderRadius = 14,
+                borderColor = "#C9A45A",
+                borderWidth = 2,
+            },
+            ---@diagnostic disable-next-line: param-type-mismatch
+            UI.Label {
+                id = "tx_auto",
+                width = "100%", height = "100%",
+                fontSize = 22,
+                fontWeight = "700",
+                textAlign = "center",
+                lineHeight = 1.66,
+                fontColor = "#c9a45a",
+                verticalAlign = "middle",
+                text = "自动",
+            },
+        },
+    }
+    root:AddChild(autoBtn_)
+    local autoLabel_ = autoBtn_:FindById("tx_auto")
+
+    -- 倍速按钮（对话框右下角内）
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local speedLabelW_ = UI.Label {
+        id = "tx_speed",
+        width = "100%",
+        height = "100%",
+        fontSize = 20,
+        fontWeight = "700",
+        textAlign = "center",
+        fontColor = "#c9a45a",
+        verticalAlign = "middle",
+        text = "X1",
+    }
+    local speedBtn_ = UI.Panel {
+        id = "plate_speed",
+        position = "absolute",
+        bottom = 42,
+        right = 76,
+        width = 70,
+        height = 38,
+        backgroundColor = "rgba(0,0,0,0.5)",
+        borderRadius = 8,
+        borderColor = "#C9A45A",
+        borderWidth = 1,
+        children = { speedLabelW_ },
+    }
+    root:AddChild(speedBtn_)
+    local speedLabel_ = speedBtn_:FindById("tx_speed")
+
+    -- 自动按钮点击
+    autoBtn_.props.onClick = function()
+        autoPlay_ = not autoPlay_
+        autoTimer_ = 0
+        if autoLabel_ then
+            autoLabel_.text = autoPlay_ and "自动|开" or "自动"
+            autoLabel_.fontColor = autoPlay_ and "#4ECDC4" or "#c9a45a"
+        end
+        -- 自动开启时，边框也变色提示
+        local border = autoBtn_:FindByIndex(1)
+        if border then
+            border.borderColor = autoPlay_ and "#4ECDC4" or "#C9A45A"
+        end
+    end
+
+    -- 倍速按钮点击
+    speedBtn_.props.onClick = function()
+        speedMultiplier_ = speedMultiplier_ + 1
+        if speedMultiplier_ > 3 then speedMultiplier_ = 1 end
+        if speedLabel_ then
+            speedLabel_.text = "X" .. speedMultiplier_
+        end
+    end
+
+    -- ----------------------------------------------------------------
     -- 4. 对话逻辑函数
     -- ----------------------------------------------------------------
 
@@ -153,12 +256,14 @@ function StoryScreen.Create(container, params)
             if portraitFrame_ then
                 portraitFrame_.visible = true
                 -- 根据 side 字段切换立绘位置（左/右）
+                -- Yoga 不支持 left="auto"，需用 YGUndefined 重置对侧
+                local yogaNode = portraitFrame_.node
                 if charConfig.side == "right" then
-                    portraitFrame_.left = "auto"
-                    portraitFrame_.right = "4.38%"
+                    YGNodeStyleSetPosition(yogaNode, YGEdgeLeft, YGUndefined)
+                    YGNodeStyleSetPositionPercent(yogaNode, YGEdgeRight, 4.38)
                 else
-                    portraitFrame_.left = "4.38%"
-                    portraitFrame_.right = "auto"
+                    YGNodeStyleSetPosition(yogaNode, YGEdgeRight, YGUndefined)
+                    YGNodeStyleSetPositionPercent(yogaNode, YGEdgeLeft, 4.38)
                 end
             end
             -- 更新左侧角色名信息
@@ -357,8 +462,16 @@ function StoryScreen.Create(container, params)
             end
         end
 
+        -- 打字机效果：逐字显示文本
         if textLabel_ then
-            textLabel_.text = line.text or ""
+            local fullText = line.text or ""
+            typewriter_.fullText = fullText
+            typewriter_.totalChars = utf8.len(fullText) or 0
+            typewriter_.charIndex = 0
+            typewriter_.elapsed = 0
+            typewriter_.done = (typewriter_.totalChars == 0)
+            textLabel_.text = ""
+            autoTimer_ = 0  -- 重置自动播放计时
         end
     end
 
@@ -373,26 +486,28 @@ function StoryScreen.Create(container, params)
             return  -- 选择模式下不响应点击推进
         end
 
+        -- 如果打字机还在输出中，先完成当前行
+        if not typewriter_.done then
+            typewriter_.done = true
+            typewriter_.charIndex = typewriter_.totalChars
+            if textLabel_ then
+                textLabel_.text = typewriter_.fullText
+            end
+            return
+        end
+
         ShowNextLine()
     end
 
     -- ----------------------------------------------------------------
-    -- 5. 绑定对话底板点击事件
+    -- 5. 绑定全屏点击推进（root 层级）+ 对话底板
     -- ----------------------------------------------------------------
-    if dialogueBox_ then
-        dialogueBox_.props.onClick = function()
-            OnTapAdvance()
-        end
-    end
-    -- 同时给滚动文本区绑定点击
-    if scrollText_ then
-        scrollText_.props.onClick = function()
-            OnTapAdvance()
-        end
+    root.props.onClick = function()
+        OnTapAdvance()
     end
 
     -- ----------------------------------------------------------------
-    -- 6. 立绘伪待机动画（呼吸浮动效果）
+    -- 6. 立绘伪待机动画 + 打字机逻辑 + 自动播放
     -- ----------------------------------------------------------------
     local idleTime_ = 0.0
     local FLOAT_AMP = 3.0       -- 上下浮动幅度(px)
@@ -400,24 +515,53 @@ function StoryScreen.Create(container, params)
     local BREATH_AMP = 0.006    -- 呼吸缩放幅度
     local BREATH_SPEED = 2.4    -- 呼吸频率（略快于浮动，产生节奏差）
 
-    local function HandleIdleAnim(eventType, eventData)
+    local function HandleUpdate(eventType, eventData)
         local dt = eventData:GetFloat("TimeStep")
         idleTime_ = idleTime_ + dt
 
-        -- 仅在立绘可见时应用动画
-        if not portraitFrame_ or not portraitFrame_.visible then return end
-        if not portraitImg_ then return end
+        -- 立绘浮动动画
+        if portraitFrame_ and portraitFrame_.visible and portraitImg_ then
+            local floatY = math.sin(idleTime_ * FLOAT_SPEED) * FLOAT_AMP
+            portraitImg_.translateY = floatY
+            local breathScale = 1.0 + math.sin(idleTime_ * BREATH_SPEED) * BREATH_AMP
+            portraitImg_.scale = breathScale
+        end
 
-        -- 上下浮动（正弦波）
-        local floatY = math.sin(idleTime_ * FLOAT_SPEED) * FLOAT_AMP
-        portraitImg_.translateY = floatY
+        -- 打字机效果更新
+        if not typewriter_.done and textLabel_ then
+            typewriter_.elapsed = typewriter_.elapsed + dt
+            local speed = typewriter_.baseSpeed * speedMultiplier_
+            local targetChars = math.floor(typewriter_.elapsed * speed)
+            if targetChars >= typewriter_.totalChars then
+                targetChars = typewriter_.totalChars
+                typewriter_.done = true
+                textLabel_.text = typewriter_.fullText
+            elseif targetChars ~= typewriter_.charIndex then
+                typewriter_.charIndex = targetChars
+                -- UTF-8 安全截取
+                local displayed = ""
+                local count = 0
+                for _, code in utf8.codes(typewriter_.fullText) do
+                    count = count + 1
+                    if count > targetChars then break end
+                    displayed = displayed .. utf8.char(code)
+                end
+                textLabel_.text = displayed
+            end
+        end
 
-        -- 呼吸缩放（用略不同频率产生自然感）
-        local breathScale = 1.0 + math.sin(idleTime_ * BREATH_SPEED) * BREATH_AMP
-        portraitImg_.scale = breathScale
+        -- 自动播放逻辑
+        if autoPlay_ and typewriter_.done and not isShowingChoices_ and not finished_ then
+            autoTimer_ = autoTimer_ + dt
+            local delay = autoDelay_ / speedMultiplier_
+            if autoTimer_ >= delay then
+                autoTimer_ = 0
+                ShowNextLine()
+            end
+        end
     end
 
-    SubscribeToEvent("Update", HandleIdleAnim)
+    SubscribeToEvent("Update", HandleUpdate)
 
     -- ----------------------------------------------------------------
     -- 7. 启动对话
