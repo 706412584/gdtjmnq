@@ -201,11 +201,25 @@ function ResultScreen.Create(container, params)
     local totalBadge = root:FindById("sr_1f")
     if totalBadge then
         totalBadge.backgroundColor = tierColor
+        -- 徽章内放置品质等级白色文字
+        local badgeName = tostring(tierInfo.name or "")
+        ---@diagnostic disable-next-line: param-type-mismatch
+        totalBadge:AddChild(UI.Label {
+            text = badgeName,
+            fontSize = 26,
+            fontColor = "#FFFFFF",
+            textAlign = "center",
+            verticalAlign = "middle",
+            width = "100%",
+            height = "100%",
+        })
     end
 
     local totalLabel = root:FindById("tx_1g")
     if totalLabel then
         totalLabel.text = tierInfo.name .. " · " .. tostring(math.floor(finalScore + 0.5)) .. " 分"
+        -- 使用深色文字确保在浅色面板上可读
+        totalLabel.fontColor = "#3A322B"
     end
 
     -- ----------------------------------------------------------------
