@@ -384,7 +384,36 @@ function StoryScreen.Create(container, params)
     end
 
     -- ----------------------------------------------------------------
-    -- 6. 启动对话
+    -- 6. 立绘伪待机动画（呼吸浮动效果）
+    -- ----------------------------------------------------------------
+    local idleTime_ = 0.0
+    local FLOAT_AMP = 3.0       -- 上下浮动幅度(px)
+    local FLOAT_SPEED = 1.8     -- 浮动频率
+    local BREATH_AMP = 0.006    -- 呼吸缩放幅度
+    local BREATH_SPEED = 2.4    -- 呼吸频率（略快于浮动，产生节奏差）
+
+    local function HandleIdleAnim(eventType, eventData)
+        local dt = eventData:GetFloat("TimeStep")
+        idleTime_ = idleTime_ + dt
+
+        -- 仅在立绘可见时应用动画
+        if not portraitFrame_ or not portraitFrame_.visible then return end
+        if not portraitImg_ then return end
+
+        -- 上下浮动（正弦波）
+        local floatY = math.sin(idleTime_ * FLOAT_SPEED) * FLOAT_AMP
+        portraitImg_.top = math.floor(floatY + 0.5)
+
+        -- 呼吸缩放（用略不同频率产生自然感）
+        local breathScale = 1.0 + math.sin(idleTime_ * BREATH_SPEED) * BREATH_AMP
+        portraitImg_.scaleX = breathScale
+        portraitImg_.scaleY = breathScale
+    end
+
+    SubscribeToEvent("Update", HandleIdleAnim)
+
+    -- ----------------------------------------------------------------
+    -- 7. 启动对话
     -- ----------------------------------------------------------------
     if currentNode_ then
         -- 设置背景
@@ -412,7 +441,7 @@ function StoryScreen.Create(container, params)
     -- screen 控制器
     -- ----------------------------------------------------------------
     function screen.Destroy()
-        -- 清理（目前无需特殊清理）
+        UnsubscribeFromEvent("Update")
     end
 
     return screen
