@@ -57,10 +57,8 @@ function M.Build(payload)
                     top = "13.06%",
                     width = 514,
                     height = 568,
-                    backgroundColor = "rgba(31,26,23,0.4)",
+                    backgroundColor = "transparent",
                     borderRadius = 8,
-                    borderColor = "#C9A45A",
-                    borderWidth = 2,
                     overflow = "hidden",
                     children = {
                         UI.Panel {
