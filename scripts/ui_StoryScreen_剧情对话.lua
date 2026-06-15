@@ -68,7 +68,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "transparent",
                             backgroundImage = "image/char_keeper.png",
-                            backgroundFit = "cover",
+                            backgroundFit = "contain",
                         },
                     },
                 },
