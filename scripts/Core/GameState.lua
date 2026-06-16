@@ -64,9 +64,9 @@ local function CreateDefaultSave()
         fame = 0,
         jade = 0,
         materials = {
-            ore = 5,
-            charcoal = 3,
-            grinding_agent = 2,
+            ore = 8,
+            charcoal = 5,
+            grinding_agent = 3,
             wood = 2,
             leather = 1,
             pattern_gold = 0,

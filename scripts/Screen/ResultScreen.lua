@@ -15,6 +15,7 @@
 local UI = require("urhox-libs/UI")
 local ScreenRouter = require("Utils.ScreenRouter")
 local SFXManager = require("Utils.SFXManager")
+local OrderManager = require("Core.OrderManager")
 local Layout = require("ui_ResultScreen_结算界面")
 
 local ResultScreen = {}
@@ -266,12 +267,17 @@ function ResultScreen.Create(container, params)
     local bonusLabel = root:FindById("tx_2i")
     local bonusValue = root:FindById("tx_2j")
     local bonusMats = result.bonusMaterials or {}
-    local hasBonus = false
+    -- 聚合全部材料奖励到一行展示（之前 break 只显示第一种，导致材料数量不透明）
+    local matNames = {}
+    local matCounts = {}
     for mat, count in pairs(bonusMats) do
-        if bonusLabel then bonusLabel.text = mat end
-        if bonusValue then bonusValue.text = "x " .. tostring(count) end
-        hasBonus = true
-        break  -- 只显示第一个额外奖励
+        matNames[#matNames + 1] = OrderManager.GetMaterialName(mat)
+        matCounts[#matCounts + 1] = "x" .. tostring(count)
+    end
+    local hasBonus = #matNames > 0
+    if hasBonus then
+        if bonusLabel then bonusLabel.text = table.concat(matNames, " ") end
+        if bonusValue then bonusValue.text = table.concat(matCounts, " ") end
     end
     if not hasBonus then
         -- 隐藏第四个槽

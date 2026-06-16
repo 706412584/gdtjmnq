@@ -246,7 +246,11 @@ function ForgeScreen.Create(container, params)
     -- 启动小游戏序列
     -- ----------------------------------------------------------------
 
-    local difficulty = 1  -- P1 默认难度
+    -- 难度随订单 tier 缩放，让高难订单的高奖励名副其实。
+    -- 小游戏公式按 difficulty 1~3 设计，故把订单 tier(1~5) 映射到 1~3：
+    --   T1→1(易)  T2→2(中)  T3→2(中)  T4→3(难)  T5→3(难)
+    local tier = (order and order.tier) or 1
+    local difficulty = (tier <= 1 and 1) or (tier >= 4 and 3) or 2
     local currentStepIdx = 0
 
     -- 辅助：更新步骤进度点高亮
@@ -324,7 +328,9 @@ function ForgeScreen.Create(container, params)
         end
 
         -- 完成订单
-        local result = OrderManager.CompleteOrder(stepScores, 1)
+        -- 不传 usedMaterialTier（=nil），OrderManager 会按订单 requiredMaterialTier 结算，
+        -- 避免无材料选择系统时 T2+ 订单被材料等级失配惩罚（matCoeff 0.9 × matchCoeff 0.9）
+        local result = OrderManager.CompleteOrder(stepScores, nil)
 
         -- 跳转结算界面
         if result then

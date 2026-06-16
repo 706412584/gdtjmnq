@@ -10,7 +10,7 @@
     "requiredMaterialTier": 1,
     "baseRewardCoins": 50,
     "baseRewardFame": 10,
-    "bonusMaterials": { "ore": 1 }
+    "bonusMaterials": { "ore": 3, "charcoal": 2 }
   },
   {
     "id": "ORD_T1_002",
@@ -49,7 +49,7 @@
     "requiredMaterialTier": 1,
     "baseRewardCoins": 45,
     "baseRewardFame": 8,
-    "bonusMaterials": { "ore": 1, "charcoal": 1 }
+    "bonusMaterials": { "ore": 3, "charcoal": 2 }
   },
   {
     "id": "ORD_T2_001",

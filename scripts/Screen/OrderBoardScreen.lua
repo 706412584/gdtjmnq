@@ -363,7 +363,10 @@ function OrderBoardScreen.Create(container, params)
                     if not GameState.CanAffordMaterial(mat, count) then
                         canAccept = false
                         local name = OrderManager.GetMaterialName(mat)
-                        shortage = name .. "不足"
+                        local have = GameState.GetMaterial(mat) or 0
+                        -- 提示缺口数量并引导回补：完成入门委托（猎户/药农）可获得矿石与木炭
+                        shortage = name .. "不足 (需" .. count .. "/有" .. have
+                            .. ")，接「猎户小刀」等委托可回补材料"
                         break
                     end
                 end
@@ -401,7 +404,7 @@ function OrderBoardScreen.Create(container, params)
                 end
                 w.acceptBtn.props.onClick = function()
                     SFXManager.Play(SFXManager.SFX.UI_FAIL, 0.4)
-                    UI.Toast.Show(shortage or "无法接单", { type = "warning", duration = 2 })
+                    UI.Toast.Show(shortage or "无法接单", { type = "warning", duration = 3 })
                 end
             end
         end
