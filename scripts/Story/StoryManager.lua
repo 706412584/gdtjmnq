@@ -49,6 +49,20 @@ local CHARACTER_CONFIG = {
 ---@type table<string, any>
 local storyFlags_ = {}
 
+--- 章节标题（用于进度展示）
+local CHAPTER_NAMES = {
+    "第一章 · 入门徒",
+    "第二章 · 初展锋",
+    "第三章 · 名声起",
+    "第四章 · 暗潮涌",
+    "第五章 · 匠心成",
+}
+
+--- 本次会话中已被玩家手动关闭的待触发节点（避免返回后立即重复自动弹出）
+--- 仅会话级，不持久化；剧情推进到新节点后自然失效
+---@type string|nil
+local dismissedNodeId_ = nil
+
 -- ============================================================================
 -- 数据加载
 -- ============================================================================
@@ -233,14 +247,59 @@ end
 --- 检查是否有待展示的剧情
 ---@return boolean
 function StoryManager.HasPendingStory()
+    -- 全部剧情已完结（持久化标记），不再有待展示内容
+    local progress = GameState.GetStoryProgress()
+    if progress.done then return false end
+
     local node = StoryManager.GetCurrentNode()
     if not node then return false end
 
-    -- 章节已结束
-    if node.chapterEnd and node._completed then return false end
-
     -- 检查条件
     return CheckCondition(node.condition)
+end
+
+--- 标记当前待触发剧情为"已关闭"（玩家手动退出时调用）
+--- 使其在剧情推进到下一节点前不再自动弹出
+function StoryManager.DismissCurrentStory()
+    local _, nodeId = StoryManager.GetProgress()
+    dismissedNodeId_ = nodeId
+end
+
+--- 是否有"新的"待展示剧情（条件满足且未被本会话手动关闭）
+--- 用于运行中自动触发，避免玩家退出后立即被再次拉回剧情
+---@return boolean
+function StoryManager.HasNewPendingStory()
+    if not StoryManager.HasPendingStory() then return false end
+    local _, nodeId = StoryManager.GetProgress()
+    return nodeId ~= dismissedNodeId_
+end
+
+--- 获取章节标题
+---@param chapter number
+---@return string
+function StoryManager.GetChapterName(chapter)
+    return CHAPTER_NAMES[chapter] or ("第" .. chapter .. "章")
+end
+
+--- 获取当前章节进度（节点在章节中的序号 / 总节点数）
+---@return number chapter 当前章节号
+---@return number index 当前节点序号（从 1 开始；找不到为 0）
+---@return number total 章节总节点数
+function StoryManager.GetChapterProgress()
+    local chapter, nodeId = StoryManager.GetProgress()
+    if not chapterCache_[chapter] then
+        LoadChapter(chapter)
+    end
+    local nodes = chapterCache_[chapter]
+    if not nodes then return chapter, 0, 0 end
+    local idx = 0
+    for i = 1, #nodes do
+        if nodes[i].id == nodeId then
+            idx = i
+            break
+        end
+    end
+    return chapter, idx, #nodes
 end
 
 --- 获取指定节点
@@ -282,8 +341,14 @@ function StoryManager.CompleteDialogueNode(nodeEffects)
             GameState.SetStoryProgress(nextChapter, firstNode.id)
             print("[StoryManager] Chapter " .. chapter .. " complete. Advanced to chapter " .. nextChapter)
         else
-            print("[StoryManager] Chapter " .. chapter .. " complete. No next chapter data.")
+            -- 无后续章节：全部剧情完结，持久化标记，避免被反复拉回
+            GameState.MarkStoryDone()
+            print("[StoryManager] Chapter " .. chapter .. " complete. Story finished (no next chapter).")
         end
+    else
+        -- 既无 next 也非 chapterEnd（数据异常兜底）：标记完结，防止死循环
+        GameState.MarkStoryDone()
+        print("[StoryManager] WARNING: terminal dialogue node without next/chapterEnd: " .. tostring(nodeId))
     end
 
     EventBus.Emit("story_node_complete", { nodeId = nodeId, chapter = chapter })

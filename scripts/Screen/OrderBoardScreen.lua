@@ -305,7 +305,8 @@ function OrderBoardScreen.Create(container, params)
             local tierName = order.tier == 1 and "寻常"
                 or order.tier == 2 and "良品"
                 or "精品"
-            w.weaponName.text = "【委托物】" .. weaponName .. " · " .. tierName
+            local mark = order.completed and "  · 已锻" or ""
+            w.weaponName.text = "【委托物】" .. weaponName .. " · " .. tierName .. mark
         end
 
         -- 用途（从对话中提取要点）

@@ -12,6 +12,7 @@ local GameState      = require("Core.GameState")
 local FacilityConfig = require("Config.FacilityConfig")
 local EventBus       = require("Core.EventBus")
 local SFXManager     = require("Utils.SFXManager")
+local OrderManager   = require("Core.OrderManager")
 
 local UpgradePopup = {}
 
@@ -117,14 +118,27 @@ local function RefreshContent()
     else
         local cost = FacilityConfig.GetUpgradeCost(facilityId, level)
         if cost then
-            local canAfford = GameState.CanAffordCoins(cost.coins)
+            local needFame = cost.fame or 0
+            local canAffordCoins = GameState.CanAffordCoins(cost.coins)
+            local canAffordFame = GameState.GetFame() >= needFame
+            local canAfford = canAffordCoins and canAffordFame
             if costLabel_ then
-                costLabel_.text = "升级费用: " .. cost.coins .. " 铜钱"
+                local costText = "升级费用: " .. cost.coins .. " 铜钱"
+                if needFame > 0 then
+                    costText = costText .. " · " .. needFame .. " 声望"
+                end
+                costLabel_.text = costText
                 costLabel_.fontColor = canAfford and "#D4A574" or "#E94560"
             end
             if upgradeBtn_ then
                 upgradeBtn_:SetDisabled(not canAfford)
-                upgradeBtn_:SetText(canAfford and "升阶锻造" or "铜钱不足")
+                local btnText = "升阶锻造"
+                if not canAffordCoins then
+                    btnText = "铜钱不足"
+                elseif not canAffordFame then
+                    btnText = "声望不足"
+                end
+                upgradeBtn_:SetText(btnText)
             end
         end
     end
@@ -138,34 +152,20 @@ local function DoUpgrade()
     if not currentFacility_ then return end
 
     local facilityId = currentFacility_
-    local level = GameState.GetFacilityLevel(facilityId)
-    if FacilityConfig.IsMaxLevel(facilityId, level) then return end
 
-    local cost = FacilityConfig.GetUpgradeCost(facilityId, level)
-    if not cost then return end
-
-    if not GameState.CanAffordCoins(cost.coins) then
-        UI.Toast.Show("铜钱不足")
+    -- 委托 OrderManager 统一处理（含铜钱 + 声望双重检查、扣费、升级、事件）
+    local success, errorMsg = OrderManager.UpgradeFacility(facilityId)
+    if not success then
+        UI.Toast.Show(errorMsg or "升级失败")
         return
     end
 
-    -- 扣除资源
-    GameState.AddCoins(-cost.coins)
-    if cost.fame and cost.fame > 0 then
-        GameState.AddFame(-cost.fame)
-    end
-
-    -- 提升等级
-    GameState.SetFacilityLevel(facilityId, level + 1)
-
+    local newLevel = GameState.GetFacilityLevel(facilityId)
     SFXManager.Play(SFXManager.SFX.UI_COIN, 0.5)
-    UI.Toast.Show(FacilityConfig.GetName(facilityId) .. " 升至 Lv." .. (level + 1))
+    UI.Toast.Show(FacilityConfig.GetName(facilityId) .. " 升至 Lv." .. newLevel)
 
-    -- 刷新弹窗内容
+    -- 刷新弹窗内容（OrderManager 已 emit facility_upgraded，主界面会自动刷新）
     RefreshContent()
-
-    -- 通知主界面刷新
-    EventBus.Emit("facility_upgraded", { facilityId = facilityId })
 end
 
 -- ============================================================================

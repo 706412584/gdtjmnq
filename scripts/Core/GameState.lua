@@ -179,6 +179,8 @@ local function ImportSaveData(saveData)
     plainData_.completedOrders = saveData.completedOrders or {}
     plainData_.codex = saveData.codex or {}
     plainData_.storyProgress = saveData.storyProgress or { chapter = 1, nodeId = "CH1-001" }
+    plainData_.settings = saveData.settings or { sfxVolume = 80, musicVolume = 60 }
+    plainData_.weeklyGoals = saveData.weeklyGoals
     plainData_.timestamp = saveData.timestamp or 0
 end
 
@@ -192,6 +194,8 @@ local function ExportSaveData()
     data.completedOrders = plainData_.completedOrders or {}
     data.codex = plainData_.codex or {}
     data.storyProgress = plainData_.storyProgress or { chapter = 1, nodeId = "CH1-001" }
+    data.settings = plainData_.settings or { sfxVolume = 80, musicVolume = 60 }
+    data.weeklyGoals = plainData_.weeklyGoals
     data.timestamp = os.time()
 
     -- 导出顶层敏感字段
@@ -479,6 +483,14 @@ end
 ---@param nodeId string
 function GameState.SetStoryProgress(chapter, nodeId)
     plainData_.storyProgress = { chapter = chapter, nodeId = nodeId }
+    MarkDirty()
+end
+
+--- 标记全部剧情已完结（到达终点节点且无后续章节时调用，持久化到存档）
+function GameState.MarkStoryDone()
+    local sp = plainData_.storyProgress or { chapter = 1, nodeId = "CH1-001" }
+    sp.done = true
+    plainData_.storyProgress = sp
     MarkDirty()
 end
 

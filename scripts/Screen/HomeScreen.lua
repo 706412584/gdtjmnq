@@ -95,6 +95,32 @@ function HomeScreen.Create(container, params)
     local navStoryBtn_ = root:FindById("plate_2n")
     local navShopBtn_ = root:FindById("plate_2q")
 
+    -- 剧情按钮红点徽标（有待展示剧情时显示）
+    ---@type table|nil
+    local storyBadge_ = nil
+    if navStoryBtn_ then
+        storyBadge_ = UI.Panel {
+            id = "story_badge",
+            position = "absolute",
+            top = 6,
+            right = 12,
+            width = 14,
+            height = 14,
+            borderRadius = 7,
+            backgroundColor = "#E94560",
+            borderColor = "#E8E0D0",
+            borderWidth = 1.5,
+        }
+        navStoryBtn_:AddChild(storyBadge_)
+    end
+
+    --- 刷新剧情红点（有待展示剧情则显示）
+    local function RefreshStoryBadge()
+        if storyBadge_ then
+            storyBadge_.visible = StoryManager.HasPendingStory()
+        end
+    end
+
     -- ----------------------------------------------------------------
     -- 3. 初始化数据绑定
     -- ----------------------------------------------------------------
@@ -170,6 +196,7 @@ function HomeScreen.Create(container, params)
     RefreshFacilities()
     RefreshFameProgress()
     RefreshChapterTitle()
+    RefreshStoryBadge()
 
     -- ----------------------------------------------------------------
     -- 4. 绑定点击事件
@@ -262,27 +289,49 @@ function HomeScreen.Create(container, params)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("coins_changed", RefreshCurrency)
 
+    -- 声望/设施变化可能满足新剧情条件 → 刷新红点
     unsubs_[#unsubs_ + 1] = EventBus.On("fame_changed", function()
         RefreshCurrency()
         RefreshFameProgress()
+        RefreshStoryBadge()
     end)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("facility_upgraded", function(data)
         RefreshFacilities()
         RefreshCurrency()
+        RefreshStoryBadge()
     end)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("story_node_complete", function()
         RefreshChapterTitle()
+        RefreshStoryBadge()
     end)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("story_choice_made", function()
         RefreshChapterTitle()
+        RefreshStoryBadge()
     end)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("story_chapter_skipped", function()
         RefreshChapterTitle()
+        RefreshStoryBadge()
     end)
+
+    -- ----------------------------------------------------------------
+    -- 5.5 运行中自动触发剧情
+    -- 进入主界面首帧检查：若有"新的"待展示剧情（未被手动关闭），自动进入剧情
+    -- 用首帧延迟而非 Create 内直接跳转，避免 ScreenRouter 重入导致状态错乱
+    -- ----------------------------------------------------------------
+    local autoStoryChecked_ = false
+    function screen.Update(dt)
+        if not autoStoryChecked_ then
+            autoStoryChecked_ = true
+            if StoryManager.HasNewPendingStory() then
+                print("[HomeScreen] New pending story detected, auto-entering story screen")
+                ScreenRouter.GoTo("story", { returnTo = "home" })
+            end
+        end
+    end
 
     -- ----------------------------------------------------------------
     -- 6. screen 控制器

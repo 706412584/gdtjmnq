@@ -120,6 +120,8 @@ function StoryScreen.Create(container, params)
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
             -- 跳过当前全部剧情，标记完成
             StoryManager.SkipCurrentChapter()
+            -- 标记关闭，避免返回后立即再次自动弹出
+            StoryManager.DismissCurrentStory()
             ScreenRouter.GoTo(returnTo_)
         end
     end
@@ -128,6 +130,8 @@ function StoryScreen.Create(container, params)
     if backBtn_ then
         backBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
+            -- 标记关闭，避免返回后立即再次自动弹出
+            StoryManager.DismissCurrentStory()
             ScreenRouter.GoTo(returnTo_)
         end
     end
@@ -210,6 +214,58 @@ function StoryScreen.Create(container, params)
     }
     root:AddChild(speedBtn_)
     local speedLabel_ = speedBtn_:FindById("tx_speed")
+
+    -- 剧情进度指示器（顶部左侧，竖屏安全位置）
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local progressLabelW_ = UI.Label {
+        id = "tx_progress",
+        fontSize = 18,
+        fontWeight = "700",
+        fontColor = "#c9a45a",
+        verticalAlign = "middle",
+        text = "",
+    }
+    local progressPanel_ = UI.Panel {
+        id = "plate_progress",
+        position = "absolute",
+        top = "2.08%",
+        left = 28,
+        height = 46,
+        paddingLeft = 18,
+        paddingRight = 18,
+        backgroundColor = "rgba(0,0,0,0.5)",
+        borderRadius = 14,
+        borderColor = "#C9A45A",
+        borderWidth = 1.5,
+        flexDirection = "row",
+        alignItems = "center",
+        justifyContent = "center",
+        children = { progressLabelW_ },
+    }
+    root:AddChild(progressPanel_)
+    local progressLabel_ = progressPanel_:FindById("tx_progress")
+
+    --- 刷新顶部剧情进度（章节名 · 节点标题  序号/总数）
+    local function UpdateProgressLabel()
+        if not progressLabel_ then return end
+        if not currentNode_ then
+            progressLabel_.text = ""
+            if progressPanel_ then progressPanel_.visible = false end
+            return
+        end
+        if progressPanel_ then progressPanel_.visible = true end
+        local chapter, idx, total = StoryManager.GetChapterProgress()
+        local name = StoryManager.GetChapterName(chapter)
+        local nodeTitle = currentNode_.title or ""
+        local text = name
+        if nodeTitle ~= "" then
+            text = text .. " · " .. nodeTitle
+        end
+        if total > 0 and idx > 0 then
+            text = text .. "   " .. idx .. "/" .. total
+        end
+        progressLabel_.text = text
+    end
 
     -- 自动按钮点击
     autoBtn_.props.onClick = function()
@@ -366,19 +422,21 @@ function StoryScreen.Create(container, params)
             return
         end
 
-        -- 检查条件
-        if currentNode_.condition then
-            if not StoryManager.HasPendingStory() then
-                print("[StoryScreen] Next node condition not met, returning")
-                ScreenRouter.GoTo(returnTo_)
-                return
-            end
+        -- 无待展示内容（剧情已完结 或 下一节点条件未满足）→ 返回主界面
+        -- 注意：必须放在重播前，否则终点节点(已 MarkStoryDone)会被反复重播
+        if not StoryManager.HasPendingStory() then
+            print("[StoryScreen] No pending story (done or condition unmet), returning to " .. returnTo_)
+            ScreenRouter.GoTo(returnTo_)
+            return
         end
 
         -- 更新背景
         if currentNode_.background then
             UpdateBackground(currentNode_.background)
         end
+
+        -- 刷新顶部进度
+        UpdateProgressLabel()
 
         -- 显示第一行
         ShowNextLine()
@@ -515,8 +573,10 @@ function StoryScreen.Create(container, params)
     local BREATH_AMP = 0.006    -- 呼吸缩放幅度
     local BREATH_SPEED = 2.4    -- 呼吸频率（略快于浮动，产生节奏差）
 
-    local function HandleUpdate(eventType, eventData)
-        local dt = eventData:GetFloat("TimeStep")
+    -- 用 screen.Update(dt) 模式（由 ScreenRouter 驱动），避免直接订阅引擎
+    -- 全局 "Update" 事件——否则 Destroy 时 UnsubscribeFromEvent("Update")
+    -- 会连带取消 main.lua 的主循环订阅，导致整个游戏冻结
+    local function HandleUpdate(dt)
         idleTime_ = idleTime_ + dt
 
         -- 立绘浮动动画
@@ -561,7 +621,10 @@ function StoryScreen.Create(container, params)
         end
     end
 
-    SubscribeToEvent("Update", HandleUpdate)
+    -- 由 ScreenRouter.Update 每帧驱动（替代引擎全局 Update 订阅）
+    function screen.Update(dt)
+        HandleUpdate(dt)
+    end
 
     -- ----------------------------------------------------------------
     -- 7. 启动对话
@@ -571,6 +634,9 @@ function StoryScreen.Create(container, params)
         if currentNode_.background then
             UpdateBackground(currentNode_.background)
         end
+
+        -- 刷新顶部进度
+        UpdateProgressLabel()
 
         -- 显示第一行
         ShowNextLine()
@@ -585,14 +651,15 @@ function StoryScreen.Create(container, params)
         if nameLabel_ then
             nameLabel_.text = ""
         end
+        if progressPanel_ then progressPanel_.visible = false end
         finished_ = true
     end
 
     -- ----------------------------------------------------------------
     -- screen 控制器
     -- ----------------------------------------------------------------
+    -- 无需取消引擎事件订阅（已改用 screen.Update 由 ScreenRouter 驱动）
     function screen.Destroy()
-        UnsubscribeFromEvent("Update")
     end
 
     return screen

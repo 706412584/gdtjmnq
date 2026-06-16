@@ -74,14 +74,16 @@ function OrderConfig.GetByChapter(chapter)
     return result
 end
 
---- 获取可用订单（未完成 + 当前章节可用）
+--- 获取可用订单（当前章节解锁的全部订单，可重复接取）
+--- 订单为可重复委托：完成后仍保留在列表中，避免订单池枯竭导致无法锻造的死局。
+--- completedIds 仅用于标记"是否已锻造过"（图鉴首锻判定在别处），不再用于剔除订单。
 ---@param chapter number 当前章节
----@param completedIds string[] 已完成订单 ID 列表
+---@param completedIds string[] 已完成订单 ID 列表（用于标记 completed 字段）
 ---@return table[]
 function OrderConfig.GetAvailable(chapter, completedIds)
     EnsureLoaded()
 
-    -- 构建已完成 set
+    -- 构建已完成 set（用于标记，不用于剔除）
     local completedSet = {}
     for i = 1, #completedIds do
         completedSet[completedIds[i]] = true
@@ -90,7 +92,9 @@ function OrderConfig.GetAvailable(chapter, completedIds)
     local result = {}
     for i = 1, #orders_ do
         local order = orders_[i]
-        if order.chapter <= chapter and not completedSet[order.id] then
+        if order.chapter <= chapter then
+            -- 标记是否已锻造过（供 UI 区分新/旧委托）
+            order.completed = completedSet[order.id] == true
             result[#result + 1] = order
         end
     end
