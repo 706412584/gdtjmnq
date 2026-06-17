@@ -24,6 +24,8 @@ local StoryScreen      = require("Screen.StoryScreen")
 local CodexScreen      = require("Screen.CodexScreen")
 local SettingsScreen   = require("Screen.SettingsScreen")
 local ShopScreen       = require("Screen.ShopScreen")
+local EndingScreen     = require("Screen.EndingScreen")
+local RelationshipScreen = require("Screen.RelationshipScreen")
 
 -- Audio
 local BGMManager       = require("Utils.BGMManager")
@@ -181,6 +183,8 @@ function RegisterScreens()
     ScreenRouter.Register("codex", CodexScreen)
     ScreenRouter.Register("settings", SettingsScreen)
     ScreenRouter.Register("shop", ShopScreen)
+    ScreenRouter.Register("ending", EndingScreen)
+    ScreenRouter.Register("relationship", RelationshipScreen)
 end
 
 -- ============================================================================

@@ -274,6 +274,13 @@ function StoryManager.HasNewPendingStory()
     return nodeId ~= dismissedNodeId_
 end
 
+--- 全部剧情是否已完结（到达终章终点节点）
+---@return boolean
+function StoryManager.IsStoryDone()
+    local progress = GameState.GetStoryProgress()
+    return progress.done == true
+end
+
 --- 获取章节标题
 ---@param chapter number
 ---@return string

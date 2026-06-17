@@ -218,7 +218,7 @@ function HomeScreen.Create(container, params)
     if friendBtn_ then
         friendBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            UI.Toast.Show("好友功能即将开放，敬请期待", { duration = 2 })
+            ScreenRouter.GoTo("relationship", { returnTo = "home" })
         end
     end
     if settingsBtn_ then

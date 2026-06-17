@@ -164,44 +164,34 @@ function RelationshipTracker.GetFactionName(factionId)
 end
 
 -- ============================================================================
--- 结局评估（P3 完整实现，P2 提供框架）
+-- 角色展示信息（供关系界面使用）
 -- ============================================================================
 
---- 评估可达成的结局
----@return table[] { endingId, name, met }
-function RelationshipTracker.EvaluateEndings()
-    local factions = RelationshipTracker.GetAllFactions()
-    local keeperTrust = GameState.GetRelationship("keeper")
+--- 关键角色展示顺序与中文名（与 StoryManager.CHARACTER_CONFIG 对应）
+RelationshipTracker.CHARACTER_DISPLAY = {
+    { npcId = "keeper",     name = "老掌柜" },
+    { npcId = "shen",       name = "沈绫" },
+    { npcId = "luchen",     name = "陆沉" },
+    { npcId = "magistrate", name = "县尉" },
+    { npcId = "disciple",   name = "阿晦" },
+}
 
-    local endings = {
-        {
-            endingId = "imperial_craftmaster",
-            name = "御用神匠",
-            met = factions.court >= 70 and factions.craftsman < 80,
-        },
-        {
-            endingId = "craftsman_hermit",
-            name = "守道匠宗",
-            met = factions.craftsman >= 80 and keeperTrust >= 70,
-        },
-        {
-            endingId = "wandering_legend",
-            name = "江湖名坊",
-            met = factions.rivers >= 70 and GameState.GetRelationship("luchen") >= 70,
-        },
-        {
-            endingId = "guild_workshop",
-            name = "商会铸局",
-            met = factions.guild >= 70 and GameState.GetRelationship("shen") >= 65,
-        },
-        {
-            endingId = "extinguished",
-            name = "断火残坊",
-            met = false,  -- P3 实现具体条件
-        },
-    }
-
-    return endings
+--- 获取角色当前解锁等级的描述（未解锁返回 nil）
+---@param npcId string
+---@return string|nil
+function RelationshipTracker.GetUnlockedDesc(npcId)
+    local level = RelationshipTracker.GetUnlockedLevel(npcId)
+    if level <= 0 then return nil end
+    local thresholds = CHARACTER_THRESHOLDS[npcId]
+    if not thresholds then return nil end
+    for i = #thresholds, 1, -1 do
+        if thresholds[i].level == level then
+            return thresholds[i].desc
+        end
+    end
+    return nil
 end
+
+-- 注：结局判定统一由 Story.EndingEvaluator 负责，此处不再重复实现。
 
 return RelationshipTracker

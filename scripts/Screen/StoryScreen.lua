@@ -405,6 +405,12 @@ function StoryScreen.Create(container, params)
             return
         end
 
+        -- 到达全剧终点 → 展示结局界面（而非静默返回主界面）
+        if StoryManager.IsStoryDone() then
+            ScreenRouter.GoTo("ending", { returnTo = returnTo_ })
+            return
+        end
+
         -- 尝试加载下一个节点
         LoadNextNode()
     end
