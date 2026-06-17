@@ -23,6 +23,7 @@ local UpgradeScreen    = require("Screen.UpgradeScreen")
 local StoryScreen      = require("Screen.StoryScreen")
 local CodexScreen      = require("Screen.CodexScreen")
 local SettingsScreen   = require("Screen.SettingsScreen")
+local ShopScreen       = require("Screen.ShopScreen")
 
 -- Audio
 local BGMManager       = require("Utils.BGMManager")
@@ -164,6 +165,7 @@ function RegisterScreens()
     ScreenRouter.Register("story", StoryScreen)
     ScreenRouter.Register("codex", CodexScreen)
     ScreenRouter.Register("settings", SettingsScreen)
+    ScreenRouter.Register("shop", ShopScreen)
 end
 
 -- ============================================================================

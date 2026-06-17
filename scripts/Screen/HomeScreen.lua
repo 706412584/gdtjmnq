@@ -206,7 +206,7 @@ function HomeScreen.Create(container, params)
     if mailBtn_ then
         mailBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            print("[HomeScreen] Mail button tapped (not implemented)")
+            UI.Toast.Show("信件功能即将开放，敬请期待", { duration = 2 })
         end
     end
     if taskBtn_ then
@@ -218,7 +218,7 @@ function HomeScreen.Create(container, params)
     if friendBtn_ then
         friendBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            print("[HomeScreen] Friend button tapped (not implemented)")
+            UI.Toast.Show("好友功能即将开放，敬请期待", { duration = 2 })
         end
     end
     if settingsBtn_ then
@@ -273,7 +273,7 @@ function HomeScreen.Create(container, params)
     if navShopBtn_ then
         navShopBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            UI.Toast.Show("商店功能即将开放，敬请期待")
+            ScreenRouter.GoTo("shop")
         end
     end
 

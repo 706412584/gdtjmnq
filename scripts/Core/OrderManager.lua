@@ -29,6 +29,8 @@ local MATERIAL_NAMES = {
     iron          = "铁锭",
     steel         = "钢材",
     jade_dust     = "玉粉",
+    pattern_gold  = "纹金",
+    meteorite     = "陨铁",
 }
 
 --- 获取材料中文名

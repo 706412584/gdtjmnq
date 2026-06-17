@@ -228,19 +228,9 @@ function ForgeScreen.Create(container, params)
         ScreenRouter.GoTo("home")
     end)
 
-    if pauseBtn then
-        pauseBtn.props.onClick = function()
-            -- TODO: 暂停小游戏
-            print("[ForgeScreen] Pause requested")
-        end
-    end
-
-    if itemBtn then
-        itemBtn.props.onClick = function()
-            -- TODO: 打开道具面板
-            print("[ForgeScreen] Item panel requested")
-        end
-    end
+    -- 暂停 / 道具面板功能未实现，隐藏避免误导玩家
+    if pauseBtn then pauseBtn.visible = false end
+    if itemBtn then itemBtn.visible = false end
 
     -- ----------------------------------------------------------------
     -- 启动小游戏序列

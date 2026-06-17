@@ -182,7 +182,7 @@ local function EnsureModal()
         width = "100%",
         aspectRatio = 1,
         borderRadius = 12,
-        backgroundColor = "rgba(26,26,46,0.5)",
+        backgroundColor = "rgba(31,26,23,0.5)",
         borderColor = "#3A322B",
         borderWidth = 1,
     }
@@ -355,12 +355,12 @@ local function EnsureModal()
         contentPadding = { 20, 24, 16, 24 },
         contentGap = 0,
         borderRadius = 8,
-        backgroundColor = "#1A1A2E",
+        backgroundColor = "#1F1A17",
         borderColor = "#C9A45A",
         borderWidth = 1.5,
         titleTextColor = "#E4B982",
         titleFontWeight = "bold",
-        contentBgColor = { 26, 26, 46, 255 },
+        contentBgColor = { 31, 26, 23, 255 },
         headerStripeColor = { 201, 164, 90, 60 },
         headerStripeHeight = 1,
     }
