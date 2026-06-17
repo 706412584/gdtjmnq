@@ -16,6 +16,7 @@ local FacilityConfig = require("Config.FacilityConfig")
 local ScreenRouter   = require("Utils.ScreenRouter")
 local StoryManager   = require("Story.StoryManager")
 local SFXManager     = require("Utils.SFXManager")
+local AdManager      = require("Utils.AdManager")
 
 local UpgradePopup  = require("Screen.UpgradePopup")
 local HomeLayout = require("ui_HomeScreen_工坊主界面")
@@ -80,13 +81,12 @@ function HomeScreen.Create(container, params)
     local progressBar_ = root:FindById("sr_21")  -- 填充条
     local progressText_ = root:FindById("tx_22")
 
-    -- 右侧功能按钮（功能未实现，暂时隐藏）
+    -- 右侧功能按钮
+    -- 限时礼包(plate_23)需 IAP，暂隐藏；免费宝箱/广告双倍为激励广告，开放
     local giftBtn_ = root:FindById("plate_23")
     local freeBoxBtn_ = root:FindById("plate_26")
     local adDoubleBtn_ = root:FindById("plate_29")
     if giftBtn_ then giftBtn_.visible = false end
-    if freeBoxBtn_ then freeBoxBtn_.visible = false end
-    if adDoubleBtn_ then adDoubleBtn_.visible = false end
 
     -- 底部导航按钮
     local navOrderBtn_ = root:FindById("plate_2e")
@@ -242,7 +242,34 @@ function HomeScreen.Create(container, params)
     if facilityStorage_ then facilityStorage_.props.onClick = OnFacilityTap("storage") end
     if facilityDisplay_ then facilityDisplay_.props.onClick = OnFacilityTap("display") end
 
-    -- 右侧功能按钮（已隐藏，功能待实现后再开放）
+    -- 右侧广告功能按钮
+    -- 免费宝箱：看激励视频 → 随机基础材料（GDD §9.13 免费材料箱，约 35-60 铜价值）
+    if freeBoxBtn_ then
+        freeBoxBtn_.props.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            AdManager.WatchAd(function()
+                local oreGain = math.random(3, 5)
+                local charGain = math.random(2, 3)
+                GameState.AddMaterial("ore", oreGain)
+                GameState.AddMaterial("charcoal", charGain)
+                SFXManager.Play(SFXManager.SFX.UI_COIN, 0.6)
+                UI.Toast.Show("免费宝箱：矿石 x" .. oreGain .. " 木炭 x" .. charGain, { duration = 2.5 })
+            end)
+        end
+    end
+
+    -- 广告双倍：看激励视频 → 领取一笔铜钱补贴
+    if adDoubleBtn_ then
+        adDoubleBtn_.props.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            AdManager.WatchAd(function()
+                local reward = 100
+                GameState.AddCoins(reward)
+                SFXManager.Play(SFXManager.SFX.UI_COIN, 0.6)
+                UI.Toast.Show("广告奖励：+" .. reward .. " 铜钱", { duration = 2 })
+            end)
+        end
+    end
 
     -- 底部导航
     if navOrderBtn_ then

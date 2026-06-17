@@ -16,6 +16,8 @@ local UI = require("urhox-libs/UI")
 local ScreenRouter = require("Utils.ScreenRouter")
 local SFXManager = require("Utils.SFXManager")
 local OrderManager = require("Core.OrderManager")
+local GameState = require("Core.GameState")
+local AdManager = require("Utils.AdManager")
 local Layout = require("ui_ResultScreen_结算界面")
 
 local ResultScreen = {}
@@ -303,13 +305,25 @@ function ResultScreen.Create(container, params)
         end
     end
 
-    -- 广告双倍奖励
+    -- 广告双倍奖励（看激励视频 → 本次订单铜钱翻倍，仅翻铜钱不翻声望，GDD §9.13）
     local adBtn = root:FindById("plate_1s")
     if adBtn then
         adBtn.props.onClick = function()
-            -- TODO: 播放广告逻辑
-            print("[ResultScreen] Ad double reward requested")
-            ScreenRouter.GoTo("home")
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            AdManager.WatchAd(function()
+                local bonus = result.rewardCoins or 0
+                if bonus > 0 then
+                    GameState.AddCoins(bonus)
+                end
+                -- 更新铜钱显示为翻倍后总额
+                if coinsValue then
+                    coinsValue.text = "+" .. tostring((result.rewardCoins or 0) + bonus)
+                end
+                -- 防止重复领取
+                adBtn.visible = false
+                SFXManager.Play(SFXManager.SFX.UI_COIN, 0.6)
+                UI.Toast.Show("铜钱翻倍！额外 +" .. bonus .. " 铜钱", { duration = 2 })
+            end)
         end
     end
 
