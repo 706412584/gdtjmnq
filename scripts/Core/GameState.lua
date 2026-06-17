@@ -388,6 +388,7 @@ end
 function GameState.AddJade(amount)
     secureStore_:Add("jade", amount)
     MarkDirty()
+    EventBus.Emit("jade_changed", { jade = secureStore_:Get("jade") })
 end
 
 -- ==================== 材料 ====================

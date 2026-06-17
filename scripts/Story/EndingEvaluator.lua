@@ -71,6 +71,13 @@ local ENDINGS = {
         priority = 5,
         epilogue = "账册越来越厚，炉子越来越多。商会的旗号挂上门楣，你赚到了所有人羡慕的银子，只是夜深时偶尔会想起，最初那把猎户的短刀。",
     },
+    {
+        id = "folk_forge",
+        name = "市井铁铺",
+        description = "平凡而温暖的归宿",
+        priority = 6,
+        epilogue = "你没投靠谁，也没成什么大器。铺子照常开着，街坊的农具刀剪都来你这儿修。没人记得你的名号，可这条街的烟火气里，总有你炉子的一份光和热。",
+    },
 }
 
 -- ==================== 条件检测 ====================
@@ -124,13 +131,14 @@ local function CheckCraftsmanWay()
     local truth = GameState.GetRelationship("truth")
 
     -- 重标(可达)：craftsman 上限99 / keeper 上限50 / truth 上限13
+    -- keeper 阈值留余量：匠道线部分高 craftsman 选项会扣 keeper，28 偏紧故降至 25
     local corePass = craftsman >= 55
-    local keeperPass = keeper >= 28
+    local keeperPass = keeper >= 25
     local truthPass = truth >= 4
 
     local details = {
         { label = "匠道倾向 >= 55", value = craftsman, pass = corePass },
-        { label = "老掌柜好感 >= 28", value = keeper, pass = keeperPass },
+        { label = "老掌柜好感 >= 25", value = keeper, pass = keeperPass },
         { label = "真相揭露度 >= 4", value = truth, pass = truthPass },
     }
 
@@ -244,15 +252,25 @@ function EndingEvaluator.Evaluate()
         end
     end
 
-    -- 兜底：没有任何正面结局达标，默认断火残坊
-    print("  [fallback] -> broken_forge")
-    local _, fallbackDetails = CheckBrokenForge()
+    -- 兜底：未达成任何特定路线，归于平凡而温暖的「市井铁铺」
+    -- （真正的失败结局 broken_forge 仅在 CHECKERS 中按其严苛条件命中，不在此兜底）
+    print("  [fallback] -> folk_forge")
+    local folk = nil
+    for j = 1, #ENDINGS do
+        if ENDINGS[j].id == "folk_forge" then
+            folk = ENDINGS[j]
+            break
+        end
+    end
     return {
-        endingId = "broken_forge",
-        endingName = "断火残坊",
-        description = "失败或半失败结局（兜底）",
-        epilogue = ENDINGS[1].epilogue,
-        details = fallbackDetails,
+        endingId = "folk_forge",
+        endingName = folk and folk.name or "市井铁铺",
+        description = folk and folk.description or "平凡而温暖的归宿",
+        epilogue = folk and folk.epilogue or "",
+        details = {
+            { label = "完成委托", value = #GameState.GetCompletedOrders(), pass = true },
+            { label = "未倒向任一阵营，守着自己的小铺", value = 0, pass = true },
+        },
     }
 end
 

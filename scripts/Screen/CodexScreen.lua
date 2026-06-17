@@ -30,6 +30,7 @@ local ENDING_COLORS = {
     imperial_smith = "#E94560",  -- 炉火红（朝廷）
     jianghu_forge  = "#4ECDC4",  -- 青铜绿（江湖）
     guild_foundry  = "#D4A574",  -- 暖金（商会）
+    folk_forge     = "#E8E0D0",  -- 暖白（市井平凡）
     broken_forge   = "#A0937D",  -- 烟灰（失败）
 }
 

@@ -22,6 +22,7 @@ local ENDING_COLORS = {
     imperial_smith = "#E94560",  -- 炉火红（朝廷）
     jianghu_forge  = "#4ECDC4",  -- 青铜绿（江湖）
     guild_foundry  = "#D4A574",  -- 暖金（商会）
+    folk_forge     = "#E8E0D0",  -- 暖白（市井平凡）
     broken_forge   = "#A0937D",  -- 烟灰（失败）
 }
 
@@ -55,12 +56,34 @@ function EndingScreen.Create(container, params)
     local backBtn = UI.Button {
         text = "回到工坊",
         variant = "primary",
-        width = 220,
+        width = 200,
         height = 56,
         onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             ScreenRouter.GoTo((params and params.returnTo) or "home")
         end,
+    }
+
+    local codexBtn = UI.Button {
+        text = "结局图鉴",
+        variant = "secondary",
+        width = 160,
+        height = 56,
+        onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            ScreenRouter.GoTo("codex")
+        end,
+    }
+
+    local btnRow = UI.Panel {
+        flexDirection = "row",
+        alignItems = "center",
+        justifyContent = "center",
+        children = {
+            codexBtn,
+            UI.Panel { width = 16, height = 1 },
+            backBtn,
+        },
     }
 
     local root = UI.Panel {
@@ -129,7 +152,7 @@ function EndingScreen.Create(container, params)
                     return list
                 end)(),
             },
-            backBtn,
+            btnRow,
         },
     }
     container:AddChild(root)

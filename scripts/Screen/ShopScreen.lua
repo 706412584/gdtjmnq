@@ -98,6 +98,9 @@ function ShopScreen.Create(container, params)
     local jadeLabel_  = nil
     -- 每个商品的购买按钮引用 { packId = button }
     local buyButtons_ = {}
+    -- 购买操作（前向声明，正文在下方赋值；按钮闭包按引用捕获，调用时解析）
+    ---@type fun(pack: table)
+    local DoPurchase
 
     -- ----------------------------------------------------------------
     -- 顶栏：返回 + 标题 + 货币
@@ -164,7 +167,7 @@ function ShopScreen.Create(container, params)
             width = 110,
             height = 48,
             onClick = function()
-                ShopScreen_DoPurchase(pack)
+                DoPurchase(pack)
             end,
         }
         buyButtons_[pack.id] = buyBtn
@@ -302,9 +305,9 @@ function ShopScreen.Create(container, params)
     end
 
     -- ----------------------------------------------------------------
-    -- 购买操作（全局函数供按钮闭包调用）
+    -- 购买操作（赋值到前向声明的 local DoPurchase）
     -- ----------------------------------------------------------------
-    function ShopScreen_DoPurchase(pack)
+    DoPurchase = function(pack)
         local price = EffectivePrice(pack)
         local affordable
         if pack.currency == "jade" then
@@ -350,6 +353,11 @@ function ShopScreen.Create(container, params)
         RefreshCurrency()
         RefreshButtons()
     end)
+    -- 玉璧变化时刷新（玉璧材料包购买后）
+    unsubs_[#unsubs_ + 1] = EventBus.On("jade_changed", function()
+        RefreshCurrency()
+        RefreshButtons()
+    end)
 
     -- ----------------------------------------------------------------
     -- screen 控制器
@@ -359,7 +367,6 @@ function ShopScreen.Create(container, params)
             unsubs_[i]()
         end
         unsubs_ = {}
-        ShopScreen_DoPurchase = nil
     end
 
     print("[ShopScreen] Created")

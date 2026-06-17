@@ -348,6 +348,10 @@ function ForgeScreen.Create(container, params)
 
     function screen.Destroy()
         MiniGameRunner.Stop()
+        -- 安全网：任何非正常完成的离开路径（如 ESC 直接返回主界面）都要取消活跃订单，
+        -- 否则 activeOrder_ 残留会导致订单板全部接单按钮被锁死。
+        -- 正常完单时 CompleteOrder 已清空 activeOrder_，此处 CancelOrder 为 no-op，不会重复退料。
+        OrderManager.CancelOrder()
         if unsubComplete then unsubComplete() end
         if unsubStart then unsubStart() end
         if unsubStepComplete then unsubStepComplete() end

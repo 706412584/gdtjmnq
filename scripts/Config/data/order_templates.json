@@ -411,7 +411,7 @@
     "customerType": "skilled",
     "weaponId": "WEAPON_009",
     "dialogue": "认得你这朋友，我才把这桩事交给你。一把能压住江湖的刀，拜托了。",
-    "requiredMaterialTier": 4,
+    "requiredMaterialTier": 5,
     "baseRewardCoins": 980,
     "baseRewardFame": 200,
     "favorRequirement": { "npcId": "luchen", "level": 1 },
