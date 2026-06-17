@@ -14,28 +14,30 @@ local RelationshipTracker = {}
 
 -- ============================================================================
 -- 角色好感度阈值
+-- 阈值按剧情可达上限重标（committed 单周目可达：keeper~50 / shen~28 /
+-- luchen~42 / magistrate~26 / disciple~19），确保两档解锁均可触发。
 -- ============================================================================
 
 local CHARACTER_THRESHOLDS = {
     keeper = {
-        { level = 1, min = 40, desc = "旧案线索" },
-        { level = 2, min = 70, desc = "真传秘法" },
+        { level = 1, min = 20, desc = "旧案线索" },
+        { level = 2, min = 40, desc = "真传秘法" },
     },
     shen = {
-        { level = 1, min = 30, desc = "暗线交易" },
-        { level = 2, min = 65, desc = "商会同盟" },
+        { level = 1, min = 12, desc = "暗线交易" },
+        { level = 2, min = 22, desc = "商会同盟" },
     },
     luchen = {
-        { level = 1, min = 30, desc = "江湖门路" },
-        { level = 2, min = 70, desc = "复仇终章" },
+        { level = 1, min = 18, desc = "江湖门路" },
+        { level = 2, min = 34, desc = "复仇终章" },
     },
     magistrate = {
-        { level = 1, min = 35, desc = "官府优先" },
-        { level = 2, min = 70, desc = "权势通道" },
+        { level = 1, min = 12, desc = "官府优先" },
+        { level = 2, min = 20, desc = "权势通道" },
     },
     disciple = {
-        { level = 1, min = 20, desc = "旧事重提" },
-        { level = 2, min = 60, desc = "回归之路" },
+        { level = 1, min = 8,  desc = "旧事重提" },
+        { level = 2, min = 15, desc = "回归之路" },
     },
 }
 
@@ -190,6 +192,28 @@ function RelationshipTracker.GetUnlockedDesc(npcId)
         end
     end
     return nil
+end
+
+-- ============================================================================
+-- 好感度玩法影响（接入实际系统）
+-- ============================================================================
+
+--- 商店折扣率：由沈绫（商会线）好感等级决定
+---   未解锁 = 0；暗线交易(L1) = 5%；商会同盟(L2) = 10%
+---@return number rate 折扣率（0 ~ 0.10）
+function RelationshipTracker.GetShopDiscountRate()
+    local lvl = RelationshipTracker.GetUnlockedLevel("shen")
+    if lvl >= 2 then return 0.10 end
+    if lvl >= 1 then return 0.05 end
+    return 0
+end
+
+--- 判断某条好感门槛是否满足（供订单解锁判定）
+---@param req table|nil { npcId: string, level: number }
+---@return boolean
+function RelationshipTracker.MeetsFavorRequirement(req)
+    if not req or not req.npcId then return true end
+    return RelationshipTracker.HasReachedLevel(req.npcId, req.level or 1)
 end
 
 -- 注：结局判定统一由 Story.EndingEvaluator 负责，此处不再重复实现。

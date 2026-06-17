@@ -285,7 +285,7 @@ function EndingEvaluator.EvaluateAll()
 end
 
 --- 获取结局名称列表（用于 UI 展示）
----@return table[] { id: string, name: string }
+---@return table[] { id: string, name: string, description: string, epilogue: string }
 function EndingEvaluator.GetEndingList()
     local list = {}
     for i = 1, #ENDINGS do
@@ -293,6 +293,7 @@ function EndingEvaluator.GetEndingList()
             id = ENDINGS[i].id,
             name = ENDINGS[i].name,
             description = ENDINGS[i].description,
+            epilogue = ENDINGS[i].epilogue,
         }
     end
     return list

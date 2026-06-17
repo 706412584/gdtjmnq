@@ -1,4 +1,4 @@
----@diagnostic disable: param-type-mismatch
+---@diagnostic disable: param-type-mismatch, assign-type-mismatch
 -- ============================================================================
 -- RelationshipScreen - 人物关系 / 阵营倾向 展示界面
 -- Project Smith

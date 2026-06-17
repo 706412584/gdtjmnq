@@ -388,5 +388,47 @@
     "baseRewardCoins": 1100,
     "baseRewardFame": 220,
     "bonusMaterials": { "ore": 8, "charcoal": 5, "grinding_agent": 3 }
+  },
+  {
+    "id": "ORD_SP_SHEN",
+    "tier": 4,
+    "chapter": 3,
+    "customerName": "沈绫 · 商会密约",
+    "customerType": "skilled",
+    "weaponId": "WEAPON_006",
+    "dialogue": "你我既是同盟，这笔买卖只走你这一家。料我备齐，利我们分。",
+    "requiredMaterialTier": 3,
+    "baseRewardCoins": 720,
+    "baseRewardFame": 70,
+    "favorRequirement": { "npcId": "shen", "level": 2 },
+    "bonusMaterials": { "pattern_gold": 2, "meteorite": 1, "ore": 4 }
+  },
+  {
+    "id": "ORD_SP_LUCHEN",
+    "tier": 5,
+    "chapter": 4,
+    "customerName": "陆沉 · 旧友相托",
+    "customerType": "skilled",
+    "weaponId": "WEAPON_009",
+    "dialogue": "认得你这朋友，我才把这桩事交给你。一把能压住江湖的刀，拜托了。",
+    "requiredMaterialTier": 4,
+    "baseRewardCoins": 980,
+    "baseRewardFame": 200,
+    "favorRequirement": { "npcId": "luchen", "level": 1 },
+    "bonusMaterials": { "ore": 6, "charcoal": 4, "meteorite": 1 }
+  },
+  {
+    "id": "ORD_SP_KEEPER",
+    "tier": 5,
+    "chapter": 5,
+    "customerName": "老掌柜 · 真传秘录",
+    "customerType": "story",
+    "weaponId": "WEAPON_012",
+    "dialogue": "你既已得我真传，这一炉，便按残卷上的古法走一遍。成了，这门手艺就传下去了。",
+    "requiredMaterialTier": 5,
+    "baseRewardCoins": 2200,
+    "baseRewardFame": 520,
+    "favorRequirement": { "npcId": "keeper", "level": 2 },
+    "bonusMaterials": { "ore": 8, "pattern_gold": 3, "meteorite": 2 }
   }
 ]

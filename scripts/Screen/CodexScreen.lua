@@ -6,17 +6,32 @@
 --   1. 展示所有武器配方（18格网格，12个武器 + 6个空位隐藏）
 --   2. 已解锁的武器显示详情（图片、名称、品质）
 --   3. 未解锁的武器显示问号占位
---   4. 左侧分类筛选（全部/按武器线）
+--   4. 左侧分类筛选（全部/按武器线/结局回顾）
 --   5. 返回主界面按钮
 -- ============================================================================
+---@diagnostic disable: param-type-mismatch
 
 local Layout         = require("ui_CodexScreen_名器图鉴")
+local UI             = require("urhox-libs/UI")
 local GameState      = require("Core.GameState")
 local WeaponRecipes  = require("Config.WeaponRecipes")
+local EndingEvaluator = require("Story.EndingEvaluator")
 local ScreenRouter   = require("Utils.ScreenRouter")
 local BackButton     = require("Utils.BackButton")
 
 local CodexScreen = {}
+
+-- ============================================================================
+-- 结局路线主题色（与 EndingScreen 一致）
+-- ============================================================================
+
+local ENDING_COLORS = {
+    craftsman_way  = "#C9A45A",  -- 鎏金（匠道）
+    imperial_smith = "#E94560",  -- 炉火红（朝廷）
+    jianghu_forge  = "#4ECDC4",  -- 青铜绿（江湖）
+    guild_foundry  = "#D4A574",  -- 暖金（商会）
+    broken_forge   = "#A0937D",  -- 烟灰（失败）
+}
 
 -- ============================================================================
 -- 武器图片映射
@@ -87,7 +102,7 @@ local CAT_DEFS = {
     { catId = "cat_l",  labelId = "tx_n",  bgId = "sr_m",  key = "long_sword",     label = "长剑" },
     { catId = "cat_o",  labelId = "tx_q",  bgId = "sr_p",  key = "heavy_sword",    label = "重剑" },
     { catId = "cat_r",  labelId = "tx_t",  bgId = "sr_s",  key = "ceremony_blade", label = "礼剑" },
-    { catId = "cat_u",  labelId = "tx_w",  bgId = "sr_v",  key = "extra1" },
+    { catId = "cat_u",  labelId = "tx_w",  bgId = "sr_v",  key = "endings",        label = "结局" },
     { catId = "cat_x",  labelId = "tx_z",  bgId = "sr_y",  key = "extra2" },
     { catId = "cat_10", labelId = "tx_12", bgId = "sr_11", key = "extra3" },
 }
@@ -136,6 +151,137 @@ function CodexScreen.Create(container, params)
     BackButton.Setup(root, "home")
 
     local statsLabel = root:FindById("tx_7")
+
+    -- ----------------------------------------------------------------
+    -- 结局回顾分区（覆盖在武器网格区域之上，按需显隐）
+    -- ----------------------------------------------------------------
+    -- 已达成结局集合（持久化）
+    local achievedSet = {}
+    local achievedList = GameState.GetAchievedEndings()
+    for i = 1, #achievedList do
+        achievedSet[achievedList[i]] = true
+    end
+    -- 当前数据下「条件已满足」的结局集合（EvaluateAll 实时判定）
+    local reachableSet = {}
+    local evalAll = EndingEvaluator.EvaluateAll()
+    for i = 1, #evalAll do
+        if evalAll[i].matched then
+            reachableSet[evalAll[i].id] = true
+        end
+    end
+
+    ---@param ending table { id, name, description, epilogue }
+    ---@return table card
+    local function BuildEndingCard(ending)
+        local achieved = achievedSet[ending.id] == true
+        local reachable = reachableSet[ending.id] == true
+        local accent = ENDING_COLORS[ending.id] or "#C9A45A"
+
+        -- 状态徽章文案/颜色
+        local badgeText, badgeColor
+        if achieved then
+            badgeText, badgeColor = "已达成", accent
+        elseif reachable then
+            badgeText, badgeColor = "条件已满足", "#4ECDC4"
+        else
+            badgeText, badgeColor = "未解锁", "#5A4A3A"
+        end
+
+        -- 正文：已达成显示尾声，否则显示路线提示
+        local bodyText = achieved and (ending.epilogue or "")
+            or (reachable and "你当前的选择正指向这一结局，完成终章即可抵达。"
+                or ("尚未抵达此结局 · " .. (ending.description or "")))
+        local bodyColor = achieved and "#E8E0D0" or "#A0937D"
+
+        local titleText = achieved and ending.name or "？？？"
+        local titleColor = achieved and accent or "#6E5E48"
+
+        return UI.Panel {
+            width = "100%",
+            marginBottom = 14,
+            paddingLeft = 18, paddingRight = 18,
+            paddingTop = 14, paddingBottom = 16,
+            flexDirection = "column",
+            borderRadius = 10,
+            backgroundColor = achieved and "rgba(201,164,90,0.08)" or "rgba(31,26,23,0.05)",
+            borderColor = achieved and accent or "#3A322B",
+            borderWidth = 1,
+            children = {
+                -- 标题行：结局名 + 状态徽章
+                UI.Panel {
+                    width = "100%",
+                    flexDirection = "row",
+                    alignItems = "center",
+                    justifyContent = "space-between",
+                    marginBottom = 8,
+                    children = {
+                        UI.Label {
+                            text = titleText,
+                            fontSize = 20, fontWeight = 700,
+                            fontColor = titleColor,
+                            flexShrink = 1,
+                        },
+                        UI.Panel {
+                            paddingLeft = 10, paddingRight = 10,
+                            paddingTop = 4, paddingBottom = 4,
+                            borderRadius = 6,
+                            backgroundColor = badgeColor,
+                            children = {
+                                UI.Label {
+                                    text = badgeText,
+                                    fontSize = 13, fontWeight = 700,
+                                    fontColor = achieved and "#1F1A17" or "#E8E0D0",
+                                },
+                            },
+                        },
+                    },
+                },
+                -- 正文
+                UI.Label {
+                    text = bodyText,
+                    fontSize = 14,
+                    fontColor = bodyColor,
+                    lineHeight = 1.6,
+                    width = "100%",
+                },
+            },
+        }
+    end
+
+    local endingCards = {}
+    local endingList = EndingEvaluator.GetEndingList()
+    for i = 1, #endingList do
+        endingCards[i] = BuildEndingCard(endingList[i])
+    end
+
+    -- 顶部统计
+    local achievedCount = #achievedList
+    local endingHeader = UI.Label {
+        text = "结局回顾 · 已达成 " .. achievedCount .. " / " .. #endingList,
+        fontSize = 16, fontWeight = 700,
+        fontColor = "#C9A45A",
+        marginBottom = 14,
+    }
+
+    local endingContent = { endingHeader }
+    for i = 1, #endingCards do
+        endingContent[#endingContent + 1] = endingCards[i]
+    end
+
+    local endingOverlay = UI.ScrollView {
+        position = "absolute",
+        left = "20%",
+        top = 107,
+        right = 24,
+        bottom = 34,
+        scrollY = true,
+        paddingLeft = 12, paddingRight = 12, paddingTop = 4, paddingBottom = 12,
+        visible = false,
+        children = {
+            UI.Panel { width = "100%", flexDirection = "column", children = endingContent },
+        },
+    }
+    root:AddChild(endingOverlay)
 
     -- ----------------------------------------------------------------
     -- 获取筛选后的武器列表
@@ -285,7 +431,22 @@ function CodexScreen.Create(container, params)
                 if lbl then lbl.fontColor = INACTIVE_TEXT end
             end
         end
-        RefreshGrid()
+
+        if activeKey == "endings" then
+            -- 结局分区：显示结局覆盖层，隐藏武器网格
+            endingOverlay.visible = true
+            for i = 1, #CELL_DEFS do
+                local cell = root:FindById(CELL_DEFS[i].cellId)
+                if cell then cell.visible = false end
+            end
+            if statsLabel then
+                statsLabel.text = "结局回顾 · 你的抉择，终将写成结局"
+            end
+        else
+            -- 武器分区：隐藏结局覆盖层，刷新网格
+            endingOverlay.visible = false
+            RefreshGrid()
+        end
     end
 
     -- 绑定分类按钮点击
@@ -300,10 +461,10 @@ function CodexScreen.Create(container, params)
         end
     end
 
-    -- 隐藏无数据的 extra 分类按钮
+    -- 隐藏无数据的 extra 分类按钮（extra1 已复用为「结局」分区）
     for i = 1, #CAT_DEFS do
         local catDef = CAT_DEFS[i]
-        if catDef.key == "extra1" or catDef.key == "extra2" or catDef.key == "extra3" then
+        if catDef.key == "extra2" or catDef.key == "extra3" then
             local catBtn = root:FindById(catDef.catId)
             if catBtn then catBtn.visible = false end
         end
@@ -323,6 +484,8 @@ function CodexScreen.Create(container, params)
 
             if catDef.key == "all" then
                 lbl.text = catDef.label .. " · " .. #allRecipes
+            elseif catDef.key == "endings" then
+                lbl.text = catDef.label .. " · " .. achievedCount .. "/" .. #endingList
             else
                 local group = lineGroups[catDef.key]
                 local count = group and #group or 0

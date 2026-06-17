@@ -15,8 +15,23 @@ local EventBus     = require("Core.EventBus")
 local OrderManager = require("Core.OrderManager")
 local ScreenRouter = require("Utils.ScreenRouter")
 local SFXManager   = require("Utils.SFXManager")
+local RelationshipTracker = require("Story.RelationshipTracker")
 
 local ShopScreen = {}
+
+-- ============================================================================
+-- 折扣计算（沈绫商会线好感解锁）
+-- ============================================================================
+
+--- 计算应用折扣后的最终价格（向上取整，至少 1）
+---@param basePrice number 原价
+---@param rate number 折扣率（0~0.10）
+---@return number
+local function ApplyDiscount(basePrice, rate)
+    if rate <= 0 then return basePrice end
+    local discounted = math.ceil(basePrice * (1 - rate))
+    return math.max(1, discounted)
+end
 
 -- ============================================================================
 -- 商品配置（GDD §9.12）
@@ -67,6 +82,16 @@ local PACKS = {
 function ShopScreen.Create(container, params)
     local screen = {}
     local unsubs_ = {}
+
+    -- 沈绫商会线好感折扣（本次进入商店时固定，session 内不变）
+    local discountRate_ = RelationshipTracker.GetShopDiscountRate()
+
+    --- 获取商品在当前折扣下的实际价格
+    ---@param pack table
+    ---@return number
+    local function EffectivePrice(pack)
+        return ApplyDiscount(pack.price, discountRate_)
+    end
 
     -- 货币标签引用（用于增量刷新）
     local coinsLabel_ = nil
@@ -130,6 +155,8 @@ function ShopScreen.Create(container, params)
         local isJade = pack.currency == "jade"
         local priceColor = isJade and "#4ECDC4" or "#C9A45A"
         local unitName = isJade and "玉璧" or "铜钱"
+        local finalPrice = EffectivePrice(pack)
+        local hasDiscount = finalPrice < pack.price
 
         local buyBtn = UI.Button {
             text = "采买",
@@ -141,6 +168,23 @@ function ShopScreen.Create(container, params)
             end,
         }
         buyButtons_[pack.id] = buyBtn
+
+        -- 价格区：折扣时显示原价（划掉感用烟灰小字）+ 折后价
+        local priceChildren = {}
+        if hasDiscount then
+            priceChildren[#priceChildren + 1] = UI.Label {
+                text = "原价 " .. pack.price,
+                fontSize = 12,
+                fontColor = "#6E5E48",
+                textAlign = "right",
+            }
+        end
+        priceChildren[#priceChildren + 1] = UI.Label {
+            text = finalPrice .. " " .. unitName,
+            fontSize = 18, fontWeight = 700,
+            fontColor = priceColor,
+            textAlign = "right",
+        }
 
         return UI.Panel {
             width = "100%",
@@ -173,13 +217,12 @@ function ShopScreen.Create(container, params)
                         },
                     },
                 },
-                -- 中间：价格
-                UI.Label {
-                    text = pack.price .. " " .. unitName,
-                    fontSize = 18, fontWeight = 700,
-                    fontColor = priceColor,
-                    verticalAlign = "middle",
+                -- 中间：价格（含折扣）
+                UI.Panel {
+                    flexDirection = "column",
+                    alignItems = "flex-end",
                     marginRight = 16,
+                    children = priceChildren,
                 },
                 -- 右侧：购买按钮
                 buyBtn,
@@ -207,11 +250,16 @@ function ShopScreen.Create(container, params)
         },
     }
 
-    -- 底部提示
+    -- 底部提示（折扣生效时提示来源）
+    local hintText = "提示 · 接「猎户小刀」等委托也可回补基础材料"
+    if discountRate_ > 0 then
+        hintText = "沈绫商会折扣已生效 · 全场 "
+            .. math.floor(discountRate_ * 100 + 0.5) .. "% 优惠"
+    end
     local hint = UI.Label {
-        text = "提示 · 接「猎户小刀」等委托也可回补基础材料",
+        text = hintText,
         fontSize = 13,
-        fontColor = "#A0937D",
+        fontColor = discountRate_ > 0 and "#4ECDC4" or "#A0937D",
         textAlign = "center",
         width = "100%",
         height = 36,
@@ -240,11 +288,12 @@ function ShopScreen.Create(container, params)
             local pack = PACKS[i]
             local btn = buyButtons_[pack.id]
             if btn then
+                local price = EffectivePrice(pack)
                 local affordable
                 if pack.currency == "jade" then
-                    affordable = GameState.GetJade() >= pack.price
+                    affordable = GameState.GetJade() >= price
                 else
-                    affordable = GameState.CanAffordCoins(pack.price)
+                    affordable = GameState.CanAffordCoins(price)
                 end
                 btn:SetDisabled(not affordable)
                 btn:SetText(affordable and "采买" or "不足")
@@ -256,11 +305,12 @@ function ShopScreen.Create(container, params)
     -- 购买操作（全局函数供按钮闭包调用）
     -- ----------------------------------------------------------------
     function ShopScreen_DoPurchase(pack)
+        local price = EffectivePrice(pack)
         local affordable
         if pack.currency == "jade" then
-            affordable = GameState.GetJade() >= pack.price
+            affordable = GameState.GetJade() >= price
         else
-            affordable = GameState.CanAffordCoins(pack.price)
+            affordable = GameState.CanAffordCoins(price)
         end
 
         if not affordable then
@@ -270,11 +320,11 @@ function ShopScreen.Create(container, params)
             return
         end
 
-        -- 扣费
+        -- 扣费（按折后价）
         if pack.currency == "jade" then
-            GameState.AddJade(-pack.price)
+            GameState.AddJade(-price)
         else
-            GameState.AddCoins(-pack.price)
+            GameState.AddCoins(-price)
         end
 
         -- 发放材料

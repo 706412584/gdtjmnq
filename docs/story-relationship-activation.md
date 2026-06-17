@@ -103,3 +103,39 @@
 - [ ] 构建通过、无死代码冲突
 
 *生成于实施前，供检查。*
+
+---
+
+## 八、可选增量（第二批，已实现）
+
+在「结局 + 好感度展示」激活完成后，进一步把这两套数据接入实际玩法。
+
+### 8.1 结局图鉴 / 回顾
+
+- 复用 `EndingEvaluator.EvaluateAll()`（实时判定）+ 新增持久化 `GameState.GetAchievedEndings()`。
+- 在名器图鉴左侧分类新增「结局」分区（复用 `cat_u` 占位按钮）。
+- 每个结局卡片三态：
+  - **已达成**：显示结局名 + 尾声全文（鎏金高亮，路线主题色描边）。
+  - **条件已满足**：当前数据正指向该结局，提示完成终章即可抵达（青铜绿徽章）。
+  - **未解锁**：名称隐藏为「？？？」，仅显示路线提示（烟灰）。
+- 抵达结局时 `EndingScreen` 调 `GameState.MarkEndingAchieved(id)` 落档。
+
+涉及文件：`GameState.lua`（achievedEndings 字段 + 存取）、`EndingEvaluator.lua`（GetEndingList 带 epilogue）、`EndingScreen.lua`（落档）、`CodexScreen.lua`（结局覆盖层 + 分区切换）。
+
+### 8.2 好感度接入实际玩法
+
+**前置修正**：`CHARACTER_THRESHOLDS` 原 L1/L2（30~70）超出剧情可达上限（实测：keeper~50/shen~28/luchen~42/magistrate~26/disciple~19），全部重标为可达值，否则解锁永不触发。
+
+| 玩法钩子 | 触发条件 | 效果 |
+|---------|---------|------|
+| 商店折扣 | 沈绫 L1=12 / L2=22 | 全场 5% / 10% 折扣（铜钱 + 玉璧），ShopScreen 实时显示原价划线 + 折后价 |
+| 专属订单 · 沈绫密约 | 沈绫 L2 | 解锁 `ORD_SP_SHEN`（高额稀有材料回报） |
+| 专属订单 · 陆沉相托 | 陆沉 L1=18 | 解锁 `ORD_SP_LUCHEN` |
+| 专属订单 · 老掌柜真传 | 老掌柜 L2=40 | 解锁 `ORD_SP_KEEPER`（终章名器，最高回报） |
+
+- 订单门槛由 `OrderConfig.GetAvailable` 过滤 `order.favorRequirement`，未达标的特殊订单不出现在订单板。
+- 订单板对带门槛的订单加「· 专属」标记。
+
+涉及文件：`RelationshipTracker.lua`（重标阈值 + GetShopDiscountRate / MeetsFavorRequirement）、`ShopScreen.lua`（折扣价）、`OrderConfig.lua`（好感过滤）、`order_templates.json`（3 个专属订单）、`OrderBoardScreen.lua`（专属标记）。
+
+*第二批增量实现后补记。*

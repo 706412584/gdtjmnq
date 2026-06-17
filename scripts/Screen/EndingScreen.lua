@@ -10,6 +10,7 @@
 
 local UI              = require("urhox-libs/UI")
 local EndingEvaluator = require("Story.EndingEvaluator")
+local GameState       = require("Core.GameState")
 local ScreenRouter    = require("Utils.ScreenRouter")
 local SFXManager      = require("Utils.SFXManager")
 
@@ -33,6 +34,9 @@ function EndingScreen.Create(container, params)
     -- 评估当前数据，得到结局
     local result = EndingEvaluator.Evaluate()
     local accent = ENDING_COLORS[result.endingId] or "#C9A45A"
+
+    -- 持久化记录：本次达成的结局写入存档，供图鉴「结局回顾」展示
+    GameState.MarkEndingAchieved(result.endingId)
 
     -- 决定性数值（从 details 中挑出已通过的条目展示）
     local statChildren = {}

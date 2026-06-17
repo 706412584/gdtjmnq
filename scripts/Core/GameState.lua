@@ -81,6 +81,7 @@ local function CreateDefaultSave()
         },
         completedOrders = {},
         codex = {},
+        achievedEndings = {},
         storyProgress = {
             chapter = 1,
             nodeId = "CH1-001",
@@ -178,6 +179,7 @@ local function ImportSaveData(saveData)
     plainData_.version = saveData.version or CURRENT_VERSION
     plainData_.completedOrders = saveData.completedOrders or {}
     plainData_.codex = saveData.codex or {}
+    plainData_.achievedEndings = saveData.achievedEndings or {}
     plainData_.storyProgress = saveData.storyProgress or { chapter = 1, nodeId = "CH1-001" }
     plainData_.settings = saveData.settings or { sfxVolume = 80, musicVolume = 60 }
     plainData_.weeklyGoals = saveData.weeklyGoals
@@ -193,6 +195,7 @@ local function ExportSaveData()
     data.version = plainData_.version or CURRENT_VERSION
     data.completedOrders = plainData_.completedOrders or {}
     data.codex = plainData_.codex or {}
+    data.achievedEndings = plainData_.achievedEndings or {}
     data.storyProgress = plainData_.storyProgress or { chapter = 1, nodeId = "CH1-001" }
     data.settings = plainData_.settings or { sfxVolume = 80, musicVolume = 60 }
     data.weeklyGoals = plainData_.weeklyGoals
@@ -469,6 +472,24 @@ function GameState.UnlockCodex(weaponId)
     end
     codex[#codex + 1] = weaponId
     plainData_.codex = codex
+    MarkDirty()
+end
+
+--- 获取已达成的结局 ID 列表
+---@return string[]
+function GameState.GetAchievedEndings()
+    return plainData_.achievedEndings or {}
+end
+
+--- 标记某个结局已达成（去重持久化，供结局图鉴展示）
+---@param endingId string
+function GameState.MarkEndingAchieved(endingId)
+    local list = plainData_.achievedEndings or {}
+    for i = 1, #list do
+        if list[i] == endingId then return end
+    end
+    list[#list + 1] = endingId
+    plainData_.achievedEndings = list
     MarkDirty()
 end
 

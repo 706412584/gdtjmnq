@@ -306,6 +306,9 @@ function OrderBoardScreen.Create(container, params)
                 or order.tier == 2 and "良品"
                 or "精品"
             local mark = order.completed and "  · 已锻" or ""
+            if order.favorRequirement then
+                mark = mark .. "  · 专属"
+            end
             w.weaponName.text = "【委托物】" .. weaponName .. " · " .. tierName .. mark
         end
 
