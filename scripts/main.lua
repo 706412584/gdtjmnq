@@ -120,6 +120,21 @@ function InitUI()
         },
         scale = UI.Scale.DESIGN_RESOLUTION(1920, 1080),
     })
+
+    -- 将默认主题的 surface 系列改为暖色调，统一弹窗/浮层背景。
+    -- Modal/Toast 等组件主背景固定取 Theme.Color("surface")，不受组件 backgroundColor 参数影响，
+    -- 因此必须在主题层覆盖，否则会被默认的冷蓝灰 {50,55,70} 覆盖。
+    local Theme = require("urhox-libs/UI/Core/Theme")
+    local base = Theme.GetTheme()
+    if base then
+        Theme.SetTheme(Theme.ExtendTheme(base, {
+            colors = {
+                surface      = { 38, 31, 26, 250 },  -- 暖炭褐 #261F1A（弹窗面板/页眉页脚）
+                surfaceHover = { 52, 42, 34, 250 },  -- 略亮暖褐（悬停态）
+                background   = { 26, 22, 19, 255 },  -- 深暖底 #1A1613
+            },
+        }))
+    end
 end
 
 function CreateUI()
