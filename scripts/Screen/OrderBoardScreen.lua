@@ -184,6 +184,9 @@ function OrderBoardScreen.Create(container, params)
     -- 右侧区域标题
     local detailTitle_ = root:FindById("tx_2q")
     local detailSubtitle_ = root:FindById("tx_2r")
+    -- 隐藏右侧标题行（"X的委托 · N笔可接订单"），腾出垂直空间给订单卡片
+    if detailTitle_ then detailTitle_.visible = false end
+    if detailSubtitle_ then detailSubtitle_.visible = false end
     -- 左侧面板
     local leftPanel_ = root:FindById("df_j")
     -- 右侧面板
