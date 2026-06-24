@@ -72,7 +72,7 @@ function M.Build(payload)
                     position = "absolute",
                     left = 28.11,
                     top = 25.3,
-                    width = 337.34,
+                    width = 480,
                     height = 42.17,
                     fontSize = 33,
                     fontWeight = 700,
