@@ -1053,11 +1053,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "card_2s",
                     position = "absolute",
-                    top = "2%",
-                    width = 1406.97,
+                    top = "1%",
+                    width = 1280,
                     height = 202.4,
                     backgroundColor = "#00000000",
-                    right = 28,
+                    left = 20,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1365,11 +1365,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "card_3j",
                     position = "absolute",
-                    top = "22%",
-                    width = 1406.97,
+                    top = "34%",
+                    width = 1280,
                     height = 202.4,
                     backgroundColor = "#00000000",
-                    right = 28,
+                    left = 20,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1677,11 +1677,11 @@ function M.Build(payload)
                 UI.Panel {
                     id = "card_4a",
                     position = "absolute",
-                    top = "42%",
-                    width = 1406.97,
+                    top = "67%",
+                    width = 1280,
                     height = 202.4,
                     backgroundColor = "#00000000",
-                    right = 28,
+                    left = 20,
                     children = {
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
