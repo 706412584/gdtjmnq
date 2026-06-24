@@ -308,7 +308,7 @@ function StoryScreen.Create(container, params)
 
         local charConfig = StoryManager.GetCharacterConfig(speakerId)
         if charConfig and charConfig.portrait then
-            portraitImg_.source = charConfig.portrait
+            portraitImg_.backgroundImage = charConfig.portrait
             if portraitFrame_ then
                 portraitFrame_.visible = true
                 -- 根据 side 字段切换立绘位置（左/右）

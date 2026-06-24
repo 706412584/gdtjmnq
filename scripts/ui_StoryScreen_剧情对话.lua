@@ -57,15 +57,16 @@ function M.Build(payload)
                     top = "13.06%",
                     width = 380,
                     height = 568,
-                    backgroundColor = "transparent",
+                    backgroundColor = "rgba(0,0,0,0)",
                     children = {
-                        UI.Image {
+                        UI.Panel {
                             id = "sr_j",
                             position = "absolute",
                             width = "100%",
                             height = "100%",
-                            source = "image/char_keeper.png",
-                            objectFit = "contain",
+                            backgroundColor = "rgba(0,0,0,0)",
+                            backgroundImage = "image/char_keeper.png",
+                            backgroundFit = "contain",
                         },
                     },
                 },
