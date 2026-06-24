@@ -97,7 +97,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.3,
                     fontColor = "#21BDAE",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Panel {
                     id = "plate_7",
@@ -319,7 +319,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.3,
                     fontColor = "#F0F0F0",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Panel {
                     id = "cust_q",
@@ -383,7 +383,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_y",
@@ -398,7 +398,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.035,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -424,7 +424,7 @@ function M.Build(payload)
                             textAlign = "center",
                             lineHeight = 1.164,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -489,7 +489,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_19",
@@ -504,7 +504,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.035,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -530,7 +530,7 @@ function M.Build(payload)
                             textAlign = "center",
                             lineHeight = 1.164,
                             fontColor = "#21BDAE",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -595,7 +595,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_1k",
@@ -610,7 +610,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.035,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -636,7 +636,7 @@ function M.Build(payload)
                             textAlign = "center",
                             lineHeight = 1.164,
                             fontColor = "#21BDAE",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -701,7 +701,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_1v",
@@ -716,7 +716,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.035,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -742,7 +742,7 @@ function M.Build(payload)
                             textAlign = "center",
                             lineHeight = 1.164,
                             fontColor = "#21BDAE",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -807,7 +807,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_26",
@@ -822,7 +822,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.035,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -848,7 +848,7 @@ function M.Build(payload)
                             textAlign = "center",
                             lineHeight = 1.164,
                             fontColor = "#21BDAE",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -913,7 +913,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_2h",
@@ -928,7 +928,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.035,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -954,7 +954,7 @@ function M.Build(payload)
                             textAlign = "center",
                             lineHeight = 1.164,
                             fontColor = "#21BDAE",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -1033,7 +1033,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.3,
                     fontColor = "#F0F0F0",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Label {
                     id = "tx_2r",
@@ -1048,7 +1048,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.28,
                     fontColor = "#C0C0D8",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Panel {
                     id = "card_2s",
@@ -1160,7 +1160,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_34",
@@ -1175,7 +1175,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_35",
@@ -1190,7 +1190,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#FF4757",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_36",
@@ -1205,7 +1205,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Panel {
                             id = "pg_37",
@@ -1268,7 +1268,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.164,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_3c",
@@ -1283,7 +1283,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#21BDAE",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Panel {
                             id = "plate_3d",
@@ -1472,7 +1472,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_3v",
@@ -1487,7 +1487,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_3w",
@@ -1502,7 +1502,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#FF4757",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_3x",
@@ -1517,7 +1517,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Panel {
                             id = "pg_3y",
@@ -1580,7 +1580,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.164,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_43",
@@ -1595,7 +1595,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#21BDAE",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Panel {
                             id = "plate_44",
@@ -1784,7 +1784,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#F0F0F0",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_4m",
@@ -1799,7 +1799,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_4n",
@@ -1814,7 +1814,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#FF4757",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_4o",
@@ -1829,7 +1829,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.067,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Panel {
                             id = "pg_4p",
@@ -1892,7 +1892,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.164,
                             fontColor = "#C0C0D8",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Label {
                             id = "tx_4u",
@@ -1907,7 +1907,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.3,
                             fontColor = "#21BDAE",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         UI.Panel {
                             id = "plate_4v",
@@ -2017,7 +2017,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.423,
                     fontColor = "#F0F0F099",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Label {
                     id = "tx_54",
@@ -2032,7 +2032,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.423,
                     fontColor = "#21BDAE",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
             },
         }

@@ -97,7 +97,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.423,
                     fontColor = "#21BDAE",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Label {
                     id = "tx_p",
@@ -112,7 +112,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.164,
                     fontColor = "#F0F0F099",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Panel {
                     id = "df_q",
@@ -189,7 +189,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.118,
                     fontColor = "#21BDAE",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Panel {
                     id = "sl_x",
@@ -214,7 +214,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.186,
                     fontColor = "#F0F0F0",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                 UI.Panel {

@@ -80,7 +80,7 @@ function M.Build(payload)
                             textAlign = "center",
                             lineHeight = 1.626,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -97,7 +97,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.3,
                     fontColor = "#c9a45a",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Label {
                     id = "tx_7",
@@ -112,7 +112,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.294,
                     fontColor = "#f7e8c87f",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Panel {
                     id = "df_8",
@@ -469,7 +469,7 @@ function M.Build(payload)
                     textAlign = "left",
                     lineHeight = 1.028,
                     fontColor = "#1f1a17",
-                    verticalAlign = "top",
+                    verticalAlign = "middle",
                 },
                 UI.Panel {
                     id = "sl_13",
@@ -559,7 +559,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.095,
                             fontColor = "#c96a2b",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -641,7 +641,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.095,
                             fontColor = "#c96a2b",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -723,7 +723,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.095,
                             fontColor = "#c96a2b",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -900,7 +900,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -926,7 +926,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#f1e5cc",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -953,7 +953,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -980,7 +980,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -1042,7 +1042,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1068,7 +1068,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#f1e5cc",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1095,7 +1095,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
@@ -1158,7 +1158,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#f1e5cc",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1185,7 +1185,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1212,7 +1212,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                         UI.Panel {
@@ -1239,7 +1239,7 @@ function M.Build(payload)
                             textAlign = "left",
                             lineHeight = 1.66,
                             fontColor = "#c9a45a",
-                            verticalAlign = "top",
+                            verticalAlign = "middle",
                         },
                     },
                 },
