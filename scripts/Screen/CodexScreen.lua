@@ -26,12 +26,12 @@ local CodexScreen = {}
 -- ============================================================================
 
 local ENDING_COLORS = {
-    craftsman_way  = "#C9A45A",  -- 鎏金（匠道）
-    imperial_smith = "#E94560",  -- 炉火红（朝廷）
-    jianghu_forge  = "#4ECDC4",  -- 青铜绿（江湖）
-    guild_foundry  = "#D4A574",  -- 暖金（商会）
-    folk_forge     = "#E8E0D0",  -- 暖白（市井平凡）
-    broken_forge   = "#A0937D",  -- 烟灰（失败）
+    craftsman_way  = "#FFD93D",  -- 像素黄（匠道）
+    imperial_smith = "#FF4757",  -- 像素红（朝廷）
+    jianghu_forge  = "#21BDAE",  -- 像素青（江湖）
+    guild_foundry  = "#6C5CE7",  -- 像素紫（商会）
+    folk_forge     = "#F0F0F0",  -- 像素白（市井平凡）
+    broken_forge   = "#505070",  -- 像素灰（失败）
 }
 
 -- ============================================================================
@@ -55,10 +55,10 @@ local WEAPON_IMAGES = {
 
 -- 品质等级映射（根据 tier 或手动指定）
 local QUALITY_GRADES = {
-    [1] = { text = "寻", color = "#3A322B", borderColor = "#3A322B" },
-    [2] = { text = "良", color = "#3A322B", borderColor = "#3A322B" },
+    [1] = { text = "寻", color = "#3A3A6A", borderColor = "#3A3A6A" },
+    [2] = { text = "良", color = "#3A3A6A", borderColor = "#3A3A6A" },
     [3] = { text = "名", color = "#4F7A63", borderColor = "#4F7A63" },
-    [4] = { text = "逸", color = "#C9A45A", borderColor = "#C9A45A" },
+    [4] = { text = "逸", color = "#21BDAE", borderColor = "#21BDAE" },
     [5] = { text = "神", color = "#C96A2B", borderColor = "#C96A2B" },
 }
 
@@ -176,26 +176,26 @@ function CodexScreen.Create(container, params)
     local function BuildEndingCard(ending)
         local achieved = achievedSet[ending.id] == true
         local reachable = reachableSet[ending.id] == true
-        local accent = ENDING_COLORS[ending.id] or "#C9A45A"
+        local accent = ENDING_COLORS[ending.id] or "#21BDAE"
 
         -- 状态徽章文案/颜色
         local badgeText, badgeColor
         if achieved then
             badgeText, badgeColor = "已达成", accent
         elseif reachable then
-            badgeText, badgeColor = "条件已满足", "#4ECDC4"
+            badgeText, badgeColor = "条件已满足", "#50C878"
         else
-            badgeText, badgeColor = "未解锁", "#5A4A3A"
+            badgeText, badgeColor = "未解锁", "#2A2A4A"
         end
 
         -- 正文：已达成显示尾声，否则显示路线提示
         local bodyText = achieved and (ending.epilogue or "")
             or (reachable and "你当前的选择正指向这一结局，完成终章即可抵达。"
                 or ("尚未抵达此结局 · " .. (ending.description or "")))
-        local bodyColor = achieved and "#E8E0D0" or "#A0937D"
+        local bodyColor = achieved and "#F0F0F0" or "#A0A0C0"
 
         local titleText = achieved and ending.name or "？？？"
-        local titleColor = achieved and accent or "#6E5E48"
+        local titleColor = achieved and accent or "#505070"
 
         return UI.Panel {
             width = "100%",
@@ -204,8 +204,8 @@ function CodexScreen.Create(container, params)
             paddingTop = 14, paddingBottom = 16,
             flexDirection = "column",
             borderRadius = 10,
-            backgroundColor = achieved and "rgba(201,164,90,0.08)" or "rgba(31,26,23,0.05)",
-            borderColor = achieved and accent or "#3A322B",
+            backgroundColor = achieved and "rgba(33,189,174,0.08)" or "rgba(31,26,23,0.05)",
+            borderColor = achieved and accent or "#3A3A6A",
             borderWidth = 1,
             children = {
                 -- 标题行：结局名 + 状态徽章
@@ -231,7 +231,7 @@ function CodexScreen.Create(container, params)
                                 UI.Label {
                                     text = badgeText,
                                     fontSize = 13, fontWeight = 700,
-                                    fontColor = achieved and "#1F1A17" or "#E8E0D0",
+                                    fontColor = achieved and "#0F0F23" or "#F0F0F0",
                                 },
                             },
                         },
@@ -260,7 +260,7 @@ function CodexScreen.Create(container, params)
     local endingHeader = UI.Label {
         text = "结局回顾 · 已达成 " .. achievedCount .. " / " .. #endingList,
         fontSize = 16, fontWeight = 700,
-        fontColor = "#C9A45A",
+        fontColor = "#21BDAE",
         marginBottom = 14,
     }
 
@@ -382,7 +382,7 @@ function CodexScreen.Create(container, params)
             else
                 -- 未解锁：问号占位，暗色调
                 if border then
-                    border.borderColor = "#3A322B"
+                    border.borderColor = "#3A3A6A"
                 end
                 if img then
                     -- 清除布局预设的武器图片，用暗色背景替代
@@ -398,7 +398,7 @@ function CodexScreen.Create(container, params)
                     nameLabel.fontColor = "#3a322b"
                 end
                 if badgeBg then
-                    badgeBg.backgroundColor = "#3A322B"
+                    badgeBg.backgroundColor = "#3A3A6A"
                 end
                 if gradeLabel then
                     gradeLabel.text = "?"

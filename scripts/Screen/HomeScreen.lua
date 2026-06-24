@@ -112,8 +112,8 @@ function HomeScreen.Create(container, params)
             width = 14,
             height = 14,
             borderRadius = 7,
-            backgroundColor = "#E94560",
-            borderColor = "#E8E0D0",
+            backgroundColor = "#FF4757",
+            borderColor = "#F0F0F0",
             borderWidth = 1.5,
             visible = false,
         }

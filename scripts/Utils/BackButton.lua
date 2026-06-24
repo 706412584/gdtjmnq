@@ -33,13 +33,13 @@ function BackButton.Setup(root, targetOrCallback)
     local btnLabel = UI.Label {
         text = "< 返回",
         fontSize = 18,
-        fontColor = "#C9A45A",
+        fontColor = "#21BDAE",
         textAlign = "center",
     }
     local btnFrame = UI.Panel {
         width = "100%", height = "100%",
         borderRadius = 12,
-        borderColor = "#C9A45A",
+        borderColor = "#21BDAE",
         borderWidth = 1.5,
         justifyContent = "center",
         alignItems = "center",

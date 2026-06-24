@@ -20,7 +20,7 @@ function M.Build(payload)
             id = "root",
             width = "100%",
             height = "100%",
-            backgroundColor = "#e7d8bc",
+            backgroundColor = "#0F0F23",
             children = {
                 -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                 UI.Panel {
@@ -28,7 +28,7 @@ function M.Build(payload)
                     position = "absolute",
                     width = "100%",
                     height = "100%",
-                    backgroundColor = "#E7D8BC",
+                    backgroundColor = "#0F0F23",
                 },
                 -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                 UI.Panel {
@@ -37,7 +37,7 @@ function M.Build(payload)
                     top = 0,
                     width = "100%",
                     height = 95,
-                    backgroundColor = "#1F1A17",
+                    backgroundColor = "#1B1B3A",
                 },
                 -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                 UI.Panel {
@@ -46,7 +46,7 @@ function M.Build(payload)
                     top = "8.80%",
                     width = "100%",
                     height = 2.81,
-                    backgroundColor = "#C9A45A",
+                    backgroundColor = "#21BDAE",
                 },
                 UI.Panel {
                     id = "plate_3",
@@ -64,7 +64,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             borderRadius = 16,
-                            borderColor = "#C9A45A",
+                            borderColor = "#21BDAE",
                             borderWidth = 2,
                         },
                         UI.Label {
@@ -79,7 +79,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.626,
-                            fontColor = "#c9a45a",
+                            fontColor = "#21BDAE",
                             verticalAlign = "top",
                         },
                     },
@@ -96,7 +96,7 @@ function M.Build(payload)
                     fontWeight = 700,
                     textAlign = "center",
                     lineHeight = 1.3,
-                    fontColor = "#c9a45a",
+                    fontColor = "#21BDAE",
                     verticalAlign = "top",
                 },
                 UI.Label {
@@ -111,7 +111,7 @@ function M.Build(payload)
                     fontWeight = 400,
                     textAlign = "center",
                     lineHeight = 1.314,
-                    fontColor = "#c9a45a",
+                    fontColor = "#21BDAE",
                     verticalAlign = "top",
                 },
                 UI.Panel {
@@ -131,7 +131,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.06)",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Panel {
@@ -142,7 +142,7 @@ function M.Build(payload)
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            backgroundColor = "#5a4a3a",
+                            backgroundColor = "#3A3A6A",
                         },
                         UI.Panel {
                             id = "sc_b",
@@ -152,7 +152,7 @@ function M.Build(payload)
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            backgroundColor = "#5a4a3a",
+                            backgroundColor = "#3A3A6A",
                         },
                         UI.Panel {
                             id = "sc_c",
@@ -162,7 +162,7 @@ function M.Build(payload)
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            backgroundColor = "#5a4a3a",
+                            backgroundColor = "#3A3A6A",
                         },
                         UI.Panel {
                             id = "sc_d",
@@ -172,7 +172,7 @@ function M.Build(payload)
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            backgroundColor = "#5a4a3a",
+                            backgroundColor = "#3A3A6A",
                         },
                     },
                 },
@@ -188,7 +188,7 @@ function M.Build(payload)
                     fontWeight = 700,
                     textAlign = "center",
                     lineHeight = 1.3,
-                    fontColor = "#1f1a17",
+                    fontColor = "#1B1B3A",
                     verticalAlign = "top",
                 },
                 UI.Panel {
@@ -206,9 +206,9 @@ function M.Build(payload)
                             position = "absolute",
                             width = "100%",
                             height = "100%",
-                            backgroundColor = "#C96A2B",
+                            backgroundColor = "#21BDAE",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Label {
@@ -244,7 +244,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Label {
@@ -259,7 +259,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 2.846,
-                            fontColor = "#1f1a17",
+                            fontColor = "#1B1B3A",
                             verticalAlign = "top",
                         },
                     },
@@ -280,7 +280,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Label {
@@ -295,7 +295,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 2.846,
-                            fontColor = "#1f1a17",
+                            fontColor = "#1B1B3A",
                             verticalAlign = "top",
                         },
                     },
@@ -316,7 +316,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Label {
@@ -331,7 +331,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 2.846,
-                            fontColor = "#1f1a17",
+                            fontColor = "#1B1B3A",
                             verticalAlign = "top",
                         },
                     },
@@ -352,7 +352,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Label {
@@ -367,7 +367,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 2.846,
-                            fontColor = "#1f1a17",
+                            fontColor = "#1B1B3A",
                             verticalAlign = "top",
                         },
                     },
@@ -388,7 +388,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Label {
@@ -403,7 +403,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 2.846,
-                            fontColor = "#1f1a17",
+                            fontColor = "#1B1B3A",
                             verticalAlign = "top",
                         },
                     },
@@ -424,7 +424,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Label {
@@ -439,7 +439,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 2.846,
-                            fontColor = "#1f1a17",
+                            fontColor = "#1B1B3A",
                             verticalAlign = "top",
                         },
                     },
@@ -460,7 +460,7 @@ function M.Build(payload)
                             width = "100%",
                             height = "100%",
                             borderRadius = 4,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 1,
                         },
                         UI.Label {
@@ -475,7 +475,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 2.846,
-                            fontColor = "#1f1a17",
+                            fontColor = "#1B1B3A",
                             verticalAlign = "top",
                         },
                     },
@@ -497,7 +497,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.06)",
                             borderRadius = 4,
-                            borderColor = "#C9A45A",
+                            borderColor = "#21BDAE",
                             borderWidth = 1,
                         },
                         UI.Panel {
@@ -508,7 +508,7 @@ function M.Build(payload)
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            backgroundColor = "#5a4a3a",
+                            backgroundColor = "#3A3A6A",
                         },
                         UI.Panel {
                             id = "sc_16",
@@ -518,7 +518,7 @@ function M.Build(payload)
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            backgroundColor = "#5a4a3a",
+                            backgroundColor = "#3A3A6A",
                         },
                         UI.Panel {
                             id = "sc_17",
@@ -528,7 +528,7 @@ function M.Build(payload)
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            backgroundColor = "#5a4a3a",
+                            backgroundColor = "#3A3A6A",
                         },
                         UI.Panel {
                             id = "sc_18",
@@ -538,7 +538,7 @@ function M.Build(payload)
                             width = 8.43,
                             height = 8.43,
                             borderRadius = 4,
-                            backgroundColor = "#5a4a3a",
+                            backgroundColor = "#3A3A6A",
                         },
                     },
                 },
@@ -554,7 +554,7 @@ function M.Build(payload)
                     fontWeight = 700,
                     textAlign = "center",
                     lineHeight = 1.118,
-                    fontColor = "#1f1a17",
+                    fontColor = "#1B1B3A",
                     verticalAlign = "top",
                 },
                 UI.Panel {
@@ -574,7 +574,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(247,232,200,0.06)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -594,7 +594,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(201,164,90,0.12)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -631,7 +631,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -668,7 +668,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(247,232,200,0.06)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -688,7 +688,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(201,164,90,0.12)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -725,7 +725,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -762,7 +762,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(247,232,200,0.06)",
                             borderRadius = 6,
-                            borderColor = "#4F7A63",
+                            borderColor = "#50C878",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -782,7 +782,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(201,164,90,0.12)",
                                     borderRadius = 4,
-                                    borderColor = "#4F7A63",
+                                    borderColor = "#50C878",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -819,7 +819,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#4F7A63",
+                            backgroundColor = "#50C878",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -856,7 +856,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(247,232,200,0.06)",
                             borderRadius = 6,
-                            borderColor = "#4F7A63",
+                            borderColor = "#50C878",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -876,7 +876,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(201,164,90,0.12)",
                                     borderRadius = 4,
-                                    borderColor = "#4F7A63",
+                                    borderColor = "#50C878",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -913,7 +913,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#4F7A63",
+                            backgroundColor = "#50C878",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -950,7 +950,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(247,232,200,0.06)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -970,7 +970,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(201,164,90,0.12)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1007,7 +1007,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1044,7 +1044,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(247,232,200,0.06)",
                             borderRadius = 6,
-                            borderColor = "#C9A45A",
+                            borderColor = "#21BDAE",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1064,7 +1064,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(201,164,90,0.12)",
                                     borderRadius = 4,
-                                    borderColor = "#C9A45A",
+                                    borderColor = "#21BDAE",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1101,7 +1101,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#C9A45A",
+                            backgroundColor = "#21BDAE",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1138,7 +1138,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(247,232,200,0.06)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1158,7 +1158,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(201,164,90,0.12)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1195,7 +1195,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1232,7 +1232,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#C96A2B",
+                            borderColor = "#21BDAE",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1252,7 +1252,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#C96A2B",
+                                    borderColor = "#21BDAE",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1283,7 +1283,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -1300,7 +1300,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -1311,7 +1311,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#C96A2B",
+                            backgroundColor = "#21BDAE",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1348,7 +1348,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#C9A45A",
+                            borderColor = "#21BDAE",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1368,7 +1368,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#C9A45A",
+                                    borderColor = "#21BDAE",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1399,7 +1399,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -1416,7 +1416,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -1427,7 +1427,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#C9A45A",
+                            backgroundColor = "#21BDAE",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1464,7 +1464,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#4F7A63",
+                            borderColor = "#50C878",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1484,7 +1484,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#4F7A63",
+                                    borderColor = "#50C878",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1515,7 +1515,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -1532,7 +1532,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -1543,7 +1543,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#4F7A63",
+                            backgroundColor = "#50C878",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1580,7 +1580,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#4F7A63",
+                            borderColor = "#50C878",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1600,7 +1600,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#4F7A63",
+                                    borderColor = "#50C878",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1631,7 +1631,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -1648,7 +1648,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -1659,7 +1659,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#4F7A63",
+                            backgroundColor = "#50C878",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1696,7 +1696,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1716,7 +1716,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1747,7 +1747,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -1764,7 +1764,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -1775,7 +1775,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1812,7 +1812,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1832,7 +1832,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1863,7 +1863,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -1880,7 +1880,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -1891,7 +1891,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -1928,7 +1928,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -1948,7 +1948,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -1979,7 +1979,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -1996,7 +1996,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -2007,7 +2007,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -2044,7 +2044,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -2064,7 +2064,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -2095,7 +2095,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -2112,7 +2112,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -2123,7 +2123,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -2160,7 +2160,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#4F7A63",
+                            borderColor = "#50C878",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -2180,7 +2180,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#4F7A63",
+                                    borderColor = "#50C878",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -2211,7 +2211,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -2228,7 +2228,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -2239,7 +2239,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#4F7A63",
+                            backgroundColor = "#50C878",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -2276,7 +2276,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -2296,7 +2296,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -2327,7 +2327,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -2344,7 +2344,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -2355,7 +2355,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {
@@ -2392,7 +2392,7 @@ function M.Build(payload)
                             height = "100%",
                             backgroundColor = "rgba(31,26,23,0.4)",
                             borderRadius = 6,
-                            borderColor = "#3A322B",
+                            borderColor = "#3A3A6A",
                             borderWidth = 2,
                         },
                         UI.Panel {
@@ -2412,7 +2412,7 @@ function M.Build(payload)
                                     height = "100%",
                                     backgroundColor = "rgba(31,26,23,0.6)",
                                     borderRadius = 4,
-                                    borderColor = "#3A322B",
+                                    borderColor = "#3A3A6A",
                                     borderWidth = 2,
                                 },
                                 UI.Panel {
@@ -2443,7 +2443,7 @@ function M.Build(payload)
                                     fontWeight = 400,
                                     textAlign = "center",
                                     lineHeight = 1.095,
-                                    fontColor = "#3a322b",
+                                    fontColor = "#3A3A6A",
                                     verticalAlign = "top",
                                 },
                             },
@@ -2460,7 +2460,7 @@ function M.Build(payload)
                             fontWeight = 700,
                             textAlign = "center",
                             lineHeight = 1.3,
-                            fontColor = "#3a322b",
+                            fontColor = "#3A3A6A",
                             verticalAlign = "top",
                         },
                         -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
@@ -2471,7 +2471,7 @@ function M.Build(payload)
                             width = 61.84,
                             height = 22.49,
                             bottom = 8,
-                            backgroundColor = "#3A322B",
+                            backgroundColor = "#3A3A6A",
                             borderRadius = 8,
                         },
                         UI.Label {

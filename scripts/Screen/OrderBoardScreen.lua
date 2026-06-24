@@ -147,14 +147,14 @@ local ORDER_CARDS = {
 -- ============================================================================
 
 local MOOD_COLORS = {
-    ["急"]  = "#C96A2B",
-    ["缓"]  = "#4F7A63",
-    ["常"]  = "#C9A45A",
+    ["急"]  = "#21BDAE",
+    ["缓"]  = "#50C878",
+    ["常"]  = "#FFD93D",
 }
 
 -- 选中/未选中卡片背景色
-local CUST_BG_SELECTED   = "#C96A2B"
-local CUST_BG_UNSELECTED = "rgba(31,26,23,0.55)"
+local CUST_BG_SELECTED   = "#21BDAE"
+local CUST_BG_UNSELECTED = "rgba(27,27,58,0.5)"
 
 -- ============================================================================
 -- Screen 接口
@@ -343,9 +343,9 @@ function OrderBoardScreen.Create(container, params)
             local fillRatio = order.tier == 1 and "50%"
                 or order.tier == 2 and "70%"
                 or "90%"
-            local fillColor = order.tier == 1 and "#C9A45A"
-                or order.tier == 2 and "#4F7A63"
-                or "#C96A2B"
+            local fillColor = order.tier == 1 and "#FFD93D"
+                or order.tier == 2 and "#50C878"
+                or "#21BDAE"
             w.qualityFill.width = fillRatio
             w.qualityFill.backgroundColor = fillColor
         end

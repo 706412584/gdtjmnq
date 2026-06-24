@@ -18,10 +18,10 @@ local RelationshipScreen = {}
 
 -- 阵营展示顺序与主题色
 local FACTION_ORDER = {
-    { id = "court",     color = "#E94560" },  -- 朝廷 · 炉火红
-    { id = "guild",     color = "#D4A574" },  -- 商会 · 暖金
-    { id = "rivers",    color = "#4ECDC4" },  -- 江湖 · 青铜绿
-    { id = "craftsman", color = "#C9A45A" },  -- 匠道 · 鎏金
+    { id = "court",     color = "#FF4757" },  -- 朝廷 · 炉火红
+    { id = "guild",     color = "#6C5CE7" },  -- 商会 · 暖金
+    { id = "rivers",    color = "#50C878" },  -- 江湖 · 青铜绿
+    { id = "craftsman", color = "#21BDAE" },  -- 匠道 · 鎏金
 }
 
 -- 阵营条最大参考值（用于进度条归一化，匠道可达 ~99）
@@ -39,7 +39,7 @@ function RelationshipScreen.Create(container, params)
     local backBtn = UI.Panel {
         width = 110, height = 56,
         borderRadius = 12,
-        borderColor = "#C9A45A",
+        borderColor = "#21BDAE",
         borderWidth = 1.5,
         justifyContent = "center",
         alignItems = "center",
@@ -48,7 +48,7 @@ function RelationshipScreen.Create(container, params)
             ScreenRouter.GoTo((params and params.returnTo) or "home")
         end,
         children = {
-            UI.Label { text = "< 返回", fontSize = 18, fontColor = "#C9A45A", textAlign = "center" },
+            UI.Label { text = "< 返回", fontSize = 18, fontColor = "#21BDAE", textAlign = "center" },
         },
     }
     local header = UI.Panel {
@@ -56,13 +56,13 @@ function RelationshipScreen.Create(container, params)
         flexDirection = "row",
         alignItems = "center",
         paddingLeft = 24, paddingRight = 24,
-        backgroundColor = "rgba(31,26,23,0.85)",
+        backgroundColor = "rgba(15,15,35,0.9)",
         children = {
             backBtn,
             UI.Label {
                 text = "人物关系 · 江湖往来",
                 fontSize = 24, fontWeight = 700,
-                fontColor = "#E4B982",
+                fontColor = "#21BDAE",
                 verticalAlign = "middle",
                 marginLeft = 18,
                 flexGrow = 1,
@@ -92,7 +92,7 @@ function RelationshipScreen.Create(container, params)
                     justifyContent = "space-between",
                     marginBottom = 6,
                     children = {
-                        UI.Label { text = name, fontSize = 17, fontColor = "#E8E0D0" },
+                        UI.Label { text = name, fontSize = 17, fontColor = "#F0F0F0" },
                         UI.Label { text = tostring(val), fontSize = 17, fontWeight = 700, fontColor = color },
                     },
                 },
@@ -128,7 +128,7 @@ function RelationshipScreen.Create(container, params)
         local favor = RelationshipTracker.GetFavor(npcId)
         local desc = RelationshipTracker.GetUnlockedDesc(npcId)
         -- 好感正绿负红
-        local favorColor = favor > 0 and "#4ECDC4" or (favor < 0 and "#E94560" or "#A0937D")
+        local favorColor = favor > 0 and "#50C878" or (favor < 0 and "#FF4757" or "#A0A0C0")
 
         local rightChildren = {
             UI.Label {
@@ -142,7 +142,7 @@ function RelationshipScreen.Create(container, params)
             rightChildren[#rightChildren + 1] = UI.Label {
                 text = "已解锁 · " .. desc,
                 fontSize = 12,
-                fontColor = "#C9A45A",
+                fontColor = "#21BDAE",
                 marginTop = 2,
             }
         end
@@ -156,11 +156,11 @@ function RelationshipScreen.Create(container, params)
             alignItems = "center",
             justifyContent = "space-between",
             borderRadius = 10,
-            backgroundColor = "rgba(247,232,200,0.06)",
-            borderColor = "#3A322B",
+            backgroundColor = "rgba(27,27,58,0.3)",
+            borderColor = "#3A3A6A",
             borderWidth = 1,
             children = {
-                UI.Label { text = name, fontSize = 18, fontColor = "#E8E0D0", verticalAlign = "middle" },
+                UI.Label { text = name, fontSize = 18, fontColor = "#F0F0F0", verticalAlign = "middle" },
                 UI.Panel {
                     flexDirection = "column",
                     alignItems = "flex-end",
@@ -187,12 +187,12 @@ function RelationshipScreen.Create(container, params)
         alignItems = "center",
         justifyContent = "space-between",
         borderRadius = 10,
-        backgroundColor = "rgba(201,164,90,0.10)",
-        borderColor = "#C9A45A",
+        backgroundColor = "rgba(33,189,174,0.10)",
+        borderColor = "#21BDAE",
         borderWidth = 1,
         children = {
-            UI.Label { text = "真相揭露度", fontSize = 18, fontColor = "#E4B982", verticalAlign = "middle" },
-            UI.Label { text = tostring(truthVal), fontSize = 18, fontWeight = 700, fontColor = "#E4B982", verticalAlign = "middle" },
+            UI.Label { text = "真相揭露度", fontSize = 18, fontColor = "#21BDAE", verticalAlign = "middle" },
+            UI.Label { text = tostring(truthVal), fontSize = 18, fontWeight = 700, fontColor = "#21BDAE", verticalAlign = "middle" },
         },
     }
 
@@ -203,7 +203,7 @@ function RelationshipScreen.Create(container, params)
         return UI.Label {
             text = text,
             fontSize = 16, fontWeight = 700,
-            fontColor = "#C9A45A",
+            fontColor = "#21BDAE",
             marginTop = 8, marginBottom = 14,
         }
     end
@@ -228,7 +228,7 @@ function RelationshipScreen.Create(container, params)
     local root = UI.Panel {
         width = "100%", height = "100%",
         flexDirection = "column",
-        backgroundColor = "#1F1A17",
+        backgroundColor = "#0F0F23",
         children = { header, scroll },
     }
     container:AddChild(root)

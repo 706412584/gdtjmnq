@@ -30,10 +30,10 @@ function ThemedDialog.Confirm(options)
         showCloseButton = true,
         closeOnOverlay = true,
         borderRadius = 8,
-        backgroundColor = "#1F1A17",
-        borderColor = isDanger and "#E94560" or "#C9A45A",
+        backgroundColor = "#0F0F23",
+        borderColor = isDanger and "#FF4757" or "#21BDAE",
         borderWidth = 1.5,
-        titleTextColor = isDanger and "#E94560" or "#E4B982",
+        titleTextColor = isDanger and "#FF4757" or "#21BDAE",
         titleFontWeight = "bold",
         contentBgColor = { 31, 26, 23, 255 },
         contentPadding = { 20, 24, 20, 24 },
@@ -45,7 +45,7 @@ function ThemedDialog.Confirm(options)
     local msgLabel = UI.Label {
         text = options.message or "",
         fontSize = 14,
-        fontColor = "#E8E0D0",
+        fontColor = "#F0F0F0",
         width = "100%",
         lineHeight = 1.5,
     }
@@ -81,7 +81,7 @@ function ThemedDialog.Confirm(options)
         height = 38,
         paddingLeft = 20,
         paddingRight = 20,
-        backgroundColor = isDanger and "#E94560" or "#C9A45A",
+        backgroundColor = isDanger and "#FF4757" or "#21BDAE",
         onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             modal:Close()
@@ -110,10 +110,10 @@ function ThemedDialog.Alert(options)
         showCloseButton = true,
         closeOnOverlay = true,
         borderRadius = 8,
-        backgroundColor = "#1F1A17",
-        borderColor = "#C9A45A",
+        backgroundColor = "#0F0F23",
+        borderColor = "#21BDAE",
         borderWidth = 1.5,
-        titleTextColor = "#E4B982",
+        titleTextColor = "#21BDAE",
         titleFontWeight = "bold",
         contentBgColor = { 31, 26, 23, 255 },
         contentPadding = { 20, 24, 20, 24 },
@@ -124,7 +124,7 @@ function ThemedDialog.Alert(options)
     local msgLabel = UI.Label {
         text = options.message or "",
         fontSize = 14,
-        fontColor = "#E8E0D0",
+        fontColor = "#F0F0F0",
         width = "100%",
         lineHeight = 1.5,
     }
@@ -142,7 +142,7 @@ function ThemedDialog.Alert(options)
         height = 38,
         paddingLeft = 24,
         paddingRight = 24,
-        backgroundColor = "#C9A45A",
+        backgroundColor = "#21BDAE",
         onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.3)
             modal:Close()

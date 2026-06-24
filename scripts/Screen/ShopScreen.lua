@@ -108,7 +108,7 @@ function ShopScreen.Create(container, params)
     local backBtn = UI.Panel {
         width = 110, height = 56,
         borderRadius = 12,
-        borderColor = "#C9A45A",
+        borderColor = "#21BDAE",
         borderWidth = 1.5,
         justifyContent = "center",
         alignItems = "center",
@@ -117,7 +117,7 @@ function ShopScreen.Create(container, params)
             ScreenRouter.GoTo("home")
         end,
         children = {
-            UI.Label { text = "< 返回", fontSize = 18, fontColor = "#C9A45A", textAlign = "center" },
+            UI.Label { text = "< 返回", fontSize = 18, fontColor = "#21BDAE", textAlign = "center" },
         },
     }
 
@@ -125,17 +125,17 @@ function ShopScreen.Create(container, params)
         text = "采买 · 材料补给",
         fontSize = 24,
         fontWeight = 700,
-        fontColor = "#E4B982",
+        fontColor = "#21BDAE",
         verticalAlign = "middle",
         marginLeft = 18,
         flexGrow = 1,
     }
 
     coinsLabel_ = UI.Label {
-        text = "", fontSize = 18, fontColor = "#E8E0D0", verticalAlign = "middle", marginRight = 18,
+        text = "", fontSize = 18, fontColor = "#F0F0F0", verticalAlign = "middle", marginRight = 18,
     }
     jadeLabel_ = UI.Label {
-        text = "", fontSize = 18, fontColor = "#4ECDC4", verticalAlign = "middle",
+        text = "", fontSize = 18, fontColor = "#50C878", verticalAlign = "middle",
     }
 
     local header = UI.Panel {
@@ -143,8 +143,8 @@ function ShopScreen.Create(container, params)
         flexDirection = "row",
         alignItems = "center",
         paddingLeft = 24, paddingRight = 24,
-        backgroundColor = "rgba(31,26,23,0.85)",
-        borderColor = "#3A322B",
+        backgroundColor = "rgba(15,15,35,0.9)",
+        borderColor = "#3A3A6A",
         borderWidth = 0,
         children = { backBtn, titleLabel, coinsLabel_, jadeLabel_ },
     }
@@ -156,7 +156,7 @@ function ShopScreen.Create(container, params)
     ---@return table card
     local function BuildPackCard(pack)
         local isJade = pack.currency == "jade"
-        local priceColor = isJade and "#4ECDC4" or "#C9A45A"
+        local priceColor = isJade and "#50C878" or "#21BDAE"
         local unitName = isJade and "玉璧" or "铜钱"
         local finalPrice = EffectivePrice(pack)
         local hasDiscount = finalPrice < pack.price
@@ -178,7 +178,7 @@ function ShopScreen.Create(container, params)
             priceChildren[#priceChildren + 1] = UI.Label {
                 text = "原价 " .. pack.price,
                 fontSize = 12,
-                fontColor = "#6E5E48",
+                fontColor = "#505070",
                 textAlign = "right",
             }
         end
@@ -197,8 +197,8 @@ function ShopScreen.Create(container, params)
             flexDirection = "row",
             alignItems = "center",
             borderRadius = 12,
-            backgroundColor = "rgba(247,232,200,0.06)",
-            borderColor = "#3A322B",
+            backgroundColor = "rgba(27,27,58,0.3)",
+            borderColor = "#3A3A6A",
             borderWidth = 1,
             children = {
                 -- 左侧：名称 + 内容
@@ -210,13 +210,13 @@ function ShopScreen.Create(container, params)
                         UI.Label {
                             text = pack.name,
                             fontSize = 19, fontWeight = 700,
-                            fontColor = "#E8E0D0",
+                            fontColor = "#F0F0F0",
                             marginBottom = 6,
                         },
                         UI.Label {
                             text = pack.desc,
                             fontSize = 14,
-                            fontColor = "#A0937D",
+                            fontColor = "#A0A0C0",
                         },
                     },
                 },
@@ -262,7 +262,7 @@ function ShopScreen.Create(container, params)
     local hint = UI.Label {
         text = hintText,
         fontSize = 13,
-        fontColor = discountRate_ > 0 and "#4ECDC4" or "#A0937D",
+        fontColor = discountRate_ > 0 and "#50C878" or "#A0A0C0",
         textAlign = "center",
         width = "100%",
         height = 36,
@@ -272,7 +272,7 @@ function ShopScreen.Create(container, params)
     local root = UI.Panel {
         width = "100%", height = "100%",
         flexDirection = "column",
-        backgroundColor = "#1F1A17",
+        backgroundColor = "#0F0F23",
         children = { header, scroll, hint },
     }
     container:AddChild(root)

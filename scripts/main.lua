@@ -133,29 +133,85 @@ end
 -- ============================================================================
 
 function InitUI()
-    UI.Init({
+    -- PixelForge 像素风主题
+    -- Button shadow: 3px hard drop + top-left bevel
+    local PIXEL_SHADOW = {
+        { x = 3, y = 3, blur = 0, color = {10, 10, 26, 204} },
+        { x = -1, y = -1, blur = 0, color = {255, 255, 255, 48} },
+    }
+
+    local PixelForgeTheme = UI.Theme.ExtendTheme(UI.Theme.defaultTheme, {
         fonts = {
             { family = "sans", weights = {
-                normal = "Fonts/MiSans-Regular.ttf",
-            } }
+                normal = "Fonts/FusionPixel-12px-Prop-zh_hans.ttf",
+                bold = "Fonts/FusionPixel-12px-Prop-zh_hans-Bold.ttf",
+            }},
+            { family = "mono", weights = {
+                normal = "Fonts/FusionPixel-12px-Mono-zh_hans.ttf",
+            }},
         },
-        scale = UI.Scale.DESIGN_RESOLUTION(1920, 1080),
+        colors = {
+            primary = {33, 189, 174, 255},
+            primaryHover = {61, 208, 193, 255},
+            primaryPressed = {25, 168, 153, 255},
+            secondary = {108, 92, 231, 255},
+            secondaryHover = {133, 119, 237, 255},
+            secondaryPressed = {90, 75, 214, 255},
+            background = {15, 15, 35, 255},
+            surface = {27, 27, 58, 255},
+            surfaceHover = {37, 37, 80, 255},
+            text = {240, 240, 240, 255},
+            textSecondary = {160, 160, 192, 255},
+            textDisabled = {80, 80, 112, 255},
+            border = {58, 58, 106, 255},
+            borderFocus = {33, 189, 174, 255},
+            disabled = {42, 42, 74, 255},
+            disabledText = {80, 80, 112, 255},
+            success = {80, 200, 120, 255},
+            warning = {255, 217, 61, 255},
+            error = {255, 71, 87, 255},
+            info = {69, 170, 242, 255},
+            overlay = {0, 0, 0, 180},
+        },
+        radius = { sm = 0, md = 0, lg = 0, xl = 0, full = 0 },
+        componentDefaults = { borderRadius = 0 },
+        components = {
+            Button = { borderWidth = 2, boxShadow = PIXEL_SHADOW },
+            TextField = { borderWidth = 2 },
+            Card = {
+                borderWidth = 2,
+                boxShadow = {{ x = 4, y = 4, blur = 0, color = {10, 10, 26, 204} }},
+            },
+            Modal = {
+                borderWidth = 2,
+                boxShadow = {{ x = 4, y = 4, blur = 0, color = {0, 0, 0, 204} }},
+                headerBgColor = {20, 20, 46, 255},
+                headerBorderWidth = 2,
+                headerFullWidthBorder = true,
+                footerBorderWidth = 2,
+                footerFullWidthBorder = true,
+                contentPadding = 16,
+                footerPadding = {10, 16},
+            },
+            Toast = {
+                borderWidth = 2,
+                boxShadow = {{ x = 3, y = 3, blur = 0, color = {10, 10, 26, 204} }},
+                accentBarWidth = 4,
+                showIcon = false,
+            },
+            ProgressBar = { height = 16, borderWidth = 2 },
+            Badge = { borderWidth = 1 },
+            Checkbox = { borderWidth = 2, checkedBgColor = {33, 189, 174, 255} },
+            Toggle = { borderWidth = 2, thumbSize = 18 },
+            Slider = { borderWidth = 1, trackFillColor = {33, 189, 174, 255}, thumbColor = {33, 189, 174, 255} },
+            Tabs = { borderWidth = 2, activeBorderColor = {33, 189, 174, 255} },
+        },
     })
 
-    -- 将默认主题的 surface 系列改为暖色调，统一弹窗/浮层背景。
-    -- Modal/Toast 等组件主背景固定取 Theme.Color("surface")，不受组件 backgroundColor 参数影响，
-    -- 因此必须在主题层覆盖，否则会被默认的冷蓝灰 {50,55,70} 覆盖。
-    local Theme = require("urhox-libs/UI/Core/Theme")
-    local base = Theme.GetTheme()
-    if base then
-        Theme.SetTheme(Theme.ExtendTheme(base, {
-            colors = {
-                surface      = { 38, 31, 26, 250 },  -- 暖炭褐 #261F1A（弹窗面板/页眉页脚）
-                surfaceHover = { 52, 42, 34, 250 },  -- 略亮暖褐（悬停态）
-                background   = { 26, 22, 19, 255 },  -- 深暖底 #1A1613
-            },
-        }))
-    end
+    UI.Init({
+        theme = PixelForgeTheme,
+        scale = UI.Scale.DESIGN_RESOLUTION(1920, 1080),
+    })
 end
 
 function CreateUI()
@@ -171,7 +227,7 @@ function CreateUI()
         id = "root",
         width = "100%",
         height = "100%",
-        backgroundColor = "#1A1A2E",
+        backgroundColor = "#0F0F23",
         children = {
             contentContainer_,
         }
