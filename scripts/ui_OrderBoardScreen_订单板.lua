@@ -1053,7 +1053,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "card_2s",
                     position = "absolute",
-                    top = "16.15%",
+                    top = "2%",
                     width = 1406.97,
                     height = 202.4,
                     backgroundColor = "#00000000",
@@ -1365,7 +1365,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "card_3j",
                     position = "absolute",
-                    top = "36.46%",
+                    top = "22%",
                     width = 1406.97,
                     height = 202.4,
                     backgroundColor = "#00000000",
@@ -1677,7 +1677,7 @@ function M.Build(payload)
                 UI.Panel {
                     id = "card_4a",
                     position = "absolute",
-                    top = "56.77%",
+                    top = "42%",
                     width = 1406.97,
                     height = 202.4,
                     backgroundColor = "#00000000",
