@@ -249,7 +249,7 @@ function M.Build(payload)
                     position = "absolute",
                     left = "1.17%",
                     top = 107,
-                    width = 421.67,
+                    width = 520,
                     backgroundColor = "#00000000",
                     bottom = 34,
                     children = {
@@ -962,7 +962,7 @@ function M.Build(payload)
                     id = "df_2k",
                     position = "absolute",
                     top = 107,
-                    width = 1428.05,
+                    width = 1330,
                     backgroundColor = "#00000000",
                     right = 28,
                     bottom = 34,
