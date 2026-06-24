@@ -19,6 +19,7 @@ local OrderManager   = require("Core.OrderManager")
 local MiniGameRunner = require("MiniGame.MiniGameRunner")
 local ScreenRouter   = require("Utils.ScreenRouter")
 local BackButton     = require("Utils.BackButton")
+local ThemedDialog   = require("Utils.ThemedDialog")
 local Layout         = require("ui_ForgeScreen_锻造界面")
 
 -- 小游戏模块
@@ -223,9 +224,18 @@ function ForgeScreen.Create(container, params)
     -- ----------------------------------------------------------------
 
     BackButton.Setup(root, function()
-        MiniGameRunner.Stop()
-        OrderManager.CancelOrder()
-        ScreenRouter.GoTo("home")
+        -- 二次确认：防误触导致丢失进度
+        ThemedDialog.Confirm({
+            title = "放弃锻造",
+            message = "当前委托将取消，已消耗的材料将退还。确认退出？",
+            confirmText = "确认退出",
+            cancelText = "继续锻造",
+            onConfirm = function()
+                MiniGameRunner.Stop()
+                OrderManager.CancelOrder()
+                ScreenRouter.GoTo("home")
+            end,
+        })
     end)
 
     -- 暂停 / 道具面板功能未实现，隐藏避免误导玩家

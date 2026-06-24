@@ -263,7 +263,7 @@ function HomeScreen.Create(container, params)
         adDoubleBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             AdManager.WatchAd(function()
-                local reward = 100
+                local reward = 60
                 GameState.AddCoins(reward)
                 SFXManager.Play(SFXManager.SFX.UI_COIN, 0.6)
                 UI.Toast.Show("广告奖励：+" .. reward .. " 铜钱", { duration = 2 })

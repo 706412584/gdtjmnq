@@ -42,9 +42,9 @@ end
 local PACKS = {
     {
         id = "pack_crude_iron", name = "粗铁补给",
-        desc = "矿石 x8 · 木炭 x3",
+        desc = "矿石 x8 · 木炭 x3 · 研磨剂 x1",
         currency = "coins", price = 60,
-        materials = { ore = 8, charcoal = 3 },
+        materials = { ore = 8, charcoal = 3, grinding_agent = 1 },
     },
     {
         id = "pack_wrought_iron", name = "熟铁补给",

@@ -8,9 +8,12 @@
     "weaponId": "WEAPON_001",
     "dialogue": "大侠，帮我打一把趁手的猎刀，山里野物越来越难对付了。",
     "requiredMaterialTier": 1,
-    "baseRewardCoins": 50,
+    "baseRewardCoins": 70,
     "baseRewardFame": 10,
-    "bonusMaterials": { "ore": 3, "charcoal": 2 }
+    "bonusMaterials": {
+      "ore": 3,
+      "charcoal": 2
+    }
   },
   {
     "id": "ORD_T1_002",
@@ -21,9 +24,11 @@
     "weaponId": "WEAPON_001",
     "dialogue": "老师傅，我那菜刀钝了，能不能帮我磨一把新的？",
     "requiredMaterialTier": 1,
-    "baseRewardCoins": 40,
+    "baseRewardCoins": 65,
     "baseRewardFame": 8,
-    "bonusMaterials": { "charcoal": 1 }
+    "bonusMaterials": {
+      "charcoal": 1
+    }
   },
   {
     "id": "ORD_T1_003",
@@ -36,7 +41,9 @@
     "requiredMaterialTier": 1,
     "baseRewardCoins": 80,
     "baseRewardFame": 15,
-    "bonusMaterials": { "ore": 2 }
+    "bonusMaterials": {
+      "ore": 2
+    }
   },
   {
     "id": "ORD_T1_004",
@@ -47,9 +54,12 @@
     "weaponId": "WEAPON_001",
     "dialogue": "山上采药得有把好刀开路，麻烦师傅打一把。",
     "requiredMaterialTier": 1,
-    "baseRewardCoins": 45,
+    "baseRewardCoins": 65,
     "baseRewardFame": 8,
-    "bonusMaterials": { "ore": 3, "charcoal": 2 }
+    "bonusMaterials": {
+      "ore": 3,
+      "charcoal": 2
+    }
   },
   {
     "id": "ORD_T2_001",
@@ -62,7 +72,10 @@
     "requiredMaterialTier": 2,
     "baseRewardCoins": 120,
     "baseRewardFame": 25,
-    "bonusMaterials": { "ore": 2, "charcoal": 1 }
+    "bonusMaterials": {
+      "ore": 2,
+      "charcoal": 1
+    }
   },
   {
     "id": "ORD_T2_002",
@@ -75,7 +88,10 @@
     "requiredMaterialTier": 2,
     "baseRewardCoins": 150,
     "baseRewardFame": 30,
-    "bonusMaterials": { "ore": 3, "grinding_agent": 1 }
+    "bonusMaterials": {
+      "ore": 3,
+      "grinding_agent": 1
+    }
   },
   {
     "id": "ORD_T2_003",
@@ -88,7 +104,10 @@
     "requiredMaterialTier": 2,
     "baseRewardCoins": 180,
     "baseRewardFame": 35,
-    "bonusMaterials": { "ore": 3, "charcoal": 2 }
+    "bonusMaterials": {
+      "ore": 3,
+      "charcoal": 2
+    }
   },
   {
     "id": "ORD_T2_004",
@@ -101,7 +120,10 @@
     "requiredMaterialTier": 2,
     "baseRewardCoins": 160,
     "baseRewardFame": 30,
-    "bonusMaterials": { "ore": 2, "grinding_agent": 1 }
+    "bonusMaterials": {
+      "ore": 2,
+      "grinding_agent": 1
+    }
   },
   {
     "id": "ORD_T3_001",
@@ -114,7 +136,11 @@
     "requiredMaterialTier": 3,
     "baseRewardCoins": 300,
     "baseRewardFame": 60,
-    "bonusMaterials": { "ore": 4, "charcoal": 2, "grinding_agent": 1 }
+    "bonusMaterials": {
+      "ore": 4,
+      "charcoal": 2,
+      "grinding_agent": 1
+    }
   },
   {
     "id": "ORD_T3_002",
@@ -127,7 +153,11 @@
     "requiredMaterialTier": 3,
     "baseRewardCoins": 280,
     "baseRewardFame": 55,
-    "bonusMaterials": { "ore": 3, "charcoal": 2, "grinding_agent": 2 }
+    "bonusMaterials": {
+      "ore": 3,
+      "charcoal": 2,
+      "grinding_agent": 2
+    }
   },
   {
     "id": "ORD_T3_003",
@@ -140,7 +170,11 @@
     "requiredMaterialTier": 3,
     "baseRewardCoins": 400,
     "baseRewardFame": 80,
-    "bonusMaterials": { "ore": 4, "grinding_agent": 2, "meteorite": 1 }
+    "bonusMaterials": {
+      "ore": 4,
+      "grinding_agent": 2,
+      "meteorite": 1
+    }
   },
   {
     "id": "ORD_T3_004",
@@ -153,7 +187,11 @@
     "requiredMaterialTier": 3,
     "baseRewardCoins": 450,
     "baseRewardFame": 90,
-    "bonusMaterials": { "ore": 5, "charcoal": 3, "grinding_agent": 2 }
+    "bonusMaterials": {
+      "ore": 5,
+      "charcoal": 3,
+      "grinding_agent": 2
+    }
   },
   {
     "id": "ORD_T3_005",
@@ -166,7 +204,11 @@
     "requiredMaterialTier": 3,
     "baseRewardCoins": 320,
     "baseRewardFame": 65,
-    "bonusMaterials": { "ore": 4, "charcoal": 2, "grinding_agent": 1 }
+    "bonusMaterials": {
+      "ore": 4,
+      "charcoal": 2,
+      "grinding_agent": 1
+    }
   },
   {
     "id": "ORD_T3_006",
@@ -179,7 +221,10 @@
     "requiredMaterialTier": 3,
     "baseRewardCoins": 350,
     "baseRewardFame": 70,
-    "bonusMaterials": { "ore": 5, "charcoal": 3 }
+    "bonusMaterials": {
+      "ore": 5,
+      "charcoal": 3
+    }
   },
   {
     "id": "ORD_T4_001",
@@ -192,7 +237,11 @@
     "requiredMaterialTier": 4,
     "baseRewardCoins": 600,
     "baseRewardFame": 120,
-    "bonusMaterials": { "ore": 5, "charcoal": 3, "grinding_agent": 2 }
+    "bonusMaterials": {
+      "ore": 5,
+      "charcoal": 3,
+      "grinding_agent": 2
+    }
   },
   {
     "id": "ORD_T4_002",
@@ -205,7 +254,10 @@
     "requiredMaterialTier": 4,
     "baseRewardCoins": 550,
     "baseRewardFame": 100,
-    "bonusMaterials": { "ore": 6, "grinding_agent": 2 }
+    "bonusMaterials": {
+      "ore": 6,
+      "grinding_agent": 2
+    }
   },
   {
     "id": "ORD_T4_003",
@@ -218,7 +270,11 @@
     "requiredMaterialTier": 4,
     "baseRewardCoins": 700,
     "baseRewardFame": 140,
-    "bonusMaterials": { "ore": 4, "charcoal": 2, "pattern_gold": 1 }
+    "bonusMaterials": {
+      "ore": 4,
+      "charcoal": 2,
+      "pattern_gold": 1
+    }
   },
   {
     "id": "ORD_T4_004",
@@ -231,7 +287,11 @@
     "requiredMaterialTier": 4,
     "baseRewardCoins": 500,
     "baseRewardFame": 130,
-    "bonusMaterials": { "ore": 4, "charcoal": 3, "grinding_agent": 1 }
+    "bonusMaterials": {
+      "ore": 4,
+      "charcoal": 3,
+      "grinding_agent": 1
+    }
   },
   {
     "id": "ORD_T4_005",
@@ -244,7 +304,11 @@
     "requiredMaterialTier": 4,
     "baseRewardCoins": 650,
     "baseRewardFame": 80,
-    "bonusMaterials": { "meteorite": 1, "pattern_gold": 1, "ore": 3 }
+    "bonusMaterials": {
+      "meteorite": 1,
+      "pattern_gold": 1,
+      "ore": 3
+    }
   },
   {
     "id": "ORD_T4_006",
@@ -257,7 +321,10 @@
     "requiredMaterialTier": 4,
     "baseRewardCoins": 750,
     "baseRewardFame": 150,
-    "bonusMaterials": { "ore": 5, "pattern_gold": 2 }
+    "bonusMaterials": {
+      "ore": 5,
+      "pattern_gold": 2
+    }
   },
   {
     "id": "ORD_T4_007",
@@ -270,7 +337,11 @@
     "requiredMaterialTier": 4,
     "baseRewardCoins": 620,
     "baseRewardFame": 125,
-    "bonusMaterials": { "ore": 6, "charcoal": 3, "grinding_agent": 2 }
+    "bonusMaterials": {
+      "ore": 6,
+      "charcoal": 3,
+      "grinding_agent": 2
+    }
   },
   {
     "id": "ORD_T4_008",
@@ -283,7 +354,11 @@
     "requiredMaterialTier": 4,
     "baseRewardCoins": 580,
     "baseRewardFame": 60,
-    "bonusMaterials": { "ore": 4, "charcoal": 2, "meteorite": 1 }
+    "bonusMaterials": {
+      "ore": 4,
+      "charcoal": 2,
+      "meteorite": 1
+    }
   },
   {
     "id": "ORD_T5_001",
@@ -296,7 +371,12 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 1200,
     "baseRewardFame": 250,
-    "bonusMaterials": { "ore": 8, "charcoal": 4, "grinding_agent": 3, "meteorite": 1 }
+    "bonusMaterials": {
+      "ore": 8,
+      "charcoal": 4,
+      "grinding_agent": 3,
+      "meteorite": 1
+    }
   },
   {
     "id": "ORD_T5_002",
@@ -309,7 +389,12 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 1500,
     "baseRewardFame": 300,
-    "bonusMaterials": { "ore": 6, "pattern_gold": 2, "leather": 1, "meteorite": 1 }
+    "bonusMaterials": {
+      "ore": 6,
+      "pattern_gold": 2,
+      "leather": 1,
+      "meteorite": 1
+    }
   },
   {
     "id": "ORD_T5_003",
@@ -322,7 +407,11 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 800,
     "baseRewardFame": 200,
-    "bonusMaterials": { "ore": 7, "charcoal": 4, "grinding_agent": 3 }
+    "bonusMaterials": {
+      "ore": 7,
+      "charcoal": 4,
+      "grinding_agent": 3
+    }
   },
   {
     "id": "ORD_T5_004",
@@ -335,7 +424,11 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 900,
     "baseRewardFame": 180,
-    "bonusMaterials": { "ore": 5, "charcoal": 3, "meteorite": 2 }
+    "bonusMaterials": {
+      "ore": 5,
+      "charcoal": 3,
+      "meteorite": 2
+    }
   },
   {
     "id": "ORD_T5_005",
@@ -348,7 +441,11 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 1600,
     "baseRewardFame": 320,
-    "bonusMaterials": { "ore": 7, "pattern_gold": 3, "leather": 2 }
+    "bonusMaterials": {
+      "ore": 7,
+      "pattern_gold": 3,
+      "leather": 2
+    }
   },
   {
     "id": "ORD_T5_006",
@@ -361,7 +458,11 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 2000,
     "baseRewardFame": 500,
-    "bonusMaterials": { "ore": 8, "pattern_gold": 3, "meteorite": 2 }
+    "bonusMaterials": {
+      "ore": 8,
+      "pattern_gold": 3,
+      "meteorite": 2
+    }
   },
   {
     "id": "ORD_T5_007",
@@ -374,7 +475,11 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 2500,
     "baseRewardFame": 500,
-    "bonusMaterials": { "ore": 10, "pattern_gold": 3, "meteorite": 2 }
+    "bonusMaterials": {
+      "ore": 10,
+      "pattern_gold": 3,
+      "meteorite": 2
+    }
   },
   {
     "id": "ORD_T5_008",
@@ -387,7 +492,11 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 1100,
     "baseRewardFame": 220,
-    "bonusMaterials": { "ore": 8, "charcoal": 5, "grinding_agent": 3 }
+    "bonusMaterials": {
+      "ore": 8,
+      "charcoal": 5,
+      "grinding_agent": 3
+    }
   },
   {
     "id": "ORD_SP_SHEN",
@@ -400,8 +509,15 @@
     "requiredMaterialTier": 3,
     "baseRewardCoins": 720,
     "baseRewardFame": 70,
-    "favorRequirement": { "npcId": "shen", "level": 2 },
-    "bonusMaterials": { "pattern_gold": 2, "meteorite": 1, "ore": 4 }
+    "favorRequirement": {
+      "npcId": "shen",
+      "level": 2
+    },
+    "bonusMaterials": {
+      "pattern_gold": 2,
+      "meteorite": 1,
+      "ore": 4
+    }
   },
   {
     "id": "ORD_SP_LUCHEN",
@@ -414,8 +530,15 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 980,
     "baseRewardFame": 200,
-    "favorRequirement": { "npcId": "luchen", "level": 1 },
-    "bonusMaterials": { "ore": 6, "charcoal": 4, "meteorite": 1 }
+    "favorRequirement": {
+      "npcId": "luchen",
+      "level": 1
+    },
+    "bonusMaterials": {
+      "ore": 6,
+      "charcoal": 4,
+      "meteorite": 1
+    }
   },
   {
     "id": "ORD_SP_KEEPER",
@@ -428,7 +551,14 @@
     "requiredMaterialTier": 5,
     "baseRewardCoins": 2200,
     "baseRewardFame": 520,
-    "favorRequirement": { "npcId": "keeper", "level": 2 },
-    "bonusMaterials": { "ore": 8, "pattern_gold": 3, "meteorite": 2 }
+    "favorRequirement": {
+      "npcId": "keeper",
+      "level": 2
+    },
+    "bonusMaterials": {
+      "ore": 8,
+      "pattern_gold": 3,
+      "meteorite": 2
+    }
   }
 ]
