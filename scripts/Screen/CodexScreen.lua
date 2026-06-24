@@ -413,10 +413,10 @@ function CodexScreen.Create(container, params)
     -- ----------------------------------------------------------------
     -- 分类按钮交互
     -- ----------------------------------------------------------------
-    local ACTIVE_BG = "#C96A2B"
-    local ACTIVE_TEXT = "#f1e5cc"
+    local ACTIVE_BG = "#21BDAE"
+    local ACTIVE_TEXT = "#0F0F23"
     local INACTIVE_BG = "rgba(0,0,0,0)"
-    local INACTIVE_TEXT = "#1f1a17"
+    local INACTIVE_TEXT = "#C0C0D8"
 
     local function SetCategoryActive(activeKey)
         currentFilter = activeKey
