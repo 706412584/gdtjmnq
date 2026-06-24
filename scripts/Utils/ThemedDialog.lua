@@ -44,7 +44,7 @@ function ThemedDialog.Confirm(options)
     -- 消息文本
     local msgLabel = UI.Label {
         text = options.message or "",
-        fontSize = 14,
+        fontSize = 18.2,
         fontColor = "#F0F0F0",
         width = "100%",
         lineHeight = 1.5,
@@ -123,7 +123,7 @@ function ThemedDialog.Alert(options)
 
     local msgLabel = UI.Label {
         text = options.message or "",
-        fontSize = 14,
+        fontSize = 18.2,
         fontColor = "#F0F0F0",
         width = "100%",
         lineHeight = 1.5,

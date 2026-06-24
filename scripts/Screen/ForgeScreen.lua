@@ -85,7 +85,7 @@ function ForgeScreen.Create(container, params)
             justifyContent = "center", alignItems = "center",
             children = {
                 ---@diagnostic disable-next-line: param-type-mismatch
-                UI.Label { text = "订单数据异常", fontSize = 16, fontColor = "#E94560" },
+                UI.Label { text = "订单数据异常", fontSize = 20.8, fontColor = "#E94560" },
                 UI.Button {
                     text = "返回工坊",
                     onClick = function() ScreenRouter.GoTo("home") end,

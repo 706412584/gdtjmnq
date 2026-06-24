@@ -204,14 +204,14 @@ local function EnsureModal()
     -- 名称 + 等级行
     nameLabel_ = UI.Label {
         text = "",
-        fontSize = 22,
+        fontSize = 28.6,
         fontWeight = 700,
         fontColor = "#E8E0D0",
     }
 
     levelLabel_ = UI.Label {
         text = "",
-        fontSize = 14,
+        fontSize = 18.2,
         fontColor = "#C9A45A",
         marginLeft = 12,
     }
@@ -234,7 +234,7 @@ local function EnsureModal()
 
     progressText_ = UI.Label {
         text = "",
-        fontSize = 11,
+        fontSize = 14.3,
         fontColor = "#E8E0D0",
         position = "absolute",
         right = 8,
@@ -254,7 +254,7 @@ local function EnsureModal()
     -- 风味描述
     flavorLabel_ = UI.Label {
         text = "",
-        fontSize = 13,
+        fontSize = 16.9,
         fontColor = "#A0937D",
         width = "100%",
         marginBottom = 10,
@@ -263,7 +263,7 @@ local function EnsureModal()
     -- 当前状态
     descLabel_ = UI.Label {
         text = "",
-        fontSize = 14,
+        fontSize = 18.2,
         fontColor = "#E8E0D0",
         width = "100%",
         marginBottom = 4,
@@ -272,7 +272,7 @@ local function EnsureModal()
     -- 工具系数
     coeffLabel_ = UI.Label {
         text = "",
-        fontSize = 14,
+        fontSize = 18.2,
         fontColor = "#D4A574",
         fontWeight = 700,
         width = "100%",
@@ -282,7 +282,7 @@ local function EnsureModal()
     -- 下一级预览
     nextDescLabel_ = UI.Label {
         text = "",
-        fontSize = 13,
+        fontSize = 16.9,
         fontColor = "#4ECDC4",
         width = "100%",
         marginBottom = 4,
@@ -318,7 +318,7 @@ local function EnsureModal()
     -- ============================
     costLabel_ = UI.Label {
         text = "",
-        fontSize = 16,
+        fontSize = 20.8,
         fontColor = "#D4A574",
         flexGrow = 1,
         verticalAlign = "middle",

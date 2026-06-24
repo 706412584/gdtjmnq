@@ -46,7 +46,7 @@ function EndingScreen.Create(container, params)
             local d = result.details[i]
             statChildren[#statChildren + 1] = UI.Label {
                 text = (d.pass and "● " or "○ ") .. d.label .. "  (" .. tostring(d.value) .. ")",
-                fontSize = 15,
+                fontSize = 19.5,
                 fontColor = d.pass and "#F0F0F0" or "#A0A0C0",
                 marginBottom = 6,
             }
@@ -97,14 +97,14 @@ function EndingScreen.Create(container, params)
             -- 顶部小标
             UI.Label {
                 text = "— 终 章 —",
-                fontSize = 16,
+                fontSize = 20.8,
                 fontColor = "#A0A0C0",
                 marginBottom = 18,
             },
             -- 结局名称
             UI.Label {
                 text = result.endingName,
-                fontSize = 40,
+                fontSize = 52,
                 fontWeight = 700,
                 fontColor = accent,
                 marginBottom = 8,
@@ -118,7 +118,7 @@ function EndingScreen.Create(container, params)
             -- 尾声文本
             UI.Label {
                 text = result.epilogue or "",
-                fontSize = 18,
+                fontSize = 23.4,
                 fontColor = "#F0F0F0",
                 lineHeight = 1.7,
                 textAlign = "center",
@@ -141,7 +141,7 @@ function EndingScreen.Create(container, params)
                     local list = {
                         UI.Label {
                             text = "结局缘由",
-                            fontSize = 14,
+                            fontSize = 18.2,
                             fontColor = accent,
                             marginBottom = 10,
                         },

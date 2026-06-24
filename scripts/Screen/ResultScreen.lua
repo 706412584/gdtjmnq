@@ -87,7 +87,7 @@ function ResultScreen.Create(container, params)
             justifyContent = "center", alignItems = "center",
             children = {
                 ---@diagnostic disable-next-line: param-type-mismatch
-                UI.Label { text = "结算数据异常", fontSize = 16, fontColor = "#E94560" },
+                UI.Label { text = "结算数据异常", fontSize = 20.8, fontColor = "#E94560" },
                 UI.Button {
                     text = "返回工坊",
                     onClick = function() ScreenRouter.GoTo("home") end,
@@ -209,7 +209,7 @@ function ResultScreen.Create(container, params)
         ---@diagnostic disable-next-line: param-type-mismatch
         totalBadge:AddChild(UI.Label {
             text = badgeName,
-            fontSize = 26,
+            fontSize = 33.8,
             fontColor = "#FFFFFF",
             textAlign = "center",
             verticalAlign = "middle",

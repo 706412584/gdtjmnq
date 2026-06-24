@@ -117,13 +117,13 @@ function ShopScreen.Create(container, params)
             ScreenRouter.GoTo("home")
         end,
         children = {
-            UI.Label { text = "< 返回", fontSize = 18, fontColor = "#21BDAE", textAlign = "center" },
+            UI.Label { text = "< 返回", fontSize = 23.4, fontColor = "#21BDAE", textAlign = "center" },
         },
     }
 
     local titleLabel = UI.Label {
         text = "采买 · 材料补给",
-        fontSize = 24,
+        fontSize = 31.2,
         fontWeight = 700,
         fontColor = "#21BDAE",
         verticalAlign = "middle",
@@ -132,10 +132,10 @@ function ShopScreen.Create(container, params)
     }
 
     coinsLabel_ = UI.Label {
-        text = "", fontSize = 18, fontColor = "#F0F0F0", verticalAlign = "middle", marginRight = 18,
+        text = "", fontSize = 23.4, fontColor = "#F0F0F0", verticalAlign = "middle", marginRight = 18,
     }
     jadeLabel_ = UI.Label {
-        text = "", fontSize = 18, fontColor = "#50C878", verticalAlign = "middle",
+        text = "", fontSize = 23.4, fontColor = "#50C878", verticalAlign = "middle",
     }
 
     local header = UI.Panel {
@@ -177,14 +177,14 @@ function ShopScreen.Create(container, params)
         if hasDiscount then
             priceChildren[#priceChildren + 1] = UI.Label {
                 text = "原价 " .. pack.price,
-                fontSize = 12,
+                fontSize = 15.6,
                 fontColor = "#505070",
                 textAlign = "right",
             }
         end
         priceChildren[#priceChildren + 1] = UI.Label {
             text = finalPrice .. " " .. unitName,
-            fontSize = 18, fontWeight = 700,
+            fontSize = 23.4, fontWeight = 700,
             fontColor = priceColor,
             textAlign = "right",
         }
@@ -209,13 +209,13 @@ function ShopScreen.Create(container, params)
                     children = {
                         UI.Label {
                             text = pack.name,
-                            fontSize = 19, fontWeight = 700,
+                            fontSize = 24.7, fontWeight = 700,
                             fontColor = "#F0F0F0",
                             marginBottom = 6,
                         },
                         UI.Label {
                             text = pack.desc,
-                            fontSize = 14,
+                            fontSize = 18.2,
                             fontColor = "#A0A0C0",
                         },
                     },
@@ -261,7 +261,7 @@ function ShopScreen.Create(container, params)
     end
     local hint = UI.Label {
         text = hintText,
-        fontSize = 13,
+        fontSize = 16.9,
         fontColor = discountRate_ > 0 and "#50C878" or "#A0A0C0",
         textAlign = "center",
         width = "100%",
