@@ -17,6 +17,7 @@ local ScreenRouter   = require("Utils.ScreenRouter")
 local StoryManager   = require("Story.StoryManager")
 local SFXManager     = require("Utils.SFXManager")
 local AdManager      = require("Utils.AdManager")
+local RedDotManager  = require("Utils.RedDotManager")
 
 local UpgradePopup  = require("Screen.UpgradePopup")
 local HomeLayout = require("ui_HomeScreen_工坊主界面")
@@ -95,31 +96,51 @@ function HomeScreen.Create(container, params)
     local navStoryBtn_ = root:FindById("plate_2n")
     local navShopBtn_ = root:FindById("plate_2q")
 
-    -- 剧情按钮红点徽标（有待展示剧情时显示）
-    ---@type table|nil
-    local storyBadge_ = nil
-    if navStoryBtn_ then
-        storyBadge_ = UI.Panel {
-            id = "story_badge",
+    -- ----------------------------------------------------------------
+    -- 红点徽标系统（RedDotManager 驱动）
+    -- ----------------------------------------------------------------
+
+    --- 创建一个红点圆点 badge 并挂载到父节点
+    ---@param parent table|nil 父 widget
+    ---@return table|nil badge
+    local function CreateBadge(parent)
+        if not parent then return nil end
+        local badge = UI.Panel {
             position = "absolute",
-            top = 6,
-            right = 12,
+            top = 4,
+            right = 8,
             width = 14,
             height = 14,
             borderRadius = 7,
             backgroundColor = "#E94560",
             borderColor = "#E8E0D0",
             borderWidth = 1.5,
+            visible = false,
         }
-        navStoryBtn_:AddChild(storyBadge_)
+        parent:AddChild(badge)
+        return badge
     end
 
-    --- 刷新剧情红点（有待展示剧情则显示）
-    local function RefreshStoryBadge()
-        if storyBadge_ then
-            storyBadge_.visible = StoryManager.HasPendingStory()
+    local badges_ = {
+        story        = CreateBadge(navStoryBtn_),
+        upgrade      = CreateBadge(facilityFurnace_),  -- 挂在第一个设施卡片上
+        specialOrder = CreateBadge(navOrderBtn_),
+        codex        = CreateBadge(navCodexBtn_),
+        shop         = CreateBadge(navShopBtn_),
+        relationship = CreateBadge(friendBtn_),
+    }
+
+    --- 统一刷新所有红点可见性
+    local function RefreshAllBadges()
+        for key, badge in pairs(badges_) do
+            if badge then
+                badge.visible = RedDotManager.Check(key)
+            end
         end
     end
+
+    -- 订阅 RedDotManager 变化
+    local unsubRedDot = RedDotManager.OnChange(RefreshAllBadges)
 
     -- ----------------------------------------------------------------
     -- 3. 初始化数据绑定
@@ -196,7 +217,7 @@ function HomeScreen.Create(container, params)
     RefreshFacilities()
     RefreshFameProgress()
     RefreshChapterTitle()
-    RefreshStoryBadge()
+    RefreshAllBadges()
 
     -- ----------------------------------------------------------------
     -- 4. 绑定点击事件
@@ -320,28 +341,28 @@ function HomeScreen.Create(container, params)
     unsubs_[#unsubs_ + 1] = EventBus.On("fame_changed", function()
         RefreshCurrency()
         RefreshFameProgress()
-        RefreshStoryBadge()
+        RefreshAllBadges()
     end)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("facility_upgraded", function(data)
         RefreshFacilities()
         RefreshCurrency()
-        RefreshStoryBadge()
+        RefreshAllBadges()
     end)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("story_node_complete", function()
         RefreshChapterTitle()
-        RefreshStoryBadge()
+        RefreshAllBadges()
     end)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("story_choice_made", function()
         RefreshChapterTitle()
-        RefreshStoryBadge()
+        RefreshAllBadges()
     end)
 
     unsubs_[#unsubs_ + 1] = EventBus.On("story_chapter_skipped", function()
         RefreshChapterTitle()
-        RefreshStoryBadge()
+        RefreshAllBadges()
     end)
 
     -- ----------------------------------------------------------------
@@ -369,6 +390,7 @@ function HomeScreen.Create(container, params)
             unsubs_[i]()
         end
         unsubs_ = {}
+        if unsubRedDot then unsubRedDot() end
     end
 
     print("[HomeScreen] Created (layout migration)")

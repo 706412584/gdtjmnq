@@ -33,6 +33,9 @@ local BGMManager       = require("Utils.BGMManager")
 -- Story system
 local StoryManager     = require("Story.StoryManager")
 
+-- Red dot system
+local RedDotManager    = require("Utils.RedDotManager")
+
 -- ============================================================================
 -- 全局变量
 -- ============================================================================
@@ -87,6 +90,22 @@ function Start()
 
         -- 初始化 BGM 自动切换（监听 screen_change 事件）
         BGMManager.Init()
+
+        -- 初始化红点系统（依赖 GameState 已加载）
+        RedDotManager.Init()
+
+        -- 红点消除：进入对应界面时自动 Dismiss（仅通知类红点）
+        -- story/upgrade/specialOrder 为状态驱动，条件消失时自动隐藏，不做手动 dismiss
+        EventBus.On("screen_change", function(data)
+            local to = data and data.to or ""
+            if to == "codex" then
+                RedDotManager.Dismiss("codex")
+            elseif to == "shop" then
+                RedDotManager.Dismiss("shop")
+            elseif to == "relationship" then
+                RedDotManager.Dismiss("relationship")
+            end
+        end)
 
         -- 新存档（首次启动）：如果有待展示剧情，先进入剧情
         if StoryManager.HasPendingStory() then
