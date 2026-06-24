@@ -230,7 +230,7 @@ function CodexScreen.Create(container, params)
                             children = {
                                 UI.Label {
                                     text = badgeText,
-                                    fontSize = 16.9, fontWeight = 700,
+                                    fontSize = 17, fontWeight = 700,
                                     fontColor = achieved and "#0F0F23" or "#F0F0F0",
                                 },
                             },
@@ -240,7 +240,7 @@ function CodexScreen.Create(container, params)
                 -- 正文
                 UI.Label {
                     text = bodyText,
-                    fontSize = 18.2,
+                    fontSize = 18,
                     fontColor = bodyColor,
                     lineHeight = 1.6,
                     width = "100%",
@@ -259,7 +259,7 @@ function CodexScreen.Create(container, params)
     local achievedCount = #achievedList
     local endingHeader = UI.Label {
         text = "结局回顾 · 已达成 " .. achievedCount .. " / " .. #endingList,
-        fontSize = 20.8, fontWeight = 700,
+        fontSize = 21, fontWeight = 700,
         fontColor = "#21BDAE",
         marginBottom = 14,
     }

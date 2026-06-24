@@ -32,7 +32,7 @@ function BackButton.Setup(root, targetOrCallback)
     -- 新按钮外观
     local btnLabel = UI.Label {
         text = "< 返回",
-        fontSize = 23.4,
+        fontSize = 23,
         fontColor = "#21BDAE",
         textAlign = "center",
     }

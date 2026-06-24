@@ -173,7 +173,7 @@ function StoryScreen.Create(container, params)
             UI.Label {
                 id = "tx_auto",
                 width = "100%", height = "100%",
-                fontSize = 28.6,
+                fontSize = 29,
                 fontWeight = "700",
                 textAlign = "center",
                 lineHeight = 1.66,
@@ -219,7 +219,7 @@ function StoryScreen.Create(container, params)
     ---@diagnostic disable-next-line: param-type-mismatch
     local progressLabelW_ = UI.Label {
         id = "tx_progress",
-        fontSize = 23.4,
+        fontSize = 23,
         fontWeight = "700",
         fontColor = "#c9a45a",
         verticalAlign = "middle",
