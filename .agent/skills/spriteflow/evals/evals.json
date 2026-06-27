@@ -1,0 +1,23 @@
+{
+  "skill_name": "spriteflow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我有一张 1x8 的农夫 walk spritesheet，绿色背景，帮我抠背景切成 8 帧并生成 UrhoX Sprite2D XML。",
+      "expected_output": "使用 spriteflow_cli.py，输出 frames、diagnostic.json 和 XML，资源路径不带 assets/。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "用 gpt-iamge2 给尸耕生成守卫尸 idle/walk/attack 像素动作图集，要求角色一致、无阴影、可切帧。",
+      "expected_output": "构造严格 spritesheet 提示词，说明 gpt 模型、网格、动作约束、背景策略和后处理切帧流程。",
+      "files": ["PROJECT_RULES.md"]
+    },
+    {
+      "id": 3,
+      "prompt": "SpriteFlow 网页插件源码怎么转成我们项目可运行的资源管线？",
+      "expected_output": "说明 TSX 是插件参考，优先落地项目内 skill + CLI，并列出插件化后续步骤。",
+      "files": [".agent/skills/spriteflow/SpriteFlowPanel.tsx"]
+    }
+  ]
+}

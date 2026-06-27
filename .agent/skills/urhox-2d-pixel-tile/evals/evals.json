@@ -1,0 +1,23 @@
+{
+  "skill_name": "urhox-2d-pixel-tile",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "把当前 raw NanoVG 像素农场 MVP 迁移成 UrhoX 原生 2D Scene，要求瓦片地图、温室、丧尸和守卫都有碰撞，HUD 仍然用 PixelForge UI。",
+      "expected_output": "应该提出或实现 Scene + PhysicsWorld2D + StaticSprite2D + UI/HUD 分层方案，并说明分辨率和碰撞处理。",
+      "files": ["scripts/main.lua", "PROJECT_RULES.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "做一个 2D 像素瓦片塔防关卡，要求适配不同手机分辨率，点击瓦片能放炮塔，敌人沿路线走，不能用 graphics:SetMode。",
+      "expected_output": "应该使用正交相机适配世界区域，UI 用 urhox-libs/UI，点击坐标转换到世界坐标，瓦片和敌人使用米制坐标。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "我的 2D 像素角色穿墙了，瓦片碰撞不稳定，帮我检查碰撞设计。",
+      "expected_output": "应该检查 RigidBody2D 与 CollisionShape2D 是否同节点、categoryBits/maskBits、trigger、米制尺寸和碰撞回调。",
+      "files": []
+    }
+  ]
+}

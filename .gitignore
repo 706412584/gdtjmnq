@@ -33,10 +33,9 @@ examples/
 lua-tools/
 schemas/
 skills/
+!.agent/skills/
 templates/
 tools/
 urhox-libs/
 AGENTS.md
 CLAUDE.md
-.ssh/
-screenshots/
