@@ -428,11 +428,13 @@ function M.Build(payload)
                     left = 28,
                     top = "10.42%",
                     height = "67%",
-                    backgroundColor = "rgba(31,26,23,0.06)",
+                    backgroundImage = "image/bg_workshop_hazy_20260628133907.png",
+                    backgroundFit = "cover",
                     borderRadius = 4,
                     borderColor = "#3D2B1F",
                     borderWidth = 1,
                     right = 28,
+                    overflow = "hidden",
                 },
 
                 UI.Panel {
@@ -453,7 +455,7 @@ function M.Build(payload)
                         UI.Panel {
                             width = "80%",
                             aspectRatio = 1,
-                            backgroundImage = "image/card_furnace_20260613074302.png",
+                            backgroundImage = "image/facility_furnace_20260628124404.png",
                             backgroundFit = "contain",
                             marginBottom = 8,
                         },
@@ -484,7 +486,7 @@ function M.Build(payload)
                         UI.Panel {
                             width = "80%",
                             aspectRatio = 1,
-                            backgroundImage = "image/card_anvil_20260613074251.png",
+                            backgroundImage = "image/facility_anvil_20260628124620.png",
                             backgroundFit = "contain",
                             marginBottom = 8,
                         },
@@ -515,7 +517,7 @@ function M.Build(payload)
                         UI.Panel {
                             width = "80%",
                             aspectRatio = 1,
-                            backgroundImage = "image/card_grinder_20260613074243.png",
+                            backgroundImage = "image/facility_grinder_20260628124430.png",
                             backgroundFit = "contain",
                             marginBottom = 8,
                         },
@@ -546,7 +548,7 @@ function M.Build(payload)
                         UI.Panel {
                             width = "80%",
                             aspectRatio = 1,
-                            backgroundImage = "image/card_storage_20260613074346.png",
+                            backgroundImage = "image/facility_storage_20260628124413.png",
                             backgroundFit = "contain",
                             marginBottom = 8,
                         },
@@ -577,7 +579,7 @@ function M.Build(payload)
                         UI.Panel {
                             width = "80%",
                             aspectRatio = 1,
-                            backgroundImage = "image/card_display_20260613074325.png",
+                            backgroundImage = "image/facility_display_20260628124406.png",
                             backgroundFit = "contain",
                             marginBottom = 8,
                         },
