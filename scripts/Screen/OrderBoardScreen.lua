@@ -206,22 +206,39 @@ function OrderBoardScreen.Create(container, params)
         }
     end
 
+    -- ----------------------------------------------------------------
+    -- 将订单卡片重新定位到右面板内部（布局模板生成时卡片在root层）
+    -- ----------------------------------------------------------------
+    local CARD_TOP_OFFSETS = { "2%", "35%", "68%" }
+    for i = 1, #ORDER_CARDS do
+        local card = root:FindById(ORDER_CARDS[i].id)
+        if card and rightPanel_ then
+            rightPanel_:AddChild(card)
+            card.props.position = "absolute"
+            card.props.left = 0
+            card.props.right = 0
+            card.props.top = CARD_TOP_OFFSETS[i]
+            card.props.height = 202.4
+            card.props.width = nil  -- 由 left+right 自动计算
+        end
+    end
+
     local orderWidgets_ = {}
     for i = 1, #ORDER_CARDS do
         local map = ORDER_CARDS[i]
         orderWidgets_[i] = {
-            card = root:FindById(map.id),
-            custName = root:FindById(map.custName),
-            custTitle = root:FindById(map.custTitle),
-            weaponName = root:FindById(map.weaponName),
-            usage = root:FindById(map.usage),
-            deadline = root:FindById(map.deadline),
-            preference = root:FindById(map.preference),
-            qualityFill = root:FindById(map.qualityFill),
-            qualityText = root:FindById(map.qualityText),
-            rewardValue = root:FindById(map.rewardValue),
-            acceptBtn = root:FindById(map.acceptBtn),
-            declineBtn = root:FindById(map.declineBtn),
+            card = rightPanel_:FindById(map.id),
+            custName = rightPanel_:FindById(map.custName),
+            custTitle = rightPanel_:FindById(map.custTitle),
+            weaponName = rightPanel_:FindById(map.weaponName),
+            usage = rightPanel_:FindById(map.usage),
+            deadline = rightPanel_:FindById(map.deadline),
+            preference = rightPanel_:FindById(map.preference),
+            qualityFill = rightPanel_:FindById(map.qualityFill),
+            qualityText = rightPanel_:FindById(map.qualityText),
+            rewardValue = rightPanel_:FindById(map.rewardValue),
+            acceptBtn = rightPanel_:FindById(map.acceptBtn),
+            declineBtn = rightPanel_:FindById(map.declineBtn),
         }
     end
 

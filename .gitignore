@@ -33,7 +33,6 @@ examples/
 lua-tools/
 schemas/
 skills/
-!.agent/skills/
 templates/
 tools/
 urhox-libs/
