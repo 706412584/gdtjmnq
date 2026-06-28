@@ -19,10 +19,10 @@ local EndingScreen = {}
 -- 结局主题色（与各路线呼应）
 local ENDING_COLORS = {
     craftsman_way  = "#FFD93D",  -- 像素黄（匠道）
-    imperial_smith = "#FF4757",  -- 像素红（朝廷）
-    jianghu_forge  = "#21BDAE",  -- 像素青（江湖）
+    imperial_smith = "#E94560",  -- 像素红（朝廷）
+    jianghu_forge  = "#D4A574",  -- 像素青（江湖）
     guild_foundry  = "#6C5CE7",  -- 像素紫（商会）
-    folk_forge     = "#F0F0F0",  -- 像素白（市井平凡）
+    folk_forge     = "#E8E0D0",  -- 像素白（市井平凡）
     broken_forge   = "#505070",  -- 像素灰（失败）
 }
 
@@ -34,7 +34,7 @@ function EndingScreen.Create(container, params)
 
     -- 评估当前数据，得到结局
     local result = EndingEvaluator.Evaluate()
-    local accent = ENDING_COLORS[result.endingId] or "#21BDAE"
+    local accent = ENDING_COLORS[result.endingId] or "#D4A574"
 
     -- 持久化记录：本次达成的结局写入存档，供图鉴「结局回顾」展示
     GameState.MarkEndingAchieved(result.endingId)
@@ -47,7 +47,7 @@ function EndingScreen.Create(container, params)
             statChildren[#statChildren + 1] = UI.Label {
                 text = (d.pass and "● " or "○ ") .. d.label .. "  (" .. tostring(d.value) .. ")",
                 fontSize = 20,
-                fontColor = d.pass and "#F0F0F0" or "#A0A0C0",
+                fontColor = d.pass and "#E8E0D0" or "#A0A0C0",
                 marginBottom = 6,
             }
         end
@@ -119,7 +119,7 @@ function EndingScreen.Create(container, params)
             UI.Label {
                 text = result.epilogue or "",
                 fontSize = 23,
-                fontColor = "#F0F0F0",
+                fontColor = "#E8E0D0",
                 lineHeight = 1.7,
                 textAlign = "center",
                 width = "100%",
@@ -134,7 +134,7 @@ function EndingScreen.Create(container, params)
                 paddingTop = 18, paddingBottom = 18,
                 borderRadius = 12,
                 backgroundColor = "rgba(38,31,26,0.9)",
-                borderColor = "#3A3A6A",
+                borderColor = "#3D2B1F",
                 borderWidth = 1,
                 marginBottom = 36,
                 children = (function()

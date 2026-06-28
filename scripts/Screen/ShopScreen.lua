@@ -108,7 +108,7 @@ function ShopScreen.Create(container, params)
     local backBtn = UI.Panel {
         width = 110, height = 56,
         borderRadius = 12,
-        borderColor = "#21BDAE",
+        borderColor = "#D4A574",
         borderWidth = 1.5,
         justifyContent = "center",
         alignItems = "center",
@@ -117,7 +117,7 @@ function ShopScreen.Create(container, params)
             ScreenRouter.GoTo("home")
         end,
         children = {
-            UI.Label { text = "< 返回", fontSize = 23, fontColor = "#21BDAE", textAlign = "center" },
+            UI.Label { text = "< 返回", fontSize = 23, fontColor = "#D4A574", textAlign = "center" },
         },
     }
 
@@ -125,17 +125,17 @@ function ShopScreen.Create(container, params)
         text = "采买 · 材料补给",
         fontSize = 31,
         fontWeight = 700,
-        fontColor = "#21BDAE",
+        fontColor = "#D4A574",
         verticalAlign = "middle",
         marginLeft = 18,
         flexGrow = 1,
     }
 
     coinsLabel_ = UI.Label {
-        text = "", fontSize = 23, fontColor = "#F0F0F0", verticalAlign = "middle", marginRight = 18,
+        text = "", fontSize = 23, fontColor = "#E8E0D0", verticalAlign = "middle", marginRight = 18,
     }
     jadeLabel_ = UI.Label {
-        text = "", fontSize = 23, fontColor = "#50C878", verticalAlign = "middle",
+        text = "", fontSize = 23, fontColor = "#4ECDC4", verticalAlign = "middle",
     }
 
     local header = UI.Panel {
@@ -144,7 +144,7 @@ function ShopScreen.Create(container, params)
         alignItems = "center",
         paddingLeft = 24, paddingRight = 24,
         backgroundColor = "rgba(15,15,35,0.9)",
-        borderColor = "#3A3A6A",
+        borderColor = "#3D2B1F",
         borderWidth = 0,
         children = { backBtn, titleLabel, coinsLabel_, jadeLabel_ },
     }
@@ -156,7 +156,7 @@ function ShopScreen.Create(container, params)
     ---@return table card
     local function BuildPackCard(pack)
         local isJade = pack.currency == "jade"
-        local priceColor = isJade and "#50C878" or "#21BDAE"
+        local priceColor = isJade and "#4ECDC4" or "#D4A574"
         local unitName = isJade and "玉璧" or "铜钱"
         local finalPrice = EffectivePrice(pack)
         local hasDiscount = finalPrice < pack.price
@@ -198,7 +198,7 @@ function ShopScreen.Create(container, params)
             alignItems = "center",
             borderRadius = 12,
             backgroundColor = "rgba(27,27,58,0.3)",
-            borderColor = "#3A3A6A",
+            borderColor = "#3D2B1F",
             borderWidth = 1,
             children = {
                 -- 左侧：名称 + 内容
@@ -210,7 +210,7 @@ function ShopScreen.Create(container, params)
                         UI.Label {
                             text = pack.name,
                             fontSize = 25, fontWeight = 700,
-                            fontColor = "#F0F0F0",
+                            fontColor = "#E8E0D0",
                             marginBottom = 6,
                         },
                         UI.Label {
@@ -262,7 +262,7 @@ function ShopScreen.Create(container, params)
     local hint = UI.Label {
         text = hintText,
         fontSize = 17,
-        fontColor = discountRate_ > 0 and "#50C878" or "#A0A0C0",
+        fontColor = discountRate_ > 0 and "#4ECDC4" or "#A0A0C0",
         textAlign = "center",
         width = "100%",
         height = 36,
@@ -272,7 +272,7 @@ function ShopScreen.Create(container, params)
     local root = UI.Panel {
         width = "100%", height = "100%",
         flexDirection = "column",
-        backgroundColor = "#0F0F23",
+        backgroundColor = "#12100E",
         children = { header, scroll, hint },
     }
     container:AddChild(root)

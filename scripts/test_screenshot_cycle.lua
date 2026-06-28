@@ -99,20 +99,20 @@ function Start()
             }},
         },
         colors = {
-            primary = {33, 189, 174, 255},
-            primaryHover = {61, 208, 193, 255},
-            primaryPressed = {25, 168, 153, 255},
-            secondary = {108, 92, 231, 255},
-            background = {15, 15, 35, 255},
-            surface = {27, 27, 58, 255},
-            surfaceHover = {37, 37, 80, 255},
-            text = {240, 240, 240, 255},
-            textSecondary = {160, 160, 192, 255},
-            border = {58, 58, 106, 255},
-            error = {255, 71, 87, 255},
-            success = {80, 200, 120, 255},
-            warning = {255, 217, 61, 255},
-            info = {69, 170, 242, 255},
+            primary = {212, 165, 116, 255},       -- #D4A574 鎏金
+            primaryHover = {228, 186, 140, 255},
+            primaryPressed = {180, 140, 98, 255},
+            secondary = {78, 205, 196, 255},       -- #4ECDC4 青铜绿
+            background = {18, 16, 14, 255},        -- #12100E 烟墨
+            surface = {26, 26, 46, 255},           -- #1A1A2E 炭黑
+            surfaceHover = {42, 36, 30, 255},
+            text = {232, 224, 208, 255},           -- #E8E0D0 暖白
+            textSecondary = {160, 147, 125, 255},  -- #A0937D 烟灰
+            border = {61, 43, 31, 255},            -- #3D2B1F 铁褐
+            error = {233, 69, 96, 255},            -- #E94560 炉火红
+            success = {78, 205, 196, 255},         -- #4ECDC4 青铜绿
+            warning = {255, 217, 61, 255},         -- #FFD93D 淬火黄
+            info = {212, 165, 116, 255},
             overlay = {0, 0, 0, 180},
         },
         radius = { sm = 0, md = 0, lg = 0, xl = 0, full = 0 },
@@ -134,7 +134,7 @@ function Start()
     contentContainer_ = UI.Panel { id = "content", width = "100%", height = "100%" }
     uiRoot_ = UI.Panel {
         id = "root", width = "100%", height = "100%",
-        backgroundColor = "#0F0F23",
+        backgroundColor = "#12100E",
         children = { contentContainer_ },
     }
     UI.SetRoot(uiRoot_)

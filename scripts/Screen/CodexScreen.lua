@@ -27,10 +27,10 @@ local CodexScreen = {}
 
 local ENDING_COLORS = {
     craftsman_way  = "#FFD93D",  -- 像素黄（匠道）
-    imperial_smith = "#FF4757",  -- 像素红（朝廷）
-    jianghu_forge  = "#21BDAE",  -- 像素青（江湖）
+    imperial_smith = "#E94560",  -- 像素红（朝廷）
+    jianghu_forge  = "#D4A574",  -- 像素青（江湖）
     guild_foundry  = "#6C5CE7",  -- 像素紫（商会）
-    folk_forge     = "#F0F0F0",  -- 像素白（市井平凡）
+    folk_forge     = "#E8E0D0",  -- 像素白（市井平凡）
     broken_forge   = "#505070",  -- 像素灰（失败）
 }
 
@@ -55,10 +55,10 @@ local WEAPON_IMAGES = {
 
 -- 品质等级映射（根据 tier 或手动指定）
 local QUALITY_GRADES = {
-    [1] = { text = "寻", color = "#3A3A6A", borderColor = "#3A3A6A" },
-    [2] = { text = "良", color = "#3A3A6A", borderColor = "#3A3A6A" },
+    [1] = { text = "寻", color = "#3D2B1F", borderColor = "#3D2B1F" },
+    [2] = { text = "良", color = "#3D2B1F", borderColor = "#3D2B1F" },
     [3] = { text = "名", color = "#4F7A63", borderColor = "#4F7A63" },
-    [4] = { text = "逸", color = "#21BDAE", borderColor = "#21BDAE" },
+    [4] = { text = "逸", color = "#D4A574", borderColor = "#D4A574" },
     [5] = { text = "神", color = "#C96A2B", borderColor = "#C96A2B" },
 }
 
@@ -176,14 +176,14 @@ function CodexScreen.Create(container, params)
     local function BuildEndingCard(ending)
         local achieved = achievedSet[ending.id] == true
         local reachable = reachableSet[ending.id] == true
-        local accent = ENDING_COLORS[ending.id] or "#21BDAE"
+        local accent = ENDING_COLORS[ending.id] or "#D4A574"
 
         -- 状态徽章文案/颜色
         local badgeText, badgeColor
         if achieved then
             badgeText, badgeColor = "已达成", accent
         elseif reachable then
-            badgeText, badgeColor = "条件已满足", "#50C878"
+            badgeText, badgeColor = "条件已满足", "#4ECDC4"
         else
             badgeText, badgeColor = "未解锁", "#2A2A4A"
         end
@@ -192,7 +192,7 @@ function CodexScreen.Create(container, params)
         local bodyText = achieved and (ending.epilogue or "")
             or (reachable and "你当前的选择正指向这一结局，完成终章即可抵达。"
                 or ("尚未抵达此结局 · " .. (ending.description or "")))
-        local bodyColor = achieved and "#F0F0F0" or "#A0A0C0"
+        local bodyColor = achieved and "#E8E0D0" or "#A0A0C0"
 
         local titleText = achieved and ending.name or "？？？"
         local titleColor = achieved and accent or "#505070"
@@ -205,7 +205,7 @@ function CodexScreen.Create(container, params)
             flexDirection = "column",
             borderRadius = 10,
             backgroundColor = achieved and "rgba(33,189,174,0.08)" or "rgba(31,26,23,0.05)",
-            borderColor = achieved and accent or "#3A3A6A",
+            borderColor = achieved and accent or "#3D2B1F",
             borderWidth = 1,
             children = {
                 -- 标题行：结局名 + 状态徽章
@@ -231,7 +231,7 @@ function CodexScreen.Create(container, params)
                                 UI.Label {
                                     text = badgeText,
                                     fontSize = 17, fontWeight = 700,
-                                    fontColor = achieved and "#0F0F23" or "#F0F0F0",
+                                    fontColor = achieved and "#12100E" or "#E8E0D0",
                                 },
                             },
                         },
@@ -260,7 +260,7 @@ function CodexScreen.Create(container, params)
     local endingHeader = UI.Label {
         text = "结局回顾 · 已达成 " .. achievedCount .. " / " .. #endingList,
         fontSize = 21, fontWeight = 700,
-        fontColor = "#21BDAE",
+        fontColor = "#D4A574",
         marginBottom = 14,
     }
 
@@ -382,7 +382,7 @@ function CodexScreen.Create(container, params)
             else
                 -- 未解锁：问号占位，暗色调
                 if border then
-                    border.borderColor = "#3A3A6A"
+                    border.borderColor = "#3D2B1F"
                 end
                 if img then
                     -- 清除布局预设的武器图片，用暗色背景替代
@@ -398,7 +398,7 @@ function CodexScreen.Create(container, params)
                     nameLabel.fontColor = "#3a322b"
                 end
                 if badgeBg then
-                    badgeBg.backgroundColor = "#3A3A6A"
+                    badgeBg.backgroundColor = "#3D2B1F"
                 end
                 if gradeLabel then
                     gradeLabel.text = "?"
@@ -413,10 +413,10 @@ function CodexScreen.Create(container, params)
     -- ----------------------------------------------------------------
     -- 分类按钮交互
     -- ----------------------------------------------------------------
-    local ACTIVE_BG = "#21BDAE"
-    local ACTIVE_TEXT = "#0F0F23"
+    local ACTIVE_BG = "#D4A574"
+    local ACTIVE_TEXT = "#12100E"
     local INACTIVE_BG = "rgba(0,0,0,0)"
-    local INACTIVE_TEXT = "#C0C0D8"
+    local INACTIVE_TEXT = "#A0937D"
 
     local function SetCategoryActive(activeKey)
         currentFilter = activeKey

@@ -147,13 +147,13 @@ local ORDER_CARDS = {
 -- ============================================================================
 
 local MOOD_COLORS = {
-    ["急"]  = "#21BDAE",
-    ["缓"]  = "#50C878",
+    ["急"]  = "#D4A574",
+    ["缓"]  = "#4ECDC4",
     ["常"]  = "#FFD93D",
 }
 
 -- 选中/未选中卡片背景色
-local CUST_BG_SELECTED   = "#21BDAE"
+local CUST_BG_SELECTED   = "#D4A574"
 local CUST_BG_UNSELECTED = "rgba(27,27,58,0.5)"
 
 -- ============================================================================
@@ -364,8 +364,8 @@ function OrderBoardScreen.Create(container, params)
                 or order.tier == 2 and "70%"
                 or "90%"
             local fillColor = order.tier == 1 and "#FFD93D"
-                or order.tier == 2 and "#50C878"
-                or "#21BDAE"
+                or order.tier == 2 and "#4ECDC4"
+                or "#D4A574"
             w.qualityFill.width = fillRatio
             w.qualityFill.backgroundColor = fillColor
         end
