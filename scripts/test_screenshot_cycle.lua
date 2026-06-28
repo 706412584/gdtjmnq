@@ -84,8 +84,7 @@ function Start()
 
     -- PixelForge 主题初始化（与 main.lua 一致）
     local PIXEL_SHADOW = {
-        { x = 3, y = 3, blur = 0, color = {10, 10, 26, 204} },
-        { x = -1, y = -1, blur = 0, color = {255, 255, 255, 48} },
+        { x = 1, y = 1, blur = 0, color = {10, 10, 26, 150} },
     }
 
     local PixelForgeTheme = UI.Theme.ExtendTheme(UI.Theme.defaultTheme, {
@@ -115,13 +114,13 @@ function Start()
             info = {212, 165, 116, 255},
             overlay = {0, 0, 0, 180},
         },
-        radius = { sm = 0, md = 0, lg = 0, xl = 0, full = 0 },
-        componentDefaults = { borderRadius = 0 },
+        radius = { sm = 2, md = 3, lg = 4, xl = 6, full = 9999 },
+        componentDefaults = { borderRadius = 2 },
         components = {
-            Button = { borderWidth = 2, boxShadow = PIXEL_SHADOW },
-            Modal = { borderWidth = 2 },
-            Toast = { borderWidth = 2 },
-            ProgressBar = { height = 16, borderWidth = 2 },
+            Button = { borderWidth = 1, boxShadow = PIXEL_SHADOW },
+            Modal = { borderWidth = 1 },
+            Toast = { borderWidth = 1 },
+            ProgressBar = { height = 10, borderWidth = 1 },
         },
     })
 
