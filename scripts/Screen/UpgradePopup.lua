@@ -318,7 +318,8 @@ local function EnsureModal()
     local contentRow = UI.Panel {
         flexDirection = "row",
         width = "100%",
-        height = "100%",
+        flexGrow = 1,
+        flexShrink = 1,
         alignItems = "center",
         children = { leftColumn, rightColumn },
     }
@@ -391,13 +392,15 @@ local function EnsureModal()
 
     -- 弹窗主体面板（九宫格背景）
     popupPanel_ = UI.Panel {
-        width = "88%",
-        height = "82%",
+        width = "70%",
+        height = "55%",
         backgroundImage = "image/ui/ui_slice_01.png",
         backgroundSlice = { 25, 25, 25, 25 },
         borderRadius = 0,
         flexDirection = "column",
-        padding = 4,
+        padding = 16,
+        paddingTop = 8,
+        paddingBottom = 12,
         children = {
             titleRow,
             contentRow,
