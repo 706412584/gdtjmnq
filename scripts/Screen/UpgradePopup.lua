@@ -18,11 +18,11 @@ local UpgradePopup = {}
 
 -- 设施图片映射
 local FACILITY_IMAGES = {
-    furnace      = "image/card_furnace_20260613074302.png",
-    anvil        = "image/card_anvil_20260613074251.png",
-    grinder      = "image/card_grinder_20260613074243.png",
-    storage      = "image/card_storage_20260613074346.png",
-    display      = "image/card_display_20260613074325.png",
+    furnace      = "image/facility_furnace_20260628124404.png",
+    anvil        = "image/facility_anvil_20260628124620.png",
+    grinder      = "image/facility_grinder_20260628124430.png",
+    storage      = "image/facility_storage_20260628124413.png",
+    display      = "image/facility_display_20260628124406.png",
 }
 
 -- 设施描述补充
@@ -199,9 +199,11 @@ local function EnsureModal()
 
     local leftColumn = UI.Panel {
         width = "35%",
+        height = "100%",
         alignItems = "center",
         justifyContent = "center",
         paddingRight = 16,
+        overflow = "hidden",
         children = {
             imgPanel_,
         },
@@ -401,6 +403,7 @@ local function EnsureModal()
         padding = 16,
         paddingTop = 8,
         paddingBottom = 12,
+        overflow = "hidden",
         children = {
             titleRow,
             contentRow,

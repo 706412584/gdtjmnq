@@ -72,12 +72,11 @@ local frameCount_ = 0
 -- 每屏停留 50 Lua 帧（约 0.8 秒），确保 UI 完成渲染
 local SCREEN_SCHEDULE = {
     { frame = 5,   screen = "home" },
-    { frame = 35,  action = "upgrade_popup" },
-    { frame = 105, screen = "orderBoard" },
-    { frame = 155, screen = "codex" },
-    { frame = 205, screen = "shop" },
-    { frame = 255, screen = "relationship" },
-    { frame = 305, screen = "story",  params = { returnTo = "home" } },
+    { frame = 55,  screen = "orderBoard" },
+    { frame = 105, screen = "codex" },
+    { frame = 155, screen = "shop" },
+    { frame = 205, screen = "relationship" },
+    { frame = 255, screen = "story",  params = { returnTo = "home" } },
 }
 
 function Start()
@@ -174,14 +173,8 @@ function HandleUpdate(eventType, eventData)
     for i = 1, #SCREEN_SCHEDULE do
         local entry = SCREEN_SCHEDULE[i]
         if frameCount_ == entry.frame then
-            if entry.action == "upgrade_popup" then
-                print("[test] Frame " .. frameCount_ .. " -> open upgrade popup")
-                local UpgradePopup = require("Screen.UpgradePopup")
-                UpgradePopup.Open("anvil")
-            elseif entry.screen then
-                print("[test] Frame " .. frameCount_ .. " -> " .. entry.screen)
-                ScreenRouter.GoTo(entry.screen, entry.params)
-            end
+            print("[test] Frame " .. frameCount_ .. " -> " .. entry.screen)
+            ScreenRouter.GoTo(entry.screen, entry.params)
         end
     end
 end
