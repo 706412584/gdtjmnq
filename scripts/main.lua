@@ -140,15 +140,6 @@ function InitUI()
     }
 
     local PixelForgeTheme = UI.Theme.ExtendTheme(UI.Theme.defaultTheme, {
-        fonts = {
-            { family = "sans", weights = {
-                normal = "Fonts/FusionPixel-12px-Prop-zh_hans.ttf",
-                bold = "Fonts/FusionPixel-12px-Prop-zh_hans-Bold.ttf",
-            }},
-            { family = "mono", weights = {
-                normal = "Fonts/FusionPixel-12px-Mono-zh_hans.ttf",
-            }},
-        },
         colors = {
             primary = {212, 165, 116, 255},       -- #D4A574 鎏金
             primaryHover = {228, 186, 140, 255},

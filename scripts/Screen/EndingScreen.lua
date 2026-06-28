@@ -120,7 +120,7 @@ function EndingScreen.Create(container, params)
                 text = result.epilogue or "",
                 fontSize = 23,
                 fontColor = "#E8E0D0",
-                lineHeight = 1.7,
+                lineHeight = 1.2,
                 textAlign = "center",
                 width = "100%",
                 marginBottom = 32,

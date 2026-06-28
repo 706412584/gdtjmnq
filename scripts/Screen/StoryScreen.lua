@@ -176,7 +176,7 @@ function StoryScreen.Create(container, params)
                 fontSize = 29,
                 fontWeight = "700",
                 textAlign = "center",
-                lineHeight = 1.66,
+                lineHeight = 1.2,
                 fontColor = "#c9a45a",
                 verticalAlign = "middle",
                 text = "自动",

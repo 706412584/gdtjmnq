@@ -47,7 +47,7 @@ function ThemedDialog.Confirm(options)
         fontSize = 18,
         fontColor = "#E8E0D0",
         width = "100%",
-        lineHeight = 1.5,
+        lineHeight = 1.2,
     }
     modal:AddContent(msgLabel)
 
@@ -126,7 +126,7 @@ function ThemedDialog.Alert(options)
         fontSize = 18,
         fontColor = "#E8E0D0",
         width = "100%",
-        lineHeight = 1.5,
+        lineHeight = 1.2,
     }
     modal:AddContent(msgLabel)
 

@@ -242,7 +242,7 @@ function CodexScreen.Create(container, params)
                     text = bodyText,
                     fontSize = 18,
                     fontColor = bodyColor,
-                    lineHeight = 1.6,
+                    lineHeight = 1.2,
                     width = "100%",
                 },
             },
