@@ -34,8 +34,10 @@ local FACILITY_FLAVOR = {
     display = "展示成品的架子，精美的陈列架能提升铁匠声望。",
 }
 
----@type Modal|nil
+---@type table|nil
 local modal_ = nil
+local popupPanel_ = nil
+local overlayPanel_ = nil
 ---@type string|nil
 local currentFacility_ = nil
 
@@ -131,14 +133,22 @@ local function RefreshContent()
                 costLabel_.fontColor = canAfford and "#D4A574" or "#E94560"
             end
             if upgradeBtn_ then
-                upgradeBtn_:SetDisabled(not canAfford)
                 local btnText = "升阶锻造"
                 if not canAffordCoins then
                     btnText = "铜钱不足"
                 elseif not canAffordFame then
                     btnText = "声望不足"
                 end
-                upgradeBtn_:SetText(btnText)
+                -- 切换按钮背景图（金色/灰色）
+                upgradeBtn_.backgroundImage = canAfford
+                    and "image/ui/btn_gold.png"
+                    or "image/ui/btn_disabled.png"
+                -- 更新按钮文字
+                local txtLabel = upgradeBtn_:FindById("upgrade_btn_text")
+                if txtLabel then
+                    txtLabel.text = btnText
+                    txtLabel.fontColor = canAfford and "#1A1A2E" or "#888888"
+                end
             end
         end
     end
@@ -325,48 +335,105 @@ local function EnsureModal()
         height = 44,
     }
 
-    upgradeBtn_ = UI.Button {
-        text = "升阶锻造",
-        variant = "primary",
-        width = "35%",
-        minWidth = 120,
-        height = 44,
-        onClick = function()
-            DoUpgrade()
-        end,
+    upgradeBtn_ = UI.Panel {
+        width = 160,
+        height = 48,
+        backgroundImage = "image/ui/btn_gold.png",
+        backgroundSlice = { 12, 12, 12, 12 },
+        justifyContent = "center",
+        alignItems = "center",
+        onClick = function() DoUpgrade() end,
+        children = {
+            UI.Label {
+                id = "upgrade_btn_text",
+                text = "升阶锻造",
+                fontSize = 19,
+                fontWeight = 700,
+                fontColor = "#1A1A2E",
+                textAlign = "center",
+            },
+        },
     }
 
     local footerRow = UI.Panel {
         flexDirection = "row",
         width = "100%",
+        height = 56,
         alignItems = "center",
         justifyContent = "space-between",
+        paddingLeft = 16,
+        paddingRight = 16,
         children = { costLabel_, upgradeBtn_ },
     }
 
     -- ============================
-    -- 创建 Modal（左右各 30% 边距 → 宽度 40%）
+    -- 自定义弹窗（支持九宫格背景图）
     -- ============================
-    modal_ = UI.Modal {
-        title = "设施升级",
-        size = "xl",
-        showCloseButton = true,
-        closeOnOverlay = true,
-        contentPadding = { 20, 24, 16, 24 },
-        contentGap = 0,
-        borderRadius = 8,
-        backgroundColor = "#1F1A17",
-        borderColor = "#C9A45A",
-        borderWidth = 1.5,
-        titleTextColor = "#E4B982",
-        titleFontWeight = "bold",
-        contentBgColor = { 31, 26, 23, 255 },
-        headerStripeColor = { 201, 164, 90, 60 },
-        headerStripeHeight = 1,
+    -- 标题行
+    local titleRow = UI.Panel {
+        width = "100%",
+        height = 40,
+        flexDirection = "row",
+        alignItems = "center",
+        justifyContent = "space-between",
+        paddingLeft = 16,
+        paddingRight = 16,
+        children = {
+            UI.Label { text = "设施升级", fontSize = 20, fontWeight = 700, fontColor = "#D4A574" },
+            UI.Label {
+                text = "x",
+                fontSize = 20,
+                fontColor = "#A0937D",
+                onClick = function() UpgradePopup.Close() end,
+            },
+        },
     }
 
-    modal_:AddContent(contentRow)
-    modal_:SetFooter(footerRow)
+    -- 弹窗主体面板（九宫格背景）
+    popupPanel_ = UI.Panel {
+        width = "88%",
+        height = "82%",
+        backgroundImage = "image/ui/ui_slice_01.png",
+        backgroundSlice = { 25, 25, 25, 25 },
+        borderRadius = 0,
+        flexDirection = "column",
+        padding = 4,
+        children = {
+            titleRow,
+            contentRow,
+            footerRow,
+        },
+    }
+
+    -- 全屏遮罩
+    overlayPanel_ = UI.Panel {
+        id = "upgrade_overlay",
+        position = "absolute",
+        left = 0, top = 0, right = 0, bottom = 0,
+        backgroundColor = "rgba(0,0,0,0.6)",
+        justifyContent = "center",
+        alignItems = "center",
+        visible = false,
+        onClick = function() UpgradePopup.Close() end,
+        children = { popupPanel_ },
+    }
+
+    -- 阻止点击弹窗本体时关闭
+    popupPanel_.props.onClick = function() end
+
+    -- 挂载到 UI 根
+    local uiRoot = UI.GetRoot()
+    if uiRoot then uiRoot:AddChild(overlayPanel_) end
+
+    -- 模拟 Modal 接口
+    modal_ = {
+        Open = function()
+            overlayPanel_.visible = true
+        end,
+        Close = function()
+            overlayPanel_.visible = false
+        end,
+    }
 end
 
 -- ============================================================================
