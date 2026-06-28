@@ -154,7 +154,7 @@ local MOOD_COLORS = {
 
 -- 选中/未选中卡片背景色
 local CUST_BG_SELECTED   = "#D4A574"
-local CUST_BG_UNSELECTED = "#2A2540"
+local CUST_BG_UNSELECTED = "#332A24"
 
 -- ============================================================================
 -- Screen 接口

@@ -28,7 +28,8 @@ function M.Build(payload)
                     position = "absolute",
                     width = "100%",
                     height = "100%",
-                    backgroundColor = "#2B2320",
+                    backgroundImage = "image/bg_orderboard_hazy_20260628134641.png",
+                    backgroundFit = "cover",
                 },
                 -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                 UI.Panel {
@@ -37,7 +38,7 @@ function M.Build(payload)
                     top = 0,
                     width = "100%",
                     height = 95,
-                    backgroundColor = "#2A2540",
+                    backgroundColor = "#332A24",
                 },
                 -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                 UI.Panel {
@@ -1066,7 +1067,7 @@ function M.Build(payload)
                             position = "absolute",
                             width = "100%",
                             height = "100%",
-                            backgroundColor = "#2A2540",
+                            backgroundColor = "#332A24",
                             borderRadius = 6,
                             borderColor = "#3D2B1F",
                             borderWidth = 2,
@@ -1379,7 +1380,7 @@ function M.Build(payload)
                             position = "absolute",
                             width = "100%",
                             height = "100%",
-                            backgroundColor = "#2A2540",
+                            backgroundColor = "#332A24",
                             borderRadius = 6,
                             borderColor = "#3D2B1F",
                             borderWidth = 2,
@@ -1692,7 +1693,7 @@ function M.Build(payload)
                             position = "absolute",
                             width = "100%",
                             height = "100%",
-                            backgroundColor = "#2A2540",
+                            backgroundColor = "#332A24",
                             borderRadius = 6,
                             borderColor = "#3D2B1F",
                             borderWidth = 2,
@@ -1996,7 +1997,7 @@ function M.Build(payload)
                     width = "100%",
                     height = 50.6,
                     bottom = 0,
-                    backgroundColor = "#2A2540",
+                    backgroundColor = "#332A24",
                 },
                 -- ShapeRect: 退化为标准 UI.Panel（fill/stroke/radius 已平铺到容器属性）
                 UI.Panel {

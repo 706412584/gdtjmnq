@@ -276,7 +276,7 @@ function StoryScreen.Create(container, params)
             autoLabel_.fontColor = autoPlay_ and "#4ECDC4" or "#c9a45a"
         end
         -- 自动开启时，边框也变色提示
-        local border = autoBtn_:FindByIndex(1)
+        local border = autoBtn_.children and autoBtn_.children[1]
         if border then
             border.borderColor = autoPlay_ and "#4ECDC4" or "#C9A45A"
         end
