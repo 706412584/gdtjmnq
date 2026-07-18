@@ -43,6 +43,33 @@ local C = {
     fillOverheat  = { 220, 50,  40,  255 },
 }
 
+local function InkButton(props)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local label = UI.Label {
+        text = props.text,
+        fontSize = props.fontSize or 18,
+        fontWeight = 700,
+        fontColor = props.fontColor or C.textPrimary,
+        textAlign = "center",
+        width = "100%",
+    }
+    local button = UI.Panel {
+        width = props.width,
+        height = props.height,
+        backgroundColor = props.backgroundColor or C.waterBlue,
+        borderWidth = 1,
+        borderColor = props.borderColor or C.gold,
+        borderRadius = props.borderRadius or 12,
+        justifyContent = "center",
+        alignItems = "center",
+        onPointerDown = props.onPointerDown,
+        onPointerUp = props.onPointerUp,
+        onPointerCancel = props.onPointerCancel,
+        children = { label },
+    }
+    return button, label
+end
+
 -- ============================================================================
 -- 初始化
 -- ============================================================================
@@ -169,23 +196,26 @@ function QuenchingGame:buildUI_()
     }
 
     -- 长按按钮
-    self.holdButton_ = UI.Button {
+    local holdButtonText
+    self.holdButton_, holdButtonText = InkButton {
         text = "按住淬火",
         width = 160,
         height = 56,
         fontSize = 20,
         backgroundColor = C.waterBlue,
-        hoverBackgroundColor = { 60, 140, 200, 255 },
-        pressedBackgroundColor = C.waterDeep,
-        fontColor = C.textPrimary,
+        borderColor = C.gold,
         borderRadius = 12,
-        onPressStart = function()
+        onPointerDown = function()
             self:onPressStart_()
         end,
-        onPressEnd = function()
+        onPointerUp = function()
+            self:onPressEnd_()
+        end,
+        onPointerCancel = function()
             self:onPressEnd_()
         end,
     }
+    self.holdButtonText_ = holdButtonText
 
     self.instructLabel_ = UI.Label {
         text = "按住蓄力，松手淬火",
@@ -266,7 +296,12 @@ function QuenchingGame:onPressStart_()
     if self.released_ then return end
 
     self.pressing_ = true
-    self.holdButton_.text = "松手!"
+    if self.holdButtonText_ then
+        self.holdButtonText_.text = "松手"
+    end
+    if self.holdButton_ then
+        self.holdButton_.backgroundColor = C.waterDeep
+    end
 end
 
 function QuenchingGame:onPressEnd_()
@@ -372,7 +407,12 @@ function QuenchingGame:update(dt)
             self.roundLabel_.text = "淬火: " .. self.currentRound_ .. "/" .. self.totalRounds_
             self.feedbackLabel_.text = "按住蓄力!"
             self.feedbackLabel_.fontColor = C.gold
-            self.holdButton_.text = "按住淬火"
+            if self.holdButtonText_ then
+                self.holdButtonText_.text = "按住淬火"
+            end
+            if self.holdButton_ then
+                self.holdButton_.backgroundColor = C.waterBlue
+            end
         end
         return
     end
@@ -458,8 +498,10 @@ function QuenchingGame:finishGame_()
         self.feedbackLabel_.fontColor = C.textPrimary
     end
 
+    if self.holdButtonText_ then
+        self.holdButtonText_.text = "完成"
+    end
     if self.holdButton_ then
-        self.holdButton_.text = "完成"
         self.holdButton_.backgroundColor = C.bgCard
     end
 

@@ -43,6 +43,31 @@ local C = {
     slotCurrent   = { 100, 90,  50,  255 },
 }
 
+local function InkButton(props)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local label = UI.Label {
+        text = props.text,
+        fontSize = props.fontSize or 12,
+        fontWeight = 700,
+        fontColor = props.fontColor or C.textPrimary,
+        textAlign = "center",
+        width = "100%",
+    }
+    local button = UI.Panel {
+        width = props.width,
+        height = props.height,
+        backgroundColor = props.backgroundColor,
+        borderWidth = 1,
+        borderColor = props.borderColor or C.gold,
+        borderRadius = props.borderRadius or 6,
+        justifyContent = "center",
+        alignItems = "center",
+        onClick = props.onClick,
+        children = { label },
+    }
+    return button, label
+end
+
 -- 零件名称池（根据武器类型可扩展）
 local PART_NAMES = {
     "刀柄缠绳",
@@ -76,6 +101,7 @@ function AssemblyGame:init(config)
     self.correctPicks_ = 0
     self.wrongPicks_  = 0
     self.parts_       = {}       -- { name, correctOrder, used, widget }
+    self.partLabels_  = {}
     self.slots_       = {}       -- { filled, widget }
 
     -- UI 引用
@@ -172,14 +198,13 @@ function AssemblyGame:buildUI_()
     for displayIdx = 1, self.totalParts_ do
         local actualIdx = self.shuffledIndices_[displayIdx]
         local part = self.parts_[actualIdx]
-        local btn = UI.Button {
+        local btn, label = InkButton {
             text = part.name,
             width = "45%",
             height = 48,
             fontSize = 12,
             backgroundColor = C.partDefault,
-            hoverBackgroundColor = { 75, 85, 115, 255 },
-            pressedBackgroundColor = { 50, 58, 85, 255 },
+            borderColor = C.bgCard,
             fontColor = C.textPrimary,
             borderRadius = 6,
             onClick = function()
@@ -188,6 +213,7 @@ function AssemblyGame:buildUI_()
         }
         part.widget = btn
         self.partWidgets_[actualIdx] = btn
+        self.partLabels_[actualIdx] = label
         partWidgets[#partWidgets + 1] = btn
     end
 
@@ -302,8 +328,12 @@ function AssemblyGame:onPartPick_(partIndex)
         -- 更新零件外观
         if part.widget then
             part.widget.backgroundColor = C.partCorrect
-            part.widget.fontColor = C.bgCard
-            part.widget.text = part.name .. " [OK]"
+            part.widget.borderColor = C.success
+            local label = self.partLabels_[partIndex]
+            if label then
+                label.fontColor = C.bgCard
+                label.text = part.name .. " [完成]"
+            end
         end
 
         -- 更新槽位

@@ -34,8 +34,9 @@ function StoryScreen.Create(container, params)
 
     local returnTo_ = (params and params.returnTo) or "home"
 
-    -- 当前节点和行索引
-    local currentNode_ = StoryManager.GetCurrentNode()
+    -- 当前节点和行索引。手动进入剧情页也必须遵守节点触发条件，
+    -- 避免从主页按钮绕过订单数、声望、设施等级等条件直接播放后续剧情。
+    local currentNode_ = StoryManager.HasPendingStory() and StoryManager.GetCurrentNode() or nil
     local lineIndex_ = 0
     local isShowingChoices_ = false
     local finished_ = false
@@ -150,6 +151,10 @@ function StoryScreen.Create(container, params)
     local autoPlay_ = false      -- 自动播放模式
     local autoDelay_ = 1.5       -- 自动播放等待时间(秒)
     local autoTimer_ = 0
+    local lineVisibleTime_ = 0   -- 当前台词开始显示后的停留时间
+    local tapCooldown_ = 0       -- 手动点击防抖计时
+    local TAP_COOLDOWN = 0.18    -- 防止一次触摸/鼠标事件连续推进多行
+    local MIN_LINE_HOLD = 0.35   -- 台词完整显示后的最短阅读时间
 
     -- 自动按钮（动态创建在跳过按钮左边）
     local autoBtn_ = UI.Panel {
@@ -536,11 +541,16 @@ function StoryScreen.Create(container, params)
             typewriter_.done = (typewriter_.totalChars == 0)
             textLabel_.text = ""
             autoTimer_ = 0  -- 重置自动播放计时
+            lineVisibleTime_ = 0
+            tapCooldown_ = TAP_COOLDOWN
         end
     end
 
     --- 点击处理（推进对话）
     local function OnTapAdvance()
+        if tapCooldown_ > 0 then return end
+        tapCooldown_ = TAP_COOLDOWN
+
         if finished_ then
             ScreenRouter.GoTo(returnTo_)
             return
@@ -550,24 +560,35 @@ function StoryScreen.Create(container, params)
             return  -- 选择模式下不响应点击推进
         end
 
-        -- 如果打字机还在输出中，先完成当前行
+        -- 如果打字机还在输出中，先完成当前行；本次点击不再继续推进
         if not typewriter_.done then
             typewriter_.done = true
             typewriter_.charIndex = typewriter_.totalChars
+            lineVisibleTime_ = 0
             if textLabel_ then
                 textLabel_.text = typewriter_.fullText
             end
             return
         end
 
+        -- 台词完整显示后至少停留片刻，避免连续点击直接跨行/跨节点
+        if lineVisibleTime_ < MIN_LINE_HOLD then return end
+
         ShowNextLine()
     end
 
     -- ----------------------------------------------------------------
-    -- 5. 绑定全屏点击推进（root 层级）+ 对话底板
+    -- 5. 仅对话框点击推进
     -- ----------------------------------------------------------------
-    root.props.onClick = function()
-        OnTapAdvance()
+    if dialogueBox_ then
+        dialogueBox_.props.onClick = function()
+            OnTapAdvance()
+        end
+    end
+    if scrollText_ then
+        scrollText_.props.onClick = function()
+            OnTapAdvance()
+        end
     end
 
     -- ----------------------------------------------------------------
@@ -584,6 +605,10 @@ function StoryScreen.Create(container, params)
     -- 会连带取消 main.lua 的主循环订阅，导致整个游戏冻结
     local function HandleUpdate(dt)
         idleTime_ = idleTime_ + dt
+        tapCooldown_ = math.max(0, tapCooldown_ - dt)
+        if typewriter_.done then
+            lineVisibleTime_ = lineVisibleTime_ + dt
+        end
 
         -- 立绘浮动动画
         if portraitFrame_ and portraitFrame_.visible and portraitImg_ then
@@ -601,6 +626,7 @@ function StoryScreen.Create(container, params)
             if targetChars >= typewriter_.totalChars then
                 targetChars = typewriter_.totalChars
                 typewriter_.done = true
+                lineVisibleTime_ = 0
                 textLabel_.text = typewriter_.fullText
             elseif targetChars ~= typewriter_.charIndex then
                 typewriter_.charIndex = targetChars

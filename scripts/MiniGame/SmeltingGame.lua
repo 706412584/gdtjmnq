@@ -41,6 +41,31 @@ local C = {
     barBg         = { 40,  45,  65,  255 },
 }
 
+local function InkButton(props)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local label = UI.Label {
+        text = props.text,
+        fontSize = props.fontSize or 18,
+        fontWeight = 700,
+        fontColor = props.fontColor or C.textPrimary,
+        textAlign = "center",
+        width = "100%",
+    }
+    local button = UI.Panel {
+        width = props.width,
+        height = props.height,
+        backgroundColor = props.backgroundColor or C.accent,
+        borderWidth = 1,
+        borderColor = props.borderColor or C.gold,
+        borderRadius = props.borderRadius or 10,
+        justifyContent = "center",
+        alignItems = "center",
+        onClick = props.onClick,
+        children = { label },
+    }
+    return button, label
+end
+
 -- ============================================================================
 -- 初始化
 -- ============================================================================
@@ -191,20 +216,20 @@ function SmeltingGame:buildUI_()
     }
 
     -- 定温按钮
-    self.lockButton_ = UI.Button {
-        text = "定温!",
+    local lockButtonText
+    self.lockButton_, lockButtonText = InkButton {
+        text = "定温",
         width = 140,
         height = 56,
         fontSize = 20,
         backgroundColor = C.accent,
-        hoverBackgroundColor = { 250, 90, 110, 255 },
-        pressedBackgroundColor = { 200, 50, 70, 255 },
-        fontColor = C.textPrimary,
+        borderColor = C.gold,
         borderRadius = 12,
         onClick = function()
             self:onLock_()
         end,
     }
+    self.lockButtonText_ = lockButtonText
 
     -- 历史指示灯
     self.roundDots_ = {}
@@ -477,8 +502,10 @@ function SmeltingGame:finishGame_()
         self.feedbackLabel_.fontColor = C.textPrimary
     end
 
+    if self.lockButtonText_ then
+        self.lockButtonText_.text = "完成"
+    end
     if self.lockButton_ then
-        self.lockButton_.text = "完成"
         self.lockButton_.backgroundColor = C.bgCard
     end
 

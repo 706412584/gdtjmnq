@@ -58,6 +58,16 @@ local CHAPTER_NAMES = {
     "第五章 · 匠心成",
 }
 
+-- GDD 9.14 章节解锁门槛。第一章默认开放；高章节即使存档进度已指向其中，
+-- 也必须满足声望后才能触发，防止连续点击一路播放到终章。
+local CHAPTER_FAME_REQUIREMENTS = {
+    [1] = 0,
+    [2] = 40,
+    [3] = 120,
+    [4] = 260,
+    [5] = 480,
+}
+
 --- 本次会话中已被玩家手动关闭的待触发节点（避免返回后立即重复自动弹出）
 --- 仅会话级，不持久化；剧情推进到新节点后自然失效
 ---@type string|nil
@@ -250,6 +260,12 @@ function StoryManager.HasPendingStory()
     -- 全部剧情已完结（持久化标记），不再有待展示内容
     local progress = GameState.GetStoryProgress()
     if progress.done then return false end
+
+    -- 章节级声望门槛优先于节点条件，确保章节解锁节奏符合 GDD。
+    local requiredFame = CHAPTER_FAME_REQUIREMENTS[progress.chapter] or math.huge
+    if GameState.GetFame() < requiredFame then
+        return false
+    end
 
     local node = StoryManager.GetCurrentNode()
     if not node then return false end

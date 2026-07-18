@@ -46,6 +46,31 @@ local C = {
     strikeBtnPressed = { 170, 60,  40,  255 },
 }
 
+local function InkButton(props)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local label = UI.Label {
+        text = props.text,
+        fontSize = props.fontSize or 20,
+        fontWeight = 700,
+        fontColor = props.fontColor or C.textPrimary,
+        textAlign = "center",
+        width = "100%",
+    }
+    local button = UI.Panel {
+        width = props.width,
+        height = props.height,
+        backgroundColor = props.backgroundColor or C.strikeBtn,
+        borderWidth = 1,
+        borderColor = props.borderColor or C.gold,
+        borderRadius = props.borderRadius or 12,
+        justifyContent = "center",
+        alignItems = "center",
+        onClick = props.onClick,
+        children = { label },
+    }
+    return button, label
+end
+
 -- ============================================================================
 -- 初始化
 -- ============================================================================
@@ -155,20 +180,20 @@ function ForgingGame:buildUI_()
     }
 
     -- 锤击按钮
-    self.strikeButton_ = UI.Button {
-        text = "锤击!",
+    local strikeButtonText
+    self.strikeButton_, strikeButtonText = InkButton {
+        text = "锤击",
         width = 160,
         height = 64,
         fontSize = 22,
         backgroundColor = C.strikeBtn,
-        hoverBackgroundColor = C.strikeBtnHover,
-        pressedBackgroundColor = C.strikeBtnPressed,
-        fontColor = C.textPrimary,
+        borderColor = C.gold,
         borderRadius = 12,
         onClick = function()
             self:onStrike_()
         end,
     }
+    self.strikeButtonText_ = strikeButtonText
 
     local panel = UI.Panel {
         width = "100%",
@@ -429,9 +454,10 @@ function ForgingGame:finishGame_()
         self.comboLabel_.text = "最大连击: " .. self.maxCombo_
     end
 
-    -- 禁用锤击按钮
+    if self.strikeButtonText_ then
+        self.strikeButtonText_.text = "完成"
+    end
     if self.strikeButton_ then
-        self.strikeButton_.text = "完成"
         self.strikeButton_.backgroundColor = C.bgCard
     end
 

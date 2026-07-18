@@ -40,6 +40,39 @@ local C = {
     bladeLabel    = { 40,  42,  55,  255 },
 }
 
+local ZONE_IMAGE = "image/ui/btn_secondary.png"
+local ZONE_ACTIVE_IMAGE = "image/ui/btn_gold.png"
+
+local function InkButton(props)
+    ---@diagnostic disable-next-line: param-type-mismatch
+    local label = UI.Label {
+        text = props.text,
+        width = "100%",
+        height = "100%",
+        flexShrink = 1,
+        fontSize = props.fontSize or 13,
+        fontWeight = 700,
+        fontColor = props.fontColor or C.textPrimary,
+        textAlign = "center",
+        verticalAlign = "middle",
+    }
+    local button = UI.Panel {
+        width = props.width,
+        height = props.height,
+        backgroundImage = props.backgroundImage,
+        backgroundFit = "stretch",
+        backgroundColor = props.backgroundColor,
+        borderWidth = props.borderWidth or 0,
+        borderColor = props.borderColor or C.gold,
+        borderRadius = props.borderRadius or 6,
+        justifyContent = "center",
+        alignItems = "center",
+        onClick = props.onClick,
+        children = { label },
+    }
+    return button, label
+end
+
 -- ============================================================================
 -- 初始化
 -- ============================================================================
@@ -63,6 +96,7 @@ function PolishingGame:init(config)
 
     -- UI 引用
     self.zoneWidgets_   = {}
+    self.zoneLabels_    = {}
     self.timerLabel_    = nil
     self.progressLabel_ = nil
     self.feedbackLabel_ = nil
@@ -119,21 +153,23 @@ function PolishingGame:buildUI_()
     for i = 1, self.totalZones_ do
         local idx = i
         local isFirst = (i == 1)
-        local btn = UI.Button {
-            text = "区域 " .. i,
-            width = "80%",
-            height = 44,
-            fontSize = 13,
-            backgroundColor = isFirst and C.bladeActive or C.bladeInactive,
-            hoverBackgroundColor = isFirst and { 220, 190, 120, 255 } or { 90, 95, 115, 255 },
-            pressedBackgroundColor = isFirst and { 180, 150, 80, 255 } or { 70, 75, 90, 255 },
-            fontColor = isFirst and C.bladeLabel or C.textSecondary,
-            borderRadius = 4,
+        local btn, label = InkButton {
+            text = "研磨区域 " .. i,
+            width = "46%",
+            height = 66,
+            fontSize = 15,
+            backgroundImage = isFirst and ZONE_ACTIVE_IMAGE or ZONE_IMAGE,
+            backgroundColor = "#00000000",
+            borderWidth = isFirst and 2 or 0,
+            borderColor = isFirst and C.gold or C.bgCard,
+            fontColor = isFirst and C.bladeLabel or C.textPrimary,
+            borderRadius = 8,
             onClick = function()
                 self:onZoneTap_(idx)
             end,
         }
         self.zoneWidgets_[i] = btn
+        self.zoneLabels_[i] = label
         zoneChildren[#zoneChildren + 1] = btn
     end
 
@@ -169,9 +205,13 @@ function PolishingGame:buildUI_()
             -- 刀刃区域
             UI.Panel {
                 width = "100%",
-                flexDirection = "column",
-                alignItems = "center",
-                gap = 4,
+                flexGrow = 1,
+                flexShrink = 1,
+                flexDirection = "row",
+                flexWrap = "wrap",
+                justifyContent = "center",
+                alignContent = "center",
+                gap = 10,
                 paddingHorizontal = 16,
                 children = zoneChildren,
             },
@@ -209,9 +249,15 @@ function PolishingGame:onZoneTap_(zoneIndex)
     if self.tapCount_ >= self.tapsPerZone_ then
         local w = self.zoneWidgets_[self.currentZone_]
         if w then
-            w.backgroundColor = C.bladePolished
-            w.fontColor = C.bladeLabel
-            w.text = "区域 " .. self.currentZone_ .. " [完成]"
+            w.backgroundImage = ZONE_ACTIVE_IMAGE
+            w.backgroundColor = "#00000000"
+            w.borderColor = C.success
+            w.borderWidth = 2
+            local label = self.zoneLabels_[self.currentZone_]
+            if label then
+                label.fontColor = C.bladeLabel
+                label.text = "研磨区域 " .. self.currentZone_ .. " · 完成"
+            end
         end
 
         self.zonesCompleted_ = self.zonesCompleted_ + 1
@@ -231,8 +277,14 @@ function PolishingGame:onZoneTap_(zoneIndex)
         -- 高亮下一区域
         local nextW = self.zoneWidgets_[self.currentZone_]
         if nextW then
-            nextW.backgroundColor = C.bladeActive
-            nextW.fontColor = C.bladeLabel
+            nextW.backgroundImage = ZONE_ACTIVE_IMAGE
+            nextW.backgroundColor = "#00000000"
+            nextW.borderColor = C.gold
+            nextW.borderWidth = 2
+            local nextLabel = self.zoneLabels_[self.currentZone_]
+            if nextLabel then
+                nextLabel.fontColor = C.bladeLabel
+            end
         end
 
         self.feedbackLabel_.text = "好! 继续下一区域"

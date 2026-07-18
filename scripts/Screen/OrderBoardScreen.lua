@@ -156,6 +156,39 @@ local MOOD_COLORS = {
 local CUST_BG_SELECTED   = "#D4A574"
 local CUST_BG_UNSELECTED = "#332A24"
 
+-- 订单配置只有 customerName/customerType，没有头像字段；这里统一按客户身份映射，
+-- 动态写入左右两侧头像容器，避免布局模板中的静态头像与客户错位。
+local CUSTOMER_AVATARS = {
+    ["猎户张三"] = "image/char_hunter.png",
+    ["厨娘李婶"] = "image/char_widow.png",
+    ["少年刘五"] = "image/char_apprentice.png",
+    ["药农老孙"] = "image/char_keeper.png",
+    ["镖师王铁"] = "image/char_guard.png",
+    ["樵夫陈大"] = "image/char_hunter.png",
+    ["游侠赵风"] = "image/char_han.png",
+    ["女侠林翠"] = "image/char_swordwoman_20260604131630.png",
+}
+
+local CUSTOMER_TYPE_AVATARS = {
+    common = "image/char_apprentice.png",
+    skilled = "image/char_blacksmith_20260604131624.png",
+    noble = "image/char_magistrate.png",
+    story = "image/char_keeper.png",
+}
+
+local function SetAvatarImage(avatarContainer, imagePath)
+    if not avatarContainer or not imagePath then return end
+    local children = avatarContainer.children
+    local imageLayer = children and children[2]
+    if imageLayer then
+        imageLayer.backgroundImage = imagePath
+        imageLayer.backgroundFit = "cover"
+    else
+        avatarContainer.backgroundImage = imagePath
+        avatarContainer.backgroundFit = "cover"
+    end
+end
+
 -- ============================================================================
 -- Screen 接口
 -- ============================================================================
@@ -199,6 +232,7 @@ function OrderBoardScreen.Create(container, params)
         custWidgets_[i] = {
             card = root:FindById(map.id),
             bg = root:FindById(map.bg),
+            avatar = root:FindById(map.avatar),
             name = root:FindById(map.name),
             title = root:FindById(map.title),
             moodBg = root:FindById(map.moodBg),
@@ -228,6 +262,7 @@ function OrderBoardScreen.Create(container, params)
         local map = ORDER_CARDS[i]
         orderWidgets_[i] = {
             card = rightPanel_:FindById(map.id),
+            avatar = rightPanel_:FindById(map.avatar),
             custName = rightPanel_:FindById(map.custName),
             custTitle = rightPanel_:FindById(map.custTitle),
             weaponName = rightPanel_:FindById(map.weaponName),
@@ -271,6 +306,9 @@ function OrderBoardScreen.Create(container, params)
             w.name.text = customer.name or ""
         end
 
+        local avatarPath = CUSTOMER_AVATARS[customer.name] or CUSTOMER_TYPE_AVATARS[customer.customerType]
+        SetAvatarImage(w.avatar, avatarPath)
+
         -- 头衔
         if w.title then
             w.title.text = customer.title or ""
@@ -311,6 +349,8 @@ function OrderBoardScreen.Create(container, params)
         local weaponName = recipe and recipe.name or "未知武器"
 
         -- 客户信息
+        local avatarPath = CUSTOMER_AVATARS[order.customerName] or CUSTOMER_TYPE_AVATARS[order.customerType]
+        SetAvatarImage(w.avatar, avatarPath)
         if w.custName then
             w.custName.text = order.customerName or ""
         end
@@ -512,6 +552,7 @@ function OrderBoardScreen.Create(container, params)
                 seen[cName] = true
                 customers_[#customers_ + 1] = {
                     name = cName,
+                    customerType = order.customerType,
                     title = order.customerType == "skilled" and "行家"
                         or order.customerType == "noble" and "贵人"
                         or "百姓",

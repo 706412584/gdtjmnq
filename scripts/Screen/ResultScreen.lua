@@ -88,9 +88,25 @@ function ResultScreen.Create(container, params)
             children = {
                 ---@diagnostic disable-next-line: param-type-mismatch
                 UI.Label { text = "结算数据异常", fontSize = 21, fontColor = "#E94560" },
-                UI.Button {
-                    text = "返回工坊",
+                UI.Panel {
+                    width = 140,
+                    height = 48,
+                    borderRadius = 10,
+                    borderWidth = 1,
+                    borderColor = "#D4A574",
+                    backgroundColor = "rgba(15,12,10,0.75)",
+                    justifyContent = "center",
+                    alignItems = "center",
                     onClick = function() ScreenRouter.GoTo("home") end,
+                    children = {
+                        ---@diagnostic disable-next-line: param-type-mismatch
+                        UI.Label {
+                            text = "返回工坊",
+                            fontSize = 18,
+                            fontColor = "#D4A574",
+                            textAlign = "center",
+                        },
+                    },
                 },
             },
         })
@@ -164,7 +180,6 @@ function ResultScreen.Create(container, params)
     local nameIds = { "tx_q", "tx_w", "tx_12", "tx_18" }
     local fillIds = { "sr_t", "sr_z", "sr_15", "sr_1b" }
     local scoreIds = { "tx_u", "tx_10", "tx_16", "tx_1c" }
-    local maxBarWidth = 880  -- 进度条最大宽度（布局中约 879.88）
 
     for i = 1, 4 do
         local row = root:FindById(rowIds[i])
@@ -181,7 +196,7 @@ function ResultScreen.Create(container, params)
 
                 local fill = root:FindById(fillIds[i])
                 if fill then
-                    fill.width = math.floor(scoreVal / 100 * maxBarWidth)
+                    fill.width = tostring(math.max(0, math.min(100, scoreVal))) .. "%"
                     fill.backgroundColor = BAR_COLORS[i] or "#4F7A63"
                 end
 
@@ -297,8 +312,12 @@ function ResultScreen.Create(container, params)
     -- 按钮事件
     -- ----------------------------------------------------------------
 
-    -- 交付订单
+    -- 订单已在 OrderManager.CompleteOrder 中结算并发奖，此按钮仅返回工坊。
     local deliverBtn = root:FindById("plate_1p")
+    local deliverText = root:FindById("plate_t_1r")
+    if deliverText then
+        deliverText.text = "返回工坊"
+    end
     if deliverBtn then
         deliverBtn.props.onClick = function()
             ScreenRouter.GoTo("home")

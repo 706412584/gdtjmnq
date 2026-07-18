@@ -14,11 +14,10 @@
 local UI = require("urhox-libs/UI")
 
 local EventBus       = require("Core.EventBus")
-local GameState      = require("Core.GameState")
 local OrderManager   = require("Core.OrderManager")
 local MiniGameRunner = require("MiniGame.MiniGameRunner")
 local ScreenRouter   = require("Utils.ScreenRouter")
-local BackButton     = require("Utils.BackButton")
+local SFXManager     = require("Utils.SFXManager")
 local ThemedDialog   = require("Utils.ThemedDialog")
 local Layout         = require("ui_ForgeScreen_锻造界面")
 
@@ -86,9 +85,25 @@ function ForgeScreen.Create(container, params)
             children = {
                 ---@diagnostic disable-next-line: param-type-mismatch
                 UI.Label { text = "订单数据异常", fontSize = 21, fontColor = "#E94560" },
-                UI.Button {
-                    text = "返回工坊",
+                UI.Panel {
+                    width = 140,
+                    height = 48,
+                    borderRadius = 10,
+                    borderWidth = 1,
+                    borderColor = "#D4A574",
+                    backgroundColor = "rgba(15,12,10,0.75)",
+                    justifyContent = "center",
+                    alignItems = "center",
                     onClick = function() ScreenRouter.GoTo("home") end,
+                    children = {
+                        ---@diagnostic disable-next-line: param-type-mismatch
+                        UI.Label {
+                            text = "返回工坊",
+                            fontSize = 18,
+                            fontColor = "#D4A574",
+                            textAlign = "center",
+                        },
+                    },
                 },
             },
         }
@@ -107,44 +122,30 @@ function ForgeScreen.Create(container, params)
     container:AddChild(root)
 
     -- 绑定关键元素
-    local backBtn      = root:FindById("plate_3")
-    local titleLabel   = root:FindById("tx_6")
-    local gameArea     = root:FindById("ph_i")       -- 小游戏主区域
-    local weaponIcon   = root:FindById("ph_t")       -- 武器图标区
-    local weaponLabel  = root:FindById("tx_y")       -- 武器名称
-    local materialLabel = root:FindById("tx_z")      -- 材料信息
-    local expectLabel  = root:FindById("tx_10")      -- 客户期望
-    local stepProgFill = root:FindById("sr_13")      -- 步骤进度条填充
-    local stepProgText = root:FindById("tx_14")      -- 步骤进度文字
-    local beatTitle    = root:FindById("tx_1b")      -- 节拍区标题
-    local hammerBtn    = root:FindById("plate_1h")   -- 锤按钮
-    local hammerHint   = root:FindById("tx_1k")      -- 按住提示
-    local qualityTier  = root:FindById("tx_1n")      -- 品质等级文字
-    local qualityFill  = root:FindById("sr_1q")      -- 品质进度条填充
-    local qualityText  = root:FindById("tx_1r")      -- 品质评分文字
-    local errorText    = root:FindById("tx_1v")      -- 失误容错文字
-    local pauseBtn     = root:FindById("plate_1w")   -- 暂停按钮
-    local itemBtn      = root:FindById("plate_1z")   -- 道具按钮
+    local backBtn       = root:FindById("plate_3")
+    local titleLabel    = root:FindById("tx_6")
+    local stepHintLabel = root:FindById("step_hint_label")
+    local gameArea      = root:FindById("ph_i")       -- 小游戏主区域
+    local weaponIcon    = root:FindById("ph_t")       -- 武器图标区
+    local weaponIconText = root:FindById("ph_t_x")    -- 武器图标文字
+    local weaponLabel   = root:FindById("tx_y")       -- 武器名称
+    local materialLabel = root:FindById("tx_z")       -- 材料信息
+    local expectLabel   = root:FindById("tx_10")      -- 客户期望
+    local stepProgFill  = root:FindById("sr_13")      -- 步骤进度条填充
+    local stepProgText  = root:FindById("tx_14")      -- 步骤进度文字
+    local qualityTier   = root:FindById("tx_1n")      -- 品质等级文字
+    local qualityFill   = root:FindById("sr_1q")      -- 品质进度条填充
+    local qualityText   = root:FindById("tx_1r")      -- 品质评分文字
+    local errorText     = root:FindById("tx_1v")      -- 失误容错文字
+    local customerNameLabel = root:FindById("customer_name_label")
+    local customerDialogueLabel = root:FindById("customer_dialogue_label")
+    local orderTierLabel = root:FindById("order_tier_label")
 
     -- 步骤进度点
-    local stageIds = { "stage_7", "stage_8", "stage_9", "stage_a", "stage_b" }
+    local stageIds = { "stage_7", "stage_8", "stage_9", "stage_a", "stage_b", "stage_c" }
     local stageDots = {}
     for i = 1, #stageIds do
         stageDots[i] = root:FindById(stageIds[i])
-    end
-
-    -- 失误心
-    local heartIds = { "heart_1s", "heart_1t", "heart_1u" }
-    local hearts = {}
-    for i = 1, #heartIds do
-        hearts[i] = root:FindById(heartIds[i])
-    end
-
-    -- 节拍点
-    local beatIds = { "beat_1c", "beat_1d", "beat_1e", "beat_1f", "beat_1g" }
-    local beats = {}
-    for i = 1, #beatIds do
-        beats[i] = root:FindById(beatIds[i])
     end
 
     -- ----------------------------------------------------------------
@@ -153,30 +154,86 @@ function ForgeScreen.Create(container, params)
 
     local steps = recipe.steps or {}
     local totalSteps = #steps
+    local orderTierNames = {
+        [1] = "寻常委托",
+        [2] = "良品委托",
+        [3] = "珍品委托",
+        [4] = "名器委托",
+        [5] = "传世委托",
+    }
+    local requiredQualityNames = {
+        [1] = "良品",
+        [2] = "上品",
+        [3] = "珍品",
+        [4] = "名器",
+        [5] = "传世",
+    }
+    local lineIconText = {
+        short_blade = "短\n刃",
+        long_sword = "长\n剑",
+        heavy_sword = "重\n剑",
+        ceremony_blade = "礼\n剑",
+    }
 
     -- 标题
     if titleLabel then
         titleLabel.text = "锻造 · " .. (recipe.name or "未知")
     end
+    if stepHintLabel then
+        stepHintLabel.text = "委托工序 " .. totalSteps .. " 步 · 稳住节奏，逐步提高成品品质。"
+    end
 
-    -- 武器名称
+    -- 武器与订单信息
     if weaponLabel then
         weaponLabel.text = recipe.name or "未知武器"
+    end
+    if weaponIconText then
+        weaponIconText.text = lineIconText[recipe.line or ""] or "兵\n器"
+    end
+    if weaponIcon and recipe.line == "ceremony_blade" then
+        weaponIcon.borderColor = "#FFD93D"
     end
 
     -- 材料信息
     if materialLabel then
-        local mats = recipe.materials or {}
+        local materials = recipe.requiredMaterials or {}
+        local materialOrder = {
+            "ore", "charcoal", "grinding_agent", "wood", "leather",
+            "iron", "steel", "jade_dust", "pattern_gold", "meteorite",
+        }
         local matNames = {}
-        for i = 1, #mats do
-            matNames[i] = mats[i].name or mats[i].id or "?"
+        local used = {}
+        for i = 1, #materialOrder do
+            local key = materialOrder[i]
+            local count = materials[key]
+            if count then
+                matNames[#matNames + 1] = OrderManager.GetMaterialName(key) .. "×" .. count
+                used[key] = true
+            end
         end
-        materialLabel.text = "材料 · " .. table.concat(matNames, " + ")
+        for key, count in pairs(materials) do
+            if not used[key] then
+                matNames[#matNames + 1] = OrderManager.GetMaterialName(key) .. "×" .. count
+            end
+        end
+        materialLabel.text = "材料 · " .. (#matNames > 0 and table.concat(matNames, "  ") or "无")
+    end
+
+    -- 客户与对话
+    local tier = (order and order.tier) or 1
+    if customerNameLabel and order then
+        customerNameLabel.text = order.customerName or "委托人"
+    end
+    if customerDialogueLabel and order then
+        customerDialogueLabel.text = "「" .. (order.dialogue or "请按委托要求完成锻造。") .. "」"
+    end
+    if orderTierLabel then
+        orderTierLabel.text = orderTierNames[tier] or ("T" .. tostring(tier) .. " 委托")
     end
 
     -- 客户期望
     if expectLabel and order then
-        local tierName = order.minQualityName or "良品"
+        local tierName = order.minQualityName or requiredQualityNames[order.requiredMaterialTier or 1] or "良品"
         expectLabel.text = "客户期望 · " .. tierName
     end
 
@@ -187,23 +244,14 @@ function ForgeScreen.Create(container, params)
         end
     end
 
-    -- 隐藏暂时不需要的节拍区和锤按钮（由小游戏模块自行管理）
-    -- 布局中的这些元素仅作为视觉参考，实际交互由小游戏渲染
-    if beatTitle then beatTitle.visible = false end
-    if hammerBtn then hammerBtn.visible = false end
-    if hammerHint then hammerHint.visible = false end
-    for i = 1, #beats do
-        if beats[i] then beats[i].visible = false end
-    end
-
     -- 初始化品质显示
     if qualityTier then qualityTier.text = "品质 · 评估中" end
     if qualityText then qualityText.text = "品质评分 0 / 100" end
-    if qualityFill then qualityFill.width = 0 end
+    if qualityFill then qualityFill.width = "0%" end
 
     -- 初始化步骤进度
     if stepProgText then stepProgText.text = "完成度 0%" end
-    if stepProgFill then stepProgFill.width = 0 end
+    if stepProgFill then stepProgFill.width = "0%" end
 
     -- 初始化失误容错
     local maxErrors = 3
@@ -213,34 +261,32 @@ function ForgeScreen.Create(container, params)
     end
 
     -- ----------------------------------------------------------------
-    -- 小游戏容器（覆盖在 ph_i 区域上方）
+    -- 小游戏容器
     -- ----------------------------------------------------------------
-    -- 隐藏背景遮罩文字，让小游戏模块在此区域渲染
     ---@diagnostic disable-next-line: assign-type-mismatch
-    local gameContainer = gameArea  -- 小游戏直接渲染到 ph_i 区域
+    local gameContainer = gameArea
 
     -- ----------------------------------------------------------------
     -- 按钮事件
     -- ----------------------------------------------------------------
 
-    BackButton.Setup(root, function()
-        -- 二次确认：防误触导致丢失进度
-        ThemedDialog.Confirm({
-            title = "放弃锻造",
-            message = "当前委托将取消，已消耗的材料将退还。确认退出？",
-            confirmText = "确认退出",
-            cancelText = "继续锻造",
-            onConfirm = function()
-                MiniGameRunner.Stop()
-                OrderManager.CancelOrder()
-                ScreenRouter.GoTo("home")
-            end,
-        })
-    end)
-
-    -- 暂停 / 道具面板功能未实现，隐藏避免误导玩家
-    if pauseBtn then pauseBtn.visible = false end
-    if itemBtn then itemBtn.visible = false end
+    if backBtn then
+        backBtn.props.onClick = function()
+            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            -- 二次确认：防误触导致丢失进度
+            ThemedDialog.Confirm({
+                title = "放弃锻造",
+                message = "当前委托将取消，已消耗的材料将退还。确认退出？",
+                confirmText = "确认退出",
+                cancelText = "继续锻造",
+                onConfirm = function()
+                    MiniGameRunner.Stop()
+                    OrderManager.CancelOrder()
+                    ScreenRouter.GoTo("home")
+                end,
+            })
+        end
+    end
 
     -- ----------------------------------------------------------------
     -- 启动小游戏序列
@@ -249,7 +295,6 @@ function ForgeScreen.Create(container, params)
     -- 难度随订单 tier 缩放，让高难订单的高奖励名副其实。
     -- 小游戏公式按 difficulty 1~3 设计，故把订单 tier(1~5) 映射到 1~3：
     --   T1→1(易)  T2→2(中)  T3→2(中)  T4→3(难)  T5→3(难)
-    local tier = (order and order.tier) or 1
     local difficulty = (tier <= 1 and 1) or (tier >= 4 and 3) or 2
     local currentStepIdx = 0
 
@@ -258,11 +303,14 @@ function ForgeScreen.Create(container, params)
         for i = 1, #stageDots do
             if stageDots[i] then
                 if i < idx then
-                    stageDots[i].backgroundColor = "#4ECDC4"  -- 已完成：青铜绿
+                    stageDots[i].backgroundColor = "#4ECDC4"
+                    stageDots[i].borderColor = "#4ECDC4"
                 elseif i == idx then
-                    stageDots[i].backgroundColor = "#C96A2B"  -- 当前：炉火橙
+                    stageDots[i].backgroundColor = "#C96A2B"
+                    stageDots[i].borderColor = "#FFD93D"
                 else
-                    stageDots[i].backgroundColor = "#5a4a3a"  -- 未达：默认深色
+                    stageDots[i].backgroundColor = "#5a4a3a"
+                    stageDots[i].borderColor = "rgba(212,165,116,0.45)"
                 end
             end
         end
@@ -283,11 +331,16 @@ function ForgeScreen.Create(container, params)
         UpdateStageDots(currentStepIdx)
 
         -- 更新步骤进度条
-        local pct = math.floor((currentStepIdx - 1) / totalSteps * 100)
+        local pct = 0
+        if totalSteps > 0 then
+            pct = math.floor((currentStepIdx - 1) / totalSteps * 100)
+        end
         if stepProgText then stepProgText.text = "完成度 " .. pct .. "%" end
         if stepProgFill then
-            local maxWidth = 170  -- 布局中步骤进度条最大宽度约170
-            stepProgFill.width = math.floor(pct / 100 * maxWidth)
+            stepProgFill.width = tostring(pct) .. "%"
+        end
+        if stepHintLabel then
+            stepHintLabel.text = "当前工序 · " .. stepName .. "。" .. (data.suddenEvent and "突发状况已出现，注意节奏。" or "按提示完成操作。")
         end
     end)
 
@@ -304,10 +357,23 @@ function ForgeScreen.Create(container, params)
         if qualityText then
             qualityText.text = "品质评分 " .. scorePct .. " / 100"
         end
-        if qualityFill then
-            local maxWidth = 908  -- 布局中品质进度条最大宽度
-            qualityFill.width = math.floor(avgScore * maxWidth)
+        if qualityTier then
+            local ratingName = data.rating or "Good"
+            local ratingText = ratingName == "Perfect" and "极佳"
+                or ratingName == "Great" and "优秀"
+                or ratingName == "Good" and "稳定"
+                or "需补救"
+            qualityTier.text = "品质 · " .. ratingText
         end
+        if qualityFill then
+            qualityFill.width = tostring(math.max(0, math.min(100, scorePct))) .. "%"
+        end
+        local completedPct = 0
+        if totalSteps > 0 then
+            completedPct = math.floor(currentStepIdx / totalSteps * 100)
+        end
+        if stepProgText then stepProgText.text = "完成度 " .. completedPct .. "%" end
+        if stepProgFill then stepProgFill.width = tostring(completedPct) .. "%" end
     end)
 
     -- 监听完成事件

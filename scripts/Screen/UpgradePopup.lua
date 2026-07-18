@@ -139,15 +139,13 @@ local function RefreshContent()
                 elseif not canAffordFame then
                     btnText = "声望不足"
                 end
-                -- 切换按钮背景图（金色/灰色）
-                upgradeBtn_.backgroundImage = canAfford
-                    and "image/ui/btn_gold.png"
-                    or "image/ui/btn_disabled.png"
+                -- 切换按钮背景色（金色/灰色）
+                upgradeBtn_.backgroundColor = canAfford and "#D4A574" or "#5A5A5A"
                 -- 更新按钮文字
                 local txtLabel = upgradeBtn_:FindById("upgrade_btn_text")
                 if txtLabel then
                     txtLabel.text = btnText
-                    txtLabel.fontColor = canAfford and "#1A1A2E" or "#888888"
+                    txtLabel.fontColor = canAfford and "#12100E" or "#999999"
                 end
             end
         end
@@ -331,18 +329,25 @@ local function EnsureModal()
     -- ============================
     costLabel_ = UI.Label {
         text = "",
-        fontSize = 21,
+        fontSize = 18,
         fontColor = "#D4A574",
         flexGrow = 1,
+        flexShrink = 1,
+        overflow = "hidden",
         verticalAlign = "middle",
         height = 44,
+        marginLeft = 80,
+        marginBottom = 35,
     }
 
     upgradeBtn_ = UI.Panel {
-        width = 160,
-        height = 48,
-        backgroundImage = "image/ui/btn_gold.png",
-        backgroundSlice = { 12, 12, 12, 12 },
+        width = 140,
+        height = 44,
+        flexShrink = 0,
+        marginRight = 80,
+        marginBottom = 35,
+        backgroundColor = "#D4A574",
+        borderRadius = 6,
         justifyContent = "center",
         alignItems = "center",
         onClick = function() DoUpgrade() end,
@@ -352,7 +357,7 @@ local function EnsureModal()
                 text = "升阶锻造",
                 fontSize = 19,
                 fontWeight = 700,
-                fontColor = "#1A1A2E",
+                fontColor = "#12100E",
                 textAlign = "center",
             },
         },
@@ -362,10 +367,9 @@ local function EnsureModal()
         flexDirection = "row",
         width = "100%",
         height = 56,
+        flexShrink = 0,
         alignItems = "center",
         justifyContent = "space-between",
-        paddingLeft = 16,
-        paddingRight = 16,
         children = { costLabel_, upgradeBtn_ },
     }
 
@@ -379,8 +383,9 @@ local function EnsureModal()
         flexDirection = "row",
         alignItems = "center",
         justifyContent = "space-between",
-        paddingLeft = 16,
+        paddingLeft = 50,
         paddingRight = 16,
+        marginTop = 35,
         children = {
             UI.Label { text = "设施升级", fontSize = 20, fontWeight = 700, fontColor = "#D4A574" },
             UI.Label {

@@ -53,10 +53,14 @@ local C = {
     progressFill    = "#C96A2B",               -- 炉火橙
 }
 
+local CARD_IMAGE = "image/ui/frame_item_md.png"
+local CARD_SELECTED_IMAGE = "image/ui/btn_gold.png"
+local ORE_ICON = "image/icon_ore.png"
+
 -- 矿石名称池
 local ORE_NAMES = {
     good = { "精铁矿", "黑铁矿", "玄铁矿", "锡矿石", "铜矿石", "银矿石" },
-    bad  = { "ite岩渣", "土块", "碎石", "铁锈块", "风化石", "杂矿渣" },
+    bad  = { "炉渣", "土块", "碎石", "铁锈块", "风化石", "杂矿渣" },
 }
 
 -- ============================================================================
@@ -227,32 +231,52 @@ function OreSelectGame:buildUI_()
         local ore = self.ores_[i]
         local idx = i
 
-        -- 矿石牌 — 用自定义 Panel 模拟古风按钮
         local oreLabel = UI.Label {
             text = ore.name,
             fontSize = 14,
+            fontWeight = 700,
             fontColor = C.textPrimary,
+            textAlign = "center",
+            width = "100%",
+            marginTop = 3,
+        }
+        local oreTypeLabel = UI.Label {
+            text = "待鉴别",
+            fontSize = 10,
+            fontColor = C.textSecondary,
             textAlign = "center",
             width = "100%",
         }
 
         local oreCard = UI.Panel {
             width = "22%",
-            height = 52,
-            backgroundColor = C.oreDefault,
-            borderWidth = 1,
-            borderColor = C.oreBorderNormal,
-            borderRadius = 4,
+            height = 112,
+            backgroundImage = CARD_IMAGE,
+            backgroundFit = "stretch",
+            borderWidth = 0,
+            borderRadius = 8,
+            padding = 7,
+            flexDirection = "column",
             justifyContent = "center",
             alignItems = "center",
             onClick = function(self_w)
-                self:onOrePick_(idx, self_w, oreLabel)
+                self:onOrePick_(idx, self_w, oreLabel, oreTypeLabel)
             end,
-            children = { oreLabel },
+            children = {
+                UI.Panel {
+                    width = 48,
+                    height = 48,
+                    backgroundImage = ORE_ICON,
+                    backgroundFit = "contain",
+                },
+                oreLabel,
+                oreTypeLabel,
+            },
         }
 
         ore.widget = oreCard
         ore.label = oreLabel
+        ore.typeLabel = oreTypeLabel
         oreWidgets[#oreWidgets + 1] = oreCard
     end
 
@@ -290,7 +314,7 @@ end
 -- 矿石点击
 -- ============================================================================
 
-function OreSelectGame:onOrePick_(index, cardWidget, labelWidget)
+function OreSelectGame:onOrePick_(index, cardWidget, labelWidget, typeLabelWidget)
     if self.finished_ then return end
 
     local ore = self.ores_[index]
@@ -302,10 +326,15 @@ function OreSelectGame:onOrePick_(index, cardWidget, labelWidget)
     if ore.isGood then
         -- 正确选择 — 金色/青铜绿高亮
         self.correctPicks_ = self.correctPicks_ + 1
-        cardWidget.backgroundColor = C.oreSelected
+        cardWidget.backgroundImage = CARD_SELECTED_IMAGE
+        cardWidget.backgroundColor = "#00000000"
         cardWidget.borderColor = C.oreBorderGood
         cardWidget.borderWidth = 2
-        if labelWidget then labelWidget.fontColor = C.textSuccess end
+        if labelWidget then labelWidget.fontColor = "#2F2518" end
+        if typeLabelWidget then
+            typeLabelWidget.text = "优质矿石"
+            typeLabelWidget.fontColor = "#2F2518"
+        end
 
         self.feedbackLabel_.text = "好矿! (" .. self.correctPicks_ .. "/" .. self.goodCount_ .. ")"
         self.feedbackLabel_.fontColor = C.textSuccess
@@ -320,10 +349,15 @@ function OreSelectGame:onOrePick_(index, cardWidget, labelWidget)
         end
     else
         -- 选错杂质 — 红色闪烁
+        cardWidget.backgroundImage = CARD_IMAGE
         cardWidget.backgroundColor = C.oreWrong
         cardWidget.borderColor = C.oreBorderBad
         cardWidget.borderWidth = 2
         if labelWidget then labelWidget.fontColor = C.textAccent end
+        if typeLabelWidget then
+            typeLabelWidget.text = "杂质"
+            typeLabelWidget.fontColor = C.textAccent
+        end
 
         self.feedbackLabel_.text = "杂质! 小心辨别"
         self.feedbackLabel_.fontColor = C.textAccent

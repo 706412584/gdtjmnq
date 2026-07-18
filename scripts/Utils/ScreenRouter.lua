@@ -90,6 +90,13 @@ function ScreenRouter.GoTo(name, params)
     print("[ScreenRouter] " .. (prevName ~= "" and (prevName .. " -> ") or "") .. name)
 end
 
+--- 检查 Screen 是否已注册
+---@param name string
+---@return boolean
+function ScreenRouter.Has(name)
+    return screens_[name] ~= nil
+end
+
 --- 获取当前 Screen 名称和实例
 ---@return string name
 ---@return table|nil screen

@@ -284,9 +284,18 @@ function MiniGameRunner.Update(dt)
             rating = result.rating,
         }
 
+        local avgScore = 0
+        for i = 1, #scores_ do
+            avgScore = avgScore + (scores_[i].score or 0)
+        end
+        if #scores_ > 0 then
+            avgScore = avgScore / #scores_
+        end
+
         EventBus.Emit("minigame_complete", {
             stepType = currentStepType_,
             score = result.score,
+            avgScore = avgScore,
             rating = result.rating,
         })
 
