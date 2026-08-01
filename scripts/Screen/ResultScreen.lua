@@ -17,6 +17,7 @@ local ScreenRouter = require("Utils.ScreenRouter")
 local SFXManager = require("Utils.SFXManager")
 local OrderManager = require("Core.OrderManager")
 local GameState = require("Core.GameState")
+local TutorialManager = require("Core.TutorialManager")
 local AdManager = require("Utils.AdManager")
 local Layout = require("ui_ResultScreen_结算界面")
 
@@ -320,11 +321,14 @@ function ResultScreen.Create(container, params)
     end
     if deliverBtn then
         deliverBtn.props.onClick = function()
+            if result.orderId == "ORD_T1_001" then
+                TutorialManager.Complete()
+            end
             ScreenRouter.GoTo("home")
         end
     end
 
-    -- 广告双倍奖励（看激励视频 → 本次订单铜钱翻倍，仅翻铜钱不翻声望，GDD §9.13）
+    -- 广告双倍奖励（看激励视频 → 本次订单铜钱翻倍，仅翻铜钱不翻声望）
     local adBtn = root:FindById("plate_1s")
     if adBtn then
         adBtn.props.onClick = function()
@@ -334,11 +338,9 @@ function ResultScreen.Create(container, params)
                 if bonus > 0 then
                     GameState.AddCoins(bonus)
                 end
-                -- 更新铜钱显示为翻倍后总额
                 if coinsValue then
                     coinsValue.text = "+" .. tostring((result.rewardCoins or 0) + bonus)
                 end
-                -- 防止重复领取
                 adBtn.visible = false
                 SFXManager.Play(SFXManager.SFX.UI_COIN, 0.6)
                 UI.Toast.Show("铜钱翻倍！额外 +" .. bonus .. " 铜钱", { duration = 2 })
@@ -351,6 +353,11 @@ function ResultScreen.Create(container, params)
         codexBtn.props.onClick = function()
             ScreenRouter.GoTo("codex")
         end
+    end
+
+    if result.orderId == "ORD_T1_001" and TutorialManager.IsActive() then
+        TutorialManager.Advance("collect_result")
+        UI.Toast.Show(TutorialManager.GetMessage("collect_result"), { duration = 3.5 })
     end
 
     -- ----------------------------------------------------------------

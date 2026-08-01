@@ -81,11 +81,15 @@ function PolishingGame:init(config)
     MiniGameBase.init(self, config)
 
     local difficulty = config.difficulty or 1
+    local facilityLevel = config.facilityLevel or 1
+    local timeBonus = math.max(0, facilityLevel - 1) * 2
+    local timeMultiplier = config.timeMultiplier or 1
+    local operationMultiplier = config.operationMultiplier or 1
 
     -- 游戏参数
     self.totalZones_  = 4 + difficulty                        -- 研磨区域数
-    self.tapsPerZone_ = 2 + math.floor(difficulty / 2)        -- 每区域需点击次数
-    self.timeLimit_   = 15 + (3 - difficulty) * 3             -- 时间限制
+    self.tapsPerZone_ = math.max(1, math.ceil((2 + math.floor(difficulty / 2)) * operationMultiplier))
+    self.timeLimit_   = (15 + (3 - difficulty) * 3 + timeBonus) * timeMultiplier
 
     -- 状态
     self.currentZone_    = 1

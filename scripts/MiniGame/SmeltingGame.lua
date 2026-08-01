@@ -74,12 +74,15 @@ function SmeltingGame:init(config)
     MiniGameBase.init(self, config)
 
     local difficulty = config.difficulty or 1
+    local facilityLevel = config.facilityLevel or 1
+    local windowBonus = math.max(0, facilityLevel - 1) * 0.10
+    local operationMultiplier = config.operationMultiplier or 1
 
     -- 游戏参数
-    self.totalRounds_   = 3 + difficulty            -- 总轮数
+    self.totalRounds_   = math.max(1, math.ceil((3 + difficulty) * operationMultiplier))
     self.pointerSpeed_  = 0.6 + difficulty * 0.15   -- 指针速度（0~1范围/秒）
-    self.perfectZoneSize_ = 0.18 - difficulty * 0.02 -- 最佳区间大小（占比）
-    self.goodZoneSize_  = 0.30 - difficulty * 0.02   -- 良好区间大小
+    self.perfectZoneSize_ = (0.18 - difficulty * 0.02) * (1 + windowBonus)
+    self.goodZoneSize_  = (0.30 - difficulty * 0.02) * (1 + windowBonus)
 
     -- 状态
     self.currentRound_  = 1

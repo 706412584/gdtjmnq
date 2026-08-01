@@ -2,7 +2,7 @@
 
 > **项目代号**: Project Smith
 > **技术平台**: UrhoX (Lua 5.4)
-> **屏幕方向**: 竖屏 9:16
+> **屏幕方向**: 横屏 16:9（设计分辨率 1920×1080）
 > **参考文档**: `docs/ancient-workshop-mobile-gdd.md`
 > **开发规范**: `/workspace/CLAUDE.md`
 
@@ -21,13 +21,13 @@
 
 | 层面 | 方案 | 说明 |
 |------|------|------|
-| UI 框架 | urhox-libs/UI (Yoga Flexbox) | 竖屏全 UI 游戏最优解 |
+| UI 框架 | urhox-libs/UI (Yoga Flexbox) | 横屏全 UI 游戏，设计分辨率 1920×1080 |
 | 自定义图形 | NanoVG | 小游戏内温度条/路径/火花等 |
-| 分辨率 | 模式 B（系统逻辑分辨率） | 响应式布局，自动适配 |
+| 分辨率 | 模式 A（设计分辨率） | 1920×1080，横屏响应式适配 |
 | 数据格式 | JSON (cjson) | 配置 + 存档 |
 | 存档 | clientCloud 云变量 | 自动存档（5s 间隔），key: `smith_save` |
 | 内存保护 | SecureStore (XOR+key轮换) | 防 GG 搜值，敏感数值混淆存储 |
-| 脚手架 | scaffold-2d.lua | 竖屏 2D UI 游戏 |
+| 脚手架 | scaffold-2d.lua | 横屏 2D UI 游戏 |
 | 美术生成 | generate_image (model: gpt) | 立绘/背景/图标 |
 | 音效生成 | text_to_sound_effect | 锤打/火焰/淬火等 |
 
@@ -518,7 +518,7 @@ function MiniGameBase:cleanup() end
 | 风险 | 影响 | 对策 |
 |------|------|------|
 | 小游戏手感需要反复调参 | 开发耗时增加 | 将判定参数提取到 JSON 配置，支持热调 |
-| 竖屏下小游戏操作空间有限 | 体验受影响 | 充分利用 NanoVG 自由绘制，按钮做大 |
+| 横屏下信息密度过高 | 视觉层级混乱 | 左右分区布局，保留安全边距，核心按钮使用足够触控尺寸 |
 | 5 章剧情内容量大 | P3 工期长 | 对话数据走 JSON 配置，批量生产 |
 | 美术资源风格一致性 | 视觉不统一 | 固定 AI 生图 prompt 模板，统一种子 |
 
@@ -538,4 +538,5 @@ function MiniGameBase:cleanup() end
 - [ ] 云存档读写正常（clientCloud）
 - [ ] 敏感数值走 SecureStore，无明文驻留内存
 - [ ] 数据读写统一通过 GameState 接口
-- [ ] 竖屏布局在不同分辨率下无溢出
+- [ ] 横屏 16:9 布局在不同逻辑分辨率和 DPR 下无溢出
+- [ ] 全局视觉符合极简水墨武侠风，无 PixelForge/现代厚重卡片混用

@@ -161,23 +161,15 @@ local tile = scene_:CreateChild("tile_" .. row .. "_" .. col)
 tile:SetPosition2D(x, y)
 local spr = tile:CreateComponent("StaticSprite2D")
 spr.layer = 0
-spr.sprite = dummySprite  -- 必须设置一个有效 pow2 Sprite2D 作为基底
+spr.sprite = dummySprite
 spr.useDrawRect = true
 spr.drawRect = Rect(-tileM / 2, -tileM / 2, tileM / 2, tileM / 2)
 spr.customMaterial = material
 ```
 
 建议：
-- 缓存切片 material，key 使用 `tsetIdx .. "_" .. tileIdx`。
+- 缓存切片 material，key 使用 `path:sx:sy:tileSize`。
 - 大地图后续再做 chunk/合批；MVP 先逐格节点可接受。
-
-**关键：customMaterial 与 textureRect 互斥**
-
-同一个 StaticSprite2D 不能同时使用两者：
-- 瓦片地图：用 customMaterial（DiffUnlit + GetSubimage 切片纹理）
-- 角色/道具：用 textureRect（UV 坐标裁切）
-
-使用 customMaterial 时仍需设置 spr.sprite（任何有效 pow2 纹理即可），否则渲染为空。
 
 ## Spritesheet 动画
 
@@ -203,14 +195,6 @@ local function SetSheetFrame(spr, spritePath, frameIdx, count, cols, flipX)
 end
 ```
 
-
-**textureRect 坐标说明**：`Rect(uLeft, vBottom, uRight, vTop)`
-- V=0 是纹理顶部，V=1 是纹理底部
-- 正常显示：`Rect(u0, v1, u1, v0)`（v1>v0，底在前顶在后）
-- 水平翻转：交换 u0/u1 → `Rect(u1, v1, u0, v0)`
-- 单行 spritesheet 简写：`Rect(frameIdx/count, 1.0, (frameIdx+1)/count, 0.0)`
-
-也可用于任意 UV 矩形裁切道具/装饰（非网格），直接传小数 UV 坐标即可。
 动画状态应由逻辑层决定，例如 `idle / walk / attack / hurt / death`。
 
 ## 碰撞设计
@@ -225,7 +209,7 @@ end
 ```
 
 关键规则：
-- `RigidBody2D` 和碰撞形状组件（`CollisionBox2D`/`CollisionCircle2D`）放在同一个节点。
+- `RigidBody2D` 和 `CollisionShape2D` 放在同一个节点。
 - 触发器使用 `shape.trigger = true`。
 - 使用 `categoryBits` / `maskBits` 管理阵营和碰撞层。
 - 不要用数字猜输入枚举；输入使用 `KEY_*`、`MOUSEB_*`。
@@ -254,7 +238,6 @@ local shape = player:CreateComponent("CollisionBox2D")
 shape:SetSize(0.22, 0.28)
 shape.categoryBits = 2
 shape.maskBits = 1 + 4 + 8
-shape:SetCenter(0, -0.10)  -- 碰撞体偏移到脚部区域，更符合视觉遮挡
 ```
 
 碰撞回调：
@@ -317,9 +300,6 @@ end
 - [ ] 瓦片/角色/碰撞统一米制坐标。
 - [ ] `RigidBody2D` 与碰撞形状在同一节点。
 - [ ] 瓦片图集使用 `FILTER_NEAREST`。
-- [ ] customMaterial 与 textureRect 未混用在同一 StaticSprite2D。
-- [ ] 使用 customMaterial 的节点已设置 dummySprite。
-- [ ] 角色碰撞体用 SetCenter 偏移到脚部。
 - [ ] 输入使用 `KEY_*` / `MOUSEB_*` 枚举。
 - [ ] LSP Error 数量为 0。
 - [ ] 调用官方 build 工具成功。

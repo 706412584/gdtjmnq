@@ -31,6 +31,10 @@ local RANK_KEYS = {
 --- 提交当前玩家的排行榜数据
 --- 在每次订单完成、声望变动时调用
 function Leaderboard.SubmitScore()
+    if not GameState.CanSaveToCloud() or not rawget(_G, "clientCloud") then
+        return
+    end
+
     local fame = GameState.GetFame()
     local bestTier = GameState.GetStat("bestQualityTier")
     local totalForged = GameState.GetStat("totalForged")
@@ -58,6 +62,11 @@ end
 ---@param topN number 获取前 N 名
 ---@param callback function(list:table[]) 回调，list 每项包含 { rank, userId, nickname, score, isMe }
 function Leaderboard.FetchRankList(rankType, topN, callback)
+    if not GameState.CanSaveToCloud() or not rawget(_G, "clientCloud") then
+        if callback then callback({}) end
+        return
+    end
+
     local key = RANK_KEYS[rankType]
     if not key then
         print("[Leaderboard] Unknown rank type: " .. tostring(rankType))
@@ -129,6 +138,11 @@ end
 ---@param rankType string "fame" | "bestScore" | "totalForged"
 ---@param callback function(rank:number|nil, score:number)
 function Leaderboard.FetchMyRank(rankType, callback)
+    if not GameState.CanSaveToCloud() or not rawget(_G, "clientCloud") then
+        if callback then callback(nil, 0) end
+        return
+    end
+
     local key = RANK_KEYS[rankType]
     if not key then
         if callback then callback(nil, 0) end
@@ -156,6 +170,11 @@ end
 ---@param rankType string
 ---@param callback function(total:number)
 function Leaderboard.FetchTotal(rankType, callback)
+    if not GameState.CanSaveToCloud() or not rawget(_G, "clientCloud") then
+        if callback then callback(0) end
+        return
+    end
+
     local key = RANK_KEYS[rankType]
     if not key then
         if callback then callback(0) end

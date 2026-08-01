@@ -14,11 +14,13 @@
 local UI = require("urhox-libs/UI")
 
 local EventBus       = require("Core.EventBus")
+local GameState      = require("Core.GameState")
 local OrderManager   = require("Core.OrderManager")
 local MiniGameRunner = require("MiniGame.MiniGameRunner")
 local ScreenRouter   = require("Utils.ScreenRouter")
 local SFXManager     = require("Utils.SFXManager")
 local ThemedDialog   = require("Utils.ThemedDialog")
+local TutorialManager = require("Core.TutorialManager")
 local Layout         = require("ui_ForgeScreen_锻造界面")
 
 -- 小游戏模块
@@ -72,10 +74,15 @@ local STEP_NAMES = {
 function ForgeScreen.Create(container, params)
     local screen = {}
 
-    -- 获取订单数据
+    -- 获取订单数据；订单恢复时只传 orderId，其余数据从持久化快照重建。
     local orderId = params and params.orderId
     local order   = params and params.order
     local recipe  = params and params.recipe
+    local activeOrder = OrderManager.GetActiveOrder()
+    if orderId and activeOrder and activeOrder.orderId == orderId then
+        order = order or activeOrder.template
+        recipe = recipe or activeOrder.recipe
+    end
 
     if not orderId or not recipe then
         print("[ForgeScreen] ERROR: Missing orderId or recipe in params")
@@ -154,6 +161,7 @@ function ForgeScreen.Create(container, params)
 
     local steps = recipe.steps or {}
     local totalSteps = #steps
+    local isTutorialOrder = TutorialManager.IsFirstOrder(orderId)
     local orderTierNames = {
         [1] = "寻常委托",
         [2] = "良品委托",
@@ -195,6 +203,8 @@ function ForgeScreen.Create(container, params)
     end
 
     -- 材料信息
+    local selectedMaterialTier = (activeOrder and activeOrder.materialTier) or 1
+    local materialTierNames = { "粗料", "熟料", "精料", "纹金", "陨材" }
     if materialLabel then
         local materials = recipe.requiredMaterials or {}
         local materialOrder = {
@@ -216,7 +226,9 @@ function ForgeScreen.Create(container, params)
                 matNames[#matNames + 1] = OrderManager.GetMaterialName(key) .. "×" .. count
             end
         end
-        materialLabel.text = "材料 · " .. (#matNames > 0 and table.concat(matNames, "  ") or "无")
+        materialLabel.text = "材料 · " .. (materialTierNames[selectedMaterialTier] or "未知")
+            .. " T" .. selectedMaterialTier .. " · "
+            .. (#matNames > 0 and table.concat(matNames, "  ") or "无")
     end
 
     -- 客户与对话
@@ -340,7 +352,14 @@ function ForgeScreen.Create(container, params)
             stepProgFill.width = tostring(pct) .. "%"
         end
         if stepHintLabel then
-            stepHintLabel.text = "当前工序 · " .. stepName .. "。" .. (data.suddenEvent and "突发状况已出现，注意节奏。" or "按提示完成操作。")
+            if isTutorialOrder then
+                TutorialManager.Advance(data.stepType)
+                stepHintLabel.text = "首单指引 · " .. TutorialManager.GetMessage(data.stepType)
+            else
+                local challengeHint = data.modifierName and ("挑战 · " .. data.modifierName .. "：" .. (data.modifierDescription or "")) or ""
+                local suddenHint = data.suddenEvent and "突发状况已出现，注意节奏。" or "按提示完成操作。"
+                stepHintLabel.text = "当前工序 · " .. stepName .. "。" .. challengeHint .. suddenHint
+            end
         end
     end)
 
@@ -350,6 +369,8 @@ function ForgeScreen.Create(container, params)
         print("[ForgeScreen] Step complete: " .. (data.stepType or "?")
             .. " score=" .. string.format("%.2f", data.score or 0)
             .. " rating=" .. (data.rating or "?"))
+
+        OrderManager.UpdateActiveOrderProgress(MiniGameRunner.GetCompletedScores())
 
         -- 更新品质评分（累计平均）
         local avgScore = data.avgScore or data.score or 0
@@ -376,6 +397,44 @@ function ForgeScreen.Create(container, params)
         if stepProgFill then stepProgFill.width = tostring(completedPct) .. "%" end
     end)
 
+    local freeRetryUsed = OrderManager.HasUsedFreeRetry()
+    local unsubFailed
+    unsubFailed = EventBus.On("minigame_failed", function(data)
+        if not MiniGameRunner.IsPaused() then return end
+        local stepName = STEP_NAMES[data.stepType] or "当前工序"
+        local canFreeRetry = not freeRetryUsed
+        ThemedDialog.Confirm({
+            title = "工序失手",
+            message = isTutorialOrder
+                and ("首单可以免费重试一次。" .. TutorialManager.GetMessage(data.stepType))
+                or (canFreeRetry
+                    and (stepName .. "未达标。可免费重试一次，或带着瑕疵继续锻造。")
+                    or (stepName .. "未达标。可带着瑕疵继续锻造，或放弃当前委托。")),
+            confirmText = canFreeRetry and "免费重试" or "带瑕继续",
+            cancelText = canFreeRetry and "带瑕继续" or "放弃委托",
+            onConfirm = function()
+                if canFreeRetry and OrderManager.UseFreeRetry() then
+                    freeRetryUsed = true
+                    MiniGameRunner.RetryCurrentStep()
+                else
+                    MiniGameRunner.ContinueWithFlaw()
+                    OrderManager.UpdateActiveOrderProgress(MiniGameRunner.GetCompletedScores())
+                end
+            end,
+            onCancel = function()
+                if canFreeRetry then
+                    MiniGameRunner.ContinueWithFlaw()
+                    OrderManager.UpdateActiveOrderProgress(MiniGameRunner.GetCompletedScores())
+                else
+                    MiniGameRunner.Stop()
+                    OrderManager.CancelOrder()
+                    ScreenRouter.GoTo("home")
+                end
+            end,
+            danger = not canFreeRetry,
+        })
+    end)
+
     -- 监听完成事件
     local unsubComplete
     unsubComplete = EventBus.On("all_steps_complete", function(data)
@@ -393,10 +452,8 @@ function ForgeScreen.Create(container, params)
             }
         end
 
-        -- 完成订单
-        -- 不传 usedMaterialTier（=nil），OrderManager 会按订单 requiredMaterialTier 结算，
-        -- 避免无材料选择系统时 T2+ 订单被材料等级失配惩罚（matCoeff 0.9 × matchCoeff 0.9）
-        local result = OrderManager.CompleteOrder(stepScores, nil)
+        -- 实际材料品质由活跃订单快照锁定，结算层不接收页面参数。
+        local result = OrderManager.CompleteOrder(stepScores)
 
         -- 跳转结算界面
         if result then
@@ -407,11 +464,34 @@ function ForgeScreen.Create(container, params)
         end
     end)
 
+    local recoveredScores = (activeOrder and activeOrder.stepScores) or {}
+    local recoveredStepCount = #recoveredScores
+    if recoveredStepCount > 0 then
+        currentStepIdx = recoveredStepCount
+        UpdateStageDots(recoveredStepCount + 1)
+        local restoredPct = math.floor(recoveredStepCount / math.max(1, totalSteps) * 100)
+        if stepProgText then stepProgText.text = "完成度 " .. restoredPct .. "%" end
+        if stepProgFill then stepProgFill.width = tostring(restoredPct) .. "%" end
+        if stepHintLabel then
+            stepHintLabel.text = "已恢复前 " .. recoveredStepCount .. " 道工序，继续完成委托。"
+        end
+    end
+
+    -- 每道工序只读取对应设施：升级直接改变该小游戏的容错窗口或时限。
+    local facilityLevels = {
+        furnace = GameState.GetFacilityLevel("furnace"),
+        anvil = GameState.GetFacilityLevel("anvil"),
+        quench_pool = GameState.GetFacilityLevel("quench_pool"),
+        grinder = GameState.GetFacilityLevel("grinder"),
+    }
+
     -- 启动
     MiniGameRunner.Start(orderId, steps, {
         difficulty     = difficulty,
-        materialTier   = 1,
-        facilityLevel  = 1,
+        materialTier   = selectedMaterialTier,
+        facilityLevels = facilityLevels,
+        modifier       = activeOrder and activeOrder.modifier or nil,
+        completedScores = recoveredScores,
     }, gameContainer) ---@diagnostic disable-line: param-type-mismatch
 
     -- ----------------------------------------------------------------
@@ -424,11 +504,16 @@ function ForgeScreen.Create(container, params)
 
     function screen.Destroy()
         MiniGameRunner.Stop()
+        -- 返回订单板、按 ESC 或关闭页面时，首单教程回到接单节点，材料与订单照常按取消规则处理。
+        if isTutorialOrder and OrderManager.GetActiveOrder() then
+            TutorialManager.ResetForFirstOrder()
+        end
         -- 安全网：任何非正常完成的离开路径（如 ESC 直接返回主界面）都要取消活跃订单，
         -- 否则 activeOrder_ 残留会导致订单板全部接单按钮被锁死。
         -- 正常完单时 CompleteOrder 已清空 activeOrder_，此处 CancelOrder 为 no-op，不会重复退料。
         OrderManager.CancelOrder()
         if unsubComplete then unsubComplete() end
+        if unsubFailed then unsubFailed() end
         if unsubStart then unsubStart() end
         if unsubStepComplete then unsubStepComplete() end
     end

@@ -8,7 +8,8 @@
 
 local UI           = require("urhox-libs/UI")
 local GameState    = require("Core.GameState")
-local ScreenRouter = require("Utils.ScreenRouter")
+local SettingsManager = require("Core.SettingsManager")
+local ScreenRouter   = require("Utils.ScreenRouter")
 local SFXManager   = require("Utils.SFXManager")
 local ThemedDialog = require("Utils.ThemedDialog")
 local BackButton   = require("Utils.BackButton")
@@ -22,7 +23,7 @@ local SettingsScreen = {}
 
 local TAB_DEFS = {
     { id = "side_e", bgId = "sr_f", labelId = "tx_g", name = "音画",   sectionTitle = "· 音画 ·  灯火与笛声" },
-    { id = "side_h", bgId = "sr_i", labelId = "tx_j", name = "操作",   sectionTitle = "· 操作 ·  手感调校", hidden = true },
+    { id = "side_h", bgId = "sr_i", labelId = "tx_j", name = "性能",   sectionTitle = "· 性能 ·  动效与功耗" },
     { id = "side_k", bgId = "sr_l", labelId = "tx_m", name = "账号",   sectionTitle = "· 账号 ·  铁匠身份", hidden = true },
     { id = "side_n", bgId = "sr_o", labelId = "tx_p", name = "游戏",   sectionTitle = "· 游戏 ·  画质偏好" },
     { id = "side_q", bgId = "sr_r", labelId = "tx_s", name = "帮助",   sectionTitle = "· 帮助 ·  师承指引", hidden = true },
@@ -36,10 +37,9 @@ local VOLUME_ROWS = {
     { rowId = "row_1m", labelId = "tx_1o", trackId = "sr_1i", fillId = "sr_1j", thumbId = "sc_1k", valueId = "tx_1l", key = "ambientVolume", default = 50 },
 }
 
--- 开关行定义
+-- 性能开关：当前仅开放已真实接入的低功耗模式。
 local TOGGLE_ROWS = {
-    { rowId = "row_1r", labelId = "tx_1t", bgId = "sr_1p", thumbId = "sc_1q", key = "vibration", default = true },
-    { rowId = "row_1w", labelId = "tx_1y", bgId = "sr_1u", thumbId = "sc_1v", key = "lowPower",  default = false },
+    { rowId = "row_1w", labelId = "tx_1y", bgId = "sr_1u", thumbId = "sc_1v", key = "lowPower", default = false },
 }
 
 -- 选项行颜色
@@ -62,12 +62,9 @@ local FONT_OPTS = {
     { bgId = "sr_2e", labelId = "tx_2f", value = "large" },
 }
 
--- 语言选项
+-- 当前仅简体中文已完成本地化，其他语言不作为可选项展示。
 local LANG_OPTS = {
     { bgId = "sr_2j", labelId = "tx_2k", value = "zh-CN" },
-    { bgId = "sr_2l", labelId = "tx_2m", value = "zh-TW" },
-    { bgId = "sr_2n", labelId = "tx_2o", value = "en" },
-    { bgId = "sr_2p", labelId = "tx_2q", value = "ja" },
 }
 
 -- ============================================================================
@@ -87,22 +84,48 @@ function SettingsScreen.Create(container, params)
     -- ----------------------------------------------------------------
     -- 加载设置
     -- ----------------------------------------------------------------
-    local settings = GameState.GetSettings()
+    local settings = SettingsManager.Normalize(GameState.GetSettings())
     local state = {
-        activeTab     = 1,   -- 当前激活的Tab索引
-        masterVolume  = settings.sfxVolume or 80,
-        musicVolume   = settings.musicVolume or 80,
-        ambientVolume = settings.ambientVolume or 50,
-        vibration     = settings.vibration ~= false,
-        lowPower      = settings.lowPower == true,
-        quality       = settings.quality or "standard",
-        fontSize      = settings.fontSize or "medium",
-        language      = settings.language or "zh-CN",
+        activeTab     = 1,
+        masterVolume  = settings.sfxVolume,
+        musicVolume   = settings.musicVolume,
+        ambientVolume = settings.ambientVolume,
+        vibration     = false,
+        lowPower      = settings.lowPower,
+        quality       = settings.quality,
+        fontSize      = settings.fontSize,
+        language      = settings.language,
     }
 
-    -- 应用初始音量
-    audio:SetMasterGain(SOUND_EFFECT, state.masterVolume / 100)
-    audio:SetMasterGain(SOUND_MUSIC, state.musicVolume / 100)
+    -- 当前设置打包与即时应用。所有可见设置都必须产生可观察效果。
+    local function BuildSettings()
+        return {
+            sfxVolume = math.floor(state.masterVolume),
+            musicVolume = math.floor(state.musicVolume),
+            ambientVolume = math.floor(state.ambientVolume),
+            vibration = false,
+            lowPower = state.lowPower,
+            quality = state.quality,
+            fontSize = state.fontSize,
+            language = "zh-CN",
+        }
+    end
+
+    local function ApplyState(applyFonts)
+        SettingsManager.SaveAndApply(BuildSettings())
+        SFXManager.RefreshLoopGains()
+        if applyFonts then
+            SettingsManager.ApplyToTree(root)
+        end
+    end
+
+    -- 应用初始音量和环境循环增益
+    SettingsManager.Apply(settings)
+    SFXManager.RefreshLoopGains()
+
+    -- 同步侧栏显示文本
+    local performanceTabLabel = root:FindById("tx_j")
+    if performanceTabLabel then performanceTabLabel.text = "性能" end
 
     -- ----------------------------------------------------------------
     -- 隐藏未实现的 Tab（visible=false 跳过布局，不占空间）
@@ -151,7 +174,7 @@ function SettingsScreen.Create(container, params)
     -- Tab6=关于: row_2r (语言)
     local TAB_ROWS = {
         [1] = { "row_18", "row_1f", "row_1m" },
-        [2] = { "row_1r", "row_1w" },
+        [2] = { "row_1w" },
         [3] = {},
         [4] = { "row_27", "row_2g" },
         [5] = {},
@@ -261,6 +284,8 @@ function SettingsScreen.Create(container, params)
                         audio:SetMasterGain(SOUND_EFFECT, v)
                     elseif def.key == "musicVolume" then
                         audio:SetMasterGain(SOUND_MUSIC, v)
+                    elseif def.key == "ambientVolume" then
+                        ApplyState(false)
                     end
                 end,
             }
@@ -268,6 +293,39 @@ function SettingsScreen.Create(container, params)
             volumeSliders[def.key] = slider
         end
     end
+
+    -- ----------------------------------------------------------------
+    -- 性能开关：低功耗模式会关闭装饰动画并降低装饰更新频率。
+    -- ----------------------------------------------------------------
+    local function UpdateToggleVisual(def)
+        local bg = root:FindById(def.bgId)
+        local thumb = root:FindById(def.thumbId)
+        local enabled = state[def.key] == true
+        if bg then
+            bg.backgroundColor = enabled and "#4ECDC4" or "rgba(31,26,23,0.3)"
+        end
+        if thumb then
+            thumb.left = enabled and "29.0%" or "26.4%"
+            thumb.backgroundColor = enabled and "#E8E0D0" or "#5A4A3A"
+        end
+    end
+
+    for _, def in ipairs(TOGGLE_ROWS) do
+        UpdateToggleVisual(def)
+        local row = root:FindById(def.rowId)
+        if row then
+            row.props.onClick = function()
+                state[def.key] = not state[def.key]
+                UpdateToggleVisual(def)
+                ApplyState(false)
+                SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
+            end
+        end
+    end
+
+    -- 振动没有稳定的平台接口，隐藏对应行，避免形成伪设置。
+    local vibrationRow = root:FindById("row_1r")
+    if vibrationRow then vibrationRow.visible = false end
 
     -- ----------------------------------------------------------------
     -- 选项行交互 (画质/字体/语言)
@@ -302,6 +360,7 @@ function SettingsScreen.Create(container, params)
                 SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
                 state.quality = opt.value
                 UpdateOptionVisual(QUALITY_OPTS, opt.value)
+                ApplyState(false)
             end
         end
     end
@@ -315,6 +374,7 @@ function SettingsScreen.Create(container, params)
                 SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
                 state.fontSize = opt.value
                 UpdateOptionVisual(FONT_OPTS, opt.value)
+                ApplyState(true)
             end
         end
     end
@@ -328,8 +388,16 @@ function SettingsScreen.Create(container, params)
                 SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
                 state.language = opt.value
                 UpdateOptionVisual(LANG_OPTS, opt.value)
+                ApplyState(false)
             end
         end
+    end
+
+    -- 未完成翻译的语言选项整体隐藏，不让玩家选择无效语言。
+    local unsupportedLanguageIds = { "sr_2l", "tx_2m", "sr_2n", "tx_2o", "sr_2p", "tx_2q" }
+    for i = 1, #unsupportedLanguageIds do
+        local item = root:FindById(unsupportedLanguageIds[i])
+        if item then item.visible = false end
     end
 
     -- ----------------------------------------------------------------
@@ -340,14 +408,7 @@ function SettingsScreen.Create(container, params)
     if saveBtn then
         saveBtn.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            GameState.SetSettings({
-                sfxVolume     = math.floor(state.masterVolume),
-                musicVolume   = math.floor(state.musicVolume),
-                ambientVolume = math.floor(state.ambientVolume),
-                quality       = state.quality,
-                fontSize      = state.fontSize,
-                language      = state.language,
-            })
+            ApplyState(true)
             UI.Toast.Show("设置已保存")
             print("[SettingsScreen] Settings saved")
         end
@@ -359,8 +420,10 @@ function SettingsScreen.Create(container, params)
         resetBtn.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
             state.masterVolume = 80
-            state.musicVolume = 80
+            state.musicVolume = 60
             state.ambientVolume = 50
+            state.vibration = false
+            state.lowPower = false
             state.quality = "standard"
             state.fontSize = "medium"
             state.language = "zh-CN"
@@ -374,9 +437,8 @@ function SettingsScreen.Create(container, params)
             UpdateOptionVisual(QUALITY_OPTS, state.quality)
             UpdateOptionVisual(FONT_OPTS, state.fontSize)
             UpdateOptionVisual(LANG_OPTS, state.language)
-            -- 应用音量
-            audio:SetMasterGain(SOUND_EFFECT, state.masterVolume / 100)
-            audio:SetMasterGain(SOUND_MUSIC, state.musicVolume / 100)
+            for _, def in ipairs(TOGGLE_ROWS) do UpdateToggleVisual(def) end
+            ApplyState(true)
             UI.Toast.Show("已恢复默认设置")
             print("[SettingsScreen] Settings reset to defaults")
         end
@@ -419,15 +481,7 @@ function SettingsScreen.Create(container, params)
     -- 清理
     -- ----------------------------------------------------------------
     function screen.Destroy()
-        -- 退出时自动保存
-        GameState.SetSettings({
-            sfxVolume     = math.floor(state.masterVolume),
-            musicVolume   = math.floor(state.musicVolume),
-            ambientVolume = math.floor(state.ambientVolume),
-            quality       = state.quality,
-            fontSize      = state.fontSize,
-            language      = state.language,
-        })
+        ApplyState(false)
     end
 
     return screen

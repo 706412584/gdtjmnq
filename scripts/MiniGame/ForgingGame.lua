@@ -79,12 +79,16 @@ function ForgingGame:init(config)
     MiniGameBase.init(self, config)
 
     local difficulty = config.difficulty or 1
+    local facilityLevel = config.facilityLevel or 1
+    local timingBonus = math.max(0, facilityLevel - 1) * 0.03
+    local timeMultiplier = config.timeMultiplier or 1
+    local operationMultiplier = config.operationMultiplier or 1
 
     -- 游戏参数
-    self.totalBeats_    = 5 + difficulty             -- 节拍数
-    self.beatDuration_  = 1.4 - difficulty * 0.15    -- 每拍窗口时间（秒）
-    self.perfectWindow_ = 0.15                       -- Perfect 判定半径（±秒）
-    self.greatWindow_   = 0.30                       -- Great 判定半径
+    self.totalBeats_    = math.max(1, math.ceil((5 + difficulty) * operationMultiplier))
+    self.beatDuration_  = (1.4 - difficulty * 0.15) * timeMultiplier
+    self.perfectWindow_ = 0.15 + timingBonus          -- Perfect 判定半径（±秒）
+    self.greatWindow_   = 0.30 + timingBonus * 2      -- Great 判定半径
 
     -- 状态
     self.currentBeat_ = 1

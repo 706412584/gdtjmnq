@@ -19,15 +19,28 @@
     "miniapp_id": "tapmcyelzdwx5uhs2f"
   },
   "assets": {
-    "icon": "",
-    "screenshots": [],
-    "promotional_image": ""
+    "icon": "./game_material/ICON_2026-07-30T16-51-45_01.png",
+    "screenshots": [
+      "./game_material/SCREENSHOT_2026-07-30T16-51-45_01.png",
+      "./game_material/SCREENSHOT_2026-07-30T16-51-45_02.png",
+      "./game_material/SCREENSHOT_2026-07-30T16-51-45_03.png"
+    ],
+    "promotional_image": "./game_material/PROMO_2026-07-30T16-51-45_01.jpg",
+    "icon_url": "https://tapcode-sce.spark.xd.com/assets/game_material/p_9tid/ICON_2026-07-30T16-51-45_01.png",
+    "screenshot_urls": [
+      "https://tapcode-sce.spark.xd.com/assets/game_material/古代铁匠模拟器/SCREENSHOT_2026-07-30T16-51-45_01.png",
+      "https://tapcode-sce.spark.xd.com/assets/game_material/古代铁匠模拟器/SCREENSHOT_2026-07-30T16-51-45_02.png",
+      "https://tapcode-sce.spark.xd.com/assets/game_material/古代铁匠模拟器/SCREENSHOT_2026-07-30T16-51-45_03.png"
+    ],
+    "promotional_image_url": "https://tapcode-sce.spark.xd.com/assets/game_material/古代铁匠模拟器/PROMO_2026-07-30T16-51-45_01.jpg",
+    "cover_horizontal": "./game_material/COVER_HORIZONTAL_2026-07-30T16-51-45_01.png",
+    "cover_horizontal_url": "https://tapcode-sce.spark.xd.com/assets/game_material/古代铁匠模拟器/COVER_HORIZONTAL_2026-07-30T16-51-45_01.png"
   },
   "test_qrcode": {
     "url": "https://tapcode-sce.spark.xd.com/qrcode/p_9tid_1782293817252.png",
     "generated_at": "2026-06-24T09:36:57.388Z"
   },
   "metadata": {
-    "updated_at": "2026-06-24T09:36:57.388Z"
+    "updated_at": "2026-07-30T16:52:33.289Z"
   }
 }

@@ -74,7 +74,7 @@ function HomeScreen.Create(container, params)
         furnace     = root:FindById("ph_t_1e"),
         anvil       = root:FindById("ph_t_1j"),
         grinder     = root:FindById("ph_t_1o"),
-        storage     = root:FindById("ph_t_1t"),
+        quench_pool = root:FindById("ph_t_1t"),
         display     = root:FindById("ph_t_1y"),
     }
 
@@ -82,8 +82,7 @@ function HomeScreen.Create(container, params)
     local progressBar_ = root:FindById("sr_21")  -- 填充条
     local progressText_ = root:FindById("tx_22")
 
-    -- 右侧功能按钮
-    -- 限时礼包(plate_23)需 IAP，暂隐藏；免费宝箱/广告双倍为激励广告，开放
+    -- 限时礼包需 IAP，暂隐藏；免费宝箱/广告双倍显示，广告未开通时由 AdManager 给出提示
     local giftBtn_ = root:FindById("plate_23")
     local freeBoxBtn_ = root:FindById("plate_26")
     local adDoubleBtn_ = root:FindById("plate_29")
@@ -159,7 +158,7 @@ function HomeScreen.Create(container, params)
             furnace = "熔炉",
             anvil = "锻台",
             grinder = "研磨台",
-            storage = "库房",
+            quench_pool = "淬火池",
             display = "陈列架",
         }
         for fId, baseName in pairs(facilityMap) do
@@ -225,15 +224,12 @@ function HomeScreen.Create(container, params)
 
     -- 顶部按钮
     if mailBtn_ then
-        mailBtn_.props.onClick = function()
-            SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            UI.Toast.Show("信件功能即将开放，敬请期待", { duration = 2 })
-        end
+        mailBtn_.visible = false
     end
     if taskBtn_ then
         taskBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            ScreenRouter.GoTo("orderBoard")
+            ScreenRouter.GoTo("weekly")
         end
     end
     if friendBtn_ then
@@ -260,11 +256,10 @@ function HomeScreen.Create(container, params)
     if facilityFurnace_ then facilityFurnace_.props.onClick = OnFacilityTap("furnace") end
     if facilityAnvil_ then facilityAnvil_.props.onClick = OnFacilityTap("anvil") end
     if facilityGrinder_ then facilityGrinder_.props.onClick = OnFacilityTap("grinder") end
-    if facilityStorage_ then facilityStorage_.props.onClick = OnFacilityTap("storage") end
+    if facilityStorage_ then facilityStorage_.props.onClick = OnFacilityTap("quench_pool") end
     if facilityDisplay_ then facilityDisplay_.props.onClick = OnFacilityTap("display") end
 
-    -- 右侧广告功能按钮
-    -- 免费宝箱：看激励视频 → 随机基础材料（GDD §9.13 免费材料箱，约 35-60 铜价值）
+    -- 右侧广告功能按钮（广告未开通时 AdManager 会提示"暂时无法播放"）
     if freeBoxBtn_ then
         freeBoxBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
@@ -279,7 +274,6 @@ function HomeScreen.Create(container, params)
         end
     end
 
-    -- 广告双倍：看激励视频 → 领取一笔铜钱补贴
     if adDoubleBtn_ then
         adDoubleBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
@@ -315,7 +309,11 @@ function HomeScreen.Create(container, params)
     if navStoryBtn_ then
         navStoryBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.4)
-            ScreenRouter.GoTo("story", { returnTo = "home" })
+            if StoryManager.HasPendingStory() then
+                ScreenRouter.GoTo("story", { returnTo = "home" })
+            else
+                UI.Toast.Show(StoryManager.GetCurrentBlockerText() or "暂无新的剧情", { duration = 2.5 })
+            end
         end
     end
     if navShopBtn_ then
@@ -374,7 +372,11 @@ function HomeScreen.Create(container, params)
     function screen.Update(dt)
         if not autoStoryChecked_ then
             autoStoryChecked_ = true
-            if StoryManager.HasNewPendingStory() then
+            local pendingOrder = StoryManager.GetPendingOrderRequirement()
+            if pendingOrder and pendingOrder.completed and StoryManager.HasNewPendingStory() then
+                print("[HomeScreen] Main-story order completed, resuming story")
+                ScreenRouter.GoTo("story", { returnTo = "home" })
+            elseif StoryManager.HasNewPendingStory() then
                 print("[HomeScreen] New pending story detected, auto-entering story screen")
                 ScreenRouter.GoTo("story", { returnTo = "home" })
             end

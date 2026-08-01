@@ -45,7 +45,7 @@ local CHARACTER_CONFIG = {
     narrator   = { name = "",         portrait = nil,                        side = "none" },
 }
 
---- 故事标记（非存档持久化的临时标记由 GameState.storyProgress 管理）
+--- 故事标记（从 GameState 载入并在变更后持久化）
 ---@type table<string, any>
 local storyFlags_ = {}
 
@@ -136,6 +136,16 @@ local function CheckCondition(condition)
         local fId = condition.facilityId or "furnace"
         return GameState.GetFacilityLevel(fId) >= (condition.level or 2)
 
+    elseif cType == "orderCompleted" then
+        local orderId = condition.orderId
+        local completed = GameState.GetCompletedOrders()
+        for i = 1, #completed do
+            if completed[i] == orderId then
+                return true
+            end
+        end
+        return false
+
     elseif cType == "flag" then
         return storyFlags_[condition.flag] == (condition.value or true)
 
@@ -213,6 +223,7 @@ local function ApplyEffects(effects)
             storyFlags_[flag] = value
             print("[StoryManager] Flag " .. flag .. " = " .. tostring(value))
         end
+        GameState.SetStoryFlags(storyFlags_)
     end
 
     -- 铜钱变化
@@ -234,6 +245,7 @@ end
 
 --- 初始化（游戏启动时调用一次）
 function StoryManager.Init()
+    storyFlags_ = GameState.GetStoryFlags()
     -- 加载第 1 章数据
     LoadChapter(1)
     print("[StoryManager] Initialized")
@@ -252,6 +264,36 @@ end
 function StoryManager.GetCurrentNode()
     local chapter, nodeId = StoryManager.GetProgress()
     return GetNode(chapter, nodeId)
+end
+
+--- 返回当前剧情节点尚未满足的解锁条件。
+---@return string|nil
+function StoryManager.GetCurrentBlockerText()
+    local progress = GameState.GetStoryProgress()
+    if progress.done then
+        return "全部剧情已完成"
+    end
+
+    local requiredFame = CHAPTER_FAME_REQUIREMENTS[progress.chapter] or math.huge
+    if GameState.GetFame() < requiredFame then
+        return "需要声望 " .. requiredFame .. " 才能开启下一章"
+    end
+
+    local node = StoryManager.GetCurrentNode()
+    local condition = node and node.condition
+    if not condition or CheckCondition(condition) then
+        return nil
+    end
+    if condition.type == "orderCompleted" then
+        return "完成当前主线委托后继续剧情"
+    end
+    if condition.type == "fameMin" then
+        return "需要声望 " .. (condition.value or 0)
+    end
+    if condition.type == "facilityLevel" then
+        return "需要将设施升级至 Lv" .. (condition.level or 2)
+    end
+    return "完成当前剧情条件后继续"
 end
 
 --- 检查是否有待展示的剧情
@@ -397,6 +439,12 @@ function StoryManager.MakeChoice(choiceIndex)
 
     -- 应用效果
     ApplyEffects(choice.effects)
+    GameState.AddChoiceHistory({
+        nodeId = nodeId,
+        chapter = chapter,
+        choiceIndex = choiceIndex,
+        choiceText = choice.text or "",
+    })
 
     -- 推进到选择的目标节点
     local nextId = choice.next
@@ -434,6 +482,31 @@ end
 ---@param value any
 function StoryManager.SetFlag(flag, value)
     storyFlags_[flag] = value
+    GameState.SetStoryFlags(storyFlags_)
+end
+
+--- 返回当前待完成的主线订单要求。
+---@return table|nil
+function StoryManager.GetPendingOrderRequirement()
+    return GameState.GetPendingStoryOrder()
+end
+
+--- 标记指定主线订单已完成，仅匹配当前剧情要求的订单。
+---@param orderId string
+function StoryManager.MarkStoryOrderCompleted(orderId)
+    local pending = GameState.GetPendingStoryOrder()
+    if not pending or pending.orderId ~= orderId or pending.completed then
+        return false
+    end
+
+    pending.completed = true
+    GameState.SetPendingStoryOrder(pending)
+    EventBus.Emit("story_order_completed", {
+        orderId = orderId,
+        returnNodeId = pending.returnNodeId,
+    })
+    print("[StoryManager] Main-story order completed: " .. orderId)
+    return true
 end
 
 --- 跳过当前章节剩余对话，直接推进到下一章或标记完成
@@ -482,11 +555,21 @@ function StoryManager.SkipCurrentChapter()
     EventBus.Emit("story_chapter_skipped", { chapter = chapter })
 end
 
---- 检查当前节点是否会触发订单
+--- 检查当前节点是否会触发订单。
+---@return table|nil
+function StoryManager.GetOrderTrigger()
+    local node = StoryManager.GetCurrentNode()
+    if not node then return nil end
+    if type(node.triggerOrder) == "table" then
+        return node.triggerOrder
+    end
+    return nil
+end
+
+--- 检查当前节点是否会触发订单。
 ---@return boolean
 function StoryManager.ShouldTriggerOrder()
-    local node = StoryManager.GetCurrentNode()
-    return node ~= nil and node.triggerOrder == true
+    return StoryManager.GetOrderTrigger() ~= nil
 end
 
 return StoryManager

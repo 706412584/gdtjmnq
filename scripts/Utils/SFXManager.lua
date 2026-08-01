@@ -6,6 +6,8 @@
 -- 内部维护一个最小 Scene + 若干 SoundSource 节点，用于 2D 音效播放。
 -- ============================================================================
 
+local SettingsManager = require("Core.SettingsManager")
+
 local SFXManager = {}
 
 -- 音效路径定义
@@ -122,10 +124,10 @@ function SFXManager.PlayLoop(key, path, gain)
     local node = scene_:CreateChild("Loop_" .. key)
     local source = node:CreateComponent("SoundSource")
     source.soundType = "Effect"
-    source.gain = gain or 0.3
+    source.gain = (gain or 0.3) * SettingsManager.GetAmbientGain()
     source:Play(sound)
 
-    loopSources_[key] = { node = node, source = source }
+    loopSources_[key] = { node = node, source = source, baseGain = gain or 0.3 }
 end
 
 --- 停止指定循环音效
@@ -140,6 +142,16 @@ function SFXManager.StopLoop(key)
             entry.node:Remove()
         end
         loopSources_[key] = nil
+    end
+end
+
+--- 按当前环境音设置刷新所有循环音效的局部增益
+function SFXManager.RefreshLoopGains()
+    local ambientGain = SettingsManager.GetAmbientGain()
+    for _, entry in pairs(loopSources_) do
+        if entry.source then
+            entry.source.gain = (entry.baseGain or 0.3) * ambientGain
+        end
     end
 end
 

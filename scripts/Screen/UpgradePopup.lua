@@ -21,7 +21,7 @@ local FACILITY_IMAGES = {
     furnace      = "image/facility_furnace_20260628124404.png",
     anvil        = "image/facility_anvil_20260628124620.png",
     grinder      = "image/facility_grinder_20260628124430.png",
-    storage      = "image/facility_storage_20260628124413.png",
+    quench_pool  = "image/icon_quench_pool.png",
     display      = "image/facility_display_20260628124406.png",
 }
 
@@ -30,7 +30,7 @@ local FACILITY_FLAVOR = {
     furnace = "熔炼矿石的核心设备，温度越高越能提炼精纯金属。",
     anvil   = "锻打定型的工作台，坚实的锻台让每一锤都更精准。",
     grinder = "研磨开刃的利器，精细的磨石让刀剑锋利无匹。",
-    storage = "存放材料的仓库，扩容后可囤积更多珍稀矿料。",
+    quench_pool = "清冽池水能稳定刃身温差，放宽淬火时机窗口。",
     display = "展示成品的架子，精美的陈列架能提升铁匠声望。",
 }
 
@@ -336,16 +336,16 @@ local function EnsureModal()
         overflow = "hidden",
         verticalAlign = "middle",
         height = 44,
-        marginLeft = 80,
-        marginBottom = 35,
+        marginLeft = 20,
+        marginBottom = 20,
     }
 
     upgradeBtn_ = UI.Panel {
         width = 140,
         height = 44,
         flexShrink = 0,
-        marginRight = 80,
-        marginBottom = 35,
+        marginRight = 20,
+        marginBottom = 20,
         backgroundColor = "#D4A574",
         borderRadius = 6,
         justifyContent = "center",

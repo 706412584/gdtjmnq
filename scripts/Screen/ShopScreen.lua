@@ -44,30 +44,35 @@ local PACKS = {
         id = "pack_crude_iron", name = "粗铁补给",
         desc = "矿石 x8 · 木炭 x3 · 研磨剂 x1",
         currency = "coins", price = 60,
+        materialTier = 1,
         materials = { ore = 8, charcoal = 3, grinding_agent = 1 },
     },
     {
         id = "pack_wrought_iron", name = "熟铁补给",
         desc = "矿石 x10 · 研磨剂 x4 · 木材 x3",
         currency = "coins", price = 120,
+        materialTier = 2,
         materials = { ore = 10, grinding_agent = 4, wood = 3 },
     },
     {
         id = "pack_misc", name = "工坊杂料包",
         desc = "木材 x4 · 皮革 x4",
         currency = "coins", price = 80,
+        materialTier = 1,
         materials = { wood = 4, leather = 4 },
     },
     {
         id = "pack_pattern_gold", name = "纹金小包",
         desc = "纹金 x3",
         currency = "jade", price = 18,
+        materialTier = 4,
         materials = { pattern_gold = 3 },
     },
     {
         id = "pack_meteorite", name = "陨铁小片",
         desc = "陨铁 x1",
         currency = "jade", price = 30,
+        materialTier = 5,
         materials = { meteorite = 1 },
     },
 }
@@ -333,7 +338,7 @@ function ShopScreen.Create(container, params)
         -- 发放材料
         local gained = {}
         for mat, count in pairs(pack.materials) do
-            GameState.AddMaterial(mat, count)
+            GameState.AddMaterialTier(mat, pack.materialTier or 1, count)
             gained[#gained + 1] = OrderManager.GetMaterialName(mat) .. " x" .. count
         end
 

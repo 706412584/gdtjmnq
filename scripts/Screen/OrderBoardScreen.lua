@@ -16,6 +16,7 @@ local OrderManager   = require("Core.OrderManager")
 local WeaponRecipes  = require("Config.WeaponRecipes")
 local ScreenRouter   = require("Utils.ScreenRouter")
 local SFXManager     = require("Utils.SFXManager")
+local TutorialManager = require("Core.TutorialManager")
 local BackButton     = require("Utils.BackButton")
 
 local OrderLayout = require("ui_OrderBoardScreen_订单板")
@@ -281,9 +282,80 @@ function OrderBoardScreen.Create(container, params)
     -- 3. 状态
     -- ----------------------------------------------------------------
     local currentFilter_ = nil         -- 当前筛选等级 (nil=全部)
+    local focusedOrderId_ = params and params.focusOrderId
     local selectedCustIdx_ = 1         -- 当前选中的客户索引
     local customers_ = {}              -- 去重后的客户列表
     local ordersByCustomer_ = {}       -- 按客户名分组的订单
+
+    local TIER_NAMES = { "粗料", "熟料", "精料", "纹金", "陨材" }
+
+    local function OpenMaterialTierDialog(order, recipe)
+        local tiers = GameState.GetAvailableMaterialTiers(recipe.requiredMaterials)
+        if #tiers == 0 then
+            UI.Toast.Show("没有可用的同品质材料组合", { type = "warning", duration = 2.5 })
+            return
+        end
+
+        if TutorialManager.IsFirstOrder(order.id) then
+            TutorialManager.Advance("choose_material")
+            UI.Toast.Show(TutorialManager.GetMessage("choose_material"), { duration = 3.5 })
+        end
+
+        local modal = UI.Modal {
+            title = "选择材料品质",
+            size = "sm",
+            showCloseButton = true,
+            closeOnOverlay = true,
+            backgroundColor = "#12100E",
+            borderColor = "#D4A574",
+            borderWidth = 1,
+            titleTextColor = "#D4A574",
+            contentBgColor = { 31, 26, 23, 255 },
+            contentPadding = { 16, 20, 16, 20 },
+        }
+        modal:AddContent(UI.Label {
+            text = "选用更高品质材料可提高成品评分。材料将在接单时扣除。",
+            fontSize = 16,
+            fontColor = "#E8E0D0",
+            width = "100%",
+            lineHeight = 1.25,
+        })
+
+        local choices = UI.Panel {
+            width = "100%",
+            flexDirection = "row",
+            justifyContent = "center",
+            gap = 8,
+            paddingTop = 14,
+        }
+        for i = 1, #tiers do
+            local tier = tiers[i]
+            choices:AddChild(UI.Button {
+                text = (TIER_NAMES[tier] or ("T" .. tier)) .. " T" .. tier,
+                variant = "secondary",
+                height = 40,
+                paddingLeft = 12,
+                paddingRight = 12,
+                onClick = function()
+                    local ok, err = OrderManager.AcceptOrder(order.id, tier)
+                    if not ok then
+                        SFXManager.Play(SFXManager.SFX.UI_FAIL, 0.4)
+                        UI.Toast.Show(tostring(err), { type = "warning", duration = 2.5 })
+                        return
+                    end
+                    modal:Close()
+                    SFXManager.Play(SFXManager.SFX.ORDER_ACCEPT, 0.7)
+                    ScreenRouter.GoTo("forge", {
+                        orderId = order.id,
+                        order = order,
+                        recipe = recipe,
+                    })
+                end,
+            })
+        end
+        modal:AddContent(choices)
+        modal:Open()
+    end
 
     -- ----------------------------------------------------------------
     -- 4. 数据填充函数
@@ -366,8 +438,12 @@ function OrderBoardScreen.Create(container, params)
                 or order.tier == 2 and "良品"
                 or "精品"
             local mark = order.completed and "  · 已锻" or ""
-            if order.favorRequirement then
+            if order.id == focusedOrderId_ then
+                mark = mark .. "  · 主线委托"
+            elseif order.favorRequirement then
                 mark = mark .. "  · 专属"
+            elseif order.isDaily then
+                mark = mark .. "  · 日常"
             end
             w.weaponName.text = "【委托物】" .. weaponName .. " · " .. tierName .. mark
         end
@@ -441,22 +517,16 @@ function OrderBoardScreen.Create(container, params)
             end
 
             if canAccept then
-                -- 正常可点击状态
+                if TutorialManager.IsActive() and not TutorialManager.IsFirstOrder(order.id) then
+                    canAccept = false
+                    shortage = "先完成猎户张三的首单，熟悉锻造流程"
+                end
+            end
+
+            if canAccept then
                 w.acceptBtn.props.onClick = function()
                     print("[OrderBoard] Accept clicked! orderId=" .. tostring(order.id))
-                    local ok, err = OrderManager.AcceptOrder(order.id)
-                    if ok then
-                        SFXManager.Play(SFXManager.SFX.ORDER_ACCEPT, 0.7)
-                        ScreenRouter.GoTo("forge", {
-                            orderId = order.id,
-                            order = order,
-                            recipe = recipe,
-                        })
-                    else
-                        SFXManager.Play(SFXManager.SFX.UI_FAIL, 0.4)
-                        UI.Toast.Show(tostring(err), { type = "warning", duration = 2.5 })
-                        print("[OrderBoard] Accept failed: " .. tostring(err))
-                    end
+                    OpenMaterialTierDialog(order, recipe)
                 end
             else
                 -- 禁用状态 - 变灰并提示原因
@@ -576,6 +646,17 @@ function OrderBoardScreen.Create(container, params)
         end
 
         -- 确保 selectedCustIdx_ 有效
+        if focusedOrderId_ then
+            for i = 1, #customers_ do
+                local orders = ordersByCustomer_[customers_[i].name] or {}
+                for j = 1, #orders do
+                    if orders[j].id == focusedOrderId_ then
+                        selectedCustIdx_ = i
+                        break
+                    end
+                end
+            end
+        end
         if selectedCustIdx_ > #customers_ then
             selectedCustIdx_ = 1
         end

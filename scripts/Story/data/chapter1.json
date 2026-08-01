@@ -6,7 +6,7 @@
     "background": "image/bg_story_workshop.png",
     "lines": [
       { "speaker": "narrator", "name": "", "text": "清晨的阳光透过破旧的窗棂，照在落满灰尘的铁砧上。这间铺子已经许久没有开过火了。" },
-      { "speaker": "keeper", "name": "老掌柜", "text": "别站着发愣了。炉都冷了，债还热着。" },
+      { "speaker": "keeper", "name": "老掌柜", "expression": "angry", "text": "别站着发愣了。炉都冷了，债还热着。" },
       { "speaker": "narrator", "name": "", "text": "老掌柜拄着拐杖从后院走出，浑浊的目光扫过冷清的铺面。" },
       { "speaker": "keeper", "name": "老掌柜", "text": "今天要是还没活计，这铺子就该关门了。我养不起吃白饭的。" },
       { "speaker": "narrator", "name": "", "text": "你看了看墙上挂着的几把生了锈的旧刀具，心里明白——要么今天证明自己，要么就此收场。" },
@@ -68,16 +68,20 @@
       { "speaker": "narrator", "name": "", "text": "你卷起袖子，走到炉前。猎户的短刀修复——这将是你在这间铁铺的第一次锻造。" }
     ],
     "next": "CH1-005",
-    "triggerOrder": true
+    "triggerOrder": {
+      "orderId": "ORD_T1_001",
+      "required": true,
+      "returnNodeId": "CH1-005"
+    }
   },
   {
     "id": "CH1-005",
     "title": "完工之后",
     "type": "dialogue",
     "background": "image/bg_story_workshop.png",
-    "condition": { "type": "ordersCompleted", "min": 1 },
+    "condition": { "type": "orderCompleted", "orderId": "ORD_T1_001" },
     "lines": [
-      { "speaker": "hunter", "name": "猎户", "text": "嚯！这手艺不错啊，比我当年买来的时候还顺手。" },
+      { "speaker": "hunter", "name": "猎户", "expression": "joy", "text": "嚯！这手艺不错啊，比我当年买来的时候还顺手。" },
       { "speaker": "keeper", "name": "老掌柜", "text": "...还行。勉强没丢人。" },
       { "speaker": "narrator", "name": "", "text": "猎户满意地付了铜钱离开。老掌柜虽然嘴上不说，但眼神里多了几分认可。" },
       { "speaker": "keeper", "name": "老掌柜", "text": "别高兴太早。一把猎刀而已，离真正的铁匠还差得远。" },

@@ -90,10 +90,11 @@ function AssemblyGame:init(config)
     MiniGameBase.init(self, config)
 
     local difficulty = config.difficulty or 1
+    local timeMultiplier = config.timeMultiplier or 1
 
     -- 游戏参数
     self.totalParts_  = 4 + difficulty             -- 零件数
-    self.timeLimit_   = 18 + (3 - difficulty) * 3  -- 时间限制
+    self.timeLimit_   = (18 + (3 - difficulty) * 3) * timeMultiplier
 
     -- 状态
     self.currentSlot_ = 1

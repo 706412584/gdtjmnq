@@ -55,14 +55,13 @@ function QualityCalc.CalcStepAvgCoeff(stepScores)
     return total / #stepScores
 end
 
---- 工具系数（多设施取平均）
+--- 工具系数（仅锻造相关设施取平均，展柜不参与品质）
 ---@param facilityLevels table { facilityId = level }
 ---@param relevantFacilities string[]|nil 参与计算的设施 ID 列表
 ---@return number
 function QualityCalc.CalcToolCoeff(facilityLevels, relevantFacilities)
     if not relevantFacilities then
-        -- 默认所有设施参与
-        relevantFacilities = FacilityConfig.GetAllIds()
+        relevantFacilities = { "furnace", "anvil", "quench_pool", "grinder" }
     end
 
     if #relevantFacilities == 0 then

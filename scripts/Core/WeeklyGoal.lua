@@ -133,7 +133,7 @@ function WeeklyGoal.Init()
     if inited_ then return end
 
     -- 加载目标池
-    goalPool_ = DataLoader.LoadJSON("Config/data/weekly_goals.json") or {}
+    goalPool_ = DataLoader.Load("Config/data/weekly_goals.json") or {}
     print("[WeeklyGoal] Goal pool loaded: " .. #goalPool_ .. " goals")
 
     -- 计算本周起始时间

@@ -10,9 +10,13 @@ local UI = require("urhox-libs/UI")
 -- Core modules
 local EventBus      = require("Core.EventBus")
 local GameState     = require("Core.GameState")
+local OrderManager  = require("Core.OrderManager")
 local Timer         = require("Utils.Timer")
 local Tween         = require("Utils.Tween")
-local ScreenRouter  = require("Utils.ScreenRouter")
+local ScreenRouter    = require("Utils.ScreenRouter")
+local SettingsManager = require("Core.SettingsManager")
+local WeeklyGoal      = require("Core.WeeklyGoal")
+local Leaderboard     = require("Core.Leaderboard")
 
 -- Screen modules
 local HomeScreen       = require("Screen.HomeScreen")
@@ -26,6 +30,7 @@ local SettingsScreen   = require("Screen.SettingsScreen")
 local ShopScreen       = require("Screen.ShopScreen")
 local EndingScreen     = require("Screen.EndingScreen")
 local RelationshipScreen = require("Screen.RelationshipScreen")
+local WeeklyScreen       = require("Screen.WeeklyScreen")
 
 -- Audio
 local BGMManager       = require("Utils.BGMManager")
@@ -74,25 +79,21 @@ function Start()
     -- 4. 注册 Screen 模块
     RegisterScreens()
 
-    -- 5. 初始化故事系统
-    StoryManager.Init()
-
-    -- 6. 异步加载存档，完成后跳转主界面（或剧情界面）
+    -- 5. 异步加载存档，完成后初始化依赖存档的剧情系统并跳转主界面
     GameState.Load(function(success)
         print("[main] GameState loaded, success=" .. tostring(success))
 
-        -- 应用已保存的音量设置
-        local settings = GameState.GetSettings()
-        if settings then
-            audio:SetMasterGain(SOUND_EFFECT, (settings.sfxVolume or 80) / 100)
-            audio:SetMasterGain(SOUND_MUSIC, (settings.musicVolume or 60) / 100)
-        end
+        -- 应用全部已保存设置（音量、画质、字体、低功耗和语言可用性）
+        SettingsManager.Apply(GameState.GetSettings())
 
         -- 初始化 BGM 自动切换（监听 screen_change 事件）
         BGMManager.Init()
 
-        -- 初始化红点系统（依赖 GameState 已加载）
+        -- 初始化红点、剧情及运营系统（均依赖 GameState 已加载）
+        StoryManager.Init()
         RedDotManager.Init()
+        WeeklyGoal.Init()
+        Leaderboard.Init()
 
         -- 红点消除：进入对应界面时自动 Dismiss（仅通知类红点）
         -- story/upgrade/specialOrder 为状态驱动，条件消失时自动隐藏，不做手动 dismiss
@@ -107,8 +108,13 @@ function Start()
             end
         end)
 
+        -- 未结算订单优先恢复；材料已在接单时扣除，不能让玩家返回首页后遗失委托。
+        local activeOrder = OrderManager.GetActiveOrder()
+        if activeOrder then
+            print("[main] Resuming active order: " .. tostring(activeOrder.orderId))
+            ScreenRouter.GoTo("forge", { orderId = activeOrder.orderId })
         -- 新存档（首次启动）：如果有待展示剧情，先进入剧情
-        if StoryManager.HasPendingStory() then
+        elseif StoryManager.HasPendingStory() then
             local chapter, nodeId = StoryManager.GetProgress()
             print("[main] Pending story at " .. tostring(chapter) .. ":" .. tostring(nodeId) .. ", entering story screen")
             ScreenRouter.GoTo("story", { returnTo = "home" })
@@ -133,13 +139,12 @@ end
 -- ============================================================================
 
 function InitUI()
-    -- PixelForge 像素风主题
-    -- Button shadow: 3px hard drop + top-left bevel
-    local PIXEL_SHADOW = {
-        { x = 1, y = 1, blur = 0, color = {10, 10, 26, 150} },
+    -- 极简水墨武侠主题：深色水墨底、极细描边、柔和阴影
+    local INK_SHADOW = {
+        { x = 0, y = 3, blur = 10, color = {0, 0, 0, 92} },
     }
 
-    local PixelForgeTheme = UI.Theme.ExtendTheme(UI.Theme.defaultTheme, {
+    local InkWuxiaTheme = UI.Theme.ExtendTheme(UI.Theme.defaultTheme, {
         colors = {
             primary = {212, 165, 116, 255},       -- #D4A574 鎏金
             primaryHover = {228, 186, 140, 255},
@@ -163,18 +168,18 @@ function InitUI()
             info = {212, 165, 116, 255},
             overlay = {0, 0, 0, 180},
         },
-        radius = { sm = 2, md = 3, lg = 4, xl = 6, full = 9999 },
-        componentDefaults = { borderRadius = 2 },
+        radius = { sm = 4, md = 6, lg = 10, xl = 14, full = 9999 },
+        componentDefaults = { borderRadius = 6 },
         components = {
-            Button = { borderWidth = 1, boxShadow = PIXEL_SHADOW },
+            Button = { borderWidth = 1, boxShadow = INK_SHADOW },
             TextField = { borderWidth = 1 },
             Card = {
                 borderWidth = 1,
-                boxShadow = {{ x = 4, y = 4, blur = 0, color = {10, 10, 26, 204} }},
+                boxShadow = INK_SHADOW,
             },
             Modal = {
                 borderWidth = 1,
-                boxShadow = {{ x = 4, y = 4, blur = 0, color = {0, 0, 0, 204} }},
+                boxShadow = INK_SHADOW,
                 headerBgColor = {20, 20, 46, 255},
                 headerBorderWidth = 2,
                 headerFullWidthBorder = true,
@@ -185,7 +190,7 @@ function InitUI()
             },
             Toast = {
                 borderWidth = 1,
-                boxShadow = {{ x = 3, y = 3, blur = 0, color = {10, 10, 26, 204} }},
+                boxShadow = INK_SHADOW,
                 accentBarWidth = 4,
                 showIcon = false,
             },
@@ -199,7 +204,7 @@ function InitUI()
     })
 
     UI.Init({
-        theme = PixelForgeTheme,
+        theme = InkWuxiaTheme,
         scale = UI.Scale.DESIGN_RESOLUTION(1920, 1080),
     })
 end
@@ -250,6 +255,7 @@ function RegisterScreens()
     ScreenRouter.Register("shop", ShopScreen)
     ScreenRouter.Register("ending", EndingScreen)
     ScreenRouter.Register("relationship", RelationshipScreen)
+    ScreenRouter.Register("weekly", WeeklyScreen)
 end
 
 -- ============================================================================

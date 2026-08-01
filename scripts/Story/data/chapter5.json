@@ -86,20 +86,24 @@
     "lines": [
       { "speaker": "narrator", "name": "", "text": "最后一夜，炉火映红每个人的脸。" },
       { "speaker": "player", "name": "主角", "text": "照霜若成，便不会再只是旧剑。" },
-      { "speaker": "keeper", "name": "老掌柜", "text": "记住，最后这一锤，不是打给别人看的。" },
+      { "speaker": "keeper", "name": "老掌柜", "expression": "sad", "text": "记住，最后这一锤，不是打给别人看的。" },
       { "speaker": "luchen", "name": "陆沉", "text": "是打给你自己的。" },
       { "speaker": "shen", "name": "沈绫", "text": "也是打给所有等着出价的人看的。" },
       { "speaker": "player", "name": "主角", "text": "那就让他们都看清。" }
     ],
     "next": "CH5-004",
-    "triggerOrder": true
+    "triggerOrder": {
+      "orderId": "ORD_T5_006",
+      "required": true,
+      "returnNodeId": "CH5-004"
+    }
   },
   {
     "id": "CH5-004",
     "title": "名器献给谁",
     "type": "choice",
     "background": "image/bg_story_workshop.png",
-    "condition": { "type": "ordersCompleted", "min": 8 },
+    "condition": { "type": "orderCompleted", "orderId": "ORD_T5_006" },
     "lines": [
       { "speaker": "envoy", "name": "王都使者", "text": "剑成之后，当献于国。" },
       { "speaker": "luchen", "name": "陆沉", "text": "剑不该再落到他们手里。" },

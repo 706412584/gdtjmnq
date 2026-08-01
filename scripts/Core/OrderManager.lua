@@ -16,6 +16,7 @@ local WeaponRecipes      = require("Config.WeaponRecipes")
 local FacilityConfig     = require("Config.FacilityConfig")
 local QualityCalc        = require("Core.QualityCalc")
 local ChallengeModifier  = require("Core.ChallengeModifier")
+local StoryManager       = require("Story.StoryManager")
 
 local OrderManager = {}
 
@@ -44,6 +45,107 @@ end
 ---@type table|nil
 local activeOrder_ = nil
 
+local DAILY_ORDER_COUNT = 3
+
+local function GetDailyOrderById(orderId)
+    local dailyData = GameState.GetDailyOrders()
+    for i = 1, #(dailyData.orders or {}) do
+        local order = dailyData.orders[i]
+        if order.id == orderId then
+            return order
+        end
+    end
+    return nil
+end
+
+local function ResolveOrder(orderId)
+    return OrderConfig.GetById(orderId) or GetDailyOrderById(orderId)
+end
+
+local function RefreshDailyOrders(chapter)
+    local today = os.date("!%Y-%m-%d")
+    local dailyData = GameState.GetDailyOrders()
+    if dailyData.dayKey == today and #(dailyData.orders or {}) > 0 then
+        return dailyData.orders
+    end
+
+    local candidates = OrderConfig.GetDailyCandidates(chapter)
+    local orders = {}
+    while #candidates > 0 and #orders < DAILY_ORDER_COUNT do
+        local index = math.random(1, #candidates)
+        local source = table.remove(candidates, index)
+        orders[#orders + 1] = {
+            id = "DAILY_" .. today .. "_" .. #orders + 1,
+            templateId = source.id,
+            isDaily = true,
+            tier = source.tier,
+            chapter = source.chapter,
+            customerName = source.customerName,
+            customerType = source.customerType,
+            weaponId = source.weaponId,
+            dialogue = source.dialogue,
+            requiredMaterialTier = source.requiredMaterialTier,
+            baseRewardCoins = math.floor(source.baseRewardCoins * 0.75),
+            baseRewardFame = math.max(1, math.floor(source.baseRewardFame * 0.75)),
+            bonusMaterials = source.bonusMaterials,
+        }
+    end
+    GameState.SetDailyOrders({ dayKey = today, orders = orders })
+    print("[OrderManager] Daily orders refreshed: " .. #orders)
+    return orders
+end
+
+local function EnsureActiveOrderLoaded()
+    if activeOrder_ then return activeOrder_ end
+
+    local snapshot = GameState.GetActiveOrder()
+    if not snapshot or not snapshot.orderId then return nil end
+
+    local order = ResolveOrder(snapshot.orderId)
+    if not order then
+        print("[OrderManager] Discarding invalid active order snapshot: " .. tostring(snapshot.orderId))
+        GameState.ClearActiveOrder()
+        return nil
+    end
+
+    local recipe = WeaponRecipes.GetById(order.weaponId)
+    if not recipe then
+        print("[OrderManager] Discarding active order without recipe: " .. tostring(snapshot.orderId))
+        GameState.ClearActiveOrder()
+        return nil
+    end
+
+    activeOrder_ = {
+        orderId = snapshot.orderId,
+        template = order,
+        recipe = recipe,
+        startTime = snapshot.acceptedAt or os.time(),
+        modifier = snapshot.modifier,
+        consumedMaterials = snapshot.consumedMaterials or recipe.requiredMaterials,
+        materialTier = snapshot.materialTier or 1,
+        retryUsed = snapshot.retryUsed == true,
+        stepScores = snapshot.stepScores or {},
+    }
+    print("[OrderManager] Restored active order: " .. snapshot.orderId
+        .. " (completed steps=" .. #activeOrder_.stepScores .. ")")
+    return activeOrder_
+end
+
+local function SaveActiveOrderSnapshot()
+    if not activeOrder_ then return end
+    GameState.SetActiveOrder({
+        orderId = activeOrder_.orderId,
+        acceptedAt = activeOrder_.startTime,
+        modifier = activeOrder_.modifier,
+        consumedMaterials = activeOrder_.consumedMaterials,
+        materialTier = activeOrder_.materialTier,
+        retryUsed = activeOrder_.retryUsed == true,
+        stepScores = activeOrder_.stepScores or {},
+        status = "forging",
+    })
+    GameState.ForceSave()
+end
+
 -- ============================================================================
 -- 订单查询
 -- ============================================================================
@@ -54,19 +156,43 @@ function OrderManager.GetAvailableOrders()
     local progress = GameState.GetStoryProgress()
     local chapter = progress and progress.chapter or 1
     local completed = GameState.GetCompletedOrders()
-    return OrderConfig.GetAvailable(chapter, completed)
+    local permanentOrders = OrderConfig.GetAvailable(chapter, completed)
+    local completedSet = {}
+    for i = 1, #completed do
+        completedSet[completed[i]] = true
+    end
+    local dailyOrders = RefreshDailyOrders(chapter)
+    for i = 1, #dailyOrders do
+        if not completedSet[dailyOrders[i].id] then
+            permanentOrders[#permanentOrders + 1] = dailyOrders[i]
+        end
+    end
+
+    local pendingStoryOrder = GameState.GetPendingStoryOrder()
+    if pendingStoryOrder and pendingStoryOrder.required and not pendingStoryOrder.completed then
+        local requiredOrders = {}
+        for i = 1, #permanentOrders do
+            if permanentOrders[i].id == pendingStoryOrder.orderId then
+                requiredOrders[#requiredOrders + 1] = permanentOrders[i]
+                break
+            end
+        end
+        return requiredOrders
+    end
+
+    return permanentOrders
 end
 
 --- 获取当前活跃订单
 ---@return table|nil
 function OrderManager.GetActiveOrder()
-    return activeOrder_
+    return EnsureActiveOrderLoaded()
 end
 
 --- 是否有活跃订单
 ---@return boolean
 function OrderManager.HasActiveOrder()
-    return activeOrder_ ~= nil
+    return EnsureActiveOrderLoaded() ~= nil
 end
 
 -- ============================================================================
@@ -75,35 +201,66 @@ end
 
 --- 接受一个订单
 ---@param orderId string 订单 ID
+---@param materialTier number|nil 使用的同阶材料等级，未传时自动选择最低可用等级
 ---@return boolean success
 ---@return string|nil errorMsg
-function OrderManager.AcceptOrder(orderId)
-    if activeOrder_ then
+function OrderManager.AcceptOrder(orderId, materialTier)
+    if EnsureActiveOrderLoaded() then
         return false, "已有进行中的订单"
     end
 
-    local order = OrderConfig.GetById(orderId)
+    local order = ResolveOrder(orderId)
     if not order then
         return false, "订单不存在: " .. orderId
     end
 
-    -- 检查材料是否足够
+    local availableOrders = OrderManager.GetAvailableOrders()
+    local isAvailable = false
+    for i = 1, #availableOrders do
+        if availableOrders[i].id == orderId then
+            isAvailable = true
+            break
+        end
+    end
+    if not isAvailable then
+        return false, "该订单当前不可接取"
+    end
+
     local recipe = WeaponRecipes.GetById(order.weaponId)
     if not recipe then
         return false, "武器配方不存在: " .. order.weaponId
     end
 
-    for mat, count in pairs(recipe.requiredMaterials) do
-        if not GameState.CanAffordMaterial(mat, count) then
+    local availableTiers = GameState.GetAvailableMaterialTiers(recipe.requiredMaterials)
+    if #availableTiers == 0 then
+        for mat, count in pairs(recipe.requiredMaterials) do
             local name = MATERIAL_NAMES[mat] or mat
             local have = GameState.GetMaterial(mat) or 0
-            return false, name .. "不足 (需" .. count .. "/有" .. have .. ")"
+            if have < count then
+                return false, name .. "不足 (需" .. count .. "/有" .. have .. ")"
+            end
         end
+        return false, "没有可用的同品质材料组合"
     end
 
-    -- 扣除材料
+    materialTier = math.floor(materialTier or availableTiers[1])
+    if not GameState.GetMaterialTier or not GameState.CanAffordMaterialTier then
+        return false, "材料品质数据不可用"
+    end
+    local canUseTier = false
+    for i = 1, #availableTiers do
+        if availableTiers[i] == materialTier then
+            canUseTier = true
+            break
+        end
+    end
+    if not canUseTier then
+        return false, "所选品质材料不足"
+    end
+
+    -- 按所选品质扣除材料
     for mat, count in pairs(recipe.requiredMaterials) do
-        GameState.AddMaterial(mat, -count)
+        GameState.AddMaterialTier(mat, materialTier, -count)
     end
 
     -- Roll 挑战修饰符
@@ -124,7 +281,12 @@ function OrderManager.AcceptOrder(orderId)
         recipe = recipe,
         startTime = os.time(),
         modifier = modifier,
+        consumedMaterials = recipe.requiredMaterials,
+        materialTier = materialTier,
+        retryUsed = false,
+        stepScores = {},
     }
+    SaveActiveOrderSnapshot()
 
     EventBus.Emit("order_accepted", {
         orderId = orderId,
@@ -137,27 +299,54 @@ function OrderManager.AcceptOrder(orderId)
     return true
 end
 
---- 取消当前订单（退还材料）
-function OrderManager.CancelOrder()
-    if not activeOrder_ then return end
+--- 记录已完成工序，确保意外退出后从下一道工序恢复。
+---@param stepScores table[]
+function OrderManager.UpdateActiveOrderProgress(stepScores)
+    local activeOrder = EnsureActiveOrderLoaded()
+    if not activeOrder then return end
+    activeOrder.stepScores = stepScores or {}
+    SaveActiveOrderSnapshot()
+end
 
-    -- 退还材料
-    local recipe = activeOrder_.recipe
-    if recipe and recipe.requiredMaterials then
-        for mat, count in pairs(recipe.requiredMaterials) do
-            GameState.AddMaterial(mat, count)
+---@return boolean
+function OrderManager.HasUsedFreeRetry()
+    local activeOrder = EnsureActiveOrderLoaded()
+    return activeOrder and activeOrder.retryUsed == true or false
+end
+
+function OrderManager.UseFreeRetry()
+    local activeOrder = EnsureActiveOrderLoaded()
+    if not activeOrder or activeOrder.retryUsed then return false end
+    activeOrder.retryUsed = true
+    SaveActiveOrderSnapshot()
+    return true
+end
+
+--- 取消当前订单，仅返还已消耗材料的 40%。
+function OrderManager.CancelOrder()
+    local activeOrder = EnsureActiveOrderLoaded()
+    if not activeOrder then return end
+
+    local materialTier = activeOrder.materialTier or 1
+    local consumedMaterials = activeOrder.consumedMaterials or {}
+    for mat, count in pairs(consumedMaterials) do
+        local refund = math.floor(count * 0.4)
+        if refund > 0 then
+            GameState.AddMaterialTier(mat, materialTier, refund)
         end
     end
 
-    local cancelledId = activeOrder_.orderId
+    local cancelledId = activeOrder.orderId
 
     -- 取消订单重置连单计数
     ChallengeModifier.ResetChain()
 
     activeOrder_ = nil
+    GameState.ClearActiveOrder()
+    GameState.ForceSave()
 
     EventBus.Emit("order_cancelled", { orderId = cancelledId })
-    print("[OrderManager] Order cancelled: " .. cancelledId)
+    print("[OrderManager] Order cancelled: " .. cancelledId .. " (40% material refund)")
 end
 
 -- ============================================================================
@@ -166,16 +355,26 @@ end
 
 --- 完成当前订单并计算奖励
 ---@param stepScores table[] 各步骤评分 { score, rating }
----@param usedMaterialTier number 使用的材料等级
 ---@return table|nil result 结算结果
-function OrderManager.CompleteOrder(stepScores, usedMaterialTier)
-    if not activeOrder_ then
+function OrderManager.CompleteOrder(stepScores)
+    if not EnsureActiveOrderLoaded() then
         print("[OrderManager] ERROR: No active order to complete")
         return nil
     end
 
     local order = activeOrder_.template
     local recipe = activeOrder_.recipe
+    stepScores = stepScores or {}
+    if #stepScores ~= #(recipe.steps or {}) then
+        print("[OrderManager] ERROR: Incomplete step scores for order: " .. order.id)
+        return nil
+    end
+    for i = 1, #stepScores do
+        if type(stepScores[i]) ~= "table" or type(stepScores[i].score) ~= "number" then
+            print("[OrderManager] ERROR: Invalid step score at index " .. i)
+            return nil
+        end
+    end
 
     -- 收集设施等级
     local facilityLevels = {}
@@ -209,7 +408,7 @@ function OrderManager.CompleteOrder(stepScores, usedMaterialTier)
     local qualityResult = QualityCalc.Calculate({
         weaponId = recipe.id,
         stepScores = stepScores,
-        usedMaterialTier = usedMaterialTier or order.requiredMaterialTier,
+        usedMaterialTier = activeOrder_.materialTier or 1,
         requiredMaterialTier = order.requiredMaterialTier,
         facilityLevels = facilityLevels,
         isFirstForge = isFirstForge,
@@ -219,7 +418,9 @@ function OrderManager.CompleteOrder(stepScores, usedMaterialTier)
     -- 计算奖励（含挑战修饰符加成）
     local modifier = activeOrder_.modifier
     local modifierBonus = ChallengeModifier.GetRewardBonus(modifier)
-    local rewardMultiplier = qualityResult.rewardMultiplier * (1 + modifierBonus)
+    local displayLevel = GameState.GetFacilityLevel("display")
+    local displayBonus = FacilityConfig.GetToolCoeff("display", displayLevel) - 1
+    local rewardMultiplier = qualityResult.rewardMultiplier * (1 + modifierBonus) * (1 + displayBonus)
     local rewardCoins = math.floor(order.baseRewardCoins * rewardMultiplier + 0.5)
     local rewardFame = math.floor(order.baseRewardFame * rewardMultiplier + 0.5)
     local bonusMaterials = order.bonusMaterials or {}
@@ -279,6 +480,8 @@ function OrderManager.CompleteOrder(stepScores, usedMaterialTier)
     }
 
     -- 发送事件
+    local completedStoryOrder = StoryManager.MarkStoryOrderCompleted(order.id)
+
     EventBus.Emit("quality_calculated", {
         finalScore = qualityResult.finalScore,
         qualityTier = qualityResult.qualityTier,
@@ -308,6 +511,8 @@ function OrderManager.CompleteOrder(stepScores, usedMaterialTier)
 
     -- 清理活跃订单
     activeOrder_ = nil
+    GameState.ClearActiveOrder()
+    GameState.ForceSave()
 
     print("[OrderManager] Order completed: " .. order.id
         .. " | Quality: " .. qualityResult.qualityTier.name

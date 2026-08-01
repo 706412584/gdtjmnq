@@ -15,8 +15,11 @@ local UI           = require("urhox-libs/UI")
 local StoryManager = require("Story.StoryManager")
 local ScreenRouter = require("Utils.ScreenRouter")
 local EventBus     = require("Core.EventBus")
+local GameState    = require("Core.GameState")
 local SFXManager   = require("Utils.SFXManager")
+local ThemedDialog = require("Utils.ThemedDialog")
 
+local SettingsManager = require("Core.SettingsManager")
 local StoryLayout  = require("ui_StoryScreen_剧情对话")
 
 local StoryScreen = {}
@@ -70,7 +73,7 @@ function StoryScreen.Create(container, params)
     local charTitleLabel_ = root:FindById("tx_o")
     local charDescLabel_ = root:FindById("tx_p")
 
-    -- 章节信息面板（横屏专属，竖屏下可能溢出，隐藏处理）
+    -- 章节信息面板
     local chapterPanel_ = root:FindById("df_q")
     local chapterTitle_ = root:FindById("tx_w")
     local chapterSummary_ = root:FindById("tx_y")
@@ -104,7 +107,7 @@ function StoryScreen.Create(container, params)
         end
     end
 
-    -- 横屏章节面板在竖屏下隐藏（坐标溢出）
+    -- 章节面板保持隐藏（布局设计中为装饰性元素，显示会遮挡右侧立绘区域）
     if chapterPanel_ then
         chapterPanel_.visible = false
     end
@@ -119,11 +122,18 @@ function StoryScreen.Create(container, params)
     if skipBtn_ then
         skipBtn_.props.onClick = function()
             SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
-            -- 跳过当前全部剧情，标记完成
-            StoryManager.SkipCurrentChapter()
-            -- 标记关闭，避免返回后立即再次自动弹出
-            StoryManager.DismissCurrentStory()
-            ScreenRouter.GoTo(returnTo_)
+            ThemedDialog.Confirm({
+                title = "跳过本章剧情",
+                message = "将直接进入下一章，并采用未选择分支的默认状态。已完成的订单和奖励不会丢失。",
+                confirmText = "确认跳过",
+                cancelText = "继续阅读",
+                danger = true,
+                onConfirm = function()
+                    StoryManager.SkipCurrentChapter()
+                    StoryManager.DismissCurrentStory()
+                    ScreenRouter.GoTo(returnTo_)
+                end,
+            })
         end
     end
 
@@ -308,7 +318,7 @@ function StoryScreen.Create(container, params)
     end
 
     --- 更新角色立绘
-    local function UpdatePortrait(speakerId)
+    local function UpdatePortrait(speakerId, expression)
         if not portraitImg_ then return end
 
         local charConfig = StoryManager.GetCharacterConfig(speakerId)
@@ -316,8 +326,13 @@ function StoryScreen.Create(container, params)
             portraitImg_.backgroundImage = charConfig.portrait
             if portraitFrame_ then
                 portraitFrame_.visible = true
+                -- 表情通过边框颜色暗示，不改变图片背景色（保持透明）
+                local borderColor = expression == "angry" and "#E94560"
+                    or expression == "sad" and "#708090"
+                    or expression == "joy" and "#D4A574"
+                    or "#C9A45A"
+                portraitFrame_.borderColor = borderColor
                 -- 根据 side 字段切换立绘位置（左/右）
-                -- Yoga 不支持 left="auto"，需用 YGUndefined 重置对侧
                 local yogaNode = portraitFrame_.node
                 if charConfig.side == "right" then
                     YGNodeStyleSetPosition(yogaNode, YGEdgeLeft, YGUndefined)
@@ -375,8 +390,28 @@ function StoryScreen.Create(container, params)
         end
     end
 
+    local function DescribeChoiceEffects(choice)
+        local effects = choice and choice.effects or {}
+        local parts = {}
+        for npcId, delta in pairs(effects.relationships or {}) do
+            local name = StoryManager.GetCharacterConfig(npcId).name or npcId
+            parts[#parts + 1] = name .. (delta >= 0 and " 好感+" or " 好感") .. delta
+        end
+        for factionId, delta in pairs(effects.factions or {}) do
+            parts[#parts + 1] = factionId .. (delta >= 0 and "+" or "") .. delta
+        end
+        if effects.coins then
+            parts[#parts + 1] = "铜钱" .. (effects.coins >= 0 and "+" or "") .. effects.coins
+        end
+        if effects.flags then
+            parts[#parts + 1] = "关键线索已记录"
+        end
+        return #parts > 0 and table.concat(parts, " · ") or "此选择已记录"
+    end
+
     --- 处理选择
     function OnChoiceSelected(choiceIndex)
+        local choice = currentNode_ and currentNode_.choices and currentNode_.choices[choiceIndex]
         -- 选择确认音效
         SFXManager.Play(SFXManager.SFX.UI_TAP, 0.5)
 
@@ -391,6 +426,7 @@ function StoryScreen.Create(container, params)
 
         -- 通知 StoryManager 应用选择效果并推进
         StoryManager.MakeChoice(choiceIndex)
+        UI.Toast.Show("选择后果：" .. DescribeChoiceEffects(choice), { duration = 3.5 })
 
         -- 加载下一个节点
         LoadNextNode()
@@ -399,14 +435,20 @@ function StoryScreen.Create(container, params)
     --- 完成当前对话节点
     local function FinishNode()
         -- 检查是否触发订单
-        local shouldTriggerOrder = currentNode_.triggerOrder == true
+        local orderTrigger = StoryManager.GetOrderTrigger()
 
         -- 通知 StoryManager 推进
         StoryManager.CompleteDialogueNode()
 
-        if shouldTriggerOrder then
+        if orderTrigger then
+            GameState.SetPendingStoryOrder({
+                orderId = orderTrigger.orderId,
+                required = orderTrigger.required == true,
+                returnNodeId = orderTrigger.returnNodeId,
+                completed = false,
+            })
             -- 剧情触发订单：跳到订单板
-            ScreenRouter.GoTo("orderBoard")
+            ScreenRouter.GoTo("orderBoard", { focusOrderId = orderTrigger.orderId })
             return
         end
 
@@ -478,6 +520,13 @@ function StoryScreen.Create(container, params)
 
         local line = lines[lineIndex_]
         local speakerId = line.speaker or "narrator"
+        local chapter, nodeId = StoryManager.GetProgress()
+        GameState.AddStoryHistory({
+            chapter = chapter,
+            nodeId = nodeId,
+            speaker = line.name or StoryManager.GetCharacterConfig(speakerId).name or "旁白",
+            text = line.text or "",
+        })
         local charConfig = StoryManager.GetCharacterConfig(speakerId)
 
         -- 对话推进音效
@@ -515,7 +564,7 @@ function StoryScreen.Create(container, params)
         end
 
         -- 更新 UI（增量）
-        UpdatePortrait(speakerId)
+        UpdatePortrait(speakerId, line.expression)
 
         if nameLabel_ then
             if speakerId == "narrator" then
@@ -595,10 +644,11 @@ function StoryScreen.Create(container, params)
     -- 6. 立绘伪待机动画 + 打字机逻辑 + 自动播放
     -- ----------------------------------------------------------------
     local idleTime_ = 0.0
-    local FLOAT_AMP = 3.0       -- 上下浮动幅度(px)
-    local FLOAT_SPEED = 1.8     -- 浮动频率
-    local BREATH_AMP = 0.006    -- 呼吸缩放幅度
-    local BREATH_SPEED = 2.4    -- 呼吸频率（略快于浮动，产生节奏差）
+    local decorativeTimer_ = 0.0
+    local FLOAT_AMP = 3.0
+    local FLOAT_SPEED = 1.8
+    local BREATH_AMP = 0.006
+    local BREATH_SPEED = 2.4
 
     -- 用 screen.Update(dt) 模式（由 ScreenRouter 驱动），避免直接订阅引擎
     -- 全局 "Update" 事件——否则 Destroy 时 UnsubscribeFromEvent("Update")
@@ -610,12 +660,24 @@ function StoryScreen.Create(container, params)
             lineVisibleTime_ = lineVisibleTime_ + dt
         end
 
-        -- 立绘浮动动画
-        if portraitFrame_ and portraitFrame_.visible and portraitImg_ then
-            local floatY = math.sin(idleTime_ * FLOAT_SPEED) * FLOAT_AMP
-            portraitImg_.translateY = floatY
-            local breathScale = 1.0 + math.sin(idleTime_ * BREATH_SPEED) * BREATH_AMP
-            portraitImg_.scale = breathScale
+        -- 立绘装饰动画由画质/低功耗设置控制，阅读和打字机逻辑始终保持完整帧率。
+        local animationIntensity = SettingsManager.GetAnimationIntensity()
+        local updateInterval = SettingsManager.GetDecorativeUpdateInterval()
+        decorativeTimer_ = decorativeTimer_ + dt
+        local shouldUpdateDecoration = updateInterval <= 0 or decorativeTimer_ >= updateInterval
+        if shouldUpdateDecoration then
+            decorativeTimer_ = 0
+            if portraitFrame_ and portraitFrame_.visible and portraitImg_ then
+                if animationIntensity > 0 then
+                    local floatY = math.sin(idleTime_ * FLOAT_SPEED) * FLOAT_AMP * animationIntensity
+                    portraitImg_.translateY = floatY
+                    local breathScale = 1.0 + math.sin(idleTime_ * BREATH_SPEED) * BREATH_AMP * animationIntensity
+                    portraitImg_.scale = breathScale
+                else
+                    portraitImg_.translateY = 0
+                    portraitImg_.scale = 1.0
+                end
+            end
         end
 
         -- 打字机效果更新

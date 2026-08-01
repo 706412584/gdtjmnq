@@ -26,12 +26,12 @@ local CodexScreen = {}
 -- ============================================================================
 
 local ENDING_COLORS = {
-    craftsman_way  = "#FFD93D",  -- 像素黄（匠道）
-    imperial_smith = "#E94560",  -- 像素红（朝廷）
-    jianghu_forge  = "#D4A574",  -- 像素青（江湖）
-    guild_foundry  = "#6C5CE7",  -- 像素紫（商会）
-    folk_forge     = "#E8E0D0",  -- 像素白（市井平凡）
-    broken_forge   = "#505070",  -- 像素灰（失败）
+    craftsman_way  = "#FFD93D",  -- 淬火黄（匠道）
+    imperial_smith = "#E94560",  -- 炉火红（朝廷）
+    jianghu_forge  = "#D4A574",  -- 鎏金（江湖）
+    guild_foundry  = "#6C5CE7",  -- 墨紫（商会）
+    folk_forge     = "#E8E0D0",  -- 暖白（市井平凡）
+    broken_forge   = "#505070",  -- 烟灰（失败）
 }
 
 -- ============================================================================

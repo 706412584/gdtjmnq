@@ -82,12 +82,12 @@ local SCREEN_SCHEDULE = {
 function Start()
     math.randomseed(42)
 
-    -- PixelForge 主题初始化（与 main.lua 一致）
-    local PIXEL_SHADOW = {
-        { x = 1, y = 1, blur = 0, color = {10, 10, 26, 150} },
+    -- 极简水墨主题初始化（与 main.lua 一致）
+    local INK_SHADOW = {
+        { x = 0, y = 3, blur = 10, color = {0, 0, 0, 92} },
     }
 
-    local PixelForgeTheme = UI.Theme.ExtendTheme(UI.Theme.defaultTheme, {
+    local InkWuxiaTheme = UI.Theme.ExtendTheme(UI.Theme.defaultTheme, {
         colors = {
             primary = {212, 165, 116, 255},       -- #D4A574 鎏金
             primaryHover = {228, 186, 140, 255},
@@ -108,7 +108,7 @@ function Start()
         radius = { sm = 2, md = 3, lg = 4, xl = 6, full = 9999 },
         componentDefaults = { borderRadius = 2 },
         components = {
-            Button = { borderWidth = 1, boxShadow = PIXEL_SHADOW },
+            Button = { borderWidth = 1, boxShadow = INK_SHADOW },
             Modal = { borderWidth = 1 },
             Toast = { borderWidth = 1 },
             ProgressBar = { height = 10, borderWidth = 1 },
@@ -116,7 +116,7 @@ function Start()
     })
 
     UI.Init({
-        theme = PixelForgeTheme,
+        theme = InkWuxiaTheme,
         scale = UI.Scale.DESIGN_RESOLUTION(1920, 1080),
     })
 

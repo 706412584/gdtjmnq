@@ -47,12 +47,12 @@
   "@runtime": {
     "multiplayer": {
       "enabled": false,
-      "max_players": 2,
+      "max_players": 4,
       "background_match": false,
       "match_info": {
         "desc_name": "free_match",
         "immediately_start": false,
-        "match_timeout": 30,
+        "match_timeout": 0,
         "player_number": 1
       },
       "persistent_world": {
@@ -73,7 +73,7 @@
         }
       ],
       "top_on_placements": [],
-      "synced_at": "2026-06-17T10:28:07.177Z"
+      "synced_at": "2026-08-01T04:47:48.979Z"
     }
   }
 }

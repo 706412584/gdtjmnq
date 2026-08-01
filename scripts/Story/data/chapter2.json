@@ -35,17 +35,17 @@
     "choices": [
       {
         "text": "先做穷苦急单",
-        "effects": { "factions": { "craftsman": 6 }, "relationships": { "folk": 2 }, "coins": -10 },
+        "effects": { "factions": { "craftsman": 6 }, "relationships": { "folk": 2 }, "coins": -10, "flags": { "ch2_route_fame": true } },
         "next": "CH2-002A"
       },
       {
         "text": "先做富户高价单",
-        "effects": { "factions": { "guild": 8 }, "coins": 40, "relationships": { "folk": -1 } },
+        "effects": { "factions": { "guild": 8 }, "coins": 40, "relationships": { "folk": -1 }, "flags": { "ch2_route_coin": true } },
         "next": "CH2-002B"
       },
       {
         "text": "各接一单，平衡着来",
-        "effects": { "relationships": { "pragmatic": 1, "folk": 1 }, "coins": 15 },
+        "effects": { "relationships": { "pragmatic": 1, "folk": 1 }, "coins": 15, "flags": { "ch2_route_balance": true } },
         "next": "CH2-002C"
       }
     ]
@@ -60,7 +60,11 @@
       { "speaker": "player", "name": "主角", "text": "先让这条街记住我们。" }
     ],
     "next": "CH2-003",
-    "triggerOrder": true
+    "triggerOrder": {
+      "orderId": "ORD_T2_002",
+      "required": true,
+      "returnNodeId": "CH2-003"
+    }
   },
   {
     "id": "CH2-002B",
@@ -72,7 +76,11 @@
       { "speaker": "player", "name": "主角", "text": "先让炉子烧得久一点。" }
     ],
     "next": "CH2-003",
-    "triggerOrder": true
+    "triggerOrder": {
+      "orderId": "ORD_T2_001",
+      "required": true,
+      "returnNodeId": "CH2-003"
+    }
   },
   {
     "id": "CH2-002C",
@@ -84,14 +92,25 @@
       { "speaker": "player", "name": "主角", "text": "总不能每次都只押一边。" }
     ],
     "next": "CH2-003",
-    "triggerOrder": true
+    "triggerOrder": {
+      "orderId": "ORD_T2_003",
+      "required": true,
+      "returnNodeId": "CH2-003"
+    }
   },
   {
     "id": "CH2-003",
     "title": "韩铸砸场",
     "type": "dialogue",
     "background": "image/bg_story_workshop.png",
-    "condition": { "type": "ordersCompleted", "min": 3 },
+    "condition": {
+      "type": "or",
+      "conditions": [
+        { "type": "orderCompleted", "orderId": "ORD_T2_001" },
+        { "type": "orderCompleted", "orderId": "ORD_T2_002" },
+        { "type": "orderCompleted", "orderId": "ORD_T2_003" }
+      ]
+    },
     "lines": [
       { "speaker": "narrator", "name": "", "text": "外面一阵哄笑，一个高大男人掀帘进来，身后跟着两名学徒。" },
       { "speaker": "han", "name": "韩铸", "text": "我还当是谁把这条破巷子弄热闹了，原来是老周家的旧炉子。" },

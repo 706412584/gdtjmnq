@@ -78,11 +78,14 @@ function QuenchingGame:init(config)
     MiniGameBase.init(self, config)
 
     local difficulty = config.difficulty or 1
+    local facilityLevel = config.facilityLevel or 1
+    local windowBonus = math.max(0, facilityLevel - 1) * 0.10
+    local operationMultiplier = config.operationMultiplier or 1
 
     -- 游戏参数
-    self.totalRounds_     = 3 + math.floor(difficulty / 2)
+    self.totalRounds_     = math.max(1, math.ceil((3 + math.floor(difficulty / 2)) * operationMultiplier))
     self.fillSpeed_       = 0.4 + difficulty * 0.08      -- 蓄力速度
-    self.targetZoneSize_  = 0.16 - difficulty * 0.02     -- 目标区间大小（占比）
+    self.targetZoneSize_  = (0.16 - difficulty * 0.02) * (1 + windowBonus)
     self.overflowPenalty_ = true                         -- 溢出扣分
 
     -- 状态

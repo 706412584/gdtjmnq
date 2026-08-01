@@ -9,6 +9,8 @@
 --   screen.Destroy()                     可选，清理资源
 -- ============================================================================
 
+local SettingsManager = require("Core.SettingsManager")
+
 local ScreenRouter = {}
 
 ---@type table<string, table> 已注册的 Screen 模块 { name = module }
@@ -81,6 +83,9 @@ function ScreenRouter.GoTo(name, params)
         return
     end
     currentScreen_ = result
+
+    -- 每次创建页面后应用全局字号设置。设置页可再次调用进行即时预览。
+    SettingsManager.ApplyToTree(contentContainer_)
 
     -- 发布导航事件
     if eventBus_ then

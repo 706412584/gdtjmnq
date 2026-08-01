@@ -75,6 +75,21 @@ function OrderConfig.GetByChapter(chapter)
     return result
 end
 
+--- 获取可作为日常委托来源的模板。剧情/专属委托不进入每日刷新池。
+---@param chapter number
+---@return table[]
+function OrderConfig.GetDailyCandidates(chapter)
+    EnsureLoaded()
+    local result = {}
+    for i = 1, #orders_ do
+        local order = orders_[i]
+        if order.chapter <= chapter and order.customerType ~= "story" then
+            result[#result + 1] = order
+        end
+    end
+    return result
+end
+
 --- 获取可用订单（当前章节已解锁且尚未完成的订单）
 --- 完成订单后从订单板移除，避免已交付委托继续显示为“可接任务”。
 --- 后续如需可重复日常委托，应由独立的每日订单实例/刷新系统生成，而不是复用已完成模板。

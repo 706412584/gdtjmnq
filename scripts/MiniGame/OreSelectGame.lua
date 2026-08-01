@@ -71,11 +71,12 @@ function OreSelectGame:init(config)
     MiniGameBase.init(self, config)
 
     local difficulty = config.difficulty or 1
+    local timeMultiplier = config.timeMultiplier or 1
 
     -- 游戏参数（根据难度调整）
     self.totalSlots_ = 6 + difficulty * 2            -- 总矿石数量
     self.goodCount_ = 3 + difficulty                 -- 需要选中的好矿数
-    self.timeLimit_ = 12 + (3 - difficulty) * 2      -- 时间限制（秒）
+    self.timeLimit_ = (12 + (3 - difficulty) * 2) * timeMultiplier
     self.badCount_ = self.totalSlots_ - self.goodCount_
 
     -- 状态

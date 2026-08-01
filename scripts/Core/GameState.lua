@@ -31,11 +31,25 @@ local dirty_     = false
 local loaded_    = false
 local saving_    = false
 local saveTimer_ = 0
+local changeRevision_ = 0
+local savingRevision_ = 0
+local cloudSaveEnabled_ = false
+local loadStatus_ = "loading"
 
 --- 常量
 local SAVE_KEY      = "smith_save"
 local SAVE_INTERVAL = 5.0
-local CURRENT_VERSION = 1
+local CURRENT_VERSION = 2
+
+local MATERIAL_IDS = {
+    "ore", "charcoal", "grinding_agent", "wood", "leather",
+    "iron", "steel", "jade_dust", "pattern_gold", "meteorite",
+}
+local MATERIAL_MAX_TIER = 5
+
+local function MaterialTierKey(matId, tier)
+    return matId .. "_t" .. tier
+end
 
 -- ==================== 默认存档 ====================
 
@@ -80,6 +94,13 @@ local function CreateDefaultSave()
             display = 1,
         },
         completedOrders = {},
+        dailyOrders = { dayKey = "", orders = {} },
+        activeOrder = nil,
+        tutorial = { stage = "accept_order", completed = false },
+        storyFlags = {},
+        choiceHistory = {},
+        pendingStoryOrder = nil,
+        storyHistory = {},
         codex = {},
         achievedEndings = {},
         storyProgress = {
@@ -115,11 +136,10 @@ end
 -- ==================== 版本迁移 ====================
 
 local MIGRATIONS = {
-    -- version 1 -> 2: 示例（当前版本为 1，暂无迁移）
-    -- [1] = function(data)
-    --     data.someNewField = data.someNewField or 0
-    --     data.version = 2
-    -- end,
+    -- version 1 -> 2: 材料从单一库存迁移为按品质分层库存。
+    [1] = function(data)
+        data.version = 2
+    end,
 }
 
 ---@param data table
@@ -139,6 +159,7 @@ end
 --- 标记数据已修改
 local function MarkDirty()
     dirty_ = true
+    changeRevision_ = changeRevision_ + 1
 end
 
 --- 将完整存档 table 导入到 secureStore_ + plainData_
@@ -175,9 +196,26 @@ local function ImportSaveData(saveData)
         end
     end
 
+    -- 旧存档中的材料只有单一数量；首次读取时迁移为 1 阶材料库存。
+    for i = 1, #MATERIAL_IDS do
+        local matId = MATERIAL_IDS[i]
+        local legacyKey = "materials." .. matId
+        local tierOneKey = "materials." .. MaterialTierKey(matId, 1)
+        if not secureStore_:Has(tierOneKey) then
+            secureStore_:Set(tierOneKey, secureStore_:Get(legacyKey))
+        end
+    end
+
     -- 导入非敏感字段（明文存储）
     plainData_.version = saveData.version or CURRENT_VERSION
     plainData_.completedOrders = saveData.completedOrders or {}
+    plainData_.dailyOrders = saveData.dailyOrders or { dayKey = "", orders = {} }
+    plainData_.activeOrder = saveData.activeOrder
+    plainData_.tutorial = saveData.tutorial or { stage = "accept_order", completed = false }
+    plainData_.storyFlags = saveData.storyFlags or {}
+    plainData_.choiceHistory = saveData.choiceHistory or {}
+    plainData_.pendingStoryOrder = saveData.pendingStoryOrder
+    plainData_.storyHistory = saveData.storyHistory or {}
     plainData_.codex = saveData.codex or {}
     plainData_.achievedEndings = saveData.achievedEndings or {}
     plainData_.storyProgress = saveData.storyProgress or { chapter = 1, nodeId = "CH1-001" }
@@ -194,6 +232,13 @@ local function ExportSaveData()
     -- 导出版本和非敏感字段
     data.version = plainData_.version or CURRENT_VERSION
     data.completedOrders = plainData_.completedOrders or {}
+    data.dailyOrders = plainData_.dailyOrders or { dayKey = "", orders = {} }
+    data.activeOrder = plainData_.activeOrder
+    data.tutorial = plainData_.tutorial or { stage = "accept_order", completed = false }
+    data.storyFlags = plainData_.storyFlags or {}
+    data.choiceHistory = plainData_.choiceHistory or {}
+    data.pendingStoryOrder = plainData_.pendingStoryOrder
+    data.storyHistory = plainData_.storyHistory or {}
     data.codex = plainData_.codex or {}
     data.achievedEndings = plainData_.achievedEndings or {}
     data.storyProgress = plainData_.storyProgress or { chapter = 1, nodeId = "CH1-001" }
@@ -235,63 +280,65 @@ end
 ---@param callback function|nil function(success: boolean)
 function GameState.Load(callback)
     if loaded_ then
-        if callback then callback(true) end
+        if callback then callback(cloudSaveEnabled_) end
         return
     end
 
     print("[GameState] Loading from cloud...")
 
+    local function FinishLoad(saveData, status, success)
+        ImportSaveData(saveData)
+        loaded_ = true
+        dirty_ = false
+        saving_ = false
+        saveTimer_ = 0
+        changeRevision_ = 0
+        savingRevision_ = 0
+        loadStatus_ = status
+        cloudSaveEnabled_ = success
+
+        EventBus.Emit("gamestate_loaded", { status = status, cloudAvailable = success })
+        if callback then callback(success) end
+    end
+
+    local function StartTemporaryOffline(reason)
+        print("[GameState] Cloud unavailable; using temporary offline state: " .. reason)
+        -- 云读取失败时绝不启用写回。避免默认档覆盖仍存在的远端存档。
+        FinishLoad(CreateDefaultSave(), "temporary_offline", false)
+    end
+
     clientCloud:Get(SAVE_KEY, {
         ok = function(values, iscores)
-            local saveData
-            if values[SAVE_KEY] then
-                -- 云端有存档
-                saveData = values[SAVE_KEY]
-                if type(saveData) == "string" then
-                    local ok, parsed = pcall(cjson.decode, saveData)
-                    if ok then
-                        saveData = parsed
-                    else
-                        print("[GameState] JSON parse error, using default save")
-                        saveData = CreateDefaultSave()
-                    end
-                end
-                saveData = MigrateData(saveData)
-                print("[GameState] Cloud save loaded (v" .. (saveData.version or "?") .. ")")
-            else
-                -- 新玩家，创建默认存档
-                saveData = CreateDefaultSave()
+            local saveData = values[SAVE_KEY]
+            if not saveData then
                 print("[GameState] New player, created default save")
+                FinishLoad(CreateDefaultSave(), "new", true)
+                return
             end
 
-            ImportSaveData(saveData)
-            loaded_ = true
-            dirty_ = false
-            saveTimer_ = 0
+            if type(saveData) == "string" then
+                local ok, parsed = pcall(cjson.decode, saveData)
+                if not ok or type(parsed) ~= "table" then
+                    StartTemporaryOffline("cloud save parse error")
+                    return
+                end
+                saveData = parsed
+            end
 
-            EventBus.Emit("gamestate_loaded", {})
-            if callback then callback(true) end
+            if type(saveData) ~= "table" then
+                StartTemporaryOffline("cloud save has invalid type")
+                return
+            end
+
+            saveData = MigrateData(saveData)
+            print("[GameState] Cloud save loaded (v" .. (saveData.version or "?") .. ")")
+            FinishLoad(saveData, "loaded", true)
         end,
         error = function(code, reason)
-            print("[GameState] Cloud load error: " .. tostring(reason) .. " (code=" .. tostring(code) .. ")")
-            -- 加载失败也用默认存档，允许离线游玩
-            local saveData = CreateDefaultSave()
-            ImportSaveData(saveData)
-            loaded_ = true
-            dirty_ = false
-
-            EventBus.Emit("gamestate_loaded", {})
-            if callback then callback(false) end
+            StartTemporaryOffline("error=" .. tostring(reason) .. " (code=" .. tostring(code) .. ")")
         end,
         timeout = function()
-            print("[GameState] Cloud load timeout, using default save")
-            local saveData = CreateDefaultSave()
-            ImportSaveData(saveData)
-            loaded_ = true
-            dirty_ = false
-
-            EventBus.Emit("gamestate_loaded", {})
-            if callback then callback(false) end
+            StartTemporaryOffline("timeout")
         end,
     })
 end
@@ -299,25 +346,37 @@ end
 --- 保存到云端
 ---@param callback function|nil function(success: boolean)
 function GameState.Save(callback)
-    if not loaded_ or saving_ then
+    if not loaded_ or saving_ or not cloudSaveEnabled_ then
         if callback then callback(false) end
         return
     end
 
     saving_ = true
+    savingRevision_ = changeRevision_
     local saveData = ExportSaveData()
     local jsonStr = cjson.encode(saveData)
 
     clientCloud:Set(SAVE_KEY, jsonStr, {
         ok = function()
             saving_ = false
-            dirty_ = false
+            if changeRevision_ == savingRevision_ then
+                dirty_ = false
+            end
             print("[GameState] Saved to cloud")
             if callback then callback(true) end
+            -- 保存期间发生的新修改（例如刚接单）必须紧接着写入，不能等下一个 5 秒周期。
+            if dirty_ then
+                GameState.Save()
+            end
         end,
         error = function(code, reason)
             saving_ = false
             print("[GameState] Save error: " .. tostring(reason))
+            if callback then callback(false) end
+        end,
+        timeout = function()
+            saving_ = false
+            print("[GameState] Save timeout")
             if callback then callback(false) end
         end,
     })
@@ -345,6 +404,16 @@ end
 ---@return boolean
 function GameState.IsLoaded()
     return loaded_
+end
+
+---@return string "loading"|"loaded"|"new"|"temporary_offline"
+function GameState.GetLoadStatus()
+    return loadStatus_
+end
+
+---@return boolean
+function GameState.CanSaveToCloud()
+    return cloudSaveEnabled_
 end
 
 --- 重置为默认存档（调试用）
@@ -396,22 +465,74 @@ end
 ---@param matId string 材料 ID（如 "ore", "charcoal"）
 ---@return number
 function GameState.GetMaterial(matId)
-    return secureStore_:Get("materials." .. matId)
+    local total = 0
+    for tier = 1, MATERIAL_MAX_TIER do
+        total = total + GameState.GetMaterialTier(matId, tier)
+    end
+    return total
+end
+
+---@param matId string
+---@param tier number
+---@return number
+function GameState.GetMaterialTier(matId, tier)
+    tier = math.max(1, math.min(MATERIAL_MAX_TIER, math.floor(tier or 1)))
+    return secureStore_:Get("materials." .. MaterialTierKey(matId, tier))
+end
+
+---@param matId string
+---@param tier number
+---@param n number
+function GameState.AddMaterialTier(matId, tier, n)
+    tier = math.max(1, math.min(MATERIAL_MAX_TIER, math.floor(tier or 1)))
+    local key = "materials." .. MaterialTierKey(matId, tier)
+    secureStore_:Add(key, n)
+    MarkDirty()
+    EventBus.Emit("material_changed", {
+        matId = matId,
+        tier = tier,
+        count = secureStore_:Get(key),
+    })
+end
+
+---@param matId string
+---@param tier number
+---@param cost number
+---@return boolean
+function GameState.CanAffordMaterialTier(matId, tier, cost)
+    tier = math.max(1, math.min(MATERIAL_MAX_TIER, math.floor(tier or 1)))
+    return secureStore_:CanAfford("materials." .. MaterialTierKey(matId, tier), cost)
+end
+
+---@return number[]
+function GameState.GetAvailableMaterialTiers(requiredMaterials)
+    local result = {}
+    for tier = 1, MATERIAL_MAX_TIER do
+        local canUse = true
+        for matId, count in pairs(requiredMaterials or {}) do
+            if not GameState.CanAffordMaterialTier(matId, tier, count) then
+                canUse = false
+                break
+            end
+        end
+        if canUse then
+            result[#result + 1] = tier
+        end
+    end
+    return result
 end
 
 ---@param matId string
 ---@param n number
 function GameState.AddMaterial(matId, n)
-    secureStore_:Add("materials." .. matId, n)
-    MarkDirty()
-    EventBus.Emit("material_changed", { matId = matId, count = secureStore_:Get("materials." .. matId) })
+    GameState.AddMaterialTier(matId, 1, n)
 end
 
 ---@param matId string
 ---@param cost number
 ---@return boolean
 function GameState.CanAffordMaterial(matId, cost)
-    return secureStore_:CanAfford("materials." .. matId, cost)
+    return GameState.GetMaterial(matId) >= math.floor(cost)
 end
 
 --- 返回全部材料的明文快照（UI 展示用，不缓存！）
@@ -491,6 +612,103 @@ function GameState.MarkEndingAchieved(endingId)
     end
     list[#list + 1] = endingId
     plainData_.achievedEndings = list
+    MarkDirty()
+end
+
+--- 获取进行中订单持久化快照。
+---@return table|nil
+function GameState.GetActiveOrder()
+    return plainData_.activeOrder
+end
+
+---@param snapshot table
+function GameState.SetActiveOrder(snapshot)
+    plainData_.activeOrder = snapshot
+    MarkDirty()
+end
+
+function GameState.ClearActiveOrder()
+    if not plainData_.activeOrder then return end
+    plainData_.activeOrder = nil
+    MarkDirty()
+end
+
+--- 获取首次锻造教程进度。
+---@return table { stage: string, completed: boolean }
+function GameState.GetTutorial()
+    return plainData_.tutorial or { stage = "accept_order", completed = false }
+end
+
+---@param data table { stage: string, completed: boolean }
+function GameState.SetTutorial(data)
+    plainData_.tutorial = data
+    MarkDirty()
+end
+
+---@return table<string, any>
+function GameState.GetStoryFlags()
+    return plainData_.storyFlags or {}
+end
+
+---@param flags table<string, any>
+function GameState.SetStoryFlags(flags)
+    plainData_.storyFlags = flags or {}
+    MarkDirty()
+end
+
+---@return table[]
+function GameState.GetChoiceHistory()
+    return plainData_.choiceHistory or {}
+end
+
+---@param entry table
+function GameState.AddChoiceHistory(entry)
+    local history = plainData_.choiceHistory or {}
+    history[#history + 1] = entry
+    plainData_.choiceHistory = history
+    MarkDirty()
+end
+
+---@return table|nil
+function GameState.GetPendingStoryOrder()
+    return plainData_.pendingStoryOrder
+end
+
+---@param data table|nil
+function GameState.SetPendingStoryOrder(data)
+    plainData_.pendingStoryOrder = data
+    MarkDirty()
+end
+
+---@return table[]
+function GameState.GetStoryHistory()
+    return plainData_.storyHistory or {}
+end
+
+---@param entry table { chapter: number, nodeId: string, speaker: string, text: string }
+function GameState.AddStoryHistory(entry)
+    local history = plainData_.storyHistory or {}
+    history[#history + 1] = entry
+    while #history > 40 do
+        table.remove(history, 1)
+    end
+    plainData_.storyHistory = history
+    MarkDirty()
+end
+
+function GameState.CompleteTutorial()
+    plainData_.tutorial = { stage = "complete", completed = true }
+    MarkDirty()
+end
+
+---@return table { dayKey: string, orders: table[] }
+function GameState.GetDailyOrders()
+    return plainData_.dailyOrders or { dayKey = "", orders = {} }
+end
+
+---@param data table { dayKey: string, orders: table[] }
+function GameState.SetDailyOrders(data)
+    plainData_.dailyOrders = data
     MarkDirty()
 end
 

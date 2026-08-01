@@ -2634,92 +2634,86 @@ story_ch5_001|王都帖到了。你这间铺子，终于被看见了。
 
 ## 14. 界面布局
 
-采用`竖屏 9:16`，因为更适合广告流休闲产品。
+采用 `横屏 16:9`，设计分辨率为 `1920×1080`。横屏为锻造操作区、订单详情和人物对话提供更充足的左右分区空间，也与当前游戏布局和 TapTap 发布方向保持一致。
+
+适配原则：
+
+- 使用横屏响应式布局，不锁定物理像素。
+- 顶部、底部及左右各预留至少 `3%` 安全区域。
+- 移动端主要触控区域不小于 `44×44` 逻辑像素。
+- 核心玩法采用“信息区 + 主操作区 + 状态区”的横向分区，避免横屏信息堆叠。
+- 发布配置固定使用 `screen_orientation = "landscape"`。
 
 ### 14.1 主城工坊页
 
-- 顶部：
-  - 铜钱
-  - 玉璧
-  - 声望
-  - 当前章节
-- 中部：
-  - 工坊主场景
-  - 可点击建筑：熔炉、锻台、研磨台、库房、陈列架
-- 底部主导航：
-  - `订单`
-  - `工坊`
-  - `图鉴`
-  - `剧情`
-  - `商店`
-- 右侧悬浮：
-  - 限时奖励
-  - 免费宝箱
-  - 广告双倍入口
+- 顶部横向状态栏：铜钱、玉璧、声望、当前章节。
+- 左侧：章节目标、人物关系/消息入口。
+- 中部：工坊主场景及可点击设施，包括熔炉、锻台、淬火池、研磨台、陈列架。
+- 右侧：当前订单、免费宝箱和可用活动入口；未开通功能不显示占位按钮。
+- 底部主导航：`订单`、`工坊`、`图鉴`、`剧情`、`商店`。
 
 ### 14.2 订单页
 
-- 顶部：委托人头像、需求、推荐品质
-- 中部：订单卡列表
-- 底部：接单按钮 / 刷新按钮 / 广告刷新稀有订单
+- 左侧：委托人列表、头像、身份和情绪。
+- 右侧：选中委托人的订单卡、需求、材料、推荐品质和奖励。
+- 底部或卡片内：接单按钮、刷新按钮、稀有订单刷新入口。
+- 主线订单必须明确标记并自动高亮剧情指定订单。
 
 ### 14.3 小游戏页
 
-- 顶部：
-  - 当前步骤名
-  - 品质条
-  - 剩余容错
-- 中部：
-  - 主要操作区
-- 底部：
-  - 提示按钮
-  - 道具按钮
-  - 暂停
+- 顶部：当前步骤、整体完成度、累计品质和挑战条件。
+- 左侧：武器、订单、材料和客户期望信息。
+- 中部：主要操作区。
+- 右侧：操作提示、剩余容错、重试/补救状态。
+- 底部：暂停或放弃入口，避免遮挡主要触控区域。
 
 ### 14.4 成品结算页
 
-- 中央大图展示成品武器
-- 展示四项评分与总评级
-- 下方三个按钮：
-  - `交付订单`
-  - `双倍奖励`
-  - `收藏展示`
+- 左侧或中央：大图展示成品武器。
+- 右侧：各工序评分、最终品质、奖励和挑战加成。
+- 下方按钮：`返回工坊`、`双倍铜钱`、`查看图鉴`。
+- 订单奖励在进入结算页前已由核心系统发放，按钮不得重复结算。
 
 ## 15. UI 设计规范
 
 ### 15.1 视觉方向
 
-- 关键词：`古朴、热铁、烟火、木作、铜纹、器物感`
-- 不是仙侠炫彩，而是偏“手工温度 + 古风器具”
+- 唯一视觉方向：`极简水墨武侠风`
+- 关键词：`深色水墨、宣纸晕染、竹叶远山、极细淡墨描边、炉火暖光、器物留白`
+- 不是仙侠炫彩、像素风或厚重金属 UI；避免铆钉、厚框、云纹、回字纹和夸张角饰
+- 视觉重点是“手工温度 + 中国画意境 + 古代工坊器物感”
 
 ### 15.2 配色
 
-- 主色：`炭黑 #1F1A17`
-- 辅色：`炉火橙 #C96A2B`
-- 强调色：`鎏金 #C9A45A`
-- 背景色：`旧纸棕 #E7D8BC`
-- 成功色：`铜绿 #4F7A63`
-- 失败色：`暗红 #8A3D2E`
+- 主背景：`烟墨黑 #12100E` / `炭黑 #1A1A2E`
+- 次背景：`深铁蓝 #16213E`
+- 操作强调：`炉火红 #E94560` / `炉火橙 #C96A2B`
+- 主要描边与高价值强调：`鎏金 #D4A574`
+- 正文：`暖白 #E8E0D0`
+- 次要文字：`烟灰 #A0937D`
+- 成功/高品质：`青铜绿 #4ECDC4`
+- 警告：`淬火黄 #FFD93D`
 
 ### 15.3 字体建议
 
-- 标题：有雕版感的古风标题字
-- 正文：易读宋黑混合字体
-- 数值：宽体、带金属铭刻感
+- 正文：`Fonts/MiSans-Regular.ttf`
+- 标题/强调：`Fonts/MiSans-Bold.ttf` 或提高字号与字重
+- 标题可通过字距、分隔线和留白营造雕版感，不使用难以阅读的书法字体作为正文
 
 ### 15.4 材质语言
 
-- 木牌
-- 铜片包边
-- 炉灰颗粒
-- 毛边纸卷
-- 热铁高光
+- 深色水墨晕染面板
+- 宣纸渗墨按钮
+- 极细淡墨或淡金描边
+- 竹叶、远山、飞鸟剪影作为低对比装饰
+- 炉灰颗粒和热铁高光仅用于锻造反馈，不作为厚重 UI 边框
 
 ### 15.5 动效风格
 
 - 点按反馈短促有力
-- 成功时有火星、金粉、轻震动
-- 品质升级时用“金纹扩散”替代花哨爆闪
+- 成功时使用火星、淡金粉尘和轻震动
+- 品质升级使用“金纹扩散”或墨色晕开，避免花哨爆闪
+- 低功耗/性能模式下可关闭装饰性呼吸、浮动和粒子动画
 
 ## 15.6 线框级界面草图
 
@@ -2885,19 +2879,19 @@ story_ch5_001|王都帖到了。你这间铺子，终于被看见了。
 
 #### 失败修复广告
 
-`broken sword on anvil, blacksmith striking at wrong angle, visible crack spreading, sparks flying, dramatic furnace light, mobile game ad storyboard frame, strong failure emotion, vertical composition`
+`broken sword on anvil, blacksmith striking at wrong angle, visible crack spreading, sparks flying, dramatic furnace light, mobile game ad storyboard frame, strong failure emotion, horizontal 16:9 composition`
 
 #### 废铁变神兵广告
 
-`rusted iron scrap transforming into elegant ancient sword, step by step crafting progression, furnace glow, hammer sparks, polished final blade reveal, vertical mobile ad frame, high contrast before-after storytelling`
+`rusted iron scrap transforming into elegant ancient sword, step by step crafting progression, furnace glow, hammer sparks, polished final blade reveal, horizontal 16:9 mobile ad frame, high contrast before-after storytelling`
 
 #### 情感订单广告
 
-`ancient swordsman presenting a broken heirloom sword, emotional expression, blacksmith workshop background, warm firelight, narrative mobile game ad shot, vertical composition, cinematic but readable`
+`ancient swordsman presenting a broken heirloom sword, emotional expression, blacksmith workshop background, warm firelight, narrative mobile game ad shot, horizontal 16:9 composition, cinematic but readable`
 
 #### 嘲讽失败广告
 
-`comically ruined sword, bent blade, overburned metal, exaggerated crafting mistake, mobile puzzle ad composition, clear center focus, vertical format`
+`comically ruined sword, bent blade, overburned metal, exaggerated crafting mistake, mobile puzzle ad composition, clear center focus, horizontal 16:9 format`
 
 ## 17.12 AI 资产生产规则
 
@@ -2933,17 +2927,26 @@ story_ch5_001|王都帖到了。你这间铺子，终于被看见了。
 6. 放入引擎做真机可读性检查
 7. 从游戏内截图再反推广告素材和商店图
 
+## 18.4 发布素材规范
+
+- 游戏图标：`512×512`，正方形，保持极简水墨武侠风，不放难以辨认的小字。
+- 游戏截图：至少 3 张 `1920×1080` 横屏真实游戏截图，分别展示工坊经营、锻造小游戏和剧情/结算亮点。
+- 宣传图：`1920×1080` 横屏，必须以真实游戏截图为参考，不使用与实际玩法无关的概念图冒充实机画面。
+- 横版封面：以 16:9 宣传图统一延展，主体位于安全区域内。
+- 所有发布材料保持横屏构图和极简水墨武侠风，不混入像素风、照片写实或厚重金属 UI。
+
 ## 19. 技术方案
 
 ### 19.1 引擎选择
 
-- 推荐：`Unity 2D URP`
+- 引擎：`UrhoX`
 
 原因：
 
-- 手机端广告 SDK、热更新、数据埋点生态成熟
-- 2D UI 和小游戏拼装效率高
-- 小团队更容易快速迭代创意
+- 使用 Lua 5.4 快速迭代订单、小游戏和叙事系统
+- `urhox-libs/UI` 提供 Yoga Flexbox + NanoVG 的横屏响应式 UI
+- 已集成 TapTap 云存档、广告、排行榜和发布工具链
+- 现有项目已形成模块化 Screen/Core/MiniGame/Story 架构
 
 ### 19.2 架构边界
 
